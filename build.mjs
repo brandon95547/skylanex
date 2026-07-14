@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 
 import { layout } from "./src/layout.mjs";
 import { site, nav } from "./site.config.mjs";
+import { orgGraph, jsonLdForPage } from "./src/seo.mjs";
 import { home } from "./src/pages/home.mjs";
 import { servicesPage } from "./src/pages/services.mjs";
 import { servicePages } from "./src/pages/service.mjs";
@@ -43,9 +44,11 @@ function build() {
   for (const page of pages) {
     const html = layout({
       title: page.title,
+      metaTitle: page.metaTitle,
       description: page.description,
       path: page.path,
       content: page.render(),
+      jsonLd: [orgGraph(), ...jsonLdForPage(page)],
     });
     const rel = page.path === "/" ? "index.html" : path.join(page.path.replace(/^\//, ""), "index.html");
     const out = path.join(DIST, rel);

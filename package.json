@@ -9,6 +9,9 @@
     "build:css": "tailwindcss -i ./src/styles/app.css -o ./dist/css/app.css --minify",
     "build": "npm run build:html && npm run build:css",
     "watch:css": "tailwindcss -i ./src/styles/app.css -o ./dist/css/app.css --watch",
+    "serve": "python3 -m http.server 3001 --directory dist",
+    "dev": "npm run build && npm run serve",
+    "deploy": "npm run build && rsync -az --delete dist/ root@phansora.com:/var/www/skylanex/",
     "clean": "rm -rf dist"
   },
   "devDependencies": {

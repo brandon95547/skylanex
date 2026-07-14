@@ -3,7 +3,7 @@
 export const site = {
   name: "Skylanex",
   tagline: "AI software studio",
-  domain: "https://skylanex.com", // TODO: confirm final domain
+  domain: "https://www.skylanex.com", // canonical is www (site forces www + https)
   email: "hello@skylanex.com",
   phone: "(864) 437-9301",
   owner: "Brandon Sanders",
@@ -148,4 +148,35 @@ export const stats = [
   { value: "50+", label: "Projects shipped" },
   { value: "50+", label: "Happy clients" },
   { value: "25+", label: "Technologies mastered" },
+];
+
+// Social proof — real names of teams/products worked with (logos can replace text later).
+export const trustedBy = ["T-Mobile", "WastePay", "Lanmark360", "160over90", "Phansora"];
+
+// FAQ — buyer questions (drives the FAQ section + FAQPage structured data / rich results).
+export const faqs = [
+  {
+    q: "What kinds of AI projects do you take on?",
+    a: "Everything from LLM-powered apps and agents, RAG and semantic search, and document automation to predictive machine-learning models and computer vision. If it involves shipping real, production AI software, it's in scope.",
+  },
+  {
+    q: "Do you work with startups, or only enterprises?",
+    a: "Both. I've delivered for enterprises like T-Mobile and for lean startups. The engagement scales to the problem — a focused prototype for a startup or a production system for an enterprise team.",
+  },
+  {
+    q: "Is AI actually the right fit for my problem?",
+    a: "Sometimes it isn't — and I'll tell you honestly. Every engagement starts with discovery to confirm AI adds real value before any build. If a simpler tool wins, that's the recommendation.",
+  },
+  {
+    q: "How long does a typical project take?",
+    a: "A validated prototype often takes 2–4 weeks; a production-ready system typically runs 6–12 weeks depending on scope, data, and integrations. You see working software every week either way.",
+  },
+  {
+    q: "Can you work with our existing team and tech stack?",
+    a: "Yes. I integrate with your engineers, tools, and infrastructure — Python, TypeScript, React, cloud, your data warehouse — rather than forcing a rewrite.",
+  },
+  {
+    q: "How do we get started?",
+    a: "Send a short note about what you're building via the contact page. You'll get a personal reply, usually within a day, and a short call to scope it.",
+  },
 ];

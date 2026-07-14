@@ -1,6 +1,6 @@
 import { icon } from "../layout.mjs";
 import { heading, ctaBand, statRow, heroGlow } from "../ui.mjs";
-import { services, work, site } from "../../site.config.mjs";
+import { services, work, site, trustedBy, faqs } from "../../site.config.mjs";
 
 function serviceCard(s) {
   return `<a href="/${s.slug}" class="reveal group flex flex-col rounded-2xl border border-surface-800 bg-surface-900/60 p-6 transition-colors hover:border-primary-500/50">
@@ -43,6 +43,16 @@ export const home = {
       </div>
     </div>
   `)}
+
+  <!-- TRUSTED BY -->
+  <section class="border-y border-surface-800 px-5 py-8 sm:px-8">
+    <div class="mx-auto max-w-5xl">
+      <p class="mb-5 text-center text-xs font-semibold uppercase tracking-widest text-surface-500">Trusted by teams &amp; products including</p>
+      <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+        ${trustedBy.map((n) => `<span class="text-lg font-bold text-surface-400">${n}</span>`).join("")}
+      </div>
+    </div>
+  </section>
 
   <!-- SERVICES -->
   <section class="px-5 py-20 sm:px-8">
@@ -100,6 +110,26 @@ export const home = {
           <h3 class="mt-2 text-base font-semibold text-white">${step.t}</h3>
           <p class="mt-2 text-sm leading-relaxed text-surface-400">${step.d}</p>
         </div>`
+          )
+          .join("")}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="px-5 pb-4 sm:px-8">
+    <div class="mx-auto max-w-3xl">
+      ${heading({ eyebrow: "FAQ", title: "Questions, answered" })}
+      <div class="mt-10 divide-y divide-surface-800 border-y border-surface-800">
+        ${faqs
+          .map(
+            (f) => `<details class="group">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left text-base font-semibold text-surface-100 marker:hidden">
+            <span>${f.q}</span>
+            <span class="shrink-0 text-primary-400 transition-transform group-open:rotate-45">${icon("spark", "h-5 w-5")}</span>
+          </summary>
+          <p class="pb-5 -mt-1 max-w-2xl text-sm leading-relaxed text-surface-400">${f.a}</p>
+        </details>`
           )
           .join("")}
       </div>

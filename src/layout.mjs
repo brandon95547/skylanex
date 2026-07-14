@@ -58,27 +58,44 @@ function logo() {
   </a>`;
 }
 
-export function layout({ title, description, path = "/", content = "" }) {
-  const pageTitle = title ? `${title} · ${site.name}` : site.name;
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+export function layout({ title, metaTitle, description, path = "/", content = "", jsonLd = [] }) {
+  const pageTitle = metaTitle || (title ? `${title} · ${site.name}` : `${site.name} — AI Software Studio`);
   const desc = description || site.description;
+  const canonical = path === "/" ? `${site.domain}/` : `${site.domain}${path}`;
+  const ldScripts = jsonLd
+    .filter(Boolean)
+    .map((obj) => `  <script type="application/ld+json">${JSON.stringify(obj)}</script>`)
+    .join("\n");
   return `<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${pageTitle}</title>
-  <meta name="description" content="${desc}" />
+  <title>${esc(pageTitle)}</title>
+  <meta name="description" content="${esc(desc)}" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="theme-color" content="#0a0b12" />
+  <link rel="canonical" href="${canonical}" />
   <link rel="icon" href="/images/skylanex-mark.svg" type="image/svg+xml" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="${site.name}" />
-  <meta property="og:title" content="${pageTitle}" />
-  <meta property="og:description" content="${desc}" />
+  <meta property="og:title" content="${esc(pageTitle)}" />
+  <meta property="og:description" content="${esc(desc)}" />
+  <meta property="og:url" content="${canonical}" />
   <meta property="og:image" content="${site.domain}/images/skylanex-logo.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${esc(pageTitle)}" />
+  <meta name="twitter:description" content="${esc(desc)}" />
+  <meta name="twitter:image" content="${site.domain}/images/skylanex-logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/app.css" />
+${ldScripts}
 </head>
 <body class="min-h-screen bg-surface-950 text-surface-100 antialiased">
 

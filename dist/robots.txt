@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://skylanex.com/sitemap.xml
+Sitemap: https://www.skylanex.com/sitemap.xml
