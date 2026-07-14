@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "my-new-ai",
+      "name": "skylanex",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4599", "--directory", "/Users/brandons/sites/my-new-ai/dist"],
+      "runtimeArgs": ["-m", "http.server", "4599", "--directory", "/Users/brandons/sites/skylanex/dist"],
       "port": 4599
     }
   ]

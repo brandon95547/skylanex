@@ -1,0 +1,15 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Skylanex">
+  <defs>
+    <linearGradient id="skx-grad" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+  <!-- rounded badge -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#skx-grad)"/>
+  <!-- ascending sky arches (leadership / cloud / horizon) -->
+  <path d="M14 32 Q32 12 50 32" fill="none" stroke="#ffffff" stroke-width="6.5" stroke-linecap="round"/>
+  <path d="M14 45 Q32 25 50 45" fill="none" stroke="#ffffff" stroke-opacity="0.62" stroke-width="6.5" stroke-linecap="round"/>
+  <!-- guiding star -->
+  <circle cx="32" cy="15.5" r="3.1" fill="#ffffff"/>
+</svg>

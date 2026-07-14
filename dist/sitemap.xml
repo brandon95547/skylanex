@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://mynewai.example/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mynewai.example/about</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mynewai.example/ai-application-development</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mynewai.example/ai-consulting-strategy</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mynewai.example/computer-vision-solutions</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mynewai.example/contact</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mynewai.example/intelligent-process-automation</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mynewai.example/machine-learning-data-science</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mynewai.example/natural-language-processing</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mynewai.example/services</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://mynewai.example/work</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://skylanex.com/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://skylanex.com/about</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://skylanex.com/ai-application-development</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://skylanex.com/ai-consulting-strategy</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://skylanex.com/computer-vision-solutions</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://skylanex.com/contact</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://skylanex.com/intelligent-process-automation</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://skylanex.com/machine-learning-data-science</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://skylanex.com/natural-language-processing</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://skylanex.com/services</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://skylanex.com/work</loc><changefreq>monthly</changefreq></url>
 </urlset>

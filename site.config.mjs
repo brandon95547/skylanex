@@ -1,14 +1,14 @@
 // site.config.mjs — single source of truth for nav, services, and work.
 
 export const site = {
-  name: "My New AI",
+  name: "Skylanex",
   tagline: "AI software studio",
-  domain: "https://mynewai.example", // TODO: set real domain when chosen
-  email: "hello@mynewai.example",
+  domain: "https://skylanex.com", // TODO: confirm final domain
+  email: "hello@skylanex.com",
   phone: "(864) 437-9301",
   owner: "Brandon Sanders",
   description:
-    "My New AI is an independent AI software studio — we design, build, and ship intelligent applications, from custom AI apps to machine learning, NLP, and computer vision.",
+    "Skylanex is an independent AI software studio — we design, build, and ship intelligent applications, from custom AI apps to machine learning, NLP, and computer vision.",
   phansoraUrl: "https://www.phansora.com",
 };
 

@@ -39,12 +39,22 @@ function navLinks(currentPath, mobile = false) {
     .join("\n");
 }
 
+// Skylanex mark: gradient badge with an ascending double-arch (leadership /
+// cloud / horizon) and a guiding star.
+export function mark(size = "h-9 w-9") {
+  return `<span class="grid ${size} place-items-center rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 shadow-lg shadow-primary-900/40">
+    <svg viewBox="0 0 64 64" class="h-[62%] w-[62%]" fill="none" aria-hidden="true">
+      <path d="M14 32 Q32 12 50 32" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+      <path d="M14 45 Q32 25 50 45" fill="none" stroke="#fff" stroke-opacity="0.62" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="32" cy="15.5" r="3.4" fill="#fff"/>
+    </svg>
+  </span>`;
+}
+
 function logo() {
   return `<a href="/" class="group flex items-center gap-2.5" aria-label="${site.name} home">
-    <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 text-white shadow-lg shadow-primary-900/40">
-      ${icon("spark", "h-5 w-5")}
-    </span>
-    <span class="text-base font-bold tracking-tight text-white">My New <span class="grad-text">AI</span></span>
+    ${mark()}
+    <span class="text-lg font-extrabold tracking-tight text-white">Skyla<span class="grad-text">nex</span></span>
   </a>`;
 }
 
@@ -59,10 +69,12 @@ export function layout({ title, description, path = "/", content = "" }) {
   <title>${pageTitle}</title>
   <meta name="description" content="${desc}" />
   <meta name="theme-color" content="#0a0b12" />
+  <link rel="icon" href="/images/skylanex-mark.svg" type="image/svg+xml" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="${site.name}" />
   <meta property="og:title" content="${pageTitle}" />
   <meta property="og:description" content="${desc}" />
+  <meta property="og:image" content="${site.domain}/images/skylanex-logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />

@@ -1,11 +1,14 @@
-# My New AI
+# Skylanex
 
-Static marketing site for an independent AI software studio (personal brand for
-Brandon Sanders). **No dashboard, no backend** — it builds to plain static HTML
-you can host anywhere (Netlify, Vercel, Cloudflare Pages, S3+CloudFront, nginx).
+Static marketing site for **Skylanex** — an independent AI software studio
+(personal brand for Brandon Sanders). "Skylanex" evokes sky / cloud / technology
+leadership. **No dashboard, no backend** — it builds to plain static HTML you can
+host anywhere (Netlify, Vercel, Cloudflare Pages, S3+CloudFront, nginx).
 
-> `My New AI` is a working title — rename in `site.config.mjs` (`site.name`) and
-> `src/layout.mjs` (the logo wordmark) when the real name is chosen.
+Brand: violet primary + cyan accent on ink. Logo mark = an ascending double-arch
+(leadership / cloud / horizon) with a guiding star, in the brand gradient. Assets:
+`assets/images/skylanex-mark.svg` (icon) and `skylanex-logo.svg` (full lockup);
+the nav renders the mark inline via `mark()` in `src/layout.mjs`.
 
 ## Stack
 - **Tailwind CSS v4** (latest; Tailwind v5 is not released yet). Palette is organized
