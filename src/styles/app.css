@@ -1,0 +1,199 @@
+/* My New AI — Tailwind entry + design tokens.
+ *
+ * Palette is organized the same way as the Phansora site: semantic ramps
+ * (surface / primary / accent) declared in @theme, with a safelist so every
+ * shade is always available. New scheme, though: violet primary + cyan accent
+ * on a cool "ink" surface ramp (distinct from Phansora's blue).
+ *
+ *   surface — cool near-black slate (backgrounds, borders, muted text)
+ *   primary — violet (brand, CTAs, links)
+ *   accent  — cyan (secondary highlights, gradients)
+ *   emerald / rose kept from Tailwind defaults for success / error accents.
+ */
+
+@import "tailwindcss";
+
+/* Scan the generators + built output for class names. */
+@source "../**/*.mjs";
+@source "../../build.mjs";
+@source "../../site.config.mjs";
+@source "../../assets/**/*.js";
+@source "../../dist/**/*.html";
+
+/* Always compile the full semantic ramps (mirrors Phansora's safelist). */
+@source inline("{bg,text,border,ring,from,via,to,fill,divide}-{primary,accent,surface,emerald,rose}-{50,100,200,300,400,500,600,700,800,900,950}");
+
+@theme {
+  /* ---- surface: cool ink / slate ---- */
+  --color-surface-50: #f6f7fb;
+  --color-surface-100: #eceef6;
+  --color-surface-200: #d6dae8;
+  --color-surface-300: #b2b9d0;
+  --color-surface-400: #8790ad;
+  --color-surface-500: #656e8c;
+  --color-surface-600: #4d5573;
+  --color-surface-700: #3a4059;
+  --color-surface-800: #232838;
+  --color-surface-900: #151824;
+  --color-surface-950: #0a0b12;
+
+  /* ---- primary: violet ---- */
+  --color-primary-50: #f5f3ff;
+  --color-primary-100: #ede9fe;
+  --color-primary-200: #ddd6fe;
+  --color-primary-300: #c4b5fd;
+  --color-primary-400: #a78bfa;
+  --color-primary-500: #8b5cf6;
+  --color-primary-600: #7c3aed;
+  --color-primary-700: #6d28d9;
+  --color-primary-800: #5b21b6;
+  --color-primary-900: #4c1d95;
+  --color-primary-950: #2e1065;
+
+  /* ---- accent: cyan ---- */
+  --color-accent-50: #ecfeff;
+  --color-accent-100: #cffafe;
+  --color-accent-200: #a5f3fc;
+  --color-accent-300: #67e8f9;
+  --color-accent-400: #22d3ee;
+  --color-accent-500: #06b6d4;
+  --color-accent-600: #0891b2;
+  --color-accent-700: #0e7490;
+  --color-accent-800: #155e75;
+  --color-accent-900: #164e63;
+  --color-accent-950: #083344;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-surface-950);
+    color: var(--color-surface-100);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background-color: var(--color-primary-500);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-primary-400);
+    outline-offset: 2px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Reusable components (typographic + UI helpers)                      */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.6rem;
+    padding: 0.75rem 1.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1;
+    transition: background-color .2s, border-color .2s, color .2s, transform .2s;
+  }
+  .btn-primary {
+    background-color: var(--color-primary-500);
+    color: #fff;
+    box-shadow: 0 10px 30px -12px var(--color-primary-700);
+  }
+  .btn-primary:hover { background-color: var(--color-primary-400); }
+  .btn-ghost {
+    border: 1px solid var(--color-surface-600);
+    color: var(--color-surface-100);
+  }
+  .btn-ghost:hover { border-color: var(--color-primary-400); color: #fff; }
+
+  /* Surface cards */
+  .card {
+    border: 1px solid var(--color-surface-800);
+    background-color: color-mix(in oklab, var(--color-surface-900) 85%, transparent);
+    border-radius: 1rem;
+  }
+
+  /* Brand gradient text */
+  .grad-text {
+    background-image: linear-gradient(100deg, var(--color-primary-300), var(--color-accent-300));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Mobile menu (modern full-screen overlay)                            */
+/* ------------------------------------------------------------------ */
+@layer components {
+  #mobile-menu {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity .28s ease, transform .28s ease, visibility .28s;
+  }
+  #mobile-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  body.menu-open { overflow: hidden; }
+
+  /* staggered link reveal */
+  #mobile-menu .m-link {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .3s ease, transform .3s ease;
+  }
+  #mobile-menu.is-open .m-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #mobile-menu.is-open .m-link:nth-child(1) { transition-delay: .06s; }
+  #mobile-menu.is-open .m-link:nth-child(2) { transition-delay: .10s; }
+  #mobile-menu.is-open .m-link:nth-child(3) { transition-delay: .14s; }
+  #mobile-menu.is-open .m-link:nth-child(4) { transition-delay: .18s; }
+  #mobile-menu.is-open .m-link:nth-child(5) { transition-delay: .22s; }
+  #mobile-menu.is-open .m-link:nth-child(6) { transition-delay: .26s; }
+
+  /* hamburger -> X */
+  .burger span { transition: transform .3s ease, opacity .2s ease; }
+  .burger.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .burger.is-open span:nth-child(2) { opacity: 0; }
+  .burger.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  /* sticky nav shadow once scrolled */
+  #site-nav.scrolled {
+    background-color: color-mix(in oklab, var(--color-surface-950) 82%, transparent);
+    border-color: var(--color-surface-800);
+    backdrop-filter: blur(12px);
+  }
+
+  /* subtle reveal-on-scroll */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    #mobile-menu, #mobile-menu .m-link, .burger span { transition: none; }
+  }
+}

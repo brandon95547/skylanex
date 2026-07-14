@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intelligent Process Automation · My New AI</title>
+  <meta name="description" content="We combine LLMs, rules, and integrations to automate document processing, routing, and repetitive workflows end to end." />
+  <meta name="theme-color" content="#0a0b12" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="My New AI" />
+  <meta property="og:title" content="Intelligent Process Automation · My New AI" />
+  <meta property="og:description" content="We combine LLMs, rules, and integrations to automate document processing, routing, and repetitive workflows end to end." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body class="min-h-screen bg-surface-950 text-surface-100 antialiased">
+
+  <!-- ===== NAV ===== -->
+  <header id="site-nav" class="sticky top-0 z-50 border-b border-transparent transition-colors">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
+      <a href="/" class="group flex items-center gap-2.5" aria-label="My New AI home">
+    <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 text-white shadow-lg shadow-primary-900/40">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/></svg>
+    </span>
+    <span class="text-base font-bold tracking-tight text-white">My New <span class="grad-text">AI</span></span>
+  </a>
+      <div class="hidden items-center gap-8 md:flex">
+        <a href="/" class="text-sm font-medium transition-colors text-surface-300 hover:text-white">Home</a>
+<a href="/services" class="text-sm font-medium transition-colors text-surface-300 hover:text-white">Services</a>
+<a href="/work" class="text-sm font-medium transition-colors text-surface-300 hover:text-white">Work</a>
+<a href="/about" class="text-sm font-medium transition-colors text-surface-300 hover:text-white">About</a>
+<a href="/contact" class="text-sm font-medium transition-colors text-surface-300 hover:text-white">Contact</a>
+      </div>
+      <div class="hidden md:block">
+        <a href="/contact" class="btn btn-primary">Let's talk <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <!-- burger -->
+      <button id="menu-toggle" class="burger relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="block h-0.5 w-6 rounded bg-surface-100"></span>
+        <span class="block h-0.5 w-6 rounded bg-surface-100"></span>
+        <span class="block h-0.5 w-6 rounded bg-surface-100"></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ===== MOBILE MENU ===== -->
+  <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col bg-surface-950/98 px-6 pb-10 pt-24 backdrop-blur-xl md:hidden">
+    <nav class="flex flex-col">
+      <a href="/" class="m-link flex items-center justify-between border-b border-surface-800 py-5 text-2xl font-semibold text-surface-100 hover:text-primary-300">
+          <span>Home</span>
+          <span class="text-surface-500"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
+<a href="/services" class="m-link flex items-center justify-between border-b border-surface-800 py-5 text-2xl font-semibold text-surface-100 hover:text-primary-300">
+          <span>Services</span>
+          <span class="text-surface-500"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
+<a href="/work" class="m-link flex items-center justify-between border-b border-surface-800 py-5 text-2xl font-semibold text-surface-100 hover:text-primary-300">
+          <span>Work</span>
+          <span class="text-surface-500"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
+<a href="/about" class="m-link flex items-center justify-between border-b border-surface-800 py-5 text-2xl font-semibold text-surface-100 hover:text-primary-300">
+          <span>About</span>
+          <span class="text-surface-500"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
+<a href="/contact" class="m-link flex items-center justify-between border-b border-surface-800 py-5 text-2xl font-semibold text-surface-100 hover:text-primary-300">
+          <span>Contact</span>
+          <span class="text-surface-500"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
+    </nav>
+    <div class="mt-auto space-y-4 pt-8">
+      <a href="/contact" class="btn btn-primary w-full">Start a project <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+      <p class="text-center text-sm text-surface-400">hello@mynewai.example</p>
+    </div>
+  </div>
+
+  <main>
+    
+  <section class="relative overflow-hidden">
+    <div class="pointer-events-none absolute inset-0">
+      <div class="absolute left-1/2 top-[-10%] h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary-600/20 blur-3xl"></div>
+      <div class="absolute right-[-10%] top-[20%] h-[320px] w-[420px] rounded-full bg-accent-500/10 blur-3xl"></div>
+    </div>
+    <div class="relative">
+    <div class="mx-auto max-w-5xl px-5 pb-10 pt-20 sm:px-8 sm:pt-24">
+      <a href="/services" class="inline-flex items-center gap-1.5 text-sm text-surface-400 hover:text-primary-300"><svg class="h-4 w-4 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg> All services</a>
+      <div class="mt-6 flex items-start gap-5">
+        <span class="hidden h-14 w-14 shrink-0 place-items-center rounded-2xl bg-primary-500/10 text-primary-300 sm:grid"><svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M10 6.5h5a2 2 0 0 1 2 2V14"/></svg></span>
+        <div>
+          <p class="eyebrow text-accent-400">Intelligent Process Automation</p>
+          <h1 class="mt-2 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Automate the busywork, keep the judgment</h1>
+          <p class="mt-4 max-w-2xl text-lg leading-relaxed text-surface-300">AI-driven automation for the repetitive work that slows your team down.</p>
+        </div>
+      </div>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/contact" class="btn btn-primary">Start a project <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+        <a href="/work" class="btn btn-ghost">See related work</a>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <section class="px-5 py-16 sm:px-8">
+    <div class="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[1.2fr_1fr]">
+      <div>
+        <h2 class="text-2xl font-bold text-white">What this looks like</h2>
+        <p class="mt-4 leading-relaxed text-surface-300">We combine LLMs, rules, and integrations to automate document processing, routing, and repetitive workflows end to end.</p>
+        <div class="mt-8 grid gap-4 sm:grid-cols-3">
+          <div class="rounded-2xl border border-surface-800 bg-surface-900/50 p-5">
+            <span class="mb-3 inline-grid h-9 w-9 place-items-center rounded-lg bg-primary-500/10 text-primary-300"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></span>
+            <h3 class="text-sm font-semibold text-white">Document intelligence</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-surface-400">Extract, classify, and route documents automatically.</p>
+          </div><div class="rounded-2xl border border-surface-800 bg-surface-900/50 p-5">
+            <span class="mb-3 inline-grid h-9 w-9 place-items-center rounded-lg bg-primary-500/10 text-primary-300"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></span>
+            <h3 class="text-sm font-semibold text-white">Workflow orchestration</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-surface-400">Connect the tools you already use into one flow.</p>
+          </div><div class="rounded-2xl border border-surface-800 bg-surface-900/50 p-5">
+            <span class="mb-3 inline-grid h-9 w-9 place-items-center rounded-lg bg-primary-500/10 text-primary-300"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></span>
+            <h3 class="text-sm font-semibold text-white">Human-in-the-loop</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-surface-400">Automation with the right checkpoints for oversight.</p>
+          </div>
+        </div>
+      </div>
+      <aside>
+        <div class="rounded-2xl border border-surface-800 bg-surface-900/60 p-6">
+          <h3 class="eyebrow text-surface-500">Typical deliverables</h3>
+          <ul class="mt-4 space-y-3">
+            <li class="flex items-center gap-3 text-sm text-surface-200"><span class="text-emerald-400"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Process mapping</li><li class="flex items-center gap-3 text-sm text-surface-200"><span class="text-emerald-400"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> OCR & extraction</li><li class="flex items-center gap-3 text-sm text-surface-200"><span class="text-emerald-400"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Workflow integration</li><li class="flex items-center gap-3 text-sm text-surface-200"><span class="text-emerald-400"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span> Exception handling & review</li>
+          </ul>
+          <a href="/contact" class="btn btn-primary mt-6 w-full">Discuss your project <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="px-5 pb-4 sm:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-lg font-semibold text-white">Explore other services</h2>
+      <div class="mt-5 grid gap-4 sm:grid-cols-3">
+        <a href="/ai-application-development" class="group rounded-2xl border border-surface-800 bg-surface-900/50 p-5 transition-colors hover:border-primary-500/50">
+          <span class="mb-3 inline-grid h-9 w-9 place-items-center rounded-lg bg-primary-500/10 text-primary-300"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7h6"/><path d="M9 11h6"/><path d="M9 15h4"/></svg></span>
+          <h3 class="text-sm font-semibold text-white">AI Application Development</h3>
+          <span class="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-primary-300">Learn more <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a><a href="/machine-learning-data-science" class="group rounded-2xl border border-surface-800 bg-surface-900/50 p-5 transition-colors hover:border-primary-500/50">
+          <span class="mb-3 inline-grid h-9 w-9 place-items-center rounded-lg bg-primary-500/10 text-primary-300"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5l-5 5M12 11.5l5 5"/></svg></span>
+          <h3 class="text-sm font-semibold text-white">Machine Learning & Data Science</h3>
+          <span class="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-primary-300">Learn more <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a><a href="/ai-consulting-strategy" class="group rounded-2xl border border-surface-800 bg-surface-900/50 p-5 transition-colors hover:border-primary-500/50">
+          <span class="mb-3 inline-grid h-9 w-9 place-items-center rounded-lg bg-primary-500/10 text-primary-300"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></svg></span>
+          <h3 class="text-sm font-semibold text-white">AI Consulting & Strategy</h3>
+          <span class="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-primary-300">Learn more <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-5 pb-24 sm:px-8">
+    <div class="reveal relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-primary-500/20 bg-gradient-to-br from-primary-900 via-surface-900 to-surface-950 px-6 py-14 text-center sm:px-12">
+      <div class="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-primary-500/20 blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-accent-500/10 blur-3xl"></div>
+      <div class="relative">
+        <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Ready to talk intelligent process automation?</h2>
+        <p class="mx-auto mt-4 max-w-xl text-lg text-surface-300">Tell me what you’re working on — I’ll tell you honestly whether AI is the right tool, and how I’d build it.</p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a href="/contact" class="btn btn-primary">Start a project <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+          <a href="mailto:hello@mynewai.example" class="btn btn-ghost">Email me</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  </main>
+
+  <footer class="border-t border-surface-800 bg-surface-950">
+    <div class="mx-auto max-w-6xl px-5 py-14 sm:px-8">
+      <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div>
+          <a href="/" class="group flex items-center gap-2.5" aria-label="My New AI home">
+    <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 text-white shadow-lg shadow-primary-900/40">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/></svg>
+    </span>
+    <span class="text-base font-bold tracking-tight text-white">My New <span class="grad-text">AI</span></span>
+  </a>
+          <p class="mt-4 max-w-xs text-sm leading-relaxed text-surface-400">My New AI is an independent AI software studio — we design, build, and ship intelligent applications, from custom AI apps to machine learning, NLP, and computer vision.</p>
+          <div class="mt-5 flex flex-col gap-2 text-sm text-surface-300">
+            <a href="mailto:hello@mynewai.example" class="inline-flex items-center gap-2 hover:text-white"><svg class="h-4 w-4 text-primary-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg> hello@mynewai.example</a>
+            <a href="tel:8644379301" class="inline-flex items-center gap-2 hover:text-white"><svg class="h-4 w-4 text-primary-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h4l2 5-3 2a12 12 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/></svg> (864) 437-9301</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="eyebrow text-surface-500">Services</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="/ai-application-development" class="text-surface-300 hover:text-primary-300">AI App Development</a></li><li><a href="/machine-learning-data-science" class="text-surface-300 hover:text-primary-300">Machine Learning</a></li><li><a href="/intelligent-process-automation" class="text-surface-300 hover:text-primary-300">Process Automation</a></li><li><a href="/natural-language-processing" class="text-surface-300 hover:text-primary-300">NLP</a></li><li><a href="/computer-vision-solutions" class="text-surface-300 hover:text-primary-300">Computer Vision</a></li><li><a href="/ai-consulting-strategy" class="text-surface-300 hover:text-primary-300">AI Consulting</a></li>
+          </ul>
+        </div><div>
+          <h3 class="eyebrow text-surface-500">Studio</h3>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="/work" class="text-surface-300 hover:text-primary-300">Work</a></li><li><a href="/about" class="text-surface-300 hover:text-primary-300">About</a></li><li><a href="/contact" class="text-surface-300 hover:text-primary-300">Contact</a></li><li><a href="https://www.phansora.com" class="text-surface-300 hover:text-primary-300">Phansora ↗</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-surface-800 pt-6 text-xs text-surface-500 sm:flex-row">
+        <p>© 2026 My New AI. Built by Brandon Sanders.</p>
+        <p>Independent AI software studio.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>
