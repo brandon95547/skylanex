@@ -70,7 +70,7 @@
         if (note) { note.textContent = "Please add your name, email, and a short message."; note.className = "mt-3 text-sm text-rose-400"; }
         return;
       }
-      var to = form.getAttribute("data-email") || "hello@skylanex.com";
+      var to = form.getAttribute("data-email") || "info@skylanex.com";
       var endpoint = form.getAttribute("data-endpoint") || "/api/contact";
       var subject = "Skylanex inquiry" + (topic ? " — " + topic : "") + " — " + name;
       var body =

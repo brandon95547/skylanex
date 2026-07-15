@@ -13,9 +13,13 @@ version-controlled).
 
 If you change the server config, update this copy too (and vice-versa).
 
-## Deploy the static site
-```
-npm run deploy          # build + rsync dist/ -> root@phansora.com:/var/www/skylanex/
-```
+## Deploy (git-based)
+Prod holds a checkout of this repo at `/var/www/skylanex-src` and serves the
+committed build from the nginx webroot `/var/www/skylanex`.
+
+- **Dev:** edit source, `npm run build` (commits `dist/`), `git push`.
+- **Prod:** `bash /var/www/skylanex-src/deploy/prod-deploy.sh` — pulls and syncs
+  `dist/` into the webroot (no build needed on the server; `dist/` is committed).
+
 SSL is via certbot (auto-renew); the contact email is delivered by the phansora-api
-`/contact` endpoint.
+`/contact` endpoint (`/api/contact` is proxied to it — see `nginx/skylanex.com.conf`).
