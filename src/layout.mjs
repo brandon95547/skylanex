@@ -54,7 +54,7 @@ export function mark(size = "h-9 w-9") {
 function logo() {
   return `<a href="/" class="group flex items-center gap-2.5" aria-label="${site.name} home">
     ${mark()}
-    <span class="text-lg font-extrabold tracking-tight text-white">Skyla<span class="grad-text">nex</span></span>
+    <span class="text-lg font-extrabold uppercase tracking-tight text-white">Skyla<span class="grad-text">nex</span></span>
   </a>`;
 }
 

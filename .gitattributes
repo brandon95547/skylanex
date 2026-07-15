@@ -1,0 +1,5 @@
+# dist/ is committed on purpose: prod is a git checkout that serves the
+# committed build (see deploy/prod-deploy.sh), so no build runs on the server.
+# Mark it generated so GitHub collapses these diffs in reviews and excludes
+# them from language stats. It stays tracked and diffable locally.
+dist/** linguist-generated=true
