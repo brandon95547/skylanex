@@ -70,16 +70,41 @@
         if (note) { note.textContent = "Please add your name, email, and a short message."; note.className = "mt-3 text-sm text-rose-400"; }
         return;
       }
-      var to = form.getAttribute("data-email") || "hello@mynewai.example";
-      var subject = "New project inquiry" + (topic ? " — " + topic : "");
+      var to = form.getAttribute("data-email") || "hello@skylanex.com";
+      var endpoint = form.getAttribute("data-endpoint") || "/api/contact";
+      var subject = "Skylanex inquiry" + (topic ? " — " + topic : "") + " — " + name;
       var body =
         "Name: " + name + "\n" +
         "Email: " + email + "\n" +
         (topic ? "Service: " + topic + "\n" : "") +
         "\n" + message + "\n";
-      window.location.href =
-        "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-      if (note) { note.textContent = "Opening your email app… if nothing happens, email " + to + " directly."; note.className = "mt-3 text-sm text-surface-400"; }
+
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) { submitBtn.disabled = true; }
+      if (note) { note.textContent = "Sending…"; note.className = "mt-3 text-sm text-surface-400"; }
+
+      fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ subject: subject, message: body })
+      })
+        .then(function (res) {
+          if (!res.ok) { throw new Error("status " + res.status); }
+          return res.text();
+        })
+        .then(function () {
+          form.reset();
+          if (note) { note.textContent = "Thanks — your message has been sent. I'll reply within a day."; note.className = "mt-3 text-sm text-emerald-400"; }
+        })
+        .catch(function () {
+          // API unreachable — fall back to opening the visitor's email client.
+          window.location.href =
+            "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+          if (note) { note.textContent = "Opening your email app instead… or email " + to + " directly."; note.className = "mt-3 text-sm text-surface-400"; }
+        })
+        .finally(function () {
+          if (submitBtn) { submitBtn.disabled = false; }
+        });
     });
   }
 })();

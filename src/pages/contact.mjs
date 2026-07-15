@@ -21,7 +21,7 @@ export const contactPage = {
   <section class="px-5 pb-24 sm:px-8">
     <div class="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-start">
       <!-- Form -->
-      <form id="contact-form" data-email="${site.email}" class="reveal rounded-3xl border border-surface-800 bg-surface-900/50 p-6 sm:p-8" novalidate>
+      <form id="contact-form" data-email="${site.email}" data-endpoint="/api/contact" class="reveal rounded-3xl border border-surface-800 bg-surface-900/50 p-6 sm:p-8" novalidate>
         <div class="grid gap-4 sm:grid-cols-2">
           <label class="block">
             <span class="mb-1.5 block text-sm font-medium text-surface-200">Name</span>
