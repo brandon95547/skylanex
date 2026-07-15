@@ -86,7 +86,7 @@
       fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ subject: subject, message: body })
+        body: JSON.stringify({ subject: subject, message: body, reply_to: email })
       })
         .then(function (res) {
           if (!res.ok) { throw new Error("status " + res.status); }
