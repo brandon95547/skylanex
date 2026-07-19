@@ -192,8 +192,74 @@
   /* subtle reveal-on-scroll */
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ---- video cards ----
+     Uniform 9:16 tiles regardless of source aspect. The two 16:9 motion pieces
+     are centre-cropped so the grid keeps an even rhythm — mixed tile heights
+     leave ragged gaps in a CSS grid. Full framing is restored in the lightbox.
+     The scrim is heavy at the base because the source cuts carry burned-in
+     captions in their lower third; the title block has to sit on solid ink. */
+  .video-card { aspect-ratio: 9 / 16; }
+  .video-card__scrim {
+    background: linear-gradient(
+      to top,
+      var(--color-surface-950) 0%,
+      var(--color-surface-950) 28%,
+      color-mix(in oklab, var(--color-surface-950) 82%, transparent) 44%,
+      color-mix(in oklab, var(--color-surface-950) 30%, transparent) 62%,
+      transparent 78%
+    );
+  }
+
+  /* ---- video lightbox ---- */
+  .video-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s ease, visibility .25s ease;
+  }
+  .video-lightbox.is-open { opacity: 1; visibility: visible; }
+  .video-lightbox__backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: color-mix(in oklab, var(--color-surface-950) 88%, transparent);
+    backdrop-filter: blur(8px);
+  }
+  .video-lightbox__panel {
+    position: relative;
+    width: 100%;
+    max-width: min(92vw, 26rem);
+    transform: scale(.97);
+    transition: transform .25s ease;
+  }
+  /* Landscape pieces need the width; vertical ones are capped by max-height below. */
+  .video-lightbox__panel.is-wide { max-width: min(92vw, 64rem); }
+  .video-lightbox.is-open .video-lightbox__panel { transform: scale(1); }
+  .video-lightbox__stage {
+    overflow: hidden;
+    border-radius: 1rem;
+    border: 1px solid var(--color-surface-800);
+    background-color: #000;
+    box-shadow: 0 24px 70px -12px rgb(0 0 0 / .8);
+  }
+  .video-lightbox__stage video {
+    display: block;
+    width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+  }
+  body.lightbox-open { overflow: hidden; }
+
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
     #mobile-menu, #mobile-menu .m-link, .burger span { transition: none; }
+    .video-lightbox, .video-lightbox__panel { transition: none; }
+    .video-lightbox__panel { transform: none; }
+    .video-card img { transition: none; }
   }
 }

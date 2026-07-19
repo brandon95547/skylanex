@@ -76,6 +76,9 @@ function build() {
   // Assets
   copyDir(path.join(__dirname, "assets", "js"), path.join(DIST, "js"));
   copyDir(path.join(__dirname, "assets", "images"), path.join(DIST, "images"));
+  // Videos are ~76MB. dist/ is committed, so dist/videos is gitignored and prod
+  // re-creates it from assets/ during deploy — see deploy/prod-deploy.sh.
+  copyDir(path.join(__dirname, "assets", "videos"), path.join(DIST, "videos"));
 
   // robots + sitemap
   fs.writeFileSync(

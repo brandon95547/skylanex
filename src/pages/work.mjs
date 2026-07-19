@@ -22,6 +22,38 @@ function clientCard(c) {
   </div>`;
 }
 
+// Poster-led tile that opens the lightbox (assets/js/main.js). The video itself is
+// never in the DOM until a card is activated, so the page loads no media bytes.
+// The bottom scrim is deliberately heavy: source cuts carry burned-in captions in
+// the lower third, and the title block masks them.
+function creativeCard(c) {
+  return `<button type="button"
+    class="video-card reveal group relative block w-full overflow-hidden rounded-2xl border border-surface-800 bg-surface-900 text-left transition-colors hover:border-primary-500/50 focus-visible:border-primary-500"
+    data-video="/videos/${c.slug}.mp4"
+    data-poster="/images/videos/${c.slug}.webp"
+    data-title="${c.name}"
+    data-aspect="${c.aspect}"
+    aria-label="Play ${c.name} — ${c.kind}, ${c.duration}">
+    <img src="/images/videos/${c.slug}.webp" alt="" loading="lazy" decoding="async"
+      class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+    <span class="video-card__scrim absolute inset-0"></span>
+    <span class="absolute inset-0 grid place-items-center">
+      <span class="grid h-14 w-14 place-items-center rounded-full border border-white/25 bg-surface-950/40 text-white backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:border-primary-400/60 group-hover:bg-primary-500/25">
+        ${icon("play", "h-6 w-6 translate-x-0.5")}
+      </span>
+    </span>
+    <span class="absolute inset-x-0 bottom-0 p-4">
+      <span class="flex items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.14em] text-accent-300">
+        ${c.kind}
+        <span class="text-surface-600">•</span>
+        <span class="text-surface-400 normal-case tracking-normal">${c.duration}</span>
+      </span>
+      <span class="mt-1 block text-base font-semibold leading-snug text-white">${c.name}</span>
+      <span class="mt-1 block text-xs leading-relaxed text-surface-400">${c.blurb}</span>
+    </span>
+  </button>`;
+}
+
 export const workPage = {
   path: "/work",
   file: "work.html",
@@ -56,21 +88,25 @@ export const workPage = {
   <section class="px-5 pb-16 sm:px-8">
     <div class="mx-auto max-w-6xl">
       ${heading({ eyebrow: "Creative & video", title: "Music videos & short films", center: false, sub: "Video production is part of the studio too — a creative outlet that keeps the storytelling sharp." })}
-      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        ${work.creative
-          .map(
-            (c) => `<div class="reveal flex flex-col justify-between rounded-2xl border border-surface-800 bg-gradient-to-br from-surface-900 to-surface-950 p-6">
-          <span class="inline-grid h-9 w-9 place-items-center rounded-lg bg-accent-500/10 text-accent-300">${icon("spark", "h-4 w-4")}</span>
-          <div class="mt-8">
-            <p class="text-xs text-surface-500">${c.kind}</p>
-            <h3 class="mt-1 text-base font-semibold text-white">${c.name}</h3>
-          </div>
-        </div>`
-          )
-          .join("")}
+      <div class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        ${work.creative.map(creativeCard).join("\n")}
       </div>
     </div>
   </section>
+
+  <!-- Lightbox. Empty until a card is activated; main.js injects the <video>. -->
+  <div id="video-lightbox" class="video-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Video player">
+    <div class="video-lightbox__backdrop" data-close></div>
+    <div class="video-lightbox__panel" role="document">
+      <div class="video-lightbox__stage"></div>
+      <div class="mt-3 flex items-center justify-between gap-4">
+        <p class="video-lightbox__title text-sm font-semibold text-white"></p>
+        <button type="button" class="video-lightbox__close inline-grid h-9 w-9 shrink-0 place-items-center rounded-full border border-surface-700 bg-surface-900 text-surface-300 transition-colors hover:border-primary-500/60 hover:text-white" data-close aria-label="Close video">
+          ${icon("close", "h-4 w-4")}
+        </button>
+      </div>
+    </div>
+  </div>
 
   ${ctaBand({ title: "Have something you want built?" })}
   `,

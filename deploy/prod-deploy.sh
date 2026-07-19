@@ -13,4 +13,13 @@ REPO="${1:-/var/www/skylanex}"
 
 cd "$REPO"
 git pull --ff-only
+
+# dist/videos is gitignored (it would double ~76MB of media in the repo), so
+# recreate it from the tracked assets/videos on each deploy.
+if [ -d assets/videos ]; then
+  mkdir -p dist/videos
+  rsync -a --delete assets/videos/ dist/videos/
+  echo "Synced $(ls -1 dist/videos | wc -l) video(s) → dist/videos"
+fi
+
 echo "Deployed $(git rev-parse --short HEAD) — nginx serves $REPO/dist"

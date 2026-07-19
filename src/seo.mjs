@@ -1,5 +1,5 @@
 // seo.mjs — structured data (JSON-LD) generation.
-import { site, services, faqs } from "../site.config.mjs";
+import { site, services, faqs, work } from "../site.config.mjs";
 
 const ORG = `${site.domain}/#org`;
 const WEBSITE = `${site.domain}/#website`;
@@ -114,7 +114,35 @@ export function jsonLdForPage(page) {
     ];
   }
   if (page.path === "/work") {
-    return [breadcrumb([home, { name: "Work", path: "/work" }])];
+    // ISO-8601 duration from the "M:SS" display string.
+    const iso = (d) => {
+      const [m, s] = String(d).split(":").map(Number);
+      return `PT${m ? m + "M" : ""}${s}S`;
+    };
+    return [
+      breadcrumb([home, { name: "Work", path: "/work" }]),
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Music videos & short films",
+        itemListElement: work.creative.map((c, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "VideoObject",
+            name: c.name,
+            description: c.blurb,
+            genre: c.kind,
+            duration: iso(c.duration),
+            thumbnailUrl: absUrl(`/images/videos/${c.slug}.webp`),
+            contentUrl: absUrl(`/videos/${c.slug}.mp4`),
+            embedUrl: absUrl("/work"),
+            uploadDate: "2026-01-27",
+            creator: { "@id": ORG },
+          },
+        })),
+      },
+    ];
   }
   if (page.path === "/about") {
     return [

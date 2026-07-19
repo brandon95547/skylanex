@@ -55,6 +55,78 @@
     reveals.forEach(function (el) { el.classList.add("in"); });
   }
 
+  /* ---- Video lightbox ----
+     The <video> is created on open and destroyed on close, so no media is
+     fetched until a visitor actually asks for it. */
+  var lightbox = document.getElementById("video-lightbox");
+  if (lightbox) {
+    var stage = lightbox.querySelector(".video-lightbox__stage");
+    var panel = lightbox.querySelector(".video-lightbox__panel");
+    var titleEl = lightbox.querySelector(".video-lightbox__title");
+    var lastFocused = null;
+
+    var closeVideo = function () {
+      if (!lightbox.classList.contains("is-open")) return;
+      lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("lightbox-open");
+      var v = stage.querySelector("video");
+      if (v) { v.pause(); v.removeAttribute("src"); v.load(); }
+      stage.innerHTML = "";
+      if (lastFocused) { lastFocused.focus(); lastFocused = null; }
+    };
+
+    var openVideo = function (card) {
+      lastFocused = card;
+      var src = card.getAttribute("data-video");
+      var poster = card.getAttribute("data-poster");
+      var title = card.getAttribute("data-title") || "";
+      var wide = card.getAttribute("data-aspect") === "16/9";
+
+      panel.classList.toggle("is-wide", wide);
+      titleEl.textContent = title;
+
+      var v = document.createElement("video");
+      v.setAttribute("controls", "");
+      v.setAttribute("autoplay", "");
+      v.setAttribute("playsinline", "");
+      v.setAttribute("preload", "auto");
+      if (poster) v.setAttribute("poster", poster);
+      v.src = src;
+      stage.appendChild(v);
+
+      lightbox.classList.add("is-open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("lightbox-open");
+
+      var closeBtn = lightbox.querySelector(".video-lightbox__close");
+      if (closeBtn) closeBtn.focus();
+    };
+
+    document.querySelectorAll(".video-card").forEach(function (card) {
+      card.addEventListener("click", function () { openVideo(card); });
+    });
+
+    lightbox.querySelectorAll("[data-close]").forEach(function (el) {
+      el.addEventListener("click", closeVideo);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeVideo();
+    });
+
+    // Keep Tab inside the panel while it's open.
+    lightbox.addEventListener("keydown", function (e) {
+      if (e.key !== "Tab" || !lightbox.classList.contains("is-open")) return;
+      var focusable = lightbox.querySelectorAll("button, video, [href]");
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  }
+
   /* ---- Contact form: compose a mailto (no backend needed) ---- */
   var form = document.getElementById("contact-form");
   if (form) {
