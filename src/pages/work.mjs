@@ -14,12 +14,13 @@ function ventureCard(v) {
   </a>`;
 }
 
-function clientCard(c) {
-  return `<div class="reveal rounded-2xl border border-surface-800 bg-surface-900/50 p-6">
-    <p class="eyebrow text-surface-500">${c.kind}</p>
-    <h3 class="mt-2 text-lg font-bold text-white">${c.name}</h3>
-    <p class="mt-2 text-sm leading-relaxed text-surface-400">${c.blurb}</p>
-  </div>`;
+function productCard(p) {
+  return `<a href="${p.href}" target="_blank" rel="noopener" class="reveal group flex flex-col rounded-2xl border border-surface-800 bg-surface-900/50 p-6 transition-colors hover:border-primary-500/50">
+    <p class="eyebrow text-surface-500">${p.kind}</p>
+    <h3 class="mt-2 text-lg font-bold text-white">${p.name}</h3>
+    <p class="mt-2 text-sm leading-relaxed text-surface-400">${p.blurb}</p>
+    <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-300">Visit site ${icon("external", "h-4 w-4")}</span>
+  </a>`;
 }
 
 // Poster-led tile that opens the lightbox (assets/js/main.js). The video itself is
@@ -78,9 +79,9 @@ export const workPage = {
 
   <section class="px-5 py-12 sm:px-8">
     <div class="mx-auto max-w-6xl">
-      ${heading({ eyebrow: "Client work", title: "Delivered for teams big and small", center: false })}
+      ${heading({ eyebrow: "The products", title: "Four AI tools, live and shipping", center: false, sub: "Each one is a production product under Phansora — built, launched, and maintained end to end." })}
       <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        ${work.clients.map(clientCard).join("\n")}
+        ${work.products.map(productCard).join("\n")}
       </div>
     </div>
   </section>

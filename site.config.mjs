@@ -129,11 +129,37 @@ export const work = {
       accent: "primary",
     },
   ],
-  clients: [
-    { name: "T-Mobile", kind: "Enterprise web app", blurb: "Data-capture application for field teams." },
-    { name: "WastePay", kind: "Payments platform", blurb: "Payments platform for the waste industry." },
-    { name: "Lanmark360", kind: "Mobile application", blurb: "Cross-platform mobile app build." },
-    { name: "160over90", kind: "Agency web project", blurb: "Web project delivered for a global agency." },
+  // The four Phansora products. Each links to its live landing page — slugs match
+  // the routes served by phansora.com.
+  products: [
+    {
+      name: "Chrono Origin",
+      kind: "Origin tracing",
+      blurb:
+        "Traces any story, myth, or claim back to the earliest source the web remembers, with cited evidence at every step.",
+      href: "https://www.phansora.com/chrono-origin",
+    },
+    {
+      name: "Book Alchemy",
+      kind: "Audio course builder",
+      blurb:
+        "Turns any book, PDF, or long document into a structured, narrated audio course of sequential lessons.",
+      href: "https://www.phansora.com/book-alchemy",
+    },
+    {
+      name: "Dossier Nova",
+      kind: "AI research tool",
+      blurb:
+        "Organizes PDFs, documents, audio, and URLs into one searchable, source-attributed dossier.",
+      href: "https://www.phansora.com/dossier-nova",
+    },
+    {
+      name: "SpokenVerse",
+      kind: "Text-to-speech",
+      blurb:
+        "Converts books, articles, and documents into broadcast-quality audio with realistic neural voices.",
+      href: "https://www.phansora.com/spokenverse",
+    },
   ],
   // Creative reel. Tiles are a uniform 9:16; `aspect` tells the lightbox whether
   // to open a wide panel, so 16:9 pieces still play uncropped. Display-only.
