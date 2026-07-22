@@ -1,5 +1,5 @@
 // seo.mjs — structured data (JSON-LD) generation.
-import { site, services, faqs, work, solutions, palettes } from "../site.config.mjs";
+import { site, services, faqs, work, solutions, palettes, industryPages } from "../site.config.mjs";
 
 const ORG = `${site.domain}/#org`;
 const WEBSITE = `${site.domain}/#website`;
@@ -61,11 +61,11 @@ function breadcrumb(trail) {
   };
 }
 
-function faqPage() {
+function faqPage(list = faqs) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
+    mainEntity: list.map((f) => ({
       "@type": "Question",
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -124,9 +124,45 @@ export function jsonLdForPage(page) {
           "@type": "ListItem",
           position: i + 1,
           name: s.name,
-          url: `${absUrl("/solutions")}#${s.slug}`,
+          // Point at the dedicated landing page once a category has one.
+          url: s.landing ? absUrl(`/solutions/${s.landing}`) : `${absUrl("/solutions")}#${s.slug}`,
         })),
       },
+    ];
+  }
+  // Industry landing pages carry their own Service + FAQPage so each can earn a
+  // rich result on its own terms rather than leaning on the /solutions parent.
+  const industry = industryPages.find((p) => `/solutions/${p.slug}` === page.path);
+  if (industry) {
+    return [
+      breadcrumb([
+        home,
+        { name: "Solutions", path: "/solutions" },
+        { name: industry.eyebrow, path: page.path },
+      ]),
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: industry.eyebrow,
+        serviceType: industry.eyebrow,
+        description: industry.description,
+        url: absUrl(page.path),
+        provider: { "@id": ORG },
+        areaServed: "United States",
+        offers: industry.included.map((i) => ({
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name: i.t, description: i.d },
+        })),
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: `${industry.eyebrow} — practice areas`,
+          itemListElement: industry.segments.map((s) => ({
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: s },
+          })),
+        },
+      },
+      faqPage(industry.faqs),
     ];
   }
   if (page.path === "/solutions/color-palettes") {

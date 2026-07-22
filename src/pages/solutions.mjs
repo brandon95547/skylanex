@@ -6,6 +6,10 @@ import { solutions } from "../../site.config.mjs";
 // One industry: live website preview on one side, the case for it on the other.
 // The preview is rendered from the industry's referenced palette (site.config),
 // so the design shown here and the palette page never drift apart.
+// Categories with a dedicated landing page link out to it; the rest still
+// scroll to their card here until their page is written.
+const href = (s) => (s.landing ? `/solutions/${s.landing}` : `#${s.slug}`);
+
 function industryRow(s, i) {
   const palette = paletteBySlug(s.palette);
   const flip = i % 2 === 1;
@@ -30,9 +34,16 @@ function industryRow(s, i) {
           )
           .join("")}
       </ul>
-      <a href="/contact" class="mt-7 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-300 hover:text-primary-200">
+      ${
+        s.landing
+          ? `<div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <a href="/solutions/${s.landing}" class="btn btn-primary">Explore ${s.noun} websites ${icon("arrow", "h-4 w-4")}</a>
+        <a href="/contact" class="text-sm font-semibold text-primary-300 hover:text-primary-200">Or start a project</a>
+      </div>`
+          : `<a href="/contact" class="mt-7 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-300 hover:text-primary-200">
         Talk about a ${s.noun} site ${icon("arrow", "h-4 w-4")}
-      </a>
+      </a>`
+      }
     </div>
   </article>`;
 }
@@ -69,7 +80,7 @@ export const solutionsPage = {
     <div class="mx-auto flex max-w-6xl flex-wrap justify-center gap-2">
       ${solutions
         .map(
-          (s) => `<a href="#${s.slug}" class="pal-chip inline-flex items-center gap-2">
+          (s) => `<a href="${href(s)}" class="pal-chip inline-flex items-center gap-2${s.landing ? " pal-chip--linked" : ""}">
         <span class="text-primary-300">${icon(s.icon, "h-4 w-4")}</span>${s.name}
       </a>`
         )

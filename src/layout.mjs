@@ -171,6 +171,7 @@ function footer(path) {
       title: "Studio",
       links: [
         { label: "Solutions", href: "/solutions" },
+        { label: "Law Firm Websites", href: "/solutions/law-firms" },
         { label: "Color Palettes", href: "/solutions/color-palettes" },
         { label: "Work", href: "/work" },
         { label: "About", href: "/about" },

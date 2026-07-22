@@ -568,6 +568,12 @@
     transition: border-color .2s, color .2s, background-color .2s;
   }
   .pal-chip:hover { border-color: var(--color-primary-500); color: #fff; }
+  /* A chip that leads to a full landing page rather than an on-page anchor —
+     the brighter border is the only cue that the two behave differently. */
+  .pal-chip--linked {
+    border-color: color-mix(in oklab, var(--color-primary-500) 55%, transparent);
+    color: var(--color-surface-100);
+  }
   .pal-chip.is-active {
     background-color: var(--color-primary-500);
     border-color: var(--color-primary-500);

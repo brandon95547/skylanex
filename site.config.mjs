@@ -644,6 +644,9 @@ export const solutions = [
   {
     slug: "attorneys",
     icon: "scale",
+    // `landing` points at an industryPages[] slug. When present the /solutions
+    // chip and card link to that dedicated page instead of an on-page anchor.
+    landing: "law-firms",
     name: "Attorneys & Law Firms",
     tagline: "Authority in the first three seconds",
     summary:
@@ -728,6 +731,228 @@ export const solutions = [
     outcomes: ["Live class schedule embed", "Trial and membership signup flows", "Coach bios and transformation proof", "Retention email and SMS hooks"],
     palette: "charcoal-lime",
     noun: "fitness",
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Industry landing pages — one dedicated, search-targeted page per category,
+// rendered by src/pages/industry.mjs at /solutions/<slug>.
+//
+// This is the deep version of a /solutions card: it targets the term a buyer
+// actually searches ("law firm web design"), covers the sub-segments, and
+// carries its own FAQ so the page can earn a rich result on its own.
+//
+// Adding the next category is a data edit — append an entry here and set
+// `landing` on the matching solutions[] card. Nothing else needs to change.
+//
+// NOTE ON THE SHOWCASE: these are original design concepts rendered live from
+// the palette system, not photographs of delivered client sites. The firms are
+// fictional and the page says so — presenting invented work as a client
+// portfolio would be a lie, and the concepts sell the capability anyway.
+// ---------------------------------------------------------------------------
+export const industryPages = [
+  {
+    slug: "law-firms",
+    solution: "attorneys",
+    icon: "scale",
+    eyebrow: "Law Firm Web Design",
+    h1: "Law firm websites built to turn a search into a signed client",
+    metaTitle: "Law Firm Web Design & Development · Skylanex",
+    description:
+      "Custom law firm website design and development — practice-area architecture, intake that routes, bar-compliant disclaimers, and local SEO. See six original law firm design concepts.",
+    lede:
+      "Someone searching for an attorney is usually having a bad week. They are anxious, comparing three firms in three tabs, and deciding in seconds whether yours looks like it can handle their problem. Everything below is built around that moment.",
+    heroStats: [
+      { v: "14", l: "Years building software" },
+      { v: "6", l: "Design concepts below" },
+      { v: "1", l: "Developer you talk to" },
+    ],
+
+    // Six original concepts, each a different palette + layout, labelled by the
+    // practice area whose buyer it is pitched at.
+    showcase: [
+      { palette: "counsel-navy", label: "Personal injury & trial" },
+      { palette: "ivory-oxblood", label: "Estate planning & probate" },
+      {
+        palette: "arctic-indigo",
+        label: "Business & corporate",
+        demo: {
+          brand: "Brennan Coyle",
+          domain: "brennancoyle.com",
+          nav: ["Practices", "Industries", "Team", "Insights"],
+          eyebrow: "Corporate & Transactional",
+          headline: "Counsel that keeps the deal moving",
+          sub: "M&A, financing, and commercial contracts for founders, funds, and closely held companies.",
+          cta: "Request counsel",
+          cta2: "Our practices",
+          stats: [{ v: "$2.4B", l: "Deal value" }, { v: "31", l: "Attorneys" }, { v: "12", l: "Industries" }],
+          items: [
+            { t: "M&A", d: "Buy-side and sell-side, diligence to close." },
+            { t: "Financing", d: "Venture, credit, and private placements." },
+            { t: "Commercial", d: "Contracts that survive the relationship." },
+          ],
+        },
+      },
+      {
+        palette: "mono-ink",
+        variant: "split",
+        label: "Criminal defense",
+        demo: {
+          brand: "REYES",
+          domain: "reyesdefense.com",
+          nav: ["Charges", "Results", "About", "Contact"],
+          eyebrow: "Criminal Defense",
+          headline: "Arrested? Say nothing. Call first.",
+          sub: "State and federal defense, available around the clock, from arraignment through trial.",
+          cta: "Call 24/7",
+          cta2: "Case results",
+          stats: [{ v: "24/7", l: "Reachable" }, { v: "900+", l: "Cases" }, { v: "19", l: "Years" }],
+          items: [
+            { t: "Felony", d: "Serious charges, tried not pled." },
+            { t: "DUI", d: "License hearings handled in parallel." },
+            { t: "Federal", d: "Admitted in three federal districts." },
+          ],
+        },
+      },
+      {
+        palette: "forest-sand",
+        variant: "split",
+        label: "Family law",
+        demo: {
+          brand: "Calder Family Law",
+          domain: "calderfamilylaw.com",
+          nav: ["Divorce", "Custody", "Mediation", "Contact"],
+          eyebrow: "Family Law & Mediation",
+          headline: "Hard decisions, made with a steady hand",
+          sub: "Divorce, custody, and mediation for families who would rather resolve than escalate.",
+          cta: "Schedule a consult",
+          cta2: "How mediation works",
+          stats: [{ v: "72%", l: "Settled" }, { v: "1,100", l: "Families" }, { v: "22", l: "Years" }],
+          items: [
+            { t: "Divorce", d: "Contested and uncontested." },
+            { t: "Custody", d: "Parenting plans that actually hold." },
+            { t: "Mediation", d: "A path that keeps you out of court." },
+          ],
+        },
+      },
+      {
+        palette: "burgundy-cream",
+        variant: "classic",
+        label: "Appellate & complex litigation",
+        demo: {
+          brand: "Prentiss & Marlowe",
+          domain: "prentissmarlowe.com",
+          nav: ["Appellate", "Litigation", "Attorneys", "Briefs"],
+          eyebrow: "Appellate Practice",
+          headline: "The record is written. The argument is not.",
+          sub: "Appeals and post-trial motions in state and federal courts, including two supreme courts.",
+          cta: "Discuss an appeal",
+          cta2: "Published opinions",
+          stats: [{ v: "140", l: "Appeals" }, { v: "38%", l: "Reversal rate" }, { v: "2", l: "Supreme courts" }],
+          items: [
+            { t: "Appeals", d: "Civil and criminal, all levels." },
+            { t: "Post-trial", d: "Motions that preserve the issue." },
+            { t: "Consulting", d: "Trial support to protect the record." },
+          ],
+        },
+      },
+    ],
+
+    // Practice areas get their own page each — this is the search unit.
+    segments: [
+      "Personal Injury",
+      "Criminal Defense",
+      "Family Law & Divorce",
+      "Estate Planning & Probate",
+      "Business & Corporate",
+      "Immigration",
+      "Employment & Labor",
+      "Real Estate",
+      "Bankruptcy",
+      "Intellectual Property",
+      "Medical Malpractice",
+      "Workers' Compensation",
+    ],
+
+    // What actually ships.
+    included: [
+      { t: "Practice-area architecture", d: "One page per practice area, per location — the unit people actually search for." },
+      { t: "Attorney profiles", d: "Bios, bar admissions, education, and published work, all structured for search." },
+      { t: "Case results module", d: "Verdicts and settlements with the disclaimers your state requires." },
+      { t: "Intake that routes", d: "Forms and click-to-call wired to your case management or inbox, not a black hole." },
+      { t: "Compliance handled", d: "Disclaimers, no-guarantee language, and prior-results notices reviewed against your bar rules." },
+      { t: "Accessibility", d: "WCAG 2.1 AA — a real risk area for public-facing legal sites." },
+      { t: "Structured data", d: "LegalService, Attorney, and FAQ schema so search engines can read the firm." },
+      { t: "Speed & mobile", d: "Core Web Vitals green on a phone, on cell service, which is where the calls come from." },
+    ],
+
+    // Why this vertical is genuinely different from a generic business site.
+    differentiators: [
+      {
+        icon: "shield",
+        t: "The visitor is in crisis",
+        d: "They are not browsing. Injury, arrest, divorce, a death in the family — the page has to be calm, obvious, and fast, with the next step never more than one tap away.",
+      },
+      {
+        icon: "scale",
+        t: "Bar rules are not optional",
+        d: "Advertising rules, testimonial restrictions, and prior-results disclaimers vary by state. I build to your jurisdiction's rules and hand you the language for your compliance review.",
+      },
+      {
+        icon: "layers",
+        t: "Practice area is the search unit",
+        d: "Nobody searches for 'law firm.' They search 'car accident lawyer Greenville.' The site is structured as one strong page per practice area and market, not one page about everything.",
+      },
+      {
+        icon: "bolt",
+        t: "Intake is the conversion",
+        d: "A form that lands in an unwatched inbox is a lost client. Submissions route to the right person, with the confidentiality notice the form legally needs to carry.",
+      },
+    ],
+
+    seoPoints: [
+      { t: "Practice area × location pages", d: "The page architecture that captures how legal searches are actually typed." },
+      { t: "LegalService & Attorney schema", d: "Structured data for the firm, each attorney, and each practice area." },
+      { t: "Local presence", d: "Google Business Profile, consistent citations, and location pages for each office." },
+      { t: "Answer-first content", d: "The questions clients ask before hiring — written to be found, and to be useful." },
+      { t: "Migration without loss", d: "Redesigns ship with a redirect map so existing rankings survive the launch." },
+      { t: "Reviews within the rules", d: "A review strategy that respects the testimonial restrictions in your state." },
+    ],
+
+    faqs: [
+      {
+        q: "How much does a law firm website cost?",
+        a: "Scope drives it. A focused site for a solo practice is a very different build than a multi-office firm with twelve practice areas and case-management integration. You get a fixed number after a short scoping call — not an hourly meter, and not a number I made up before understanding the firm.",
+      },
+      {
+        q: "How long does it take?",
+        a: "A focused practice site typically runs 3–5 weeks from kickoff; a larger multi-practice build usually runs 8–12. You see working pages every week rather than waiting for a single reveal at the end.",
+      },
+      {
+        q: "Do you handle bar compliance and disclaimers?",
+        a: "I build to your state's advertising rules and include the standard disclaimers, prior-results notices, and no-attorney-client-relationship language in the right places. I am a developer, not your ethics counsel — the final language goes to you or your compliance reviewer before launch.",
+      },
+      {
+        q: "Can you integrate with our case management software?",
+        a: "Yes. Intake forms can route into Clio, MyCase, Filevine, Smokeball, or plain email and your CRM. If the tool has an API or a webhook, it can be wired up.",
+      },
+      {
+        q: "Do you do the SEO too, or just the site?",
+        a: "The site ships SEO-ready: practice-area architecture, structured data, clean technical foundation, and a content plan for the pages that will earn traffic next. Ongoing content and link work is a separate engagement if you want it.",
+      },
+      {
+        q: "We already have a site. Can you redesign it without losing our rankings?",
+        a: "Yes, and that planning happens before anything is built. Existing URLs get mapped and redirected, high-performing pages are identified and preserved, and rankings are watched through the launch window.",
+      },
+      {
+        q: "Who owns the website when it's done?",
+        a: "You do — the code, the content, the domain, and the accounts. No proprietary platform you can only leave by starting over.",
+      },
+      {
+        q: "Do you work with solo attorneys and small firms?",
+        a: "Yes. A solo practice with one sharp practice-area page often outperforms a regional firm with a neglected site. The engagement scales to the firm.",
+      },
+    ],
   },
 ];
 
