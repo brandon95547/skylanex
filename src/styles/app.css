@@ -263,3 +263,315 @@
     .video-card img { transition: none; }
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Website mockups (/solutions + /solutions/color-palettes)            */
+/*                                                                     */
+/* Live HTML previews rendered by src/mockup.mjs, themed entirely from  */
+/* eight CSS custom properties set inline per palette. Nothing here     */
+/* references the Skylanex ramps — a mockup must look like the client's */
+/* site, not like this one.                                             */
+/*                                                                     */
+/* SIZING: `.mk` is the query container and every value inside is in    */
+/* `cqw` against a 1200px design width, i.e. 1cqw ≈ 12 design px. That  */
+/* is what lets one markup tree read correctly as a 300px thumbnail and */
+/* as a 1000px feature panel. Never mix rem/px into the canvas.         */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .mk {
+    container-type: inline-size;
+    overflow: hidden;
+    border-radius: 0.9rem;
+    border: 1px solid var(--color-surface-700);
+    box-shadow: 0 22px 50px -24px rgb(0 0 0 / 0.85);
+    background-color: var(--mk-bg);
+    color: var(--mk-text);
+    font-family: var(--font-sans);
+  }
+
+  /* ---- browser chrome ---- */
+  .mk-chrome {
+    display: flex;
+    align-items: center;
+    gap: 0.8cqw;
+    padding: 1.4cqw 2cqw;
+    background-color: var(--mk-surface);
+    border-bottom: 1px solid var(--mk-border);
+  }
+  .mk-dot {
+    width: 0.9cqw;
+    height: 0.9cqw;
+    border-radius: 50%;
+    background-color: var(--mk-muted);
+    opacity: 0.45;
+  }
+  .mk-url {
+    margin-inline: auto;
+    max-width: 44cqw;
+    padding: 0.5cqw 2cqw;
+    border-radius: 99px;
+    background-color: var(--mk-bg);
+    color: var(--mk-muted);
+    font-size: 1cqw;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* The page itself. Fixed ratio keeps a grid of previews even; anything
+     that runs past the fold clips, which reads as a scrolled page. */
+  .mk-canvas {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---- top bar ---- */
+  .mk-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2cqw;
+    padding: 2.2cqw 5cqw;
+    border-bottom: 1px solid var(--mk-border);
+  }
+  .mk-bar--solid { background-color: var(--mk-surface); }
+  .mk-brand {
+    font-size: 1.9cqw;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .mk-nav {
+    display: flex;
+    gap: 2.2cqw;
+    font-size: 1.1cqw;
+    color: var(--mk-muted);
+    white-space: nowrap;
+  }
+
+  /* ---- type ---- */
+  .mk-serif { font-family: Georgia, "Times New Roman", serif; letter-spacing: 0; }
+  .mk-eyebrow {
+    display: block;
+    font-size: 0.95cqw;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--mk-primary);
+  }
+  .mk-eyebrow--accent { color: var(--mk-accent); }
+  .mk-h1 {
+    margin-top: 1.6cqw;
+    font-size: 4.4cqw;
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .mk-h1--slab { text-transform: uppercase; font-weight: 900; font-size: 4.8cqw; }
+  .mk-h1--wide { font-weight: 400; letter-spacing: 0.01em; }
+  .mk-sub {
+    margin-top: 1.4cqw;
+    font-size: 1.4cqw;
+    line-height: 1.5;
+    color: var(--mk-muted);
+    max-width: 44cqw;
+  }
+
+  /* ---- buttons ---- */
+  .mk-btn {
+    display: inline-block;
+    padding: 1.1cqw 2.2cqw;
+    border-radius: 0.7cqw;
+    border: 1px solid transparent;
+    background-color: var(--mk-primary);
+    color: var(--mk-on-primary);
+    font-size: 1.1cqw;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .mk-btn--sm { padding: 0.9cqw 1.7cqw; font-size: 1cqw; }
+  .mk-btn--ghost {
+    background-color: transparent;
+    border-color: var(--mk-border);
+    color: var(--mk-text);
+  }
+  .mk-actions { display: flex; gap: 1.1cqw; margin-top: 2.4cqw; }
+
+  /* ---- hero ---- */
+  .mk-hero { padding: 5cqw 6cqw; }
+  .mk-hero--center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .mk-hero--center .mk-h1 { max-width: 62cqw; }
+  .mk-hero--center .mk-sub { max-width: 48cqw; }
+  /* Editorial stacks hero + art band + stat strip into one 4:3 canvas, so its
+     hero runs tighter than the others to keep the strip above the fold. */
+  .mk-hero--tight { padding: 4cqw 6cqw 2.5cqw; }
+  .mk-hero--left { padding: 6cqw; }
+  .mk-hero--left .mk-h1 { max-width: 52cqw; }
+
+  /* ---- split hero ---- */
+  .mk-split {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: 4cqw;
+    padding: 4.5cqw 6cqw;
+  }
+  .mk-split__art { position: relative; }
+  .mk-float {
+    position: absolute;
+    right: 1.6cqw;
+    bottom: 1.6cqw;
+    padding: 1.1cqw 1.6cqw;
+    border-radius: 0.8cqw;
+    border: 1px solid var(--mk-border);
+    background-color: var(--mk-surface);
+    box-shadow: 0 1.2cqw 2.4cqw -1cqw rgb(0 0 0 / 0.35);
+  }
+  .mk-float b { display: block; font-size: 1.8cqw; font-weight: 800; color: var(--mk-primary); }
+  .mk-float i {
+    display: block;
+    font-style: normal;
+    font-size: 0.85cqw;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mk-muted);
+  }
+
+  /* ---- art blocks ---- */
+  .mk-art { overflow: hidden; border-radius: 1cqw; }
+  .mk-art svg { display: block; width: 100%; height: 100%; }
+  .mk-band { padding: 1cqw 6cqw 2cqw; }
+  .mk-band .mk-art { aspect-ratio: 100 / 22; }
+
+  /* ---- stat strip ---- */
+  .mk-strip {
+    display: flex;
+    justify-content: space-around;
+    gap: 3cqw;
+    padding: 2.6cqw 6cqw;
+    text-align: center;
+  }
+  .mk-strip--bordered { border-block: 1px solid var(--mk-border); }
+  .mk-strip--solid { background-color: var(--mk-primary); color: var(--mk-on-primary); }
+  .mk-strip--inset { padding: 2cqw 0 0; }
+  .mk-stat b { display: block; font-size: 2.4cqw; font-weight: 800; color: var(--mk-primary); line-height: 1.1; }
+  .mk-stat i {
+    display: block;
+    margin-top: 0.4cqw;
+    font-style: normal;
+    font-size: 0.9cqw;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mk-muted);
+  }
+  .mk-strip--solid .mk-stat b,
+  .mk-strip--solid .mk-stat i { color: var(--mk-on-primary); }
+  .mk-strip--solid .mk-stat i { opacity: 0.75; }
+
+  /* ---- feature cards ---- */
+  .mk-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.6cqw;
+    padding: 3.4cqw 6cqw;
+  }
+  .mk-card {
+    border: 1px solid var(--mk-border);
+    border-radius: 1cqw;
+    background-color: var(--mk-surface);
+    padding: 2cqw;
+  }
+  .mk-card__rule { display: block; width: 3.6cqw; height: 0.35cqw; background-color: var(--mk-primary); }
+  .mk-card__dot { display: block; width: 2.2cqw; height: 2.2cqw; border-radius: 0.5cqw; background-color: var(--mk-primary); opacity: 0.9; }
+  .mk-card b { display: block; margin-top: 1.4cqw; font-size: 1.35cqw; font-weight: 700; }
+  .mk-card i {
+    display: block;
+    margin-top: 0.7cqw;
+    font-style: normal;
+    font-size: 1.05cqw;
+    line-height: 1.45;
+    color: var(--mk-muted);
+  }
+
+  /* ---- product panel (minimal variant) ---- */
+  .mk-panel {
+    margin: 0 6cqw;
+    display: grid;
+    grid-template-columns: 20cqw 1fr;
+    border: 1px solid var(--mk-border);
+    border-radius: 1.2cqw;
+    background-color: var(--mk-surface);
+    overflow: hidden;
+  }
+  .mk-panel__side {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4cqw;
+    padding: 2.2cqw;
+    border-right: 1px solid var(--mk-border);
+    font-size: 1.05cqw;
+    color: var(--mk-muted);
+  }
+  .mk-panel__body { padding: 2.2cqw; }
+  .mk-panel__body .mk-art { aspect-ratio: 100 / 32; }
+
+  /* ---- swatch strip (outside the mockup; uses site type scale) ---- */
+  .mk-swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(3.4rem, 1fr));
+    gap: 0.4rem;
+  }
+  .mk-swatch__chip {
+    display: block;
+    height: 2.6rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(255 255 255 / 0.14);
+  }
+  .mk-swatch__label {
+    display: block;
+    margin-top: 0.45rem;
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--color-surface-400);
+  }
+  .mk-swatch__hex {
+    display: block;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.58rem;
+    color: var(--color-surface-500);
+  }
+  .mk-swatch__label,
+  .mk-swatch__hex {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ---- palette filter chips ---- */
+  .pal-chip {
+    border: 1px solid var(--color-surface-700);
+    border-radius: 99px;
+    padding: 0.45rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-surface-300);
+    transition: border-color .2s, color .2s, background-color .2s;
+  }
+  .pal-chip:hover { border-color: var(--color-primary-500); color: #fff; }
+  .pal-chip.is-active {
+    background-color: var(--color-primary-500);
+    border-color: var(--color-primary-500);
+    color: #fff;
+  }
+  .pal-item[hidden] { display: none; }
+}

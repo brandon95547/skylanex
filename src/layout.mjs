@@ -19,6 +19,18 @@ const ICONS = {
   phone: '<path d="M4 4h4l2 5-3 2a12 12 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/>',
   play: '<path d="M8 5.5v13l11-6.5-11-6.5z" fill="currentColor" stroke="none"/>',
   close: '<path d="M6 6l12 12M18 6L6 18"/>',
+  /* industry marks for /solutions */
+  scale: '<path d="M12 3.5v17"/><path d="M6 7h12"/><path d="M6 7l-3 6h6l-3-6z"/><path d="M18 7l-3 6h6l-3-6z"/><path d="M8.5 20.5h7"/>',
+  hardhat: '<path d="M3.5 18.5h17"/><path d="M6 18.5v-3.2a6 6 0 0 1 12 0v3.2"/><path d="M9.5 10V5.8A1.8 1.8 0 0 1 11.3 4h1.4A1.8 1.8 0 0 1 14.5 5.8V10"/>',
+  pulse: '<circle cx="12" cy="12" r="9"/><path d="M7.5 12h2l1.5-3 2 6 1.5-3h2"/>',
+  wrench: '<path d="M15.6 3.3a5.2 5.2 0 0 0-6 6.7L3 16.6V21h4.4l6.6-6.6a5.2 5.2 0 0 0 6.7-6l-3.2 3.2-2.9-.7-.7-2.9 3.2-3.2z"/>',
+  home: '<path d="M3 10.6L12 3.2l9 7.4"/><path d="M5.6 9.4V20a1 1 0 0 0 1 1h10.8a1 1 0 0 0 1-1V9.4"/><path d="M9.8 21v-6.2h4.4V21"/>',
+  utensils: '<path d="M6 3v6.5a2 2 0 0 0 4 0V3"/><path d="M8 11.5V21"/><path d="M17.5 3c1.4 1.7 2 3.7 2 6 0 1.9-.7 3-2 3V21"/>',
+  briefcase: '<rect x="3" y="7" width="18" height="13.5" rx="2"/><path d="M9 7V5.2A2.2 2.2 0 0 1 11.2 3h1.6A2.2 2.2 0 0 1 15 5.2V7"/><path d="M3 12.5h18"/>',
+  dumbbell: '<path d="M4 9.5v5M7.2 6.5v11M16.8 6.5v11M20 9.5v5M7.2 12h9.6"/>',
+  palette:
+    '<path d="M12 3.2a8.8 8.8 0 1 0 0 17.6c1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.1 0-1 .8-1.8 1.8-1.8h1.5a4.7 4.7 0 0 0 4.7-4.7c0-3.9-4-7-8.8-7z"/><circle cx="7.6" cy="12.2" r=".9"/><circle cx="9.6" cy="8.4" r=".9"/><circle cx="14" cy="7.8" r=".9"/><circle cx="17.2" cy="11" r=".9"/>',
+  layers: '<path d="M12 3.2l8.6 4.6L12 12.4 3.4 7.8 12 3.2z"/><path d="M3.4 12.4L12 17l8.6-4.6"/><path d="M3.4 16.6L12 21.2l8.6-4.6"/>',
 };
 
 export function icon(name, cls = "h-5 w-5") {
@@ -158,6 +170,8 @@ function footer(path) {
     {
       title: "Studio",
       links: [
+        { label: "Solutions", href: "/solutions" },
+        { label: "Color Palettes", href: "/solutions/color-palettes" },
         { label: "Work", href: "/work" },
         { label: "About", href: "/about" },
         { label: "Contact", href: "/contact" },

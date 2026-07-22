@@ -1,5 +1,5 @@
 // seo.mjs — structured data (JSON-LD) generation.
-import { site, services, faqs, work } from "../site.config.mjs";
+import { site, services, faqs, work, solutions, palettes } from "../site.config.mjs";
 
 const ORG = `${site.domain}/#org`;
 const WEBSITE = `${site.domain}/#website`;
@@ -110,6 +110,44 @@ export function jsonLdForPage(page) {
         provider: { "@id": ORG },
         areaServed: "Worldwide",
         offers: svc.deliverables.map((d) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: d } })),
+      },
+    ];
+  }
+  if (page.path === "/solutions") {
+    return [
+      breadcrumb([home, { name: "Solutions", path: "/solutions" }]),
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Industry website solutions",
+        itemListElement: solutions.map((s, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: s.name,
+          url: `${absUrl("/solutions")}#${s.slug}`,
+        })),
+      },
+    ];
+  }
+  if (page.path === "/solutions/color-palettes") {
+    return [
+      breadcrumb([
+        home,
+        { name: "Solutions", path: "/solutions" },
+        { name: "Color Palettes", path: "/solutions/color-palettes" },
+      ]),
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Website color palettes",
+        numberOfItems: palettes.length,
+        itemListElement: palettes.map((p, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: p.name,
+          description: p.best,
+          url: `${absUrl("/solutions/color-palettes")}#${p.slug}`,
+        })),
       },
     ];
   }

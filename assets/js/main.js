@@ -55,6 +55,33 @@
     reveals.forEach(function (el) { el.classList.add("in"); });
   }
 
+  /* ---- Palette filter (/solutions/color-palettes) ----
+     Chips toggle visibility of [data-mood] cards. Purely additive: with JS off
+     every palette is already rendered and visible. */
+  var palFilter = document.getElementById("palette-filter");
+  var palGrid = document.getElementById("palette-grid");
+  if (palFilter && palGrid) {
+    var palItems = palGrid.querySelectorAll(".pal-item");
+    palFilter.addEventListener("click", function (e) {
+      var chip = e.target.closest("[data-filter]");
+      if (!chip) return;
+      var want = chip.getAttribute("data-filter");
+
+      palFilter.querySelectorAll("[data-filter]").forEach(function (c) {
+        var on = c === chip;
+        c.classList.toggle("is-active", on);
+        c.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+
+      palItems.forEach(function (item) {
+        var show = want === "all" || item.getAttribute("data-mood") === want;
+        item.hidden = !show;
+        // Cards filtered back in were never scrolled past, so reveal them now.
+        if (show) item.classList.add("in");
+      });
+    });
+  }
+
   /* ---- Video lightbox ----
      The <video> is created on open and destroyed on close, so no media is
      fetched until a visitor actually asks for it. */
