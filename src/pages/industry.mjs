@@ -1,25 +1,25 @@
 import { icon } from "../layout.mjs";
 import { heading, ctaBand, heroGlow } from "../ui.mjs";
-import { mockup, paletteBySlug } from "../mockup.mjs";
 import { industryPages, solutions } from "../../site.config.mjs";
 
 // Generic renderer for a dedicated industry landing page at /solutions/<slug>.
 // Everything is driven by an industryPages[] entry, so the next category
 // (construction, medical, …) is a data edit with no new template.
 
-// A design concept: the practice-area label it targets, the live preview, and a
-// link to the scheme so a visitor can see the palette's other uses.
+// A design concept: a static render of the concept, captioned with the
+// practice-area it targets and the (fictional) firm it was written for.
+//
+// Every image is cropped to a uniform 1200x675 so the two-column rows line up —
+// width/height are declared to reserve the box and keep the grid from shifting
+// as they decode.
 function concept(c) {
-  const palette = paletteBySlug(c.palette);
   return `<figure class="reveal">
-    ${mockup(palette, { variant: c.variant, demo: c.demo, label: `${c.label} law firm website design concept` })}
+    <img src="/images/concepts/${c.slug}.webp" width="1200" height="675" loading="lazy" decoding="async"
+      alt="${c.label} law firm website design concept for ${c.firm}"
+      class="w-full rounded-xl border border-surface-800 bg-surface-900" />
     <figcaption class="mt-3 flex flex-wrap items-baseline justify-between gap-2">
       <span class="text-sm font-semibold text-white">${c.label}</span>
-      ${
-        palette.listed === false
-          ? `<span class="text-xs text-surface-500">${palette.name}</span>`
-          : `<a href="/solutions/color-palettes#${palette.slug}" class="text-xs text-surface-500 hover:text-primary-300">${palette.name} ↗</a>`
-      }
+      <span class="text-xs text-surface-500">${c.firm}</span>
     </figcaption>
   </figure>`;
 }
@@ -62,7 +62,7 @@ function detail(p) {
         eyebrow: "Design concepts",
         title: "Six directions, six kinds of firm",
         center: false,
-        sub: "Original concepts built with the studio's design system — not stock templates. Each targets a different practice area and a different kind of client.",
+        sub: "Each targets a different practice area and a different kind of client — a different tone, structure, and first impression.",
       })}
       <div class="mt-10 grid gap-10 lg:grid-cols-2">
         ${p.showcase.map(concept).join("\n")}
