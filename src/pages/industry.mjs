@@ -15,7 +15,11 @@ function concept(c) {
     ${mockup(palette, { variant: c.variant, demo: c.demo, label: `${c.label} law firm website design concept` })}
     <figcaption class="mt-3 flex flex-wrap items-baseline justify-between gap-2">
       <span class="text-sm font-semibold text-white">${c.label}</span>
-      <a href="/solutions/color-palettes#${palette.slug}" class="text-xs text-surface-500 hover:text-primary-300">${palette.name} ↗</a>
+      ${
+        palette.listed === false
+          ? `<span class="text-xs text-surface-500">${palette.name}</span>`
+          : `<a href="/solutions/color-palettes#${palette.slug}" class="text-xs text-surface-500 hover:text-primary-300">${palette.name} ↗</a>`
+      }
     </figcaption>
   </figure>`;
 }

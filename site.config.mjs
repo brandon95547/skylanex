@@ -637,6 +637,79 @@ export const palettes = [
 ];
 
 // ---------------------------------------------------------------------------
+// Legal schemes.
+//
+// Deliberately NOT part of `palettes` above: these exist to dress the law-firm
+// concepts on /solutions/law-firms, not to be browsed as a gallery, and folding
+// six more into a page that promises sixteen would dilute it. `listed: false`
+// tells src/pages/industry.mjs not to link a caption to the palette page.
+//
+// Two extra tokens beyond the standard eight, used only by the `legal` layout
+// variant's figure: `figure` is the suit tone and must read against `bg` on
+// both dark and light schemes; `skin` is the head.
+//
+// The direction of each is drawn from the conventions of the legal-template
+// genre — dark ground, metallic accent, serif display — not from any one
+// product's composition.
+// ---------------------------------------------------------------------------
+export const legalPalettes = [
+  {
+    slug: "casewright",
+    name: "Charcoal & Crimson",
+    listed: false,
+    colors: {
+      bg: "#14151a", surface: "#1e2027", border: "#2c2f38", text: "#f5f6f8", muted: "#9aa0ad",
+      primary: "#c8102e", onPrimary: "#ffffff", accent: "#e04156", figure: "#2b2f38", skin: "#b98e73",
+    },
+  },
+  {
+    slug: "thornbury",
+    name: "Sepia & Amber",
+    listed: false,
+    colors: {
+      bg: "#211a12", surface: "#2d2418", border: "#3d3120", text: "#f7f1e6", muted: "#b8a68c",
+      primary: "#e0a13a", onPrimary: "#211a12", accent: "#f0c274", figure: "#3a2f1f", skin: "#c9a184",
+    },
+  },
+  {
+    slug: "ambersby",
+    name: "Cream & Gold",
+    listed: false,
+    colors: {
+      bg: "#f7f3ec", surface: "#ffffff", border: "#e6dccb", text: "#221d16", muted: "#7a6f5e",
+      primary: "#b08d57", onPrimary: "#ffffff", accent: "#8c6d3f", figure: "#3b3428", skin: "#c9a184",
+    },
+  },
+  {
+    slug: "hollowell",
+    name: "Navy & Camel",
+    listed: false,
+    colors: {
+      bg: "#0d1b2e", surface: "#142339", border: "#1f3350", text: "#eef3f9", muted: "#9ab0c8",
+      primary: "#c19a6b", onPrimary: "#0d1b2e", accent: "#e0c39b", figure: "#1a2b44", skin: "#c9a184",
+    },
+  },
+  {
+    slug: "kestrel",
+    name: "Slate & Brass",
+    listed: false,
+    colors: {
+      bg: "#16283c", surface: "#1e3348", border: "#2b4358", text: "#f1f5f9", muted: "#a3b6c7",
+      primary: "#c8a06a", onPrimary: "#16283c", accent: "#e3c79a", figure: "#223b52", skin: "#c9a184",
+    },
+  },
+  {
+    slug: "stonecourt",
+    name: "Plum & Pale Gold",
+    listed: false,
+    colors: {
+      bg: "#1b1b2e", surface: "#24243c", border: "#33334f", text: "#f2f2f7", muted: "#a0a0b8",
+      primary: "#d9c98c", onPrimary: "#1b1b2e", accent: "#b9a86a", figure: "#2b2b45", skin: "#c9a184",
+    },
+  },
+];
+
+// ---------------------------------------------------------------------------
 // Industry solutions. Each card on /solutions renders a live mockup using the
 // referenced palette, so `palette` must match a slug above.
 // ---------------------------------------------------------------------------
@@ -771,88 +844,141 @@ export const industryPages = [
     // Six original concepts, each a different palette + layout, labelled by the
     // practice area whose buyer it is pitched at.
     showcase: [
-      { palette: "counsel-navy", label: "Personal injury & trial" },
-      { palette: "ivory-oxblood", label: "Estate planning & probate" },
       {
-        palette: "arctic-indigo",
-        label: "Business & corporate",
+        palette: "casewright",
+        variant: "legal",
+        label: "Business & corporate litigation",
         demo: {
-          brand: "Brennan Coyle",
-          domain: "brennancoyle.com",
-          nav: ["Practices", "Industries", "Team", "Insights"],
-          eyebrow: "Corporate & Transactional",
-          headline: "Counsel that keeps the deal moving",
-          sub: "M&A, financing, and commercial contracts for founders, funds, and closely held companies.",
-          cta: "Request counsel",
-          cta2: "Our practices",
-          stats: [{ v: "$2.4B", l: "Deal value" }, { v: "31", l: "Attorneys" }, { v: "12", l: "Industries" }],
-          items: [
-            { t: "M&A", d: "Buy-side and sell-side, diligence to close." },
-            { t: "Financing", d: "Venture, credit, and private placements." },
-            { t: "Commercial", d: "Contracts that survive the relationship." },
-          ],
-        },
-      },
-      {
-        palette: "mono-ink",
-        variant: "split",
-        label: "Criminal defense",
-        demo: {
-          brand: "REYES",
-          domain: "reyesdefense.com",
-          nav: ["Charges", "Results", "About", "Contact"],
-          eyebrow: "Criminal Defense",
-          headline: "Arrested? Say nothing. Call first.",
-          sub: "State and federal defense, available around the clock, from arraignment through trial.",
-          cta: "Call 24/7",
+          brand: "CASEWRIGHT",
+          domain: "casewright.com",
+          util: "1200 Main St, Greenville \u00b7 (864) 555-0142 \u00b7 Mon\u2013Fri 9\u20136",
+          nav: ["Practice", "Attorneys", "Results", "Contact"],
+          eyebrow: "Corporate Litigation",
+          headline: "Strong counsel for the business you built",
+          sub: "Contract, partnership, and fiduciary disputes tried for closely held companies.",
+          cta: "Free consultation",
           cta2: "Case results",
-          stats: [{ v: "24/7", l: "Reachable" }, { v: "900+", l: "Cases" }, { v: "19", l: "Years" }],
+          bignum: { v: "31", l: "Years in practice" },
+          stats: [{ v: "31", l: "Years" }, { v: "$96M", l: "Recovered" }, { v: "12", l: "Attorneys" }],
           items: [
-            { t: "Felony", d: "Serious charges, tried not pled." },
-            { t: "DUI", d: "License hearings handled in parallel." },
-            { t: "Federal", d: "Admitted in three federal districts." },
+            { t: "Commercial disputes", d: "Contract and partnership litigation." },
+            { t: "Fiduciary claims", d: "Breach, accounting, and removal." },
+            { t: "Appeals", d: "Preserving the issue from day one." },
           ],
         },
       },
       {
-        palette: "forest-sand",
-        variant: "split",
-        label: "Family law",
+        palette: "thornbury",
+        variant: "legal",
+        label: "Personal injury & civil rights",
         demo: {
-          brand: "Calder Family Law",
-          domain: "calderfamilylaw.com",
+          brand: "Thornbury Law",
+          domain: "thornburylaw.com",
+          util: "Free case review \u00b7 (864) 555-0188 \u00b7 Open 24/7",
+          nav: ["Injury", "Civil Rights", "Results", "Contact"],
+          eyebrow: "Injury & Civil Rights",
+          headline: "Someone in your corner from day one",
+          sub: "Serious injury, wrongful death, and civil rights claims against institutions.",
+          cta: "Free case review",
+          cta2: "Our results",
+          bignum: { v: "$240M", l: "Recovered for clients" },
+          stats: [{ v: "$240M", l: "Recovered" }, { v: "2,100", l: "Clients" }, { v: "0", l: "Fee unless we win" }],
+          items: [
+            { t: "Catastrophic injury", d: "Life-changing harm, fully valued." },
+            { t: "Wrongful death", d: "Answers first, then accountability." },
+            { t: "Civil rights", d: "Claims against agencies and employers." },
+          ],
+        },
+      },
+      {
+        palette: "ambersby",
+        variant: "legal",
+        label: "Estate planning & appellate",
+        demo: {
+          brand: "Ambersby & Rowe",
+          domain: "ambersbyrowe.com",
+          util: "Established 1962 \u00b7 (864) 555-0110 \u00b7 By appointment",
+          nav: ["Estates", "Appellate", "Our Firm", "Journal"],
+          eyebrow: "Estate & Appellate",
+          headline: "Precision, patience, and the long view",
+          sub: "Trusts, succession, and appellate work for families planning in decades.",
+          cta: "Request a meeting",
+          cta2: "Our approach",
+          bignum: { v: "1962", l: "Established" },
+          stats: [{ v: "1962", l: "Established" }, { v: "1,800", l: "Estates" }, { v: "3", l: "Generations" }],
+          items: [
+            { t: "Trusts & estates", d: "Structures built to outlast you." },
+            { t: "Probate", d: "Administration handled end to end." },
+            { t: "Appeals", d: "Civil appeals in state and federal courts." },
+          ],
+        },
+      },
+      {
+        palette: "hollowell",
+        variant: "legal",
+        label: "Family law & divorce",
+        demo: {
+          brand: "Hollowell Legal",
+          domain: "hollowelllegal.com",
+          util: "Confidential consultations \u00b7 (864) 555-0167 \u00b7 Mon\u2013Sat",
           nav: ["Divorce", "Custody", "Mediation", "Contact"],
-          eyebrow: "Family Law & Mediation",
-          headline: "Hard decisions, made with a steady hand",
-          sub: "Divorce, custody, and mediation for families who would rather resolve than escalate.",
+          eyebrow: "Family Law",
+          headline: "Steady guidance through the hardest year",
+          sub: "Divorce, custody, and mediation handled with discretion and a plan.",
           cta: "Schedule a consult",
           cta2: "How mediation works",
-          stats: [{ v: "72%", l: "Settled" }, { v: "1,100", l: "Families" }, { v: "22", l: "Years" }],
+          bignum: { v: "1,400", l: "Families served" },
+          stats: [{ v: "1,400", l: "Families" }, { v: "74%", l: "Settled" }, { v: "23", l: "Years" }],
           items: [
-            { t: "Divorce", d: "Contested and uncontested." },
-            { t: "Custody", d: "Parenting plans that actually hold." },
-            { t: "Mediation", d: "A path that keeps you out of court." },
+            { t: "Divorce", d: "Contested and uncontested matters." },
+            { t: "Custody", d: "Parenting plans built to hold." },
+            { t: "Mediation", d: "A route that stays out of court." },
           ],
         },
       },
       {
-        palette: "burgundy-cream",
-        variant: "classic",
-        label: "Appellate & complex litigation",
+        palette: "kestrel",
+        variant: "legal",
+        label: "Criminal defense",
         demo: {
-          brand: "Prentiss & Marlowe",
-          domain: "prentissmarlowe.com",
-          nav: ["Appellate", "Litigation", "Attorneys", "Briefs"],
-          eyebrow: "Appellate Practice",
-          headline: "The record is written. The argument is not.",
-          sub: "Appeals and post-trial motions in state and federal courts, including two supreme courts.",
-          cta: "Discuss an appeal",
-          cta2: "Published opinions",
-          stats: [{ v: "140", l: "Appeals" }, { v: "38%", l: "Reversal rate" }, { v: "2", l: "Supreme courts" }],
+          brand: "Kestrel & Vane",
+          domain: "kestrelvane.com",
+          util: "Arrested? Call now \u00b7 (864) 555-0125 \u00b7 Answered 24/7",
+          nav: ["Charges", "Federal", "Results", "Contact"],
+          eyebrow: "Criminal Defense",
+          headline: "The state has a head start. We close it.",
+          sub: "State and federal defense from the first interview through verdict.",
+          cta: "Call now",
+          cta2: "Case results",
+          bignum: { v: "24/7", l: "Reachable" },
+          stats: [{ v: "24/7", l: "Reachable" }, { v: "950", l: "Cases" }, { v: "3", l: "Federal districts" }],
           items: [
-            { t: "Appeals", d: "Civil and criminal, all levels." },
-            { t: "Post-trial", d: "Motions that preserve the issue." },
-            { t: "Consulting", d: "Trial support to protect the record." },
+            { t: "Felony defense", d: "Serious charges, tried not pled." },
+            { t: "Federal", d: "Admitted in three federal districts." },
+            { t: "Appeals", d: "Post-conviction and direct appeal." },
+          ],
+        },
+      },
+      {
+        palette: "stonecourt",
+        variant: "legal",
+        label: "Immigration & business",
+        demo: {
+          brand: "STONECOURT",
+          domain: "stonecourt.law",
+          util: "Se habla espa\u00f1ol \u00b7 (864) 555-0193 \u00b7 Mon\u2013Fri 8\u20137",
+          nav: ["Immigration", "Business", "Team", "Contact"],
+          eyebrow: "Immigration & Business",
+          headline: "Advocacy without theatrics",
+          sub: "Employment visas, family petitions, and the corporate work that surrounds them.",
+          cta: "Book a consult",
+          cta2: "Our practice",
+          bignum: { v: "18", l: "Languages spoken" },
+          stats: [{ v: "18", l: "Languages" }, { v: "6,200", l: "Petitions" }, { v: "27", l: "Years" }],
+          items: [
+            { t: "Employment visas", d: "H-1B, L-1, O-1, and PERM." },
+            { t: "Family petitions", d: "Reunification, start to status." },
+            { t: "Corporate", d: "Entity, contracts, and compliance." },
           ],
         },
       },

@@ -10,10 +10,14 @@
 // the design-width note in app.css — so one markup tree scales from a 320px
 // phone card to a full-width feature panel with identical proportions.
 
-import { palettes } from "../site.config.mjs";
+import { palettes, legalPalettes } from "../site.config.mjs";
+
+// Legal schemes live outside the sixteen on /solutions/color-palettes — they
+// exist to dress the law-firm concepts, not to be browsed as a gallery.
+const ALL_PALETTES = [...palettes, ...legalPalettes];
 
 export function paletteBySlug(slug) {
-  return palettes.find((p) => p.slug === slug);
+  return ALL_PALETTES.find((p) => p.slug === slug);
 }
 
 function vars(c) {
@@ -26,6 +30,10 @@ function vars(c) {
     `--mk-primary:${c.primary}`,
     `--mk-on-primary:${c.onPrimary}`,
     `--mk-accent:${c.accent}`,
+    // Only the `legal` variant's figure uses these; the sixteen gallery
+    // palettes don't define them, so fall back to tones they do have.
+    `--mk-figure:${c.figure || c.surface}`,
+    `--mk-skin:${c.skin || c.muted}`,
   ].join(";");
 }
 
@@ -91,6 +99,27 @@ const ART = {
     <circle cx="92" cy="8" r="1.6" fill="var(--mk-accent)"/>
   </svg>`,
 };
+
+// The legal-template genre is built around a cut-out attorney photographed
+// against the hero. This is that composition drawn from palette tokens: faint
+// architecture behind, a stylized figure at right. No <defs>/gradients — six
+// mockups share one page and duplicate SVG ids would collide.
+ART.figure = `<svg viewBox="0 0 100 44" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="100" height="44" fill="var(--mk-bg)"/>
+  <g fill="var(--mk-primary)" opacity=".05">
+    <rect x="8" y="4" width="6" height="40" rx="3"/>
+    <rect x="19" y="0" width="6" height="44" rx="3"/>
+  </g>
+  <circle cx="76" cy="19" r="17.5" fill="var(--mk-primary)" opacity=".09"/>
+  <path d="M74.2 13h3.6v5.6h-3.6z" fill="var(--mk-skin)"/>
+  <path d="M54 44V33.5c0-4.4 3.5-8.2 8.3-9.4L72.5 20.5h7l10.2 3.6c4.8 1.2 8.3 5 8.3 9.4V44z" fill="var(--mk-figure)"/>
+  <path d="M72.5 20.5 76 29l3.5-8.5 3.3 1.2L76 35.5l-6.8-13.8z" fill="var(--mk-surface)"/>
+  <path d="M72.5 20.5 76 29l-1.2 2.4-5.6-9.7z" fill="var(--mk-bg)" opacity=".2"/>
+  <path d="M79.5 20.5 76 29l1.2 2.4 5.6-9.7z" fill="var(--mk-bg)" opacity=".2"/>
+  <path d="M75.2 24.6h1.6l.8 8.4-1.6 1.3-1.6-1.3z" fill="var(--mk-accent)"/>
+  <ellipse cx="76" cy="9" rx="4.6" ry="5.6" fill="var(--mk-skin)"/>
+  <path d="M71.5 7.6c.3-3.4 2.3-5.1 4.5-5.1s4.2 1.7 4.5 5.1c-1.2-1.5-2.8-2.2-4.5-2.2s-3.3.7-4.5 2.2z" fill="var(--mk-figure)"/>
+</svg>`;
 
 function art(kind = "tiles") {
   return `<div class="mk-art">${ART[kind] || ART.tiles}</div>`;
@@ -193,6 +222,43 @@ const VARIANTS = {
     </div>
     <div class="mk-band">${art("band")}</div>
     ${stats(d, " mk-strip--bordered")}`,
+
+  // The legal-vertical archetype: utility bar, serif brand, a figure-backed
+  // hero with an oversized stat overlapping it, practice cards at the fold.
+  legal: (d) => `
+    <div class="mk-util">
+      <span>${d.util || d.domain}</span>
+      <span class="mk-util__cta">${d.cta}</span>
+    </div>
+    <div class="mk-bar mk-bar--legal">
+      <span class="mk-brand mk-serif">${d.brand}</span>
+      <span class="mk-nav">${d.nav.map((n) => `<span>${n}</span>`).join("")}</span>
+      <span class="mk-btn mk-btn--sm">${d.cta}</span>
+    </div>
+    <div class="mk-legal-hero">
+      <div class="mk-legal-hero__bg">${ART.figure}</div>
+      <div class="mk-legal-hero__copy">
+        <span class="mk-rule-eyebrow"><i></i>${d.eyebrow}</span>
+        <h4 class="mk-h1 mk-serif mk-h1--legal">${d.headline}</h4>
+        <p class="mk-sub">${d.sub}</p>
+        <span class="mk-btn">${d.cta}</span>
+      </div>
+      ${
+        d.bignum
+          ? `<span class="mk-bignum"><b>${d.bignum.v}</b><i>${d.bignum.l}</i></span>`
+          : ""
+      }
+    </div>
+    <div class="mk-cards mk-cards--legal">
+      ${d.items
+        .map(
+          (i) => `<div class="mk-card">
+        <span class="mk-card__disc"></span>
+        <b>${i.t}</b><i>${i.d}</i>
+      </div>`
+        )
+        .join("")}
+    </div>`,
 
   // Left-aligned, enormous whitespace, one CTA, a product panel below. SaaS.
   minimal: (d) => `
