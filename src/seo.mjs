@@ -165,6 +165,30 @@ export function jsonLdForPage(page) {
       faqPage(industry.faqs),
     ];
   }
+  // Concept detail pages: /solutions/<industry>/<concept>.
+  for (const ind of industryPages) {
+    const c = ind.showcase.find((x) => `/solutions/${ind.slug}/${x.slug}` === page.path);
+    if (!c) continue;
+    return [
+      breadcrumb([
+        home,
+        { name: "Solutions", path: "/solutions" },
+        { name: ind.eyebrow, path: `/solutions/${ind.slug}` },
+        { name: c.firm, path: page.path },
+      ]),
+      {
+        "@context": "https://schema.org",
+        "@type": "ImageObject",
+        name: `${c.firm} — ${c.label} website design concept`,
+        description: c.blurb,
+        contentUrl: absUrl(`/images/concepts/${c.slug}.webp`),
+        url: absUrl(page.path),
+        width: 1200,
+        height: 675,
+        creator: { "@id": ORG },
+      },
+    ];
+  }
   if (page.path === "/solutions/color-palettes") {
     return [
       breadcrumb([

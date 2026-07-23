@@ -846,36 +846,89 @@ export const industryPages = [
     // than live palette mockups: the designs carry their own type and colour,
     // which the eight-token palette system can't reproduce. `slug` is both the
     // image filename and the key — see src/pages/industry.mjs.
+    // Each concept gets a dedicated detail page at /solutions/<slug>/<concept>
+    // with a larger render, the design rationale, and a "design mine" CTA.
+    // `blurb` is the one-line pitch (also the detail page's meta description);
+    // `points` are what the direction does; `scheme` references a legalPalettes
+    // slug to show the colour direction on the detail page.
     showcase: [
       {
         slug: "hawthorne",
         firm: "Hawthorne Law Group",
         label: "Business & corporate litigation",
+        scheme: "hollowell",
+        blurb:
+          "A restrained, boardroom-grade layout for a firm used to high-stakes commercial disputes — proof of results before any pitch.",
+        points: [
+          "Representative matters and results lead the page, so a general counsel doing due diligence sees the track record first.",
+          "A muted navy-and-camel palette that reads as institutional and established, not flashy.",
+          "Attorney credentials structured for search and for the buyer who is comparing firms tab by tab.",
+        ],
       },
       {
         slug: "lexford",
         firm: "Lexford Law",
         label: "Personal injury & civil rights",
+        scheme: "casewright",
+        blurb:
+          "Built for the anxious mobile searcher after an accident — bold, urgent, and impossible to misread, with the next step always a thumb away.",
+        points: [
+          "Click-to-call fixed to the screen; the phone number is never more than one tap from anywhere on the page.",
+          "High-contrast crimson accents that pull the eye straight to the action.",
+          "Results and testimonials framed to respect personal-injury advertising rules.",
+        ],
       },
       {
         slug: "westbridge",
         firm: "Westbridge Law Group",
         label: "Estate planning & appellate",
+        scheme: "ambersby",
+        blurb:
+          "A quiet, editorial layout for a practice built on trust and discretion — it reads like a private bank, not a billboard.",
+        points: [
+          "A cream-and-gold palette and serif display that signal permanence and care.",
+          "A long-form content architecture for the questions estate clients actually research.",
+          "Appellate credentials and published work given room to breathe.",
+        ],
       },
       {
         slug: "clarion",
         firm: "Clarion Law Group",
         label: "Family law & divorce",
+        scheme: "stonecourt",
+        blurb:
+          "Warm and human without losing authority — for clients making one of the hardest decisions of their life. Calm, clear, and never cold.",
+        points: [
+          "Softer plum tones and generous spacing that lower the temperature of a hard moment.",
+          "A confidential intake path designed for a sensitive first contact.",
+          "Plain-language answers to the questions clients are often afraid to ask.",
+        ],
       },
       {
         slug: "harbor",
         firm: "Harbor Legal",
         label: "Criminal defense",
+        scheme: "kestrel",
+        blurb:
+          "Grounded and serious, built for someone searching at 2 a.m. after an arrest — it projects steadiness and moves fast.",
+        points: [
+          "Emergency and 24/7 contact paths surfaced above everything else.",
+          "A slate-and-brass palette that reads as composed, not alarming.",
+          "Case dispositions and defense record presented within bar rules.",
+        ],
       },
       {
         slug: "apex",
         firm: "Apex Legal",
         label: "Immigration & business",
+        scheme: "thornbury",
+        blurb:
+          "Welcoming and modern for a practice serving clients across languages and borders — approachable, but unmistakably professional.",
+        points: [
+          "A warm amber palette and open layout that reads as inviting, not intimidating.",
+          "Structured for multilingual content and cross-border service pages.",
+          "Clear, separate pathways for individual and business immigration matters.",
+        ],
       },
     ],
 
