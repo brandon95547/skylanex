@@ -824,7 +824,7 @@ export const designSolutions = [
       "Fast, modern marketing sites designed around the one action your business needs a visitor to take — with the credibility to earn it in the first three seconds.",
     outcomes: ["Conversion-first layout & messaging", "Core Web Vitals green on mobile", "SEO-ready structure & schema", "A design system, not a template"],
     image: "/images/solutions/website.webp",
-    example: { href: "/solutions/examples", label: "See examples" },
+    example: { href: "/website-solutions", label: "See examples" },
   },
   {
     slug: "app",

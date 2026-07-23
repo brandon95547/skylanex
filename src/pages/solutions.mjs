@@ -56,7 +56,7 @@ export const solutionsPage = {
   ${heroGlow(`
     <div class="mx-auto max-w-6xl px-5 pb-12 pt-20 text-center sm:px-8 sm:pt-24">
       <p class="eyebrow mb-3 text-primary-400">Solutions</p>
-      <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Design and build, for the way you actually work</h1>
+      <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Solutions Built for Your Industry</h1>
       <p class="mx-auto mt-5 max-w-2xl text-lg text-surface-300">Websites, apps, CRMs, dashboards, AI assistants, and storefronts — each designed around the outcome it exists to produce. Every one below comes with a modern demo you can look at right now.</p>
       <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
         <a href="/contact" class="btn btn-primary">Start a project ${icon("arrow", "h-4 w-4")}</a>

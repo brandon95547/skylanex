@@ -41,10 +41,10 @@ function featured(s) {
 }
 
 export const examplesPage = {
-  path: "/solutions/examples",
-  file: "solutions/examples.html",
-  title: "Examples",
-  metaTitle: "Website Design Examples by Industry · Skylanex",
+  path: "/website-solutions",
+  file: "website-solutions.html",
+  title: "Website Solutions",
+  metaTitle: "Website Solutions by Industry · Skylanex",
   description:
     "Design examples by industry — law firms, and more industries coming soon. See how Skylanex tailors a site to the way each industry actually sells.",
   render: () => {
@@ -53,15 +53,15 @@ export const examplesPage = {
   ${heroGlow(`
     <div class="mx-auto max-w-5xl px-5 pb-10 pt-20 sm:px-8 sm:pt-24">
       <a href="/solutions" class="inline-flex items-center gap-1.5 text-sm text-surface-400 hover:text-primary-300">${icon("arrow", "h-4 w-4 rotate-180")} Back to solutions</a>
-      <p class="eyebrow mt-6 text-primary-400">Examples</p>
-      <h1 class="mt-2 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Design examples, by industry</h1>
+      <p class="eyebrow mt-6 text-primary-400">Website Solutions</p>
+      <h1 class="mt-2 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Websites Built for Your Industry</h1>
       <p class="mt-5 max-w-2xl text-lg leading-relaxed text-surface-300">A law firm and a roofing company are not the same business, and they should not get the same website. Pick an industry to see the designs built for the way it actually sells — more are on the way.</p>
     </div>
   `)}
 
   <!-- Industry tabs -->
   <section class="px-5 pb-12 sm:px-8">
-    <div class="mx-auto flex max-w-5xl flex-wrap gap-2.5">
+    <div class="mx-auto flex max-w-5xl flex-wrap justify-center gap-2.5">
       ${solutions.map(tab).join("\n")}
     </div>
   </section>

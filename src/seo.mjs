@@ -129,12 +129,12 @@ export function jsonLdForPage(page) {
       },
     ];
   }
-  if (page.path === "/solutions/examples") {
+  if (page.path === "/website-solutions") {
     return [
       breadcrumb([
         home,
         { name: "Solutions", path: "/solutions" },
-        { name: "Examples", path: "/solutions/examples" },
+        { name: "Website Solutions", path: "/website-solutions" },
       ]),
     ];
   }
