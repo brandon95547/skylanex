@@ -848,20 +848,25 @@ export const industryPages = [
     // image filename and the key — see src/pages/industry.mjs.
     // Each concept gets a dedicated detail page at /solutions/<slug>/<concept>
     // with a larger render, the design rationale, and a "design mine" CTA.
+    // `firm` is the name shown in the design itself (it becomes the page H1);
     // `blurb` is the one-line pitch (also the detail page's meta description);
-    // `points` are what the direction does; `scheme` references a legalPalettes
-    // slug to show the colour direction on the detail page.
+    // `points` are what the direction does; `palette` is the colour direction
+    // shown on the detail page — its swatches are sampled from the actual image
+    // so the panel matches what the visitor is looking at.
     showcase: [
       {
         slug: "hawthorne",
         firm: "Hawthorne Law Group",
         label: "Business & corporate litigation",
-        scheme: "hollowell",
+        palette: {
+          name: "Charcoal & Gold",
+          colors: { bg: "#14161a", surface: "#1f232b", primary: "#c9a24a", accent: "#e2c584", text: "#f5f6f8" },
+        },
         blurb:
           "A restrained, boardroom-grade layout for a firm used to high-stakes commercial disputes — proof of results before any pitch.",
         points: [
           "Representative matters and results lead the page, so a general counsel doing due diligence sees the track record first.",
-          "A muted navy-and-camel palette that reads as institutional and established, not flashy.",
+          "A charcoal-and-gold palette that reads as institutional and established, not flashy.",
           "Attorney credentials structured for search and for the buyer who is comparing firms tab by tab.",
         ],
       },
@@ -869,12 +874,15 @@ export const industryPages = [
         slug: "lexford",
         firm: "Lexford Law",
         label: "Personal injury & civil rights",
-        scheme: "casewright",
+        palette: {
+          name: "Deep Navy & Gold",
+          colors: { bg: "#142231", surface: "#1e3149", primary: "#c6a45c", accent: "#e0c78c", text: "#f2f5f9" },
+        },
         blurb:
           "Built for the anxious mobile searcher after an accident — bold, urgent, and impossible to misread, with the next step always a thumb away.",
         points: [
           "Click-to-call fixed to the screen; the phone number is never more than one tap from anywhere on the page.",
-          "High-contrast crimson accents that pull the eye straight to the action.",
+          "Warm gold accents on deep navy that pull the eye straight to the action.",
           "Results and testimonials framed to respect personal-injury advertising rules.",
         ],
       },
@@ -882,38 +890,47 @@ export const industryPages = [
         slug: "westbridge",
         firm: "Westbridge Law Group",
         label: "Estate planning & appellate",
-        scheme: "ambersby",
+        palette: {
+          name: "Navy, Ivory & Gold",
+          colors: { bg: "#151d27", surface: "#f5f2ec", primary: "#bd9354", accent: "#d8bd82", text: "#1b2430" },
+        },
         blurb:
           "A quiet, editorial layout for a practice built on trust and discretion — it reads like a private bank, not a billboard.",
         points: [
-          "A cream-and-gold palette and serif display that signal permanence and care.",
+          "A navy, ivory, and gold palette and serif display that signal permanence and care.",
           "A long-form content architecture for the questions estate clients actually research.",
           "Appellate credentials and published work given room to breathe.",
         ],
       },
       {
         slug: "clarion",
-        firm: "Clarion Law Group",
+        firm: "Greg & Abbot",
         label: "Family law & divorce",
-        scheme: "stonecourt",
+        palette: {
+          name: "Royal Navy & Gold",
+          colors: { bg: "#0e273e", surface: "#f4f6f9", primary: "#c6993f", accent: "#e0be79", text: "#12283f" },
+        },
         blurb:
           "Warm and human without losing authority — for clients making one of the hardest decisions of their life. Calm, clear, and never cold.",
         points: [
-          "Softer plum tones and generous spacing that lower the temperature of a hard moment.",
+          "A confident royal-navy-and-gold palette with generous spacing that steadies a hard moment.",
           "A confidential intake path designed for a sensitive first contact.",
           "Plain-language answers to the questions clients are often afraid to ask.",
         ],
       },
       {
         slug: "harbor",
-        firm: "Harbor Legal",
+        firm: "Grand Oak Law Group",
         label: "Criminal defense",
-        scheme: "kestrel",
+        palette: {
+          name: "Sandstone & Navy",
+          colors: { bg: "#20303f", surface: "#f6f2ea", primary: "#c1a05d", accent: "#e0c890", text: "#1d2c3b" },
+        },
         blurb:
           "Grounded and serious, built for someone searching at 2 a.m. after an arrest — it projects steadiness and moves fast.",
         points: [
           "Emergency and 24/7 contact paths surfaced above everything else.",
-          "A slate-and-brass palette that reads as composed, not alarming.",
+          "A warm sandstone-and-navy palette that reads as composed, not alarming.",
           "Case dispositions and defense record presented within bar rules.",
         ],
       },
@@ -921,11 +938,14 @@ export const industryPages = [
         slug: "apex",
         firm: "Apex Legal",
         label: "Immigration & business",
-        scheme: "thornbury",
+        palette: {
+          name: "Espresso & Amber",
+          colors: { bg: "#1b1612", surface: "#2a2119", primary: "#d99a3c", accent: "#edc37c", text: "#f6efe4" },
+        },
         blurb:
           "Welcoming and modern for a practice serving clients across languages and borders — approachable, but unmistakably professional.",
         points: [
-          "A warm amber palette and open layout that reads as inviting, not intimidating.",
+          "A warm espresso-and-amber palette and open layout that reads as inviting, not intimidating.",
           "Structured for multilingual content and cross-border service pages.",
           "Clear, separate pathways for individual and business immigration matters.",
         ],

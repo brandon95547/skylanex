@@ -1,6 +1,6 @@
 import { icon } from "../layout.mjs";
 import { heading, ctaBand, heroGlow } from "../ui.mjs";
-import { industryPages, solutions, legalPalettes } from "../../site.config.mjs";
+import { industryPages, solutions } from "../../site.config.mjs";
 
 // Generic renderer for a dedicated industry landing page at /solutions/<slug>.
 // Everything is driven by an industryPages[] entry, so the next category
@@ -35,7 +35,7 @@ function concept(c, industrySlug) {
 // direction, and a CTA to adapt it. `p` is the industryPages[] entry; `c` is one
 // of its showcase[] concepts.
 function conceptDetail(p, c) {
-  const scheme = legalPalettes.find((s) => s.slug === c.scheme);
+  const palette = c.palette;
   const swatchKeys = [
     ["bg", "Base"],
     ["surface", "Surface"],
@@ -88,15 +88,15 @@ function conceptDetail(p, c) {
         </ul>
       </div>
       ${
-        scheme
+        palette
           ? `<aside class="h-fit rounded-2xl border border-surface-800 bg-surface-900/40 p-6">
         <h3 class="text-sm font-semibold text-white">Colour direction</h3>
-        <p class="mt-1 text-xs text-surface-500">${scheme.name}</p>
+        <p class="mt-1 text-xs text-surface-500">${palette.name}</p>
         <div class="mt-5 flex gap-2">
           ${swatchKeys
             .map(
               ([k, label]) => `<div class="min-w-0 flex-1">
-            <div class="h-12 rounded-lg border border-surface-700/60" style="background:${scheme.colors[k]}"></div>
+            <div class="h-12 rounded-lg border border-surface-700/60" style="background:${palette.colors[k]}"></div>
             <p class="mt-1.5 truncate text-[11px] text-surface-500">${label}</p>
           </div>`
             )
