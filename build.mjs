@@ -22,6 +22,11 @@ import { contactPage } from "./src/pages/contact.mjs";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(__dirname, "dist");
 
+// Dev mode (set by dev.mjs): skip the destructive clean and the heavy video
+// copy so incremental HTML rebuilds are fast and don't race the tailwind watcher
+// that owns dist/css/app.css.
+const DEV = !!process.env.SKYLANEX_DEV;
+
 const pages = [home, servicesPage, ...servicePages, solutionsPage, ...industryLandingPages, palettesPage, workPage, aboutPage, contactPage];
 
 function rmrf(p) {
@@ -38,7 +43,7 @@ function copyDir(src, dest) {
 }
 
 function build() {
-  rmrf(DIST);
+  if (!DEV) rmrf(DIST);
   fs.mkdirSync(path.join(DIST, "css"), { recursive: true });
 
   // Render pages. Clean URLs via directory-index files:
@@ -81,7 +86,8 @@ function build() {
   copyDir(path.join(__dirname, "assets", "images"), path.join(DIST, "images"));
   // Videos are ~76MB. dist/ is committed, so dist/videos is gitignored and prod
   // re-creates it from assets/ during deploy — see deploy/prod-deploy.sh.
-  copyDir(path.join(__dirname, "assets", "videos"), path.join(DIST, "videos"));
+  // In dev the startup build already copied them; skip on incremental rebuilds.
+  if (!DEV) copyDir(path.join(__dirname, "assets", "videos"), path.join(DIST, "videos"));
 
   // robots + sitemap
   fs.writeFileSync(

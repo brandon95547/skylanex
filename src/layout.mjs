@@ -185,7 +185,7 @@ function footer(path) {
       <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           ${logo()}
-          <p class="mt-4 max-w-xs text-sm leading-relaxed text-surface-400">${site.description}</p>
+          <p class="mt-4 max-w-xs text-sm leading-relaxed text-surface-300">${site.description}</p>
           <div class="mt-5 flex flex-col gap-2 text-sm text-surface-300">
             <a href="mailto:${site.email}" class="inline-flex items-center gap-2 hover:text-white">${icon("mail", "h-4 w-4 text-primary-400")} ${site.email}</a>
             <a href="tel:${site.phone.replace(/[^0-9+]/g, "")}" class="inline-flex items-center gap-2 hover:text-white">${icon("phone", "h-4 w-4 text-primary-400")} ${site.phone}</a>
@@ -196,7 +196,7 @@ function footer(path) {
             (c) => `<div>
           <h3 class="eyebrow text-surface-500">${c.title}</h3>
           <ul class="mt-4 space-y-2.5 text-sm">
-            ${c.links.map((l) => `<li><a href="${l.href}" class="text-surface-300 hover:text-primary-300">${l.label}</a></li>`).join("")}
+            ${c.links.map((l) => `<li><a href="${l.href}" class="text-surface-200 hover:text-primary-300">${l.label}</a></li>`).join("")}
           </ul>
         </div>`
           )

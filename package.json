@@ -10,7 +10,7 @@
     "build": "npm run build:html && npm run build:css",
     "watch:css": "tailwindcss -i ./src/styles/app.css -o ./dist/css/app.css --watch",
     "serve": "python3 -m http.server 3001 --directory dist",
-    "dev": "npm run build && npm run serve",
+    "dev": "node dev.mjs",
     "deploy": "git push && ssh root@phansora.com 'bash /var/www/skylanex/deploy/prod-deploy.sh'",
     "clean": "rm -rf dist"
   },
