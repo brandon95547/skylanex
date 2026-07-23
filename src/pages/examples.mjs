@@ -1,6 +1,10 @@
 import { icon } from "../layout.mjs";
 import { ctaBand, heroGlow } from "../ui.mjs";
-import { solutions } from "../../site.config.mjs";
+import { solutions, industryPages } from "../../site.config.mjs";
+
+// The industry landing page (and its lead preview image) for a solution, if one
+// exists. `industryPages[].solution` points back at a solutions[] slug.
+const landingFor = (s) => industryPages.find((p) => p.solution === s.slug);
 
 // Examples gallery: industry tabs. The industries with a dedicated landing page
 // (currently only attorneys → /solutions/law-firms) are live links; the rest are
@@ -19,11 +23,14 @@ function tab(s) {
   </span>`;
 }
 
-// Featured card for each live industry — a preview into its examples.
+// Featured card for each live industry — a preview into its examples, using the
+// first design concept from its landing page as the cover image.
 function featured(s) {
+  const page = landingFor(s);
+  const cover = page && page.showcase[0] ? page.showcase[0].slug : "hawthorne";
   return `<a href="/solutions/${s.landing}" class="reveal group block overflow-hidden rounded-2xl border border-surface-800 bg-surface-900/50 transition hover:border-surface-600">
     <div class="overflow-hidden">
-      <img src="/images/concepts/hawthorne.webp" width="1200" height="675" loading="lazy" decoding="async"
+      <img src="/images/concepts/${cover}.webp" width="1200" height="675" loading="lazy" decoding="async"
         alt="${s.name} website design examples"
         class="w-full transition-transform duration-500 group-hover:scale-[1.02]" />
     </div>

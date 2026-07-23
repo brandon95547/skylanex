@@ -153,9 +153,9 @@ function detail(p) {
     <div class="mx-auto max-w-6xl">
       ${heading({
         eyebrow: "Design concepts",
-        title: "Built for Law Firms. Designed to Grow Your Practice.",
+        title: p.conceptsTitle || "Built for Your Industry. Designed to Grow.",
         center: false,
-        sub: "Each targets a different practice area and a different kind of client — a different tone, structure, and first impression.",
+        sub: p.conceptsSub || "Each targets a different segment and a different kind of client — a different tone, structure, and first impression.",
       })}
       <div class="mt-10 grid gap-10 lg:grid-cols-2">
         ${p.showcase.map((c) => concept(c, p.slug)).join("\n")}

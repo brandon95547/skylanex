@@ -742,6 +742,7 @@ export const solutions = [
   {
     slug: "medical-dental",
     icon: "pulse",
+    landing: "medical-dental",
     name: "Medical & Dental",
     tagline: "Booked before they close the tab",
     summary:
@@ -906,6 +907,9 @@ export const industryPages = [
       "Custom law firm website design and development — practice-area architecture, intake that routes, bar-compliant disclaimers, and local SEO. See six original law firm design concepts.",
     lede:
       "Someone searching for an attorney is usually having a bad week. They are anxious, comparing three firms in three tabs, and deciding in seconds whether yours looks like it can handle their problem. Everything below is built around that moment.",
+    conceptsTitle: "Built for Law Firms. Designed to Grow Your Practice.",
+    conceptsSub:
+      "Each targets a different practice area and a different kind of client — a different tone, structure, and first impression.",
     heroStats: [
       { v: "14", l: "Years building software" },
       { v: "6", l: "Design concepts below" },
@@ -1116,6 +1120,218 @@ export const industryPages = [
       {
         q: "Do you work with solo attorneys and small firms?",
         a: "Yes. A solo practice with one sharp practice-area page often outperforms a regional firm with a neglected site. The engagement scales to the firm.",
+      },
+    ],
+  },
+  {
+    slug: "medical-dental",
+    solution: "medical-dental",
+    icon: "pulse",
+    eyebrow: "Medical & Dental Web Design",
+    h1: "Medical and dental websites built to fill the schedule",
+    metaTitle: "Medical & Dental Web Design & Development · Skylanex",
+    description:
+      "Custom medical and dental website design — online scheduling, insurance transparency, patient intake, and local SEO. See six original healthcare design concepts.",
+    lede:
+      "A patient choosing a practice decides on three things in seconds: can they get seen soon, are they covered, and does this place feel safe. Surface all three immediately and connect the booking button to the system you already run — everything below is built around that moment.",
+    conceptsTitle: "Built for Medical & Dental. Designed to Fill Your Schedule.",
+    conceptsSub:
+      "Each targets a different kind of practice and patient — a different tone, structure, and first impression.",
+    heroStats: [
+      { v: "14", l: "Years building software" },
+      { v: "6", l: "Design concepts below" },
+      { v: "1", l: "Developer you talk to" },
+    ],
+
+    showcase: [
+      {
+        slug: "meridian",
+        firm: "Meridian Medical",
+        label: "Primary care & family medicine",
+        palette: {
+          name: "Clinical Blue & White",
+          colors: { bg: "#e6eef8", surface: "#ffffff", primary: "#2878c8", accent: "#0a9cc4", text: "#12294a" },
+        },
+        blurb:
+          "Bright, reassuring, and built to book — a primary-care site that surfaces availability, insurance, and trust before a nervous patient bounces.",
+        points: [
+          "Online scheduling and 'find a doctor' above the fold, wired to the system you already run.",
+          "A calm clinical-blue palette that reads as clean, modern, and trustworthy.",
+          "Insurance, hours, and locations answered before the patient has to ask.",
+        ],
+      },
+      {
+        slug: "northpoint",
+        firm: "Northpoint Veterinary Care",
+        label: "Veterinary & animal care",
+        palette: {
+          name: "Sage & Cream",
+          colors: { bg: "#eee9dd", surface: "#ffffff", primary: "#3d4a2e", accent: "#9c8a52", text: "#2b3320" },
+        },
+        blurb:
+          "Warm and friendly for the practice pet owners love — compassion up front, with booking and emergency contact never more than a tap away.",
+        points: [
+          "A soft sage-and-cream palette that feels caring, not clinical.",
+          "Appointment booking and after-hours emergency paths surfaced immediately.",
+          "Services laid out the way owners think — wellness, dental, vaccinations, emergencies.",
+        ],
+      },
+      {
+        slug: "summit",
+        firm: "Summit Care",
+        label: "Fertility & women's health",
+        palette: {
+          name: "Blush & Plum",
+          colors: { bg: "#f6e9ec", surface: "#ffffff", primary: "#a8466c", accent: "#d98aa6", text: "#332a44" },
+        },
+        blurb:
+          "Gentle and hopeful for a sensitive journey — a fertility and women's-health practice that leads with compassion and a clear first step.",
+        points: [
+          "A tender blush-and-plum palette that lowers the temperature of an emotional decision.",
+          "Consultation booking and specialist search designed for a careful first contact.",
+          "Content that answers the questions patients are anxious to ask.",
+        ],
+      },
+      {
+        slug: "elevation",
+        firm: "Elevation Physiotherapy",
+        label: "Physical therapy & rehab",
+        palette: {
+          name: "Indigo & Teal",
+          colors: { bg: "#282153", surface: "#f2f1fa", primary: "#3aa89a", accent: "#7c5cc4", text: "#f0eefb" },
+        },
+        blurb:
+          "Bold and energetic for movement and recovery — a physio and rehab practice that projects momentum and gets patients booked.",
+        points: [
+          "A confident indigo-and-teal palette that reads as active and results-driven.",
+          "Conditions and services organized around what hurts and what comes next.",
+          "Book-an-appointment and therapist profiles front and center.",
+        ],
+      },
+      {
+        slug: "heritage",
+        firm: "Heeritage Dental",
+        label: "Dentistry & cosmetic",
+        palette: {
+          name: "Navy & Gold",
+          colors: { bg: "#14263f", surface: "#f4f7fa", primary: "#c6a04c", accent: "#e0c489", text: "#15273f" },
+        },
+        blurb:
+          "Polished and reassuring for a modern dental practice — advanced care and beautiful, comfortable smiles, with booking one tap away.",
+        points: [
+          "A navy-and-gold palette that signals premium, trustworthy care.",
+          "Services split the way patients search — general, implants, cosmetic, emergency.",
+          "Appointment booking and new-patient reassurance surfaced up front.",
+        ],
+      },
+      {
+        slug: "riverbend",
+        firm: "Riverbend Hospital",
+        label: "Hospitals & health systems",
+        palette: {
+          name: "Deep Blue & Sky",
+          colors: { bg: "#12315e", surface: "#eef4fb", primary: "#1f5fa8", accent: "#5aa0dc", text: "#12294a" },
+        },
+        blurb:
+          "Authoritative and community-minded for a hospital or health system — expert care made easy to navigate, from find-a-doctor to pay-my-bill.",
+        points: [
+          "A deep-blue palette that reads as established, safe, and community-rooted.",
+          "Wayfinding for the things visitors actually need — ER, find a doctor, billing.",
+          "Built to scale across service lines, locations, and provider directories.",
+        ],
+      },
+    ],
+
+    segments: [
+      "Primary & Family Care",
+      "Dentistry",
+      "Pediatrics",
+      "Dermatology",
+      "Orthopedics & Physical Therapy",
+      "OB-GYN & Fertility",
+      "Cardiology",
+      "Urgent Care",
+      "Veterinary",
+      "Optometry",
+      "Mental & Behavioral Health",
+      "Med Spa & Aesthetics",
+    ],
+
+    included: [
+      { t: "Online scheduling", d: "Booking wired into the system you already run — no double-entry, no phone tag." },
+      { t: "Insurance & pricing clarity", d: "Accepted plans and costs surfaced where patients look first." },
+      { t: "Patient intake", d: "New-patient forms completed before the visit, routed to your front desk or EHR." },
+      { t: "Provider profiles", d: "Doctors, credentials, and specialties structured for search and trust." },
+      { t: "Service-line architecture", d: "One clear page per service and location — the unit patients actually search." },
+      { t: "HIPAA-aware forms", d: "Intake and contact built with consent, encryption, and correct routing." },
+      { t: "Accessibility", d: "WCAG 2.1 AA — a real requirement for public-facing healthcare sites." },
+      { t: "Speed & mobile", d: "Core Web Vitals green on a phone, where most patients book from." },
+    ],
+
+    differentiators: [
+      {
+        icon: "pulse",
+        t: "The visitor is deciding fast",
+        d: "Availability, insurance, and nerves decide it. Surface all three immediately, or they book the next practice on the list.",
+      },
+      {
+        icon: "shield",
+        t: "Privacy is not optional",
+        d: "Intake and contact forms handle PHI. I build with consent, encryption in transit, and HIPAA-aware routing — and flag anything that needs a BAA for your review.",
+      },
+      {
+        icon: "layers",
+        t: "Service line is the search unit",
+        d: "Nobody searches 'medical practice.' They search 'pediatric dentist Greenville.' The site is one strong page per service and location, not one page about everything.",
+      },
+      {
+        icon: "bolt",
+        t: "Booking is the conversion",
+        d: "A schedule that isn't connected is a lost patient. Booking routes into your PMS or EHR, with the reminders that cut no-shows.",
+      },
+    ],
+
+    seoPoints: [
+      { t: "Service × location pages", d: "The architecture that captures how patients actually search for care." },
+      { t: "MedicalOrganization & Physician schema", d: "Structured data for the practice, each provider, and each service." },
+      { t: "Local presence", d: "Google Business Profile, consistent citations, and a page per location." },
+      { t: "Answer-first content", d: "The questions patients ask before booking — written to be found, and to be useful." },
+      { t: "Migration without loss", d: "Redesigns ship with a redirect map so existing rankings survive the launch." },
+      { t: "Reviews that build trust", d: "A review strategy that surfaces real patient feedback where it converts." },
+    ],
+
+    faqs: [
+      {
+        q: "How much does a medical or dental website cost?",
+        a: "Scope drives it. A single-location practice is a very different build than a multi-site group or a hospital with dozens of service lines and EHR integration. You get a fixed number after a short scoping call — not an hourly meter, and not a number I made up before understanding the practice.",
+      },
+      {
+        q: "How long does it take?",
+        a: "A focused single-practice site typically runs 3–5 weeks from kickoff; a larger multi-location group or hospital usually runs 8–12+. You see working pages every week rather than waiting for a single reveal at the end.",
+      },
+      {
+        q: "Can it connect to our scheduling or EHR system?",
+        a: "Yes. Booking and intake can route into platforms like Dentrix, Open Dental, athenahealth, Epic, NexHealth, or plain email and your CRM. If the tool has an API or a webhook, it can be wired up.",
+      },
+      {
+        q: "Is it HIPAA compliant?",
+        a: "I build forms and data flows to be HIPAA-aware — consent, encryption in transit, and proper routing — and flag anything that needs a Business Associate Agreement. Final compliance sign-off is yours or your compliance officer's.",
+      },
+      {
+        q: "Do you handle online scheduling and reminders?",
+        a: "Yes. Scheduling integrates with your booking platform, including automated reminders that measurably reduce no-shows.",
+      },
+      {
+        q: "Do you do the SEO too, or just the site?",
+        a: "The site ships SEO-ready: service-and-location architecture, structured data, a clean technical foundation, and a content plan for the pages that will earn traffic next. Ongoing content and link work is a separate engagement if you want it.",
+      },
+      {
+        q: "We already have a site. Can you redesign it without losing our rankings?",
+        a: "Yes, and that planning happens before anything is built. Existing URLs get mapped and redirected, high-performing pages are preserved, and rankings are watched through the launch window.",
+      },
+      {
+        q: "Do you work with solo practices and single-location clinics?",
+        a: "Yes. The engagement scales from a solo dentist or a single clinic to a multi-site group or hospital system.",
       },
     ],
   },
