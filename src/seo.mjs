@@ -1,5 +1,5 @@
 // seo.mjs — structured data (JSON-LD) generation.
-import { site, services, faqs, work, solutions, palettes, industryPages } from "../site.config.mjs";
+import { site, services, faqs, work, designSolutions, industryPages } from "../site.config.mjs";
 
 const ORG = `${site.domain}/#org`;
 const WEBSITE = `${site.domain}/#website`;
@@ -119,15 +119,23 @@ export function jsonLdForPage(page) {
       {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: "Industry website solutions",
-        itemListElement: solutions.map((s, i) => ({
+        name: "Design & build solutions",
+        itemListElement: designSolutions.map((s, i) => ({
           "@type": "ListItem",
           position: i + 1,
           name: s.name,
-          // Point at the dedicated landing page once a category has one.
-          url: s.landing ? absUrl(`/solutions/${s.landing}`) : `${absUrl("/solutions")}#${s.slug}`,
+          url: `${absUrl("/solutions")}#${s.slug}`,
         })),
       },
+    ];
+  }
+  if (page.path === "/website-solutions") {
+    return [
+      breadcrumb([
+        home,
+        { name: "Solutions", path: "/solutions" },
+        { name: "Website Solutions", path: "/website-solutions" },
+      ]),
     ];
   }
   // Industry landing pages carry their own Service + FAQPage so each can earn a
@@ -165,25 +173,27 @@ export function jsonLdForPage(page) {
       faqPage(industry.faqs),
     ];
   }
-  if (page.path === "/solutions/color-palettes") {
+  // Concept detail pages: /solutions/<industry>/<concept>.
+  for (const ind of industryPages) {
+    const c = ind.showcase.find((x) => `/solutions/${ind.slug}/${x.slug}` === page.path);
+    if (!c) continue;
     return [
       breadcrumb([
         home,
         { name: "Solutions", path: "/solutions" },
-        { name: "Color Palettes", path: "/solutions/color-palettes" },
+        { name: ind.eyebrow, path: `/solutions/${ind.slug}` },
+        { name: c.firm, path: page.path },
       ]),
       {
         "@context": "https://schema.org",
-        "@type": "ItemList",
-        name: "Website color palettes",
-        numberOfItems: palettes.length,
-        itemListElement: palettes.map((p, i) => ({
-          "@type": "ListItem",
-          position: i + 1,
-          name: p.name,
-          description: p.best,
-          url: `${absUrl("/solutions/color-palettes")}#${p.slug}`,
-        })),
+        "@type": "ImageObject",
+        name: `${c.firm} — ${c.label} website design concept`,
+        description: c.blurb,
+        contentUrl: absUrl(`/images/concepts/${c.slug}.webp`),
+        url: absUrl(page.path),
+        width: 1200,
+        height: 675,
+        creator: { "@id": ORG },
       },
     ];
   }

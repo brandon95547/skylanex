@@ -742,6 +742,7 @@ export const solutions = [
   {
     slug: "medical-dental",
     icon: "pulse",
+    landing: "medical-dental",
     name: "Medical & Dental",
     tagline: "Booked before they close the tab",
     summary:
@@ -808,6 +809,77 @@ export const solutions = [
 ];
 
 // ---------------------------------------------------------------------------
+// Design solutions — the kinds of products Skylanex designs and builds, shown
+// on /solutions. Each renders a section with a static, modern WebP demo
+// (assets/images/solutions/<slug>.webp, 1200×675) plus copy. This is the
+// product-type view of the studio; the AI-specific work lives under /services.
+// `example` (optional) links a solution to a deeper, real example page.
+// ---------------------------------------------------------------------------
+export const designSolutions = [
+  {
+    slug: "website",
+    icon: "browser",
+    name: "Website Design",
+    tagline: "A site built to convert, not just exist",
+    summary:
+      "Fast, modern marketing sites designed around the one action your business needs a visitor to take — with the credibility to earn it in the first three seconds.",
+    outcomes: ["Conversion-first layout & messaging", "Core Web Vitals green on mobile", "SEO-ready structure & schema", "A design system, not a template"],
+    image: "/images/solutions/website.webp",
+    example: { href: "/website-solutions", label: "See examples" },
+  },
+  {
+    slug: "app",
+    icon: "app",
+    name: "App Design & Development",
+    tagline: "Web and mobile apps people love to use",
+    summary:
+      "From dashboards to full SaaS products and native-feel mobile apps — designed around real workflows and built production-grade on modern infrastructure.",
+    outcomes: ["Web & mobile product design", "Design systems & component libraries", "Auth, billing & integrations", "Scalable, maintainable builds"],
+    image: "/images/solutions/app.webp",
+  },
+  {
+    slug: "crm",
+    icon: "users",
+    name: "CRM & Customer Platforms",
+    tagline: "Your pipeline, your rules — not off-the-shelf",
+    summary:
+      "Custom CRMs, sales pipelines, and client portals shaped to how you actually sell and serve — wired to the tools you already run.",
+    outcomes: ["Pipelines & deal tracking", "Contact & account 360° views", "Automations & reminders", "Integrations with your stack"],
+    image: "/images/solutions/crm.webp",
+  },
+  {
+    slug: "dashboard",
+    icon: "chart",
+    name: "Dashboards & Analytics",
+    tagline: "Decisions from data, at a glance",
+    summary:
+      "BI dashboards, admin panels, and reporting interfaces that turn scattered numbers into the handful of metrics that actually move the business.",
+    outcomes: ["KPI & metric dashboards", "Interactive charts & filters", "Role-based admin panels", "Live data & scheduled reports"],
+    image: "/images/solutions/dashboard.webp",
+  },
+  {
+    slug: "ai-chat",
+    icon: "chat",
+    name: "AI Assistants & Chat",
+    tagline: "Copilots grounded in your own data",
+    summary:
+      "Conversational assistants and copilots that answer from your content with citations — embedded in your product or standing on their own.",
+    outcomes: ["Grounded RAG assistants", "In-product copilots", "Support & intake bots", "Cited, trustworthy answers"],
+    image: "/images/solutions/ai-chat.webp",
+  },
+  {
+    slug: "ecommerce",
+    icon: "cart",
+    name: "E-commerce Storefronts",
+    tagline: "Storefronts that turn browsers into buyers",
+    summary:
+      "Fast, beautiful storefronts with frictionless catalog, cart, and checkout — built to sell on mobile and keep customers coming back.",
+    outcomes: ["Catalog & product pages", "Streamlined cart & checkout", "Payments & inventory sync", "Built for mobile conversion"],
+    image: "/images/solutions/ecommerce.webp",
+  },
+];
+
+// ---------------------------------------------------------------------------
 // Industry landing pages — one dedicated, search-targeted page per category,
 // rendered by src/pages/industry.mjs at /solutions/<slug>.
 //
@@ -835,6 +907,9 @@ export const industryPages = [
       "Custom law firm website design and development — practice-area architecture, intake that routes, bar-compliant disclaimers, and local SEO. See six original law firm design concepts.",
     lede:
       "Someone searching for an attorney is usually having a bad week. They are anxious, comparing three firms in three tabs, and deciding in seconds whether yours looks like it can handle their problem. Everything below is built around that moment.",
+    conceptsTitle: "Built for Law Firms. Designed to Grow Your Practice.",
+    conceptsSub:
+      "Each targets a different practice area and a different kind of client — a different tone, structure, and first impression.",
     heroStats: [
       { v: "14", l: "Years building software" },
       { v: "6", l: "Design concepts below" },
@@ -846,36 +921,109 @@ export const industryPages = [
     // than live palette mockups: the designs carry their own type and colour,
     // which the eight-token palette system can't reproduce. `slug` is both the
     // image filename and the key — see src/pages/industry.mjs.
+    // Each concept gets a dedicated detail page at /solutions/<slug>/<concept>
+    // with a larger render, the design rationale, and a "design mine" CTA.
+    // `firm` is the name shown in the design itself (it becomes the page H1);
+    // `blurb` is the one-line pitch (also the detail page's meta description);
+    // `points` are what the direction does; `palette` is the colour direction
+    // shown on the detail page — its swatches are sampled from the actual image
+    // so the panel matches what the visitor is looking at.
     showcase: [
       {
         slug: "hawthorne",
         firm: "Hawthorne Law Group",
         label: "Business & corporate litigation",
+        palette: {
+          name: "Charcoal & Gold",
+          colors: { bg: "#14161a", surface: "#1f232b", primary: "#c9a24a", accent: "#e2c584", text: "#f5f6f8" },
+        },
+        blurb:
+          "A restrained, boardroom-grade layout for a firm used to high-stakes commercial disputes — proof of results before any pitch.",
+        points: [
+          "Representative matters and results lead the page, so a general counsel doing due diligence sees the track record first.",
+          "A charcoal-and-gold palette that reads as institutional and established, not flashy.",
+          "Attorney credentials structured for search and for the buyer who is comparing firms tab by tab.",
+        ],
       },
       {
         slug: "lexford",
         firm: "Lexford Law",
         label: "Personal injury & civil rights",
+        palette: {
+          name: "Deep Navy & Gold",
+          colors: { bg: "#142231", surface: "#1e3149", primary: "#c6a45c", accent: "#e0c78c", text: "#f2f5f9" },
+        },
+        blurb:
+          "Built for the anxious mobile searcher after an accident — bold, urgent, and impossible to misread, with the next step always a thumb away.",
+        points: [
+          "Click-to-call fixed to the screen; the phone number is never more than one tap from anywhere on the page.",
+          "Warm gold accents on deep navy that pull the eye straight to the action.",
+          "Results and testimonials framed to respect personal-injury advertising rules.",
+        ],
       },
       {
         slug: "westbridge",
         firm: "Westbridge Law Group",
         label: "Estate planning & appellate",
+        palette: {
+          name: "Navy, Ivory & Gold",
+          colors: { bg: "#151d27", surface: "#f5f2ec", primary: "#bd9354", accent: "#d8bd82", text: "#1b2430" },
+        },
+        blurb:
+          "A quiet, editorial layout for a practice built on trust and discretion — it reads like a private bank, not a billboard.",
+        points: [
+          "A navy, ivory, and gold palette and serif display that signal permanence and care.",
+          "A long-form content architecture for the questions estate clients actually research.",
+          "Appellate credentials and published work given room to breathe.",
+        ],
       },
       {
         slug: "clarion",
-        firm: "Clarion Law Group",
+        firm: "Greg & Abbot",
         label: "Family law & divorce",
+        palette: {
+          name: "Royal Navy & Gold",
+          colors: { bg: "#0e273e", surface: "#f4f6f9", primary: "#c6993f", accent: "#e0be79", text: "#12283f" },
+        },
+        blurb:
+          "Warm and human without losing authority — for clients making one of the hardest decisions of their life. Calm, clear, and never cold.",
+        points: [
+          "A confident royal-navy-and-gold palette with generous spacing that steadies a hard moment.",
+          "A confidential intake path designed for a sensitive first contact.",
+          "Plain-language answers to the questions clients are often afraid to ask.",
+        ],
       },
       {
         slug: "harbor",
-        firm: "Harbor Legal",
+        firm: "Grand Oak Law Group",
         label: "Criminal defense",
+        palette: {
+          name: "Sandstone & Navy",
+          colors: { bg: "#20303f", surface: "#f6f2ea", primary: "#c1a05d", accent: "#e0c890", text: "#1d2c3b" },
+        },
+        blurb:
+          "Grounded and serious, built for someone searching at 2 a.m. after an arrest — it projects steadiness and moves fast.",
+        points: [
+          "Emergency and 24/7 contact paths surfaced above everything else.",
+          "A warm sandstone-and-navy palette that reads as composed, not alarming.",
+          "Case dispositions and defense record presented within bar rules.",
+        ],
       },
       {
         slug: "apex",
         firm: "Apex Legal",
         label: "Immigration & business",
+        palette: {
+          name: "Espresso & Amber",
+          colors: { bg: "#1b1612", surface: "#2a2119", primary: "#d99a3c", accent: "#edc37c", text: "#f6efe4" },
+        },
+        blurb:
+          "Welcoming and modern for a practice serving clients across languages and borders — approachable, but unmistakably professional.",
+        points: [
+          "A warm espresso-and-amber palette and open layout that reads as inviting, not intimidating.",
+          "Structured for multilingual content and cross-border service pages.",
+          "Clear, separate pathways for individual and business immigration matters.",
+        ],
       },
     ],
 
@@ -972,6 +1120,218 @@ export const industryPages = [
       {
         q: "Do you work with solo attorneys and small firms?",
         a: "Yes. A solo practice with one sharp practice-area page often outperforms a regional firm with a neglected site. The engagement scales to the firm.",
+      },
+    ],
+  },
+  {
+    slug: "medical-dental",
+    solution: "medical-dental",
+    icon: "pulse",
+    eyebrow: "Medical & Dental Web Design",
+    h1: "Medical and dental websites built to fill the schedule",
+    metaTitle: "Medical & Dental Web Design & Development · Skylanex",
+    description:
+      "Custom medical and dental website design — online scheduling, insurance transparency, patient intake, and local SEO. See six original healthcare design concepts.",
+    lede:
+      "A patient choosing a practice decides on three things in seconds: can they get seen soon, are they covered, and does this place feel safe. Surface all three immediately and connect the booking button to the system you already run — everything below is built around that moment.",
+    conceptsTitle: "Built for Medical & Dental. Designed to Fill Your Schedule.",
+    conceptsSub:
+      "Each targets a different kind of practice and patient — a different tone, structure, and first impression.",
+    heroStats: [
+      { v: "14", l: "Years building software" },
+      { v: "6", l: "Design concepts below" },
+      { v: "1", l: "Developer you talk to" },
+    ],
+
+    showcase: [
+      {
+        slug: "meridian",
+        firm: "Meridian Medical",
+        label: "Primary care & family medicine",
+        palette: {
+          name: "Clinical Blue & White",
+          colors: { bg: "#e6eef8", surface: "#ffffff", primary: "#2878c8", accent: "#0a9cc4", text: "#12294a" },
+        },
+        blurb:
+          "Bright, reassuring, and built to book — a primary-care site that surfaces availability, insurance, and trust before a nervous patient bounces.",
+        points: [
+          "Online scheduling and 'find a doctor' above the fold, wired to the system you already run.",
+          "A calm clinical-blue palette that reads as clean, modern, and trustworthy.",
+          "Insurance, hours, and locations answered before the patient has to ask.",
+        ],
+      },
+      {
+        slug: "northpoint",
+        firm: "Northpoint Veterinary Care",
+        label: "Veterinary & animal care",
+        palette: {
+          name: "Sage & Cream",
+          colors: { bg: "#eee9dd", surface: "#ffffff", primary: "#3d4a2e", accent: "#9c8a52", text: "#2b3320" },
+        },
+        blurb:
+          "Warm and friendly for the practice pet owners love — compassion up front, with booking and emergency contact never more than a tap away.",
+        points: [
+          "A soft sage-and-cream palette that feels caring, not clinical.",
+          "Appointment booking and after-hours emergency paths surfaced immediately.",
+          "Services laid out the way owners think — wellness, dental, vaccinations, emergencies.",
+        ],
+      },
+      {
+        slug: "summit",
+        firm: "Summit Care",
+        label: "Fertility & women's health",
+        palette: {
+          name: "Blush & Plum",
+          colors: { bg: "#f6e9ec", surface: "#ffffff", primary: "#a8466c", accent: "#d98aa6", text: "#332a44" },
+        },
+        blurb:
+          "Gentle and hopeful for a sensitive journey — a fertility and women's-health practice that leads with compassion and a clear first step.",
+        points: [
+          "A tender blush-and-plum palette that lowers the temperature of an emotional decision.",
+          "Consultation booking and specialist search designed for a careful first contact.",
+          "Content that answers the questions patients are anxious to ask.",
+        ],
+      },
+      {
+        slug: "elevation",
+        firm: "Elevation Physiotherapy",
+        label: "Physical therapy & rehab",
+        palette: {
+          name: "Indigo & Teal",
+          colors: { bg: "#282153", surface: "#f2f1fa", primary: "#3aa89a", accent: "#7c5cc4", text: "#f0eefb" },
+        },
+        blurb:
+          "Bold and energetic for movement and recovery — a physio and rehab practice that projects momentum and gets patients booked.",
+        points: [
+          "A confident indigo-and-teal palette that reads as active and results-driven.",
+          "Conditions and services organized around what hurts and what comes next.",
+          "Book-an-appointment and therapist profiles front and center.",
+        ],
+      },
+      {
+        slug: "heritage",
+        firm: "Heeritage Dental",
+        label: "Dentistry & cosmetic",
+        palette: {
+          name: "Navy & Gold",
+          colors: { bg: "#14263f", surface: "#f4f7fa", primary: "#c6a04c", accent: "#e0c489", text: "#15273f" },
+        },
+        blurb:
+          "Polished and reassuring for a modern dental practice — advanced care and beautiful, comfortable smiles, with booking one tap away.",
+        points: [
+          "A navy-and-gold palette that signals premium, trustworthy care.",
+          "Services split the way patients search — general, implants, cosmetic, emergency.",
+          "Appointment booking and new-patient reassurance surfaced up front.",
+        ],
+      },
+      {
+        slug: "riverbend",
+        firm: "Riverbend Hospital",
+        label: "Hospitals & health systems",
+        palette: {
+          name: "Deep Blue & Sky",
+          colors: { bg: "#12315e", surface: "#eef4fb", primary: "#1f5fa8", accent: "#5aa0dc", text: "#12294a" },
+        },
+        blurb:
+          "Authoritative and community-minded for a hospital or health system — expert care made easy to navigate, from find-a-doctor to pay-my-bill.",
+        points: [
+          "A deep-blue palette that reads as established, safe, and community-rooted.",
+          "Wayfinding for the things visitors actually need — ER, find a doctor, billing.",
+          "Built to scale across service lines, locations, and provider directories.",
+        ],
+      },
+    ],
+
+    segments: [
+      "Primary & Family Care",
+      "Dentistry",
+      "Pediatrics",
+      "Dermatology",
+      "Orthopedics & Physical Therapy",
+      "OB-GYN & Fertility",
+      "Cardiology",
+      "Urgent Care",
+      "Veterinary",
+      "Optometry",
+      "Mental & Behavioral Health",
+      "Med Spa & Aesthetics",
+    ],
+
+    included: [
+      { t: "Online scheduling", d: "Booking wired into the system you already run — no double-entry, no phone tag." },
+      { t: "Insurance & pricing clarity", d: "Accepted plans and costs surfaced where patients look first." },
+      { t: "Patient intake", d: "New-patient forms completed before the visit, routed to your front desk or EHR." },
+      { t: "Provider profiles", d: "Doctors, credentials, and specialties structured for search and trust." },
+      { t: "Service-line architecture", d: "One clear page per service and location — the unit patients actually search." },
+      { t: "HIPAA-aware forms", d: "Intake and contact built with consent, encryption, and correct routing." },
+      { t: "Accessibility", d: "WCAG 2.1 AA — a real requirement for public-facing healthcare sites." },
+      { t: "Speed & mobile", d: "Core Web Vitals green on a phone, where most patients book from." },
+    ],
+
+    differentiators: [
+      {
+        icon: "pulse",
+        t: "The visitor is deciding fast",
+        d: "Availability, insurance, and nerves decide it. Surface all three immediately, or they book the next practice on the list.",
+      },
+      {
+        icon: "shield",
+        t: "Privacy is not optional",
+        d: "Intake and contact forms handle PHI. I build with consent, encryption in transit, and HIPAA-aware routing — and flag anything that needs a BAA for your review.",
+      },
+      {
+        icon: "layers",
+        t: "Service line is the search unit",
+        d: "Nobody searches 'medical practice.' They search 'pediatric dentist Greenville.' The site is one strong page per service and location, not one page about everything.",
+      },
+      {
+        icon: "bolt",
+        t: "Booking is the conversion",
+        d: "A schedule that isn't connected is a lost patient. Booking routes into your PMS or EHR, with the reminders that cut no-shows.",
+      },
+    ],
+
+    seoPoints: [
+      { t: "Service × location pages", d: "The architecture that captures how patients actually search for care." },
+      { t: "MedicalOrganization & Physician schema", d: "Structured data for the practice, each provider, and each service." },
+      { t: "Local presence", d: "Google Business Profile, consistent citations, and a page per location." },
+      { t: "Answer-first content", d: "The questions patients ask before booking — written to be found, and to be useful." },
+      { t: "Migration without loss", d: "Redesigns ship with a redirect map so existing rankings survive the launch." },
+      { t: "Reviews that build trust", d: "A review strategy that surfaces real patient feedback where it converts." },
+    ],
+
+    faqs: [
+      {
+        q: "How much does a medical or dental website cost?",
+        a: "Scope drives it. A single-location practice is a very different build than a multi-site group or a hospital with dozens of service lines and EHR integration. You get a fixed number after a short scoping call — not an hourly meter, and not a number I made up before understanding the practice.",
+      },
+      {
+        q: "How long does it take?",
+        a: "A focused single-practice site typically runs 3–5 weeks from kickoff; a larger multi-location group or hospital usually runs 8–12+. You see working pages every week rather than waiting for a single reveal at the end.",
+      },
+      {
+        q: "Can it connect to our scheduling or EHR system?",
+        a: "Yes. Booking and intake can route into platforms like Dentrix, Open Dental, athenahealth, Epic, NexHealth, or plain email and your CRM. If the tool has an API or a webhook, it can be wired up.",
+      },
+      {
+        q: "Is it HIPAA compliant?",
+        a: "I build forms and data flows to be HIPAA-aware — consent, encryption in transit, and proper routing — and flag anything that needs a Business Associate Agreement. Final compliance sign-off is yours or your compliance officer's.",
+      },
+      {
+        q: "Do you handle online scheduling and reminders?",
+        a: "Yes. Scheduling integrates with your booking platform, including automated reminders that measurably reduce no-shows.",
+      },
+      {
+        q: "Do you do the SEO too, or just the site?",
+        a: "The site ships SEO-ready: service-and-location architecture, structured data, a clean technical foundation, and a content plan for the pages that will earn traffic next. Ongoing content and link work is a separate engagement if you want it.",
+      },
+      {
+        q: "We already have a site. Can you redesign it without losing our rankings?",
+        a: "Yes, and that planning happens before anything is built. Existing URLs get mapped and redirected, high-performing pages are preserved, and rankings are watched through the launch window.",
+      },
+      {
+        q: "Do you work with solo practices and single-location clinics?",
+        a: "Yes. The engagement scales from a solo dentist or a single clinic to a multi-site group or hospital system.",
       },
     ],
   },

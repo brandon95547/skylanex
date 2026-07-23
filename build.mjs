@@ -13,8 +13,8 @@ import { home } from "./src/pages/home.mjs";
 import { servicesPage } from "./src/pages/services.mjs";
 import { servicePages } from "./src/pages/service.mjs";
 import { solutionsPage } from "./src/pages/solutions.mjs";
-import { palettesPage } from "./src/pages/palettes.mjs";
-import { industryLandingPages } from "./src/pages/industry.mjs";
+import { examplesPage } from "./src/pages/examples.mjs";
+import { industryLandingPages, conceptDetailPages } from "./src/pages/industry.mjs";
 import { workPage } from "./src/pages/work.mjs";
 import { aboutPage } from "./src/pages/about.mjs";
 import { contactPage } from "./src/pages/contact.mjs";
@@ -27,7 +27,7 @@ const DIST = path.join(__dirname, "dist");
 // that owns dist/css/app.css.
 const DEV = !!process.env.SKYLANEX_DEV;
 
-const pages = [home, servicesPage, ...servicePages, solutionsPage, ...industryLandingPages, palettesPage, workPage, aboutPage, contactPage];
+const pages = [home, servicesPage, ...servicePages, solutionsPage, examplesPage, ...industryLandingPages, ...conceptDetailPages, workPage, aboutPage, contactPage];
 
 function rmrf(p) {
   if (fs.existsSync(p)) fs.rmSync(p, { recursive: true, force: true });
