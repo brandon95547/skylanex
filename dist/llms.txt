@@ -1,0 +1,33 @@
+# Skylanex
+
+> Skylanex is an independent AI software studio — we design, build, and ship intelligent applications, from custom AI apps to machine learning, NLP, and computer vision.
+
+Skylanex is an independent AI software studio led by Brandon Sanders. We design and build websites, web and mobile apps, custom CRMs, dashboards, AI assistants, and e-commerce storefronts, and provide AI services from machine learning and NLP to computer vision. Contact: info@skylanex.com.
+
+## Services
+- [AI Application Development](https://www.skylanex.com/ai-application-development): We design and ship production-grade AI applications tailored to how your business really works — not a one-size-fits-all template.
+- [Machine Learning & Data Science](https://www.skylanex.com/machine-learning-data-science): We build models and data pipelines that turn raw data into forecasts, classifications, and recommendations you can act on.
+- [Intelligent Process Automation](https://www.skylanex.com/intelligent-process-automation): We combine LLMs, rules, and integrations to automate document processing, routing, and repetitive workflows end to end.
+- [AI Consulting & Strategy](https://www.skylanex.com/ai-consulting-strategy): We help you identify high-value AI opportunities, assess feasibility, and build a pragmatic roadmap you can execute.
+- [Natural Language Processing](https://www.skylanex.com/natural-language-processing): We build NLP systems for semantic search, summarization, classification, extraction, and conversational assistants grounded in your data.
+- [Computer Vision Solutions](https://www.skylanex.com/computer-vision-solutions): We build computer-vision systems for detection, recognition, quality inspection, and visual analytics — on the cloud or the edge.
+
+## Design & build solutions
+- [Website Design](https://www.skylanex.com/solutions#website): Fast, modern marketing sites designed around the one action your business needs a visitor to take — with the credibility to earn it in the first three seconds.
+- [App Design & Development](https://www.skylanex.com/solutions#app): From dashboards to full SaaS products and native-feel mobile apps — designed around real workflows and built production-grade on modern infrastructure.
+- [CRM & Customer Platforms](https://www.skylanex.com/solutions#crm): Custom CRMs, sales pipelines, and client portals shaped to how you actually sell and serve — wired to the tools you already run.
+- [Dashboards & Analytics](https://www.skylanex.com/solutions#dashboard): BI dashboards, admin panels, and reporting interfaces that turn scattered numbers into the handful of metrics that actually move the business.
+- [AI Assistants & Chat](https://www.skylanex.com/solutions#ai-chat): Conversational assistants and copilots that answer from your content with citations — embedded in your product or standing on their own.
+- [E-commerce Storefronts](https://www.skylanex.com/solutions#ecommerce): Fast, beautiful storefronts with frictionless catalog, cart, and checkout — built to sell on mobile and keep customers coming back.
+
+## Website solutions by industry
+- [Law Firm Web Design](https://www.skylanex.com/solutions/law-firms): Custom law firm website design and development — practice-area architecture, intake that routes, bar-compliant disclaimers, and local SEO. See six original law firm design concepts.
+- [Medical & Dental Web Design](https://www.skylanex.com/solutions/medical-dental): Custom medical and dental website design — online scheduling, insurance transparency, patient intake, and local SEO. See six original healthcare design concepts.
+
+## Key pages
+- [Solutions](https://www.skylanex.com/solutions)
+- [Websites built for your industry](https://www.skylanex.com/website-solutions)
+- [Services](https://www.skylanex.com/services)
+- [Work](https://www.skylanex.com/work)
+- [About](https://www.skylanex.com/about)
+- [Contact](https://www.skylanex.com/contact)

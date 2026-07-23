@@ -7,7 +7,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { layout } from "./src/layout.mjs";
-import { site, nav } from "./site.config.mjs";
+import { site, nav, services, designSolutions, industryPages } from "./site.config.mjs";
 import { orgGraph, jsonLdForPage } from "./src/seo.mjs";
 import { home } from "./src/pages/home.mjs";
 import { servicesPage } from "./src/pages/services.mjs";
@@ -95,6 +95,35 @@ function build() {
     `User-agent: *\nAllow: /\nSitemap: ${site.domain}/sitemap.xml\n`,
     "utf8"
   );
+
+  // llms.txt — a curated markdown map for LLMs (llmstxt.org). Helps AI engines
+  // understand what Skylanex is and find the canonical pages. Generated from the
+  // same config as the site so it never drifts.
+  const abs = (p) => `${site.domain}${p}`;
+  const llms =
+    `# Skylanex\n\n` +
+    `> ${site.description}\n\n` +
+    `Skylanex is an independent AI software studio led by ${site.owner}. We design and build websites, web and mobile apps, custom CRMs, dashboards, AI assistants, and e-commerce storefronts, and provide AI services from machine learning and NLP to computer vision. Contact: ${site.email}.\n\n` +
+    `## Services\n` +
+    services.map((s) => `- [${s.eyebrow}](${abs("/" + s.slug)}): ${s.summary}`).join("\n") +
+    `\n\n## Design & build solutions\n` +
+    designSolutions.map((s) => `- [${s.name}](${abs("/solutions#" + s.slug)}): ${s.summary}`).join("\n") +
+    `\n\n## Website solutions by industry\n` +
+    industryPages.map((p) => `- [${p.eyebrow}](${abs("/solutions/" + p.slug)}): ${p.description}`).join("\n") +
+    `\n\n## Key pages\n` +
+    [
+      ["Solutions", "/solutions"],
+      ["Websites built for your industry", "/website-solutions"],
+      ["Services", "/services"],
+      ["Work", "/work"],
+      ["About", "/about"],
+      ["Contact", "/contact"],
+    ]
+      .map(([name, p]) => `- [${name}](${abs(p)})`)
+      .join("\n") +
+    `\n`;
+  fs.writeFileSync(path.join(DIST, "llms.txt"), llms, "utf8");
+
   const urls = pages.map((p) => (p.path === "/" ? "/" : p.path));
   fs.writeFileSync(
     path.join(DIST, "sitemap.xml"),
@@ -107,7 +136,7 @@ function build() {
     "utf8"
   );
 
-  console.log(`✅ Built ${pages.length} pages + 404, robots, sitemap → dist/`);
+  console.log(`✅ Built ${pages.length} pages + 404, robots, sitemap, llms.txt → dist/`);
 }
 
 build();
