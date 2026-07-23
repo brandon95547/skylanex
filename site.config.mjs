@@ -808,6 +808,77 @@ export const solutions = [
 ];
 
 // ---------------------------------------------------------------------------
+// Design solutions — the kinds of products Skylanex designs and builds, shown
+// on /solutions. Each renders a section with a static, modern WebP demo
+// (assets/images/solutions/<slug>.webp, 1200×675) plus copy. This is the
+// product-type view of the studio; the AI-specific work lives under /services.
+// `example` (optional) links a solution to a deeper, real example page.
+// ---------------------------------------------------------------------------
+export const designSolutions = [
+  {
+    slug: "website",
+    icon: "browser",
+    name: "Website Design",
+    tagline: "A site built to convert, not just exist",
+    summary:
+      "Fast, modern marketing sites designed around the one action your business needs a visitor to take — with the credibility to earn it in the first three seconds.",
+    outcomes: ["Conversion-first layout & messaging", "Core Web Vitals green on mobile", "SEO-ready structure & schema", "A design system, not a template"],
+    image: "/images/solutions/website.webp",
+    example: { href: "/solutions/law-firms", label: "See a full example — law firm websites" },
+  },
+  {
+    slug: "app",
+    icon: "app",
+    name: "App Design & Development",
+    tagline: "Web and mobile apps people love to use",
+    summary:
+      "From dashboards to full SaaS products and native-feel mobile apps — designed around real workflows and built production-grade on modern infrastructure.",
+    outcomes: ["Web & mobile product design", "Design systems & component libraries", "Auth, billing & integrations", "Scalable, maintainable builds"],
+    image: "/images/solutions/app.webp",
+  },
+  {
+    slug: "crm",
+    icon: "users",
+    name: "CRM & Customer Platforms",
+    tagline: "Your pipeline, your rules — not off-the-shelf",
+    summary:
+      "Custom CRMs, sales pipelines, and client portals shaped to how you actually sell and serve — wired to the tools you already run.",
+    outcomes: ["Pipelines & deal tracking", "Contact & account 360° views", "Automations & reminders", "Integrations with your stack"],
+    image: "/images/solutions/crm.webp",
+  },
+  {
+    slug: "dashboard",
+    icon: "chart",
+    name: "Dashboards & Analytics",
+    tagline: "Decisions from data, at a glance",
+    summary:
+      "BI dashboards, admin panels, and reporting interfaces that turn scattered numbers into the handful of metrics that actually move the business.",
+    outcomes: ["KPI & metric dashboards", "Interactive charts & filters", "Role-based admin panels", "Live data & scheduled reports"],
+    image: "/images/solutions/dashboard.webp",
+  },
+  {
+    slug: "ai-chat",
+    icon: "chat",
+    name: "AI Assistants & Chat",
+    tagline: "Copilots grounded in your own data",
+    summary:
+      "Conversational assistants and copilots that answer from your content with citations — embedded in your product or standing on their own.",
+    outcomes: ["Grounded RAG assistants", "In-product copilots", "Support & intake bots", "Cited, trustworthy answers"],
+    image: "/images/solutions/ai-chat.webp",
+  },
+  {
+    slug: "ecommerce",
+    icon: "cart",
+    name: "E-commerce Storefronts",
+    tagline: "Storefronts that turn browsers into buyers",
+    summary:
+      "Fast, beautiful storefronts with frictionless catalog, cart, and checkout — built to sell on mobile and keep customers coming back.",
+    outcomes: ["Catalog & product pages", "Streamlined cart & checkout", "Payments & inventory sync", "Built for mobile conversion"],
+    image: "/images/solutions/ecommerce.webp",
+  },
+];
+
+// ---------------------------------------------------------------------------
 // Industry landing pages — one dedicated, search-targeted page per category,
 // rendered by src/pages/industry.mjs at /solutions/<slug>.
 //

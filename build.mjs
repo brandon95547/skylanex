@@ -13,7 +13,6 @@ import { home } from "./src/pages/home.mjs";
 import { servicesPage } from "./src/pages/services.mjs";
 import { servicePages } from "./src/pages/service.mjs";
 import { solutionsPage } from "./src/pages/solutions.mjs";
-import { palettesPage } from "./src/pages/palettes.mjs";
 import { industryLandingPages, conceptDetailPages } from "./src/pages/industry.mjs";
 import { workPage } from "./src/pages/work.mjs";
 import { aboutPage } from "./src/pages/about.mjs";
@@ -22,7 +21,7 @@ import { contactPage } from "./src/pages/contact.mjs";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(__dirname, "dist");
 
-const pages = [home, servicesPage, ...servicePages, solutionsPage, ...industryLandingPages, ...conceptDetailPages, palettesPage, workPage, aboutPage, contactPage];
+const pages = [home, servicesPage, ...servicePages, solutionsPage, ...industryLandingPages, ...conceptDetailPages, workPage, aboutPage, contactPage];
 
 function rmrf(p) {
   if (fs.existsSync(p)) fs.rmSync(p, { recursive: true, force: true });

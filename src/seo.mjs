@@ -1,5 +1,5 @@
 // seo.mjs — structured data (JSON-LD) generation.
-import { site, services, faqs, work, solutions, palettes, industryPages } from "../site.config.mjs";
+import { site, services, faqs, work, designSolutions, industryPages } from "../site.config.mjs";
 
 const ORG = `${site.domain}/#org`;
 const WEBSITE = `${site.domain}/#website`;
@@ -119,13 +119,12 @@ export function jsonLdForPage(page) {
       {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: "Industry website solutions",
-        itemListElement: solutions.map((s, i) => ({
+        name: "Design & build solutions",
+        itemListElement: designSolutions.map((s, i) => ({
           "@type": "ListItem",
           position: i + 1,
           name: s.name,
-          // Point at the dedicated landing page once a category has one.
-          url: s.landing ? absUrl(`/solutions/${s.landing}`) : `${absUrl("/solutions")}#${s.slug}`,
+          url: `${absUrl("/solutions")}#${s.slug}`,
         })),
       },
     ];
@@ -186,28 +185,6 @@ export function jsonLdForPage(page) {
         width: 1200,
         height: 675,
         creator: { "@id": ORG },
-      },
-    ];
-  }
-  if (page.path === "/solutions/color-palettes") {
-    return [
-      breadcrumb([
-        home,
-        { name: "Solutions", path: "/solutions" },
-        { name: "Color Palettes", path: "/solutions/color-palettes" },
-      ]),
-      {
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        name: "Website color palettes",
-        numberOfItems: palettes.length,
-        itemListElement: palettes.map((p, i) => ({
-          "@type": "ListItem",
-          position: i + 1,
-          name: p.name,
-          description: p.best,
-          url: `${absUrl("/solutions/color-palettes")}#${p.slug}`,
-        })),
       },
     ];
   }
