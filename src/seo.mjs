@@ -129,6 +129,15 @@ export function jsonLdForPage(page) {
       },
     ];
   }
+  if (page.path === "/solutions/examples") {
+    return [
+      breadcrumb([
+        home,
+        { name: "Solutions", path: "/solutions" },
+        { name: "Examples", path: "/solutions/examples" },
+      ]),
+    ];
+  }
   // Industry landing pages carry their own Service + FAQPage so each can earn a
   // rich result on its own terms rather than leaning on the /solutions parent.
   const industry = industryPages.find((p) => `/solutions/${p.slug}` === page.path);
