@@ -57,7 +57,7 @@ export const aboutPage = {
             (v) => `<div class="reveal rounded-2xl border border-surface-800 bg-surface-900/50 p-6">
           <span class="mb-4 inline-grid h-11 w-11 place-items-center rounded-xl bg-primary-500/10 text-primary-300">${icon(v.icon)}</span>
           <h3 class="text-base font-semibold text-white">${v.t}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-surface-200">${v.d}</p>
+          <p class="mt-2 text-sm leading-relaxed text-surface-300">${v.d}</p>
         </div>`
           )
           .join("")}
