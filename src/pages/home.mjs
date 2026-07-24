@@ -38,7 +38,7 @@ export const home = {
       <!-- floating capability chips -->
       <div class="reveal mx-auto mt-14 flex max-w-3xl flex-wrap items-center justify-center gap-2.5 text-xs">
         ${["LLM apps & agents", "RAG & semantic search", "Predictive ML", "Document automation", "Computer vision", "Cloud deployment"]
-          .map((t) => `<span class="rounded-full border border-surface-800 bg-surface-900/60 px-3.5 py-1.5 text-surface-300">${t}</span>`)
+          .map((t) => `<span class="rounded-full border border-surface-800 bg-surface-900/60 px-3.5 py-1.5 text-surface-200">${t}</span>`)
           .join("")}
       </div>
     </div>
@@ -49,7 +49,7 @@ export const home = {
     <div class="mx-auto max-w-5xl">
       <p class="mb-5 text-center text-xs font-semibold uppercase tracking-widest text-surface-400">Trusted by teams &amp; products including</p>
       <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-        ${trustedBy.map((n) => `<span class="text-lg font-bold text-surface-400">${n}</span>`).join("")}
+        ${trustedBy.map((n) => `<span class="text-lg font-bold text-surface-300">${n}</span>`).join("")}
       </div>
     </div>
   </section>
@@ -82,8 +82,13 @@ export const home = {
             </a>
           </div>
           <div class="grid grid-cols-2 gap-3">
-            ${["Book Alchemy", "Dossier Nova", "Chrono Origin", "SpokenVerse"]
-              .map((p) => `<div class="rounded-xl border border-surface-800 bg-surface-950/60 px-4 py-5 text-center text-sm font-semibold text-surface-100">${p}</div>`)
+            ${[
+              { name: "Book Alchemy", icon: "spark" },
+              { name: "Dossier Nova", icon: "eye" },
+              { name: "Chrono Origin", icon: "compass" },
+              { name: "SpokenVerse", icon: "chat" },
+            ]
+              .map((p) => `<div class="flex flex-col items-center gap-2.5 rounded-xl border border-surface-800 bg-surface-950/60 px-4 py-5 text-center text-sm font-semibold text-surface-100">${icon(p.icon, "h-6 w-6 text-primary-300")}<span>${p.name}</span></div>`)
               .join("")}
           </div>
         </div>
@@ -108,7 +113,7 @@ export const home = {
             (step) => `<div class="reveal rounded-2xl border border-surface-800 bg-surface-900/40 p-6">
           <p class="text-sm font-bold text-primary-400">${step.n}</p>
           <h3 class="mt-2 text-base font-semibold text-white">${step.t}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-surface-400">${step.d}</p>
+          <p class="mt-2 text-sm leading-relaxed text-surface-200">${step.d}</p>
         </div>`
           )
           .join("")}
@@ -128,7 +133,7 @@ export const home = {
             <span>${f.q}</span>
             <span class="shrink-0 text-primary-400 transition-transform group-open:rotate-45">${icon("spark", "h-5 w-5")}</span>
           </summary>
-          <p class="pb-5 -mt-1 max-w-2xl text-sm leading-relaxed text-surface-400">${f.a}</p>
+          <p class="pb-5 -mt-1 max-w-2xl text-sm leading-relaxed text-surface-200">${f.a}</p>
         </details>`
           )
           .join("")}

@@ -16,9 +16,9 @@ function ventureCard(v) {
 
 function productCard(p) {
   return `<a href="${p.href}" target="_blank" rel="noopener" class="reveal group flex flex-col rounded-2xl border border-surface-800 bg-surface-900/50 p-6 transition-colors hover:border-primary-500/50">
-    <p class="eyebrow text-surface-500">${p.kind}</p>
+    <p class="eyebrow text-surface-300">${p.kind}</p>
     <h3 class="mt-2 text-lg font-bold text-white">${p.name}</h3>
-    <p class="mt-2 text-sm leading-relaxed text-surface-400">${p.blurb}</p>
+    <p class="mt-2 text-sm leading-relaxed text-surface-300">${p.blurb}</p>
     <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-300">Visit site ${icon("external", "h-4 w-4")}</span>
   </a>`;
 }

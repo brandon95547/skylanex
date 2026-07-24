@@ -97,7 +97,7 @@ export const solutionsPage = {
           (p, i) => `<div class="reveal rounded-2xl border border-surface-800 bg-surface-900/50 p-6">
           <p class="text-sm font-extrabold text-primary-400">0${i + 1}</p>
           <h3 class="mt-3 text-base font-semibold text-white">${p.t}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-surface-400">${p.d}</p>
+          <p class="mt-2 text-sm leading-relaxed text-surface-200">${p.d}</p>
         </div>`
         ).join("")}
       </div>
