@@ -6,7 +6,7 @@ function serviceCard(s) {
   return `<a href="/${s.slug}" class="reveal group flex flex-col rounded-2xl border border-surface-800 bg-surface-900/60 p-6 transition-colors hover:border-primary-500/50">
     <span class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-primary-500/10 text-primary-300 transition-colors group-hover:bg-primary-500/20">${icon(s.icon)}</span>
     <h3 class="text-base font-semibold text-white">${s.eyebrow}</h3>
-    <p class="mt-2 flex-1 text-sm leading-relaxed text-surface-400">${s.tagline}</p>
+    <p class="mt-2 flex-1 text-sm leading-relaxed text-surface-300">${s.tagline}</p>
     <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-300">Learn more ${icon("arrow", "h-4 w-4 transition-transform group-hover:translate-x-0.5")}</span>
   </a>`;
 }
@@ -47,7 +47,7 @@ export const home = {
   <!-- TRUSTED BY -->
   <section class="border-y border-surface-800 px-5 py-8 sm:px-8">
     <div class="mx-auto max-w-5xl">
-      <p class="mb-5 text-center text-xs font-semibold uppercase tracking-widest text-surface-500">Trusted by teams &amp; products including</p>
+      <p class="mb-5 text-center text-xs font-semibold uppercase tracking-widest text-surface-400">Trusted by teams &amp; products including</p>
       <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
         ${trustedBy.map((n) => `<span class="text-lg font-bold text-surface-400">${n}</span>`).join("")}
       </div>
