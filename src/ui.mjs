@@ -42,13 +42,91 @@ export function statRow() {
   </section>`;
 }
 
-// A soft decorative gradient glow container for hero sections.
+// The banner's constellation field, as markup.
+//
+// Laid out with a SEEDED prng, never Math.random: a static site generator that emits
+// different markup on every run makes diffs unreadable and busts caches for nothing.
+// Same seed in, same field out, forever.
+//
+// Edges connect any two nodes within a radius rather than each node to its nearest N.
+// Nearest-N gives every node the same degree, which reads as a woven mesh; a radius
+// leaves the clusters and empty stretches that make the banner's network look like a
+// constellation. Line opacity falls off with length for the same reason — uniformly
+// bright edges flatten it.
+export function plexus({ nodes = 38, width = 900, height = 560, seed = 7 } = {}) {
+  let s = seed >>> 0;
+  const rnd = () => {
+    s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
+    return s / 4294967296;
+  };
+  const pts = Array.from({ length: nodes }, () => ({
+    x: rnd() * width,
+    y: rnd() * height,
+    lit: rnd() > 0.84,
+    r: 1.4 + rnd() * 1.9,
+  }));
+
+  const LINK = Math.min(width, height) * 0.3;
+  const lines = [];
+  for (let i = 0; i < pts.length; i++) {
+    for (let j = i + 1; j < pts.length; j++) {
+      const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+      if (d >= LINK) continue;
+      const o = (1 - d / LINK) * 0.22;
+      lines.push(
+        `<line class="plexus-line" x1="${pts[i].x.toFixed(1)}" y1="${pts[i].y.toFixed(1)}" x2="${pts[j].x.toFixed(1)}" y2="${pts[j].y.toFixed(1)}" style="opacity:${o.toFixed(3)}"/>`
+      );
+    }
+  }
+  const dots = pts
+    .map(
+      (p) =>
+        `<circle class="plexus-node${p.lit ? " plexus-node--lit" : ""}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(p.lit ? p.r * 1.25 : p.r).toFixed(2)}"/>`
+    )
+    .join("");
+
+  return `<div class="plexus" aria-hidden="true">
+    <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid slice" fill="none">
+      <g>${lines.join("")}</g>
+      <g>${dots}</g>
+    </svg>
+  </div>`;
+}
+
+// Hero container: the deep blue-black field, the constellation, and the two soft
+// blooms that keep the corners from going dead flat.
 export function heroGlow(inner) {
-  return `<section class="relative overflow-hidden">
+  return `<section class="brand-field relative overflow-hidden">
+    ${plexus()}
     <div class="pointer-events-none absolute inset-0">
-      <div class="absolute left-1/2 top-[-10%] h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary-600/20 blur-3xl"></div>
+      <div class="absolute left-1/2 top-[-10%] h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary-600/15 blur-3xl"></div>
       <div class="absolute right-[-10%] top-[20%] h-[320px] w-[420px] rounded-full bg-accent-500/10 blur-3xl"></div>
     </div>
     <div class="relative">${inner}</div>
+    ${chevronRule()}
   </section>`;
+}
+
+// The banner's diagonal, as the seam under the hero.
+//
+// A lit hairline rather than a filled wedge: in the banner the diagonal is where two
+// near-black panels meet and catch an edge of light, so what you actually read is the
+// LINE, not a shape. Filling it turns the hero into a badge.
+//
+// Sits at the very bottom of the hero and is purely decorative, so it is aria-hidden
+// and cannot take pointer events away from anything under it.
+export function chevronRule() {
+  return `<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 overflow-hidden" aria-hidden="true">
+    <svg class="absolute inset-0 h-full w-full" viewBox="0 0 1440 64" preserveAspectRatio="none" fill="none">
+      <path d="M0 63.5 L1010 63.5 L1136 6 L1440 6" stroke="url(#skx-chev)" stroke-width="1.25"/>
+      <defs>
+        <linearGradient id="skx-chev" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+          <stop stop-color="var(--color-primary-400)" stop-opacity="0"/>
+          <stop offset="0.62" stop-color="var(--color-primary-400)" stop-opacity="0.5"/>
+          <stop offset="0.78" stop-color="var(--color-accent-300)" stop-opacity="0.85"/>
+          <stop offset="1" stop-color="var(--color-primary-400)" stop-opacity="0.08"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>`;
 }

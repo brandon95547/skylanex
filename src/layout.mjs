@@ -58,22 +58,31 @@ function navLinks(currentPath, mobile = false) {
     .join("\n");
 }
 
-// Skylanex mark: gradient badge with an ascending double-arch (leadership /
-// cloud / horizon) and a guiding star.
-export function mark(size = "h-9 w-9") {
-  return `<span class="grid ${size} place-items-center rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 shadow-lg shadow-primary-900/40">
-    <svg viewBox="0 0 64 64" class="h-[62%] w-[62%]" fill="none" aria-hidden="true">
-      <path d="M14 32 Q32 12 50 32" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
-      <path d="M14 45 Q32 25 50 45" fill="none" stroke="#fff" stroke-opacity="0.62" stroke-width="7" stroke-linecap="round"/>
-      <circle cx="32" cy="15.5" r="3.4" fill="#fff"/>
-    </svg>
-  </span>`;
+// Skylanex mark: the eagle emblem from the brand banner.
+//
+// Rendered from a <symbol> defined once per page (eagleSprite) rather than inlining
+// the path at both call sites — it is a single ~1.5KB path and the header and footer
+// would otherwise carry it twice. `fill="currentColor"` on the <use> is what lets the
+// footer dim it without a second copy of the artwork.
+//
+// No badge, no gradient chip. The banner sets the eagle directly on the dark field at
+// full contrast, and boxing it in a rounded square is what made the old mark read as a
+// generic app icon rather than a crest.
+export function mark(size = "h-9 w-9", tone = "text-white") {
+  return `<svg class="${size} ${tone} shrink-0 transition-colors" viewBox="0 0 1152 924" aria-hidden="true">
+    <use href="#skx-eagle" />
+  </svg>`;
+}
+
+// Defined once, immediately inside <body>, and referenced by every mark().
+export function eagleSprite() {
+  return `<svg width="0" height="0" class="absolute" aria-hidden="true" focusable="false"><symbol id="skx-eagle" viewBox="0 0 1152 924"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M 616 588 L 584 653 L 584 899 L 691 788 Z M 535 588 L 460 788 L 567 899 L 567 653 Z M 516 551 L 511 555 L 378 704 L 434 760 L 435 760 L 449 729 L 452 725 L 461 704 L 476 675 L 476 673 L 487 652 L 487 650 L 525 571 L 525 568 Z M 635 550 L 625 570 L 666 655 L 666 657 L 679 682 L 679 684 L 694 713 L 694 715 L 716 760 L 717 760 L 773 704 Z M 641 235 L 532 235 L 516 240 L 502 255 L 475 260 L 481 298 L 491 285 L 523 289 L 539 317 L 506 376 L 576 505 L 663 349 L 613 255 Z M 504 255 L 505 254 L 553 254 L 554 255 L 560 255 L 561 256 L 561 273 L 562 274 L 561 275 L 557 275 L 556 274 L 554 274 L 553 273 L 551 273 L 550 272 L 548 272 L 547 271 L 544 271 L 543 270 L 541 270 L 540 269 L 538 269 L 537 268 L 536 268 L 535 267 L 533 267 L 532 266 L 530 266 L 529 265 L 527 265 L 526 264 L 524 264 L 523 263 L 521 263 L 520 262 L 519 262 L 518 261 L 516 261 L 515 260 L 514 260 L 513 259 L 511 259 L 510 258 L 509 258 L 508 257 L 506 257 Z M 24 24 L 69 133 L 405 321 L 82 171 L 130 270 L 439 387 L 154 310 L 213 396 L 475 450 L 269 436 L 358 511 L 494 489 L 387 529 L 460 574 L 514 519 L 575 624 L 638 519 L 692 574 L 765 529 L 658 488 L 793 511 L 883 436 L 679 450 L 939 396 L 998 311 L 717 387 L 1023 270 L 1071 171 L 753 322 L 1085 132 L 1127 25 L 735 259 L 576 553 L 425 257 Z"/></symbol></svg>`;
 }
 
 function logo() {
   return `<a href="/" class="group flex items-center gap-2.5" aria-label="${site.name} home">
     ${mark()}
-    <span class="text-lg font-extrabold uppercase tracking-tight text-white">Skyla<span class="grad-text">nex</span></span>
+    <span class="font-display text-lg font-semibold uppercase leading-none tracking-[0.22em] text-white">Skylanex</span>
   </a>`;
 }
 
@@ -112,11 +121,12 @@ export function layout({ title, metaTitle, description, path = "/", content = ""
   <meta name="twitter:image" content="${site.domain}/images/skylanex-logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Saira:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/app.css" />
 ${ldScripts}
 </head>
 <body class="min-h-screen bg-surface-950 text-surface-100 antialiased">
+  ${eagleSprite()}
 
   <!-- ===== NAV ===== -->
   <header id="site-nav" class="sticky top-0 z-50 border-b border-transparent transition-colors">

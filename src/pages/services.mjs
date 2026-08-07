@@ -16,7 +16,7 @@ function row(s, i) {
       ${s.deliverables
         .map(
           (d) => `<li class="flex items-center gap-3 rounded-xl border border-surface-800 bg-surface-950/50 px-4 py-3 text-sm text-surface-200">
-        <span class="text-emerald-400">${icon("check", "h-4 w-4")}</span> ${d}
+        <span class="text-primary-400">${icon("check", "h-4 w-4")}</span> ${d}
       </li>`
         )
         .join("")}

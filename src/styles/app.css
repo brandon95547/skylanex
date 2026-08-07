@@ -24,46 +24,61 @@
 @source inline("{bg,text,border,ring,from,via,to,fill,divide}-{primary,accent,surface,emerald,rose}-{50,100,200,300,400,500,600,700,800,900,950}");
 
 @theme {
-  /* ---- surface: cool ink / slate ---- */
-  --color-surface-50: #f6f7fb;
-  --color-surface-100: #eceef6;
-  --color-surface-200: #d6dae8;
-  --color-surface-300: #b2b9d0;
-  --color-surface-400: #8790ad;
-  --color-surface-500: #656e8c;
-  --color-surface-600: #4d5573;
-  --color-surface-700: #3a4059;
-  --color-surface-800: #232838;
-  --color-surface-900: #151824;
-  --color-surface-950: #0a0b12;
+  /* ---- surface: near-black with a blue cast ----
+   * Sampled off the banner rather than invented: its panels read #06090e / #0e1216,
+   * which is a black that leans blue, not neutral slate. The old ramp leaned violet
+   * to sit under a violet primary; a warm-neutral or violet black under this blue
+   * would grey the accent out. */
+  --color-surface-50: #f4f8fb;
+  --color-surface-100: #e7eef5;
+  --color-surface-200: #cbd8e6;
+  --color-surface-300: #a3b6cb;
+  --color-surface-400: #7389a4;
+  --color-surface-500: #536780;
+  --color-surface-600: #3e4f66;
+  --color-surface-700: #2b384a;
+  --color-surface-800: #1a2330;
+  --color-surface-900: #0e131b;
+  --color-surface-950: #06090e;
 
-  /* ---- primary: violet ---- */
-  --color-primary-50: #f5f3ff;
-  --color-primary-100: #ede9fe;
-  --color-primary-200: #ddd6fe;
-  --color-primary-300: #c4b5fd;
-  --color-primary-400: #a78bfa;
-  --color-primary-500: #8b5cf6;
-  --color-primary-600: #7c3aed;
-  --color-primary-700: #6d28d9;
-  --color-primary-800: #5b21b6;
-  --color-primary-900: #4c1d95;
-  --color-primary-950: #2e1065;
+  /* ---- primary: electric azure ----
+   * 400 is #61c7ff, measured from the banner's "BUILDING INTELLIGENT DIGITAL
+   * EXPERIENCES" line — the one saturated hue in the whole design. The ramp is built
+   * around it so `primary-400` is literally the brand blue, and the darker steps stay
+   * on that hue instead of drifting toward navy. */
+  --color-primary-50: #eff9ff;
+  --color-primary-100: #dbf1ff;
+  --color-primary-200: #b7e5ff;
+  --color-primary-300: #85d4ff;
+  --color-primary-400: #61c7ff;
+  --color-primary-500: #2eadfa;
+  --color-primary-600: #158fe0;
+  --color-primary-700: #1272b5;
+  --color-primary-800: #145f94;
+  --color-primary-900: #154f79;
+  --color-primary-950: #0d3150;
 
-  /* ---- accent: cyan ---- */
-  --color-accent-50: #ecfeff;
-  --color-accent-100: #cffafe;
-  --color-accent-200: #a5f3fc;
-  --color-accent-300: #67e8f9;
-  --color-accent-400: #22d3ee;
-  --color-accent-500: #06b6d4;
-  --color-accent-600: #0891b2;
-  --color-accent-700: #0e7490;
-  --color-accent-800: #155e75;
-  --color-accent-900: #164e63;
-  --color-accent-950: #083344;
+  /* ---- accent: glow cyan ----
+   * The brightest pixels in the banner's constellation nodes are #5ee7ff — a cooler,
+   * more electric blue than the type. Kept as a separate ramp so glows and node dots
+   * can lift off the primary without introducing a second hue family. */
+  --color-accent-50: #edfdff;
+  --color-accent-100: #d3f8ff;
+  --color-accent-200: #aaf1ff;
+  --color-accent-300: #5ee7ff;
+  --color-accent-400: #29d3f5;
+  --color-accent-500: #0bb4db;
+  --color-accent-600: #0490b8;
+  --color-accent-700: #087395;
+  --color-accent-800: #105e79;
+  --color-accent-900: #124e66;
+  --color-accent-950: #053246;
 
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* Squarish, wide geometric caps — the banner's wordmark is Eurostile-adjacent, and
+   * Saira is the closest thing with a full weight range. Display only: it is set at
+   * heading sizes with heavy tracking, never as body copy. */
+  --font-display: "Saira", "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
 /* ------------------------------------------------------------------ */
@@ -79,6 +94,22 @@
     color: var(--color-surface-100);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+  }
+  /* Headings carry the brand face; body copy stays Inter.
+   *
+   * Saira is squarish and slightly narrow, which is the banner's character, but it is
+   * a display face — set as running text it gets tiring fast. The split is deliberate:
+   * everything structural (headings, the wordmark, eyebrows) is Saira, everything you
+   * actually read for comprehension is Inter.
+   *
+   * Tracking is only slightly open here, NOT the 0.22em of the wordmark. That much
+   * tracking works on one word; on a full headline it stops reading as a sentence. */
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0.005em;
+  }
+  .eyebrow, h4, h5, h6 {
+    font-family: var(--font-display);
   }
   ::selection {
     background-color: var(--color-primary-500);
@@ -139,6 +170,67 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+
+  /* ---- Brand motifs, lifted from the banner ---------------------------- */
+
+  /* Wide geometric caps. The banner sets everything secondary this way, and the
+   * tracking is doing as much brand work as the colour is — Saira at normal
+   * tracking reads like any other UI sans. */
+  .display-caps {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-weight: 600;
+  }
+  .display-caps-tight { letter-spacing: 0.12em; }
+
+  /* The angular divider. In the banner it is a single diagonal with a thin lit
+   * edge catching light off the panel behind it — the ::after is that edge, and
+   * without it the shape reads as a flat cut rather than a bevel. */
+  .chevron-edge {
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 4.5rem) 100%, 0 100%);
+  }
+  .chevron-edge::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      100deg,
+      transparent calc(100% - 4.6rem),
+      color-mix(in oklab, var(--color-primary-300) 55%, transparent) calc(100% - 4.55rem),
+      transparent calc(100% - 4.4rem)
+    );
+  }
+
+  /* Constellation field. The dots are CSS; the connecting LINES are an SVG the
+   * markup supplies, because line geometry is not something gradients can fake
+   * and a tiled pattern reads as wallpaper rather than a network. */
+  .plexus {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    /* Fades the field out toward the content so type never sits on a node. */
+    mask-image: radial-gradient(120% 100% at 78% 22%, #000 0%, #000 42%, transparent 78%);
+    -webkit-mask-image: radial-gradient(120% 100% at 78% 22%, #000 0%, #000 42%, transparent 78%);
+  }
+  .plexus svg { width: 100%; height: 100%; }
+  .plexus-line { stroke: var(--color-primary-400); stroke-width: 1; opacity: 0.18; }
+  .plexus-node { fill: var(--color-surface-300); opacity: 0.55; }
+  /* A few nodes are lit rather than grey — in the banner only a handful glow, and
+   * lighting all of them flattens the depth the sparse ones create. */
+  .plexus-node--lit { fill: var(--color-accent-300); opacity: 0.95; }
+
+  /* The deep vignette the banner sits in: not flat black, a blue-black that lifts
+   * slightly toward the upper right where the network is densest. */
+  .brand-field {
+    background:
+      radial-gradient(90% 70% at 82% 8%, color-mix(in oklab, var(--color-primary-900) 32%, transparent) 0%, transparent 62%),
+      radial-gradient(70% 60% at 6% 96%, color-mix(in oklab, var(--color-accent-950) 42%, transparent) 0%, transparent 58%),
+      var(--color-surface-950);
   }
 }
 

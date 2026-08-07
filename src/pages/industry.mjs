@@ -80,7 +80,7 @@ function conceptDetail(p, c) {
           ${c.points
             .map(
               (pt) => `<li class="flex items-start gap-3">
-            <span class="mt-0.5 shrink-0 text-emerald-400">${icon("check", "h-5 w-5")}</span>
+            <span class="mt-0.5 shrink-0 text-primary-400">${icon("check", "h-5 w-5")}</span>
             <p class="leading-relaxed text-surface-300">${pt}</p>
           </li>`
             )
@@ -212,7 +212,7 @@ function detail(p) {
             .map(
               (i) => `<div class="rounded-2xl border border-surface-800 bg-surface-900/40 p-5">
             <div class="flex items-start gap-2.5">
-              <span class="mt-0.5 shrink-0 text-emerald-400">${icon("check", "h-4 w-4")}</span>
+              <span class="mt-0.5 shrink-0 text-primary-400">${icon("check", "h-4 w-4")}</span>
               <div>
                 <h3 class="text-sm font-semibold text-white">${i.t}</h3>
                 <p class="mt-1.5 text-sm leading-relaxed text-surface-400">${i.d}</p>

@@ -21,7 +21,7 @@ function solutionRow(s, i) {
         ${s.outcomes
           .map(
             (o) => `<li class="flex items-start gap-2.5 text-sm text-surface-200">
-          <span class="mt-0.5 shrink-0 text-emerald-400">${icon("check", "h-4 w-4")}</span> ${o}
+          <span class="mt-0.5 shrink-0 text-primary-400">${icon("check", "h-4 w-4")}</span> ${o}
         </li>`
           )
           .join("")}

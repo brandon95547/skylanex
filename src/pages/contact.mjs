@@ -60,9 +60,9 @@ export const contactPage = {
         <div class="rounded-2xl border border-surface-800 bg-surface-900/50 p-6">
           <h2 class="text-sm font-semibold text-white">What happens next</h2>
           <ul class="mt-4 space-y-3 text-sm text-surface-300">
-            <li class="flex gap-3"><span class="text-emerald-400">${icon("check", "h-4 w-4")}</span> A personal reply, usually within a day.</li>
-            <li class="flex gap-3"><span class="text-emerald-400">${icon("check", "h-4 w-4")}</span> A short call to understand the problem.</li>
-            <li class="flex gap-3"><span class="text-emerald-400">${icon("check", "h-4 w-4")}</span> An honest take and a clear next step.</li>
+            <li class="flex gap-3"><span class="text-primary-400">${icon("check", "h-4 w-4")}</span> A personal reply, usually within a day.</li>
+            <li class="flex gap-3"><span class="text-primary-400">${icon("check", "h-4 w-4")}</span> A short call to understand the problem.</li>
+            <li class="flex gap-3"><span class="text-primary-400">${icon("check", "h-4 w-4")}</span> An honest take and a clear next step.</li>
           </ul>
         </div>
       </aside>

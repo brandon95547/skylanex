@@ -46,7 +46,7 @@ function detail(s) {
           <h3 class="eyebrow text-surface-500">Typical deliverables</h3>
           <ul class="mt-4 space-y-3">
             ${s.deliverables
-              .map((d) => `<li class="flex items-center gap-3 text-sm text-surface-200"><span class="text-emerald-400">${icon("check", "h-4 w-4")}</span> ${d}</li>`)
+              .map((d) => `<li class="flex items-center gap-3 text-sm text-surface-200"><span class="text-primary-400">${icon("check", "h-4 w-4")}</span> ${d}</li>`)
               .join("")}
           </ul>
           <a href="/contact" class="btn btn-primary mt-6 w-full">Discuss your project ${icon("arrow", "h-4 w-4")}</a>
