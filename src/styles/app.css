@@ -2,13 +2,14 @@
  *
  * Palette is organized the same way as the Phansora site: semantic ramps
  * (surface / primary / accent) declared in @theme, with a safelist so every
- * shade is always available. New scheme, though: violet primary + cyan accent
- * on a cool "ink" surface ramp (distinct from Phansora's blue).
+ * shade is always available. The values themselves are sampled from the eagle
+ * brand banner rather than chosen — see the notes on each ramp below.
  *
- *   surface — cool near-black slate (backgrounds, borders, muted text)
- *   primary — violet (brand, CTAs, links)
- *   accent  — cyan (secondary highlights, gradients)
- *   emerald / rose kept from Tailwind defaults for success / error accents.
+ *   surface — near-black that leans BLUE, not neutral slate (backgrounds, borders)
+ *   primary — electric azure, the banner's one saturated hue (brand, CTAs, links)
+ *   accent  — the cooler glow cyan off its constellation nodes (highlights, dots)
+ *   emerald / rose kept from Tailwind defaults for success / error only. The brand
+ *   is strictly blue and white, so neither belongs in decoration.
  */
 
 @import "tailwindcss";
@@ -28,7 +29,7 @@
    * Sampled off the banner rather than invented: its panels read #06090e / #0e1216,
    * which is a black that leans blue, not neutral slate. The old ramp leaned violet
    * to sit under a violet primary; a warm-neutral or violet black under this blue
-   * would grey the accent out. */
+   * would gray the accent out. */
   --color-surface-50: #f4f8fb;
   --color-surface-100: #e7eef5;
   --color-surface-200: #cbd8e6;
@@ -175,7 +176,7 @@
   /* ---- Brand motifs, lifted from the banner ---------------------------- */
 
   /* Wide geometric caps. The banner sets everything secondary this way, and the
-   * tracking is doing as much brand work as the colour is — Saira at normal
+   * tracking is doing as much brand work as the color is — Saira at normal
    * tracking reads like any other UI sans. */
   .display-caps {
     font-family: var(--font-display);
@@ -220,7 +221,7 @@
   .plexus svg { width: 100%; height: 100%; }
   .plexus-line { stroke: var(--color-primary-400); stroke-width: 1; opacity: 0.18; }
   .plexus-node { fill: var(--color-surface-300); opacity: 0.55; }
-  /* A few nodes are lit rather than grey — in the banner only a handful glow, and
+  /* A few nodes are lit rather than gray — in the banner only a handful glow, and
    * lighting all of them flattens the depth the sparse ones create. */
   .plexus-node--lit { fill: var(--color-accent-300); opacity: 0.95; }
 
@@ -287,7 +288,7 @@
 
   /* ---- video cards ----
      Uniform 9:16 tiles regardless of source aspect. The two 16:9 motion pieces
-     are centre-cropped so the grid keeps an even rhythm — mixed tile heights
+     are center-cropped so the grid keeps an even rhythm — mixed tile heights
      leave ragged gaps in a CSS grid. Full framing is restored in the lightbox.
      The scrim is heavy at the base because the source cuts carry burned-in
      captions in their lower third; the title block has to sit on solid ink. */

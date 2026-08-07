@@ -31,7 +31,7 @@ function concept(c, industrySlug) {
   </figure>`;
 }
 
-// One concept's detail page: a large render, the design rationale, the colour
+// One concept's detail page: a large render, the design rationale, the color
 // direction, and a CTA to adapt it. `p` is the industryPages[] entry; `c` is one
 // of its showcase[] concepts.
 function conceptDetail(p, c) {
@@ -71,7 +71,7 @@ function conceptDetail(p, c) {
     </div>
   </section>
 
-  <!-- Rationale + colour direction -->
+  <!-- Rationale + color direction -->
   <section class="px-5 py-14 sm:px-8">
     <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.4fr_1fr]">
       <div>
@@ -90,7 +90,7 @@ function conceptDetail(p, c) {
       ${
         palette
           ? `<aside class="h-fit rounded-2xl border border-surface-800 bg-surface-900/40 p-6">
-        <h3 class="text-sm font-semibold text-white">Colour direction</h3>
+        <h3 class="text-sm font-semibold text-white">Color direction</h3>
         <p class="mt-1 text-xs text-surface-500">${palette.name}</p>
         <div class="mt-5 flex gap-2">
           ${swatchKeys
@@ -111,7 +111,7 @@ function conceptDetail(p, c) {
 
   ${ctaBand({
     title: "Want a site like this for your firm?",
-    sub: `This direction was built for ${c.label.toLowerCase()}. Tell me your practice areas and the market you want to win, and I'll adapt it — your name, your colours, your content — into a site built to turn a search into a signed client. You get a fixed number, not an hourly meter.`,
+    sub: `This direction was built for ${c.label.toLowerCase()}. Tell me your practice areas and the market you want to win, and I'll adapt it — your name, your colors, your content — into a site built to turn a search into a signed client. You get a fixed number, not an hourly meter.`,
     primaryLabel: "Design mine",
   })}
   `;

@@ -289,7 +289,7 @@ export const palettes = [
     name: "Safety Orange & Steel",
     mood: "dark",
     best: "Construction · Industrial · Trades",
-    note: "Borrowed straight from the jobsite. High-visibility orange on cold steel greys signals capability and scale — and it survives being seen on a phone in daylight.",
+    note: "Borrowed straight from the jobsite. High-visibility orange on cold steel grays signals capability and scale — and it survives being seen on a phone in daylight.",
     colors: { bg: "#14181d", surface: "#1c2229", border: "#2c343d", text: "#f2f5f8", muted: "#9aa5b1", primary: "#f26522", onPrimary: "#12161b", accent: "#ffc107" },
     variant: "bold",
     demo: {
@@ -314,7 +314,7 @@ export const palettes = [
     name: "Concrete & Blueprint",
     mood: "light",
     best: "Engineering · Architecture · General contracting",
-    note: "Drafting-table blue on concrete grey, with a hazard-yellow accent for calls to action. Technical and legible — good when the site carries a lot of spec detail.",
+    note: "Drafting-table blue on concrete gray, with a hazard-yellow accent for calls to action. Technical and legible — good when the site carries a lot of spec detail.",
     colors: { bg: "#f4f5f7", surface: "#ffffff", border: "#dfe3e8", text: "#1b2027", muted: "#626c78", primary: "#1f4e79", onPrimary: "#ffffff", accent: "#f59e0b" },
     variant: "split",
     demo: {
@@ -916,16 +916,16 @@ export const industryPages = [
       { v: "1", l: "Developer you talk to" },
     ],
 
-    // Six original concepts, labelled by the practice area whose buyer each is
+    // Six original concepts, labeled by the practice area whose buyer each is
     // pitched at. These render as static WebP in assets/images/concepts/ rather
-    // than live palette mockups: the designs carry their own type and colour,
+    // than live palette mockups: the designs carry their own type and color,
     // which the eight-token palette system can't reproduce. `slug` is both the
     // image filename and the key — see src/pages/industry.mjs.
     // Each concept gets a dedicated detail page at /solutions/<slug>/<concept>
     // with a larger render, the design rationale, and a "design mine" CTA.
     // `firm` is the name shown in the design itself (it becomes the page H1);
     // `blurb` is the one-line pitch (also the detail page's meta description);
-    // `points` are what the direction does; `palette` is the colour direction
+    // `points` are what the direction does; `palette` is the color direction
     // shown on the detail page — its swatches are sampled from the actual image
     // so the panel matches what the visitor is looking at.
     showcase: [

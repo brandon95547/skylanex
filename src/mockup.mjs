@@ -298,7 +298,7 @@ export function mockup(palette, opts = {}) {
 
 // Ordered token strip shown above each palette's preview.
 // Labels stay short on purpose — seven of them share one card width, so
-// "Background" would collide with its neighbour long before it wrapped.
+// "Background" would collide with its neighbor long before it wrapped.
 const SWATCH_KEYS = [
   ["bg", "BG"],
   ["surface", "Surface"],
