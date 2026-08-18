@@ -40,6 +40,11 @@ export const contactPage = {
             <option value="Something else">Something else</option>
           </select>
         </label>
+        <!-- Honeypot: hidden from people and screen readers, skipped by tab. Bots fill
+             every input they find, and the API drops any submission that has this set. -->
+        <div class="hidden" aria-hidden="true">
+          <label>Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label>
+        </div>
         <label class="mt-4 block">
           <span class="mb-1.5 block text-sm font-medium text-surface-200">Project details</span>
           <textarea name="message" rows="5" required placeholder="A sentence or two about what you’re building…" class="${field}"></textarea>

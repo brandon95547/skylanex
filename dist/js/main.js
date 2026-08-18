@@ -127,7 +127,7 @@
     });
   }
 
-  /* ---- Contact form: compose a mailto (no backend needed) ---- */
+  /* ---- Contact form: POST to the API, mailto only if it is unreachable ---- */
   var form = document.getElementById("contact-form");
   if (form) {
     form.addEventListener("submit", function (e) {
@@ -138,10 +138,23 @@
       var email = (data.get("email") || "").toString().trim();
       var topic = (data.get("topic") || "").toString().trim();
       var message = (data.get("message") || "").toString().trim();
+
+      function say(text, tone) {
+        if (!note) { return; }
+        note.textContent = text;
+        note.className = "mt-3 text-sm " + tone;
+      }
+      var BAD = "text-rose-400", OK = "text-emerald-400", MUTED = "text-surface-400";
+
       if (!name || !email || !message) {
-        if (note) { note.textContent = "Please add your name, email, and a short message."; note.className = "mt-3 text-sm text-rose-400"; }
+        say("Please add your name, email, and a short message.", BAD);
         return;
       }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        say("That email address doesn't look right — please check it.", BAD);
+        return;
+      }
+
       var to = form.getAttribute("data-email") || "info@skylanex.com";
       var endpoint = form.getAttribute("data-endpoint") || "/api/contact";
       var subject = "Skylanex inquiry" + (topic ? " — " + topic : "") + " — " + name;
@@ -153,26 +166,48 @@
 
       var submitBtn = form.querySelector('button[type="submit"]');
       if (submitBtn) { submitBtn.disabled = true; }
-      if (note) { note.textContent = "Sending…"; note.className = "mt-3 text-sm text-surface-400"; }
+      say("Sending…", MUTED);
 
       fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ subject: subject, message: body, reply_to: email })
+        body: JSON.stringify({
+          subject: subject,
+          message: body,
+          reply_to: email,
+          // Hidden field — a real visitor never sees it, so anything here is a bot.
+          website: (data.get("website") || "").toString()
+        })
       })
         .then(function (res) {
-          if (!res.ok) { throw new Error("status " + res.status); }
-          return res.text();
+          if (res.ok) { return null; }
+          // The server answered — that is a verdict, not an outage. Report it as
+          // one instead of dumping the visitor into a mail client they may not have.
+          return res.json().catch(function () { return null; }).then(function (json) {
+            var e = new Error("http");
+            e.answered = true;
+            e.status = res.status;
+            e.detail = json && (json.detail || json.message);
+            throw e;
+          });
         })
         .then(function () {
           form.reset();
-          if (note) { note.textContent = "Thanks — your message has been sent. I'll reply within a day."; note.className = "mt-3 text-sm text-emerald-400"; }
+          say("Thanks — your message has been sent. I'll reply within a day.", OK);
         })
-        .catch(function () {
-          // API unreachable — fall back to opening the visitor's email client.
+        .catch(function (err) {
+          if (err && err.answered) {
+            if (err.status === 429) {
+              say("You've sent a few messages already — please try again later, or email " + to + ".", BAD);
+            } else {
+              say((err.detail || "That didn't go through.") + " You can also email " + to + ".", BAD);
+            }
+            return;
+          }
+          // Genuinely unreachable — fall back to the visitor's email client.
           window.location.href =
             "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-          if (note) { note.textContent = "Opening your email app instead… or email " + to + " directly."; note.className = "mt-3 text-sm text-surface-400"; }
+          say("Opening your email app instead… or email " + to + " directly.", MUTED);
         })
         .finally(function () {
           if (submitBtn) { submitBtn.disabled = false; }
