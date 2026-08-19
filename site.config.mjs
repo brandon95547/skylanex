@@ -5,7 +5,6 @@ export const site = {
   tagline: "AI software studio",
   domain: "https://www.skylanex.com", // canonical is www (site forces www + https)
   email: "info@skylanex.com",
-  phone: "(864) 437-9301",
   owner: "Brandon Sanders",
   description:
     "Skylanex is an independent AI software studio — we design, build, and ship intelligent applications, from custom AI apps to machine learning, NLP, and computer vision.",

@@ -59,7 +59,6 @@ export const contactPage = {
           <h2 class="text-sm font-semibold text-white">Prefer direct?</h2>
           <div class="mt-4 space-y-3 text-sm">
             <a href="mailto:${site.email}" class="flex items-center gap-3 text-surface-200 hover:text-white">${icon("mail", "h-4 w-4 text-primary-400")} ${site.email}</a>
-            <a href="tel:${site.phone.replace(/[^0-9+]/g, "")}" class="flex items-center gap-3 text-surface-200 hover:text-white">${icon("phone", "h-4 w-4 text-primary-400")} ${site.phone}</a>
           </div>
         </div>
         <div class="rounded-2xl border border-surface-800 bg-surface-900/50 p-6">

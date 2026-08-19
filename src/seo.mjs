@@ -35,7 +35,6 @@ export function orgGraph() {
         image: `${site.domain}/images/skylanex-logo.svg`,
         description: site.description,
         email: site.email,
-        telephone: site.phone,
         founder: { "@type": "Person", name: site.owner },
         areaServed: "Worldwide",
         knowsAbout: [
