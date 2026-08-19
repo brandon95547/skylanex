@@ -1376,6 +1376,6 @@ export const faqs = [
   },
   {
     q: "How do we get started?",
-    a: "Send a short note about what you're building via the contact page. You'll get a personal reply, usually within a day, and a short call to scope it.",
+    a: "Send a short note about what you're building via the contact page. You'll get a personal reply and a short call to scope it.",
   },
 ];

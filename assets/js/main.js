@@ -193,7 +193,7 @@
         })
         .then(function () {
           form.reset();
-          say("Thanks — your message has been sent. I'll reply within a day.", OK);
+          say("Thanks — your message has been sent.", OK);
         })
         .catch(function (err) {
           if (err && err.answered) {
