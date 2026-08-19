@@ -901,6 +901,10 @@ export const industryPages = [
     solution: "attorneys",
     icon: "scale",
     eyebrow: "Law Firm Web Design",
+    // Short form for meta titles only. The eyebrow reads well as a page label but
+    // is too long once a firm name and the brand are appended — the concept titles
+    // ran to 75 chars and search results cut off the part naming what the page is.
+    conceptNoun: "law firm",
     h1: "Law firm websites built to turn a search into a signed client",
     metaTitle: "Law Firm Web Design & Development · Skylanex",
     description:
@@ -1128,8 +1132,9 @@ export const industryPages = [
     solution: "medical-dental",
     icon: "pulse",
     eyebrow: "Medical & Dental Web Design",
+    conceptNoun: "healthcare",
     h1: "Medical and dental websites built to fill the schedule",
-    metaTitle: "Medical & Dental Web Design & Development · Skylanex",
+    metaTitle: "Medical & Dental Web Design · Skylanex",
     description:
       "Custom medical and dental website design — online scheduling, insurance transparency, patient intake, and local SEO. See six original healthcare design concepts.",
     lede:
@@ -1210,7 +1215,7 @@ export const industryPages = [
       },
       {
         slug: "heritage",
-        firm: "Heeritage Dental",
+        firm: "Heritage Dental",
         label: "Dentistry & cosmetic",
         palette: {
           name: "Navy & Gold",

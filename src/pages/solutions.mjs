@@ -49,7 +49,7 @@ export const solutionsPage = {
   path: "/solutions",
   file: "solutions.html",
   title: "Solutions",
-  metaTitle: "Design & Build Solutions — Websites, Apps, CRM & More · Skylanex",
+  metaTitle: "Websites, Apps & CRM — Design & Build · Skylanex",
   description:
     "What Skylanex designs and builds — modern websites, web & mobile apps, custom CRMs, dashboards, AI assistants, and e-commerce. See a demo of each.",
   render: () => `

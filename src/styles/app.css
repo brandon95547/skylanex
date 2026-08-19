@@ -14,6 +14,49 @@
 
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ */
+/* Fonts — self-hosted, not Google-hosted                              */
+/*                                                                     */
+/* Loading these from fonts.googleapis.com cost two DNS lookups and two */
+/* TLS handshakes on the critical path before any text painted, handed  */
+/* every visitor's IP to a third party, and forced the CSP to allow two */
+/* external hosts for styles and fonts. Self-hosting removes all three. */
+/*                                                                     */
+/* VARIABLE, not one file per weight: Inter's variable latin face is    */
+/* 47KB and covers 400-800, which is the same size Google charges for a */
+/* SINGLE static weight. The static set was 365KB for the nine weights  */
+/* this site uses; these two files are 80KB for every weight it could.  */
+/*                                                                     */
+/* Latin subset only — this site is English. The range below is the one */
+/* Google serves as "latin", and it already covers the typographic marks */
+/* the copy actually uses (curly quotes, em dashes) at U+2000-206F.     */
+/*                                                                     */
+/* swap: text paints immediately in the fallback and reflows when the   */
+/* face lands. On a dark site a flash of unstyled text is far less      */
+/* jarring than a flash of NO text, which is what the default gives.    */
+/* Both families are SIL Open Font License 1.1 — see assets/fonts/.     */
+/* ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/inter-var-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Saira";
+  font-style: normal;
+  font-weight: 500 800;
+  font-display: swap;
+  src: url("/fonts/saira-var-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
 /* Scan the generators + built output for class names. */
 @source "../**/*.mjs";
 @source "../../build.mjs";

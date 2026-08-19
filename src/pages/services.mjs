@@ -8,7 +8,9 @@ function row(s, i) {
     <div class="${flip ? "lg:order-2" : ""}">
       <span class="mb-4 inline-grid h-12 w-12 place-items-center rounded-xl bg-primary-500/10 text-primary-300">${icon(s.icon, "h-6 w-6")}</span>
       <p class="eyebrow text-accent-400">${s.eyebrow}</p>
-      <h3 class="mt-2 text-2xl font-bold text-white">${s.title}</h3>
+      <!-- h2, not h3: the six service rows ARE the page, sitting under no section
+           heading of their own, so an h3 skips a level straight from the h1. -->
+      <h2 class="mt-2 text-2xl font-bold text-white">${s.title}</h2>
       <p class="mt-3 leading-relaxed text-surface-300">${s.summary}</p>
       <a href="/${s.slug}" class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-300 hover:text-primary-200">Explore ${s.eyebrow} ${icon("arrow", "h-4 w-4")}</a>
     </div>

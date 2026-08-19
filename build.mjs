@@ -2,6 +2,7 @@
 // Renders every page through the shared layout into dist/*.html, copies assets,
 // and writes a 404 + robots + sitemap. Tailwind builds dist/css/app.css separately.
 
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -9,15 +10,7 @@ import { fileURLToPath } from "node:url";
 import { layout } from "./src/layout.mjs";
 import { site, nav, services, designSolutions, industryPages } from "./site.config.mjs";
 import { orgGraph, jsonLdForPage } from "./src/seo.mjs";
-import { home } from "./src/pages/home.mjs";
-import { servicesPage } from "./src/pages/services.mjs";
-import { servicePages } from "./src/pages/service.mjs";
-import { solutionsPage } from "./src/pages/solutions.mjs";
-import { examplesPage } from "./src/pages/examples.mjs";
-import { industryLandingPages, conceptDetailPages } from "./src/pages/industry.mjs";
-import { workPage } from "./src/pages/work.mjs";
-import { aboutPage } from "./src/pages/about.mjs";
-import { contactPage } from "./src/pages/contact.mjs";
+import { pages } from "./src/pages-index.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(__dirname, "dist");
@@ -26,8 +19,6 @@ const DIST = path.join(__dirname, "dist");
 // copy so incremental HTML rebuilds are fast and don't race the tailwind watcher
 // that owns dist/css/app.css.
 const DEV = !!process.env.SKYLANEX_DEV;
-
-const pages = [home, servicesPage, ...servicePages, solutionsPage, examplesPage, ...industryLandingPages, ...conceptDetailPages, workPage, aboutPage, contactPage];
 
 function rmrf(p) {
   if (fs.existsSync(p)) fs.rmSync(p, { recursive: true, force: true });
@@ -40,6 +31,44 @@ function copyDir(src, dest) {
     const d = path.join(dest, entry.name);
     entry.isDirectory() ? copyDir(s, d) : fs.copyFileSync(s, d);
   }
+}
+
+// Per-URL <lastmod>, read from git rather than invented.
+//
+// dist/ is committed, so a built page's own commit date IS the date its output last
+// changed — no per-page wiring, and it can't drift from the content the way a hand-kept
+// date would. Two cases the naive version gets wrong:
+//
+//   - a page whose output differs from HEAD has changed NOW but has no commit yet, so
+//     its committed date would be stale by exactly one deploy. Those get today.
+//   - a build date for every page would claim the whole site changed on every rebuild,
+//     which is the same as telling a crawler nothing.
+//
+// Falls back to today's date if git isn't available (a tarball checkout, say) — a wrong
+// lastmod is worse than none, but an absent one costs the recrawl signal entirely.
+function gitLastModified() {
+  const git = (args) => execFileSync("git", args, { cwd: __dirname, encoding: "utf8" });
+  const today = new Date().toISOString().slice(0, 10);
+  const dates = new Map();
+  try {
+    // One walk of the history, newest commit first: the first time a path appears is
+    // its most recent change. 27 pages x one `git log` each would be 27 processes.
+    let when = null;
+    for (const line of git(["log", "--format=%cI", "--name-only", "--", "dist"]).split("\n")) {
+      const text = line.trim();
+      if (!text) continue;
+      if (/^\d{4}-\d{2}-\d{2}T/.test(text)) when = text.slice(0, 10);
+      else if (when && !dates.has(text)) dates.set(text, when);
+    }
+    // Anything modified or untracked relative to HEAD changed in this build.
+    for (const line of git(["status", "--porcelain", "--", "dist"]).split("\n")) {
+      const file = line.slice(3).trim();
+      if (file) dates.set(file, today);
+    }
+  } catch {
+    return () => today;
+  }
+  return (rel) => dates.get(`dist/${rel}`) || today;
 }
 
 function build() {
@@ -84,6 +113,7 @@ function build() {
   // Assets
   copyDir(path.join(__dirname, "assets", "js"), path.join(DIST, "js"));
   copyDir(path.join(__dirname, "assets", "images"), path.join(DIST, "images"));
+  copyDir(path.join(__dirname, "assets", "fonts"), path.join(DIST, "fonts"));
   // Videos are ~76MB. dist/ is committed, so dist/videos is gitignored and prod
   // re-creates it from assets/ during deploy — see deploy/prod-deploy.sh.
   // In dev the startup build already copied them; skip on incremental rebuilds.
@@ -124,13 +154,19 @@ function build() {
     `\n`;
   fs.writeFileSync(path.join(DIST, "llms.txt"), llms, "utf8");
 
+  // `changefreq` is deliberately absent: Google states outright that it ignores the
+  // field, so emitting it only invited someone to keep it accurate for nothing.
+  const lastModified = gitLastModified();
   const urls = pages.map((p) => (p.path === "/" ? "/" : p.path));
   fs.writeFileSync(
     path.join(DIST, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
       urls
         .sort()
-        .map((u) => `  <url><loc>${site.domain}${u}</loc><changefreq>monthly</changefreq></url>`)
+        .map((u) => {
+          const rel = u === "/" ? "index.html" : `${u.replace(/^\//, "")}/index.html`;
+          return `  <url><loc>${site.domain}${u}</loc><lastmod>${lastModified(rel)}</lastmod></url>`;
+        })
         .join("\n") +
       `\n</urlset>\n`,
     "utf8"

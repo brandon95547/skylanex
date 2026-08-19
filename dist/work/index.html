@@ -11,17 +11,23 @@
   <link rel="icon" href="/images/skylanex-mark.svg" type="image/svg+xml" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Skylanex" />
+  <meta property="og:locale" content="en_US" />
   <meta property="og:title" content="Work · Skylanex" />
   <meta property="og:description" content="Selected work — AI products, enterprise applications, mobile apps, and creative production by Brandon Sanders." />
   <meta property="og:url" content="https://www.skylanex.com/work" />
-  <meta property="og:image" content="https://www.skylanex.com/images/skylanex-logo.svg" />
+  <meta property="og:image" content="https://www.skylanex.com/images/og/work.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Work · Skylanex" />
   <meta name="twitter:description" content="Selected work — AI products, enterprise applications, mobile apps, and creative production by Brandon Sanders." />
-  <meta name="twitter:image" content="https://www.skylanex.com/images/skylanex-logo.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Saira:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="twitter:image" content="https://www.skylanex.com/images/og/work.jpg" />
+  <!-- Fonts are self-hosted (see src/styles/app.css). Preloaded because a webfont
+       is otherwise discovered only after the CSS parses, which puts it a full
+       round trip behind the stylesheet that asks for it. -->
+  <link rel="preload" href="/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/saira-var-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/css/app.css" />
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","ProfessionalService"],"@id":"https://www.skylanex.com/#org","name":"Skylanex","url":"https://www.skylanex.com/","logo":"https://www.skylanex.com/images/skylanex-logo.svg","image":"https://www.skylanex.com/images/skylanex-logo.svg","description":"Skylanex is an independent AI software studio — we design, build, and ship intelligent applications, from custom AI apps to machine learning, NLP, and computer vision.","email":"info@skylanex.com","telephone":"(864) 437-9301","founder":{"@type":"Person","name":"Brandon Sanders"},"areaServed":"Worldwide","knowsAbout":["Artificial Intelligence","Machine Learning","Natural Language Processing","Computer Vision","AI Application Development","Large Language Models"],"sameAs":["https://www.phansora.com"]},{"@type":"WebSite","@id":"https://www.skylanex.com/#website","url":"https://www.skylanex.com/","name":"Skylanex","publisher":{"@id":"https://www.skylanex.com/#org"}}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.skylanex.com/"},{"@type":"ListItem","position":2,"name":"Work","item":"https://www.skylanex.com/work"}]}</script>
@@ -135,7 +141,9 @@
     <div class="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-primary-500/15 blur-3xl"></div>
     <div class="relative">
       <p class="eyebrow text-accent-400">Venture — AI product suite</p>
-      <h3 class="mt-2 text-2xl font-bold text-white">Phansora</h3>
+      <!-- h2, not h3: these cards are the page's first content and sit under no
+           section heading, so an h3 here skips a level straight from the h1. -->
+      <h2 class="mt-2 text-2xl font-bold text-white">Phansora</h2>
       <p class="mt-3 max-w-2xl leading-relaxed text-surface-300">An independent AI product studio I founded: Book Alchemy (books → narrated audio courses), Dossier Nova (research dossiers), Chrono Origin (origin tracing), and SpokenVerse (text-to-speech).</p>
       <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-300">Visit site <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></span>
     </div>
@@ -195,7 +203,7 @@
     data-title="Yeshua"
     data-aspect="9/16"
     aria-label="Play Yeshua — Short film, 0:39">
-    <img src="/images/videos/yeshua.webp" alt="" loading="lazy" decoding="async"
+    <img src="/images/videos/yeshua.webp" width="540" height="960" alt="" loading="lazy" decoding="async"
       class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
     <span class="video-card__scrim absolute inset-0"></span>
     <span class="absolute inset-0 grid place-items-center">
@@ -220,7 +228,7 @@
     data-title="The Teacher"
     data-aspect="9/16"
     aria-label="Play The Teacher — Short film, 0:33">
-    <img src="/images/videos/the-teacher.webp" alt="" loading="lazy" decoding="async"
+    <img src="/images/videos/the-teacher.webp" width="540" height="960" alt="" loading="lazy" decoding="async"
       class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
     <span class="video-card__scrim absolute inset-0"></span>
     <span class="absolute inset-0 grid place-items-center">
@@ -245,7 +253,7 @@
     data-title="The Face of God"
     data-aspect="9/16"
     aria-label="Play The Face of God — Short film, 0:36">
-    <img src="/images/videos/the-face-of-god.webp" alt="" loading="lazy" decoding="async"
+    <img src="/images/videos/the-face-of-god.webp" width="540" height="960" alt="" loading="lazy" decoding="async"
       class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
     <span class="video-card__scrim absolute inset-0"></span>
     <span class="absolute inset-0 grid place-items-center">
@@ -270,7 +278,7 @@
     data-title="Moses and the Burning Bush"
     data-aspect="9/16"
     aria-label="Play Moses and the Burning Bush — Short film, 0:54">
-    <img src="/images/videos/moses-and-the-divine-power-of-a-burning-bush.webp" alt="" loading="lazy" decoding="async"
+    <img src="/images/videos/moses-and-the-divine-power-of-a-burning-bush.webp" width="540" height="960" alt="" loading="lazy" decoding="async"
       class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
     <span class="video-card__scrim absolute inset-0"></span>
     <span class="absolute inset-0 grid place-items-center">
@@ -295,7 +303,7 @@
     data-title="The Water No Longer Matters"
     data-aspect="9/16"
     aria-label="Play The Water No Longer Matters — Short film, 0:28">
-    <img src="/images/videos/the-water-no-longer-matters.webp" alt="" loading="lazy" decoding="async"
+    <img src="/images/videos/the-water-no-longer-matters.webp" width="540" height="960" alt="" loading="lazy" decoding="async"
       class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
     <span class="video-card__scrim absolute inset-0"></span>
     <span class="absolute inset-0 grid place-items-center">
@@ -320,7 +328,7 @@
     data-title="The Lost Prophets: Essenes"
     data-aspect="9/16"
     aria-label="Play The Lost Prophets: Essenes — Short film, 0:33">
-    <img src="/images/videos/the-lost-prophets-essenes.webp" alt="" loading="lazy" decoding="async"
+    <img src="/images/videos/the-lost-prophets-essenes.webp" width="540" height="960" alt="" loading="lazy" decoding="async"
       class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
     <span class="video-card__scrim absolute inset-0"></span>
     <span class="absolute inset-0 grid place-items-center">
@@ -345,7 +353,7 @@
     data-title="Paul's Epistles"
     data-aspect="9/16"
     aria-label="Play Paul's Epistles — Short film, 0:34">
-    <img src="/images/videos/pauls-epistles-c50-60-ce.webp" alt="" loading="lazy" decoding="async"
+    <img src="/images/videos/pauls-epistles-c50-60-ce.webp" width="540" height="960" alt="" loading="lazy" decoding="async"
       class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
     <span class="video-card__scrim absolute inset-0"></span>
     <span class="absolute inset-0 grid place-items-center">

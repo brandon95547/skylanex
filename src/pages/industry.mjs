@@ -290,7 +290,11 @@ export const conceptDetailPages = industryPages.flatMap((p) =>
   p.showcase.map((c) => ({
     path: `/solutions/${p.slug}/${c.slug}`,
     title: `${c.firm} — ${c.label}`,
-    metaTitle: `${c.firm} · ${p.eyebrow} concept · Skylanex`,
+    // No "· Skylanex" suffix here, unlike every other page: these titles carry a
+    // firm name AND a category, and the brand pushed the longest of them past the
+    // ~60 chars a search result shows. Google derives the site name from the
+    // WebSite schema in seo.mjs regardless, so the suffix was the redundant half.
+    metaTitle: `${c.firm} — ${p.conceptNoun} website concept`,
     description: c.blurb,
     render: () => conceptDetail(p, c),
   }))

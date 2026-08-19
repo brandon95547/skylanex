@@ -1,5 +1,6 @@
 // layout.mjs — HTML shell (head, nav, mobile menu, footer) + icon set.
 import { site, nav } from "../site.config.mjs";
+import { ogSlug } from "./seo.mjs";
 
 /* ---- inline SVG icons (stroke = currentColor) ---- */
 const ICONS = {
@@ -94,6 +95,10 @@ export function layout({ title, metaTitle, description, path = "/", content = ""
   const pageTitle = metaTitle || (title ? `${title} · ${site.name}` : `${site.name} — AI Software Studio`);
   const desc = description || site.description;
   const canonical = path === "/" ? `${site.domain}/` : `${site.domain}${path}`;
+  // Per-page social card (scripts/og-cards.mjs). Absolute, because scrapers do not
+  // resolve relative URLs. /404 has no card of its own and falls back to the home
+  // one — a missing file renders as a blank preview, the exact failure this replaced.
+  const ogImage = `${site.domain}/images/og/${path === "/404" ? "home" : ogSlug(path)}.jpg`;
   const ldScripts = jsonLd
     .filter(Boolean)
     .map((obj) => `  <script type="application/ld+json">${JSON.stringify(obj)}</script>`)
@@ -111,17 +116,23 @@ export function layout({ title, metaTitle, description, path = "/", content = ""
   <link rel="icon" href="/images/skylanex-mark.svg" type="image/svg+xml" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="${site.name}" />
+  <meta property="og:locale" content="en_US" />
   <meta property="og:title" content="${esc(pageTitle)}" />
   <meta property="og:description" content="${esc(desc)}" />
   <meta property="og:url" content="${canonical}" />
-  <meta property="og:image" content="${site.domain}/images/skylanex-logo.svg" />
+  <meta property="og:image" content="${ogImage}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${esc(pageTitle)}" />
   <meta name="twitter:description" content="${esc(desc)}" />
-  <meta name="twitter:image" content="${site.domain}/images/skylanex-logo.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Saira:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="twitter:image" content="${ogImage}" />
+  <!-- Fonts are self-hosted (see src/styles/app.css). Preloaded because a webfont
+       is otherwise discovered only after the CSS parses, which puts it a full
+       round trip behind the stylesheet that asks for it. -->
+  <link rel="preload" href="/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/saira-var-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/css/app.css" />
 ${ldScripts}
 </head>

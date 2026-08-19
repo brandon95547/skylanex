@@ -4,6 +4,17 @@ import { site, services, faqs, work, designSolutions, industryPages } from "../s
 const ORG = `${site.domain}/#org`;
 const WEBSITE = `${site.domain}/#website`;
 
+// The social card's filename for a given route. "/" has no slug of its own, and a
+// nested route flattens so /solutions/law-firms/apex cannot collide with a top-level
+// page sharing its last segment.
+//
+// Lives here rather than beside the page list because layout.mjs needs it too, and
+// the page list imports every page module — which import layout.mjs right back.
+export function ogSlug(routePath) {
+  if (!routePath || routePath === "/") return "home";
+  return routePath.replace(/^\//, "").replace(/\//g, "-");
+}
+
 export function absUrl(p) {
   if (!p || p === "/") return `${site.domain}/`;
   return `${site.domain}${p}`;

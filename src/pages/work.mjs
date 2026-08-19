@@ -7,7 +7,9 @@ function ventureCard(v) {
     <div class="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-primary-500/15 blur-3xl"></div>
     <div class="relative">
       <p class="eyebrow text-accent-400">${v.kind}</p>
-      <h3 class="mt-2 text-2xl font-bold text-white">${v.name}</h3>
+      <!-- h2, not h3: these cards are the page's first content and sit under no
+           section heading, so an h3 here skips a level straight from the h1. -->
+      <h2 class="mt-2 text-2xl font-bold text-white">${v.name}</h2>
       <p class="mt-3 max-w-2xl leading-relaxed text-surface-300">${v.blurb}</p>
       <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-300">${v.external ? "Visit site" : "View"} ${icon(v.external ? "external" : "arrow", "h-4 w-4")}</span>
     </div>
@@ -35,7 +37,7 @@ function creativeCard(c) {
     data-title="${c.name}"
     data-aspect="${c.aspect}"
     aria-label="Play ${c.name} — ${c.kind}, ${c.duration}">
-    <img src="/images/videos/${c.slug}.webp" alt="" loading="lazy" decoding="async"
+    <img src="/images/videos/${c.slug}.webp" width="540" height="960" alt="" loading="lazy" decoding="async"
       class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
     <span class="video-card__scrim absolute inset-0"></span>
     <span class="absolute inset-0 grid place-items-center">
