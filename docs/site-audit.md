@@ -161,6 +161,16 @@ Covered by `tests/test_contact.py` in phansora-api and verified end to end.
   form that needs ~8KB. The `limit_req_zone` is declared **in the vhost file itself**
   (conf.d is already inside `http{}`), so the config cannot be copied to a server
   without its zone — a missing zone doesn't degrade, it stops nginx from starting.
+- **`Cache-Control: no-cache` on HTML.** Responses carried only `ETag` and
+  `Last-Modified`, so browsers applied heuristic freshness and could serve a stale
+  page after a deploy. `no-cache` means "revalidate before reusing", not "don't
+  cache" — the ETag turns revalidation into a 304, so the cost is one conditional
+  request. It sits on `location /` rather than a `\.html$` regex because the site
+  serves clean URLs: a request for `/work/` never matches `.html`. Every security
+  header is repeated inside that block, and the repetition is load-bearing — nginx
+  drops all inherited `add_header` directives from any location declaring even one of
+  its own, so adding Cache-Control alone would have silently stripped the CSP and
+  HSTS from every page. **If you add a header at server level, add it there too.**
 - **Deprecated `listen ... http2`** replaced with `listen 443 ssl;` + `http2 on;`.
 - **`og:locale`** added.
 - **"Heeritage Dental" → "Heritage Dental"** — a typo on a live page, caught while
@@ -194,9 +204,5 @@ nginx -t && systemctl reload nginx
 - **HSTS `preload`** — genuinely hard to undo, and it only closes the
   first-ever-visit gap. `max-age=31536000; includeSubDomains` is already strong. Not
   worth the commitment unless every future subdomain is certain to be HTTPS forever.
-- **`Cache-Control` on HTML** — real benefit (responses carry only `ETag` and
-  `Last-Modified`, so browsers apply heuristic caching and may serve a stale page
-  after a deploy), but the location block must re-declare every security header,
-  since nginx drops inherited `add_header` from any location that sets its own. It is
-  the change most likely to silently drop the CSP if rushed, so it deserves its own
-  pass rather than riding along with this one.
+(Only HSTS preload. The `Cache-Control` item that was parked here is done — see
+below.)
