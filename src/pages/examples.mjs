@@ -1,5 +1,5 @@
 import { icon } from "../layout.mjs";
-import { ctaBand, heroGlow } from "../ui.mjs";
+import { ctaBand, heroGlow, afterHero } from "../ui.mjs";
 import { solutions, industryPages } from "../../site.config.mjs";
 
 // The industry landing page (and its lead preview image) for a solution, if one
@@ -67,7 +67,7 @@ export const examplesPage = {
   `)}
 
   <!-- Industry tabs -->
-  <section class="px-5 pb-12 sm:px-8">
+  <section class="px-5 ${afterHero} pb-12 sm:px-8">
     <div class="mx-auto flex max-w-5xl flex-wrap justify-center gap-2.5">
       ${solutions.map(tab).join("\n")}
     </div>

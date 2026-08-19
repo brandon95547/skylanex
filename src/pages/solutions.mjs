@@ -1,5 +1,5 @@
 import { icon } from "../layout.mjs";
-import { heading, ctaBand, heroGlow } from "../ui.mjs";
+import { heading, ctaBand, heroGlow, afterHero } from "../ui.mjs";
 import { designSolutions } from "../../site.config.mjs";
 
 // One design solution: a static, modern WebP demo on one side and the case for
@@ -66,7 +66,7 @@ export const solutionsPage = {
   `)}
 
   <!-- Jump nav -->
-  <section class="px-5 pb-10 sm:px-8">
+  <section class="px-5 ${afterHero} pb-10 sm:px-8">
     <div class="mx-auto flex max-w-6xl flex-wrap justify-center gap-2">
       ${designSolutions
         .map(

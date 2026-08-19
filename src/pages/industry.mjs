@@ -1,5 +1,5 @@
 import { icon } from "../layout.mjs";
-import { heading, ctaBand, heroGlow } from "../ui.mjs";
+import { heading, ctaBand, heroGlow, afterHero } from "../ui.mjs";
 import { industryPages, solutions } from "../../site.config.mjs";
 
 // Generic renderer for a dedicated industry landing page at /solutions/<slug>.
@@ -58,7 +58,7 @@ function conceptDetail(p, c) {
   `)}
 
   <!-- Large preview -->
-  <section class="px-5 pb-6 sm:px-8">
+  <section class="px-5 ${afterHero} pb-6 sm:px-8">
     <div class="mx-auto max-w-6xl">
       <figure class="reveal overflow-hidden rounded-2xl border border-surface-800 bg-surface-900 shadow-2xl shadow-black/40">
         <img src="/images/concepts/${c.slug}.webp" width="1200" height="675" decoding="async"

@@ -1,5 +1,5 @@
 import { icon } from "../layout.mjs";
-import { heading, ctaBand, heroGlow } from "../ui.mjs";
+import { heading, ctaBand, heroGlow, afterHero } from "../ui.mjs";
 import { work, site } from "../../site.config.mjs";
 
 function ventureCard(v) {
@@ -71,7 +71,7 @@ export const workPage = {
     </div>
   `)}
 
-  <section class="px-5 pb-8 sm:px-8">
+  <section class="px-5 ${afterHero} pb-8 sm:px-8">
     <div class="mx-auto max-w-6xl">
       <div class="grid gap-5">
         ${work.ventures.map(ventureCard).join("\n")}

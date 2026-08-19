@@ -1,5 +1,5 @@
 import { icon } from "../layout.mjs";
-import { heading, ctaBand, heroGlow } from "../ui.mjs";
+import { heading, ctaBand, heroGlow, afterHero } from "../ui.mjs";
 import { services } from "../../site.config.mjs";
 
 function row(s, i) {
@@ -39,7 +39,7 @@ export const servicesPage = {
       <p class="mx-auto mt-5 max-w-xl text-lg text-surface-300">Six capabilities, one partner — from first strategy conversation to production and beyond.</p>
     </div>
   `)}
-  <section class="px-5 pb-20 sm:px-8">
+  <section class="px-5 ${afterHero} pb-20 sm:px-8">
     <div class="mx-auto grid max-w-6xl gap-6">
       ${services.map(row).join("\n")}
     </div>
