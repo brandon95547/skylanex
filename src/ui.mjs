@@ -95,8 +95,15 @@ export function plexus({ nodes = 38, width = 900, height = 560, seed = 7 } = {})
 
 // Hero container: the deep blue-black field, the constellation, and the two soft
 // blooms that keep the corners from going dead flat.
+//
+// `pb-10` is the seam's breathing room, and it belongs HERE rather than as a `pt` on
+// each page's first section. The diagonal below runs flat along the hero's bottom
+// edge for most of its width, so any following content that starts at the hero's
+// bottom lands exactly on that line — which is what every page whose first section
+// declared only `pb-*` was doing. Fixing it per page works until the next page is
+// added with the same shape, and the failure is subtle enough to ship unnoticed.
 export function heroGlow(inner) {
-  return `<section class="brand-field relative overflow-hidden">
+  return `<section class="brand-field relative overflow-hidden pb-10">
     ${plexus()}
     <div class="pointer-events-none absolute inset-0">
       <div class="absolute left-1/2 top-[-10%] h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary-600/15 blur-3xl"></div>
@@ -113,10 +120,17 @@ export function heroGlow(inner) {
 // near-black panels meet and catch an edge of light, so what you actually read is the
 // LINE, not a shape. Filling it turns the hero into a badge.
 //
-// Sits at the very bottom of the hero and is purely decorative, so it is aria-hidden
-// and cannot take pointer events away from anything under it.
+// Purely decorative, so it is aria-hidden and cannot take pointer events away from
+// anything under it.
+//
+// `bottom-10`, matching the hero's `pb-10` — NOT `bottom-0`. An absolutely positioned
+// element resolves its offsets against the containing block's PADDING box, so
+// `bottom-0` would sit flush at the section's bottom edge and slide down with any
+// padding added above it, leaving the seam touching whatever follows. Offsetting it by
+// the same amount is what actually puts clear field between the line and the next
+// section. Keep the two values in step.
 export function chevronRule() {
-  return `<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 overflow-hidden" aria-hidden="true">
+  return `<div class="pointer-events-none absolute inset-x-0 bottom-10 h-16 overflow-hidden" aria-hidden="true">
     <svg class="absolute inset-0 h-full w-full" viewBox="0 0 1440 64" preserveAspectRatio="none" fill="none">
       <path d="M0 63.5 L1010 63.5 L1136 6 L1440 6" stroke="url(#skx-chev)" stroke-width="1.25"/>
       <defs>

@@ -24,7 +24,7 @@ export const aboutPage = {
       <div class="grid items-center gap-10 lg:grid-cols-[1.3fr_1fr]">
         <div>
           <p class="eyebrow mb-3 text-primary-400">About</p>
-          <h1 class="text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Hi, I’m ${site.owner} — I build AI that earns its keep.</h1>
+          <h1 class="text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Hi, I’m ${site.owner}.</h1>
           <p class="mt-5 max-w-xl text-lg leading-relaxed text-surface-300">
             I’m an independent AI software developer and founder. For over a decade I’ve shipped web and mobile applications for enterprises and startups — and today I focus on making AI genuinely useful: apps, models, and automation that hold up in production.
           </p>

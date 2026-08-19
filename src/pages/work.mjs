@@ -66,7 +66,7 @@ export const workPage = {
   ${heroGlow(`
     <div class="mx-auto max-w-6xl px-5 pb-12 pt-20 text-center sm:px-8 sm:pt-24">
       <p class="eyebrow mb-3 text-primary-400">Work</p>
-      <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Products, platforms, and a few things I just had to build</h1>
+      <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Products, platforms, and video production</h1>
       <p class="mx-auto mt-5 max-w-xl text-lg text-surface-300">Fourteen years of shipping — from enterprise apps to my own AI product suite.</p>
     </div>
   `)}
