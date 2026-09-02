@@ -12,7 +12,7 @@ import { servicePages } from "./pages/service.mjs";
 import { solutionsPage } from "./pages/solutions.mjs";
 import { examplesPage } from "./pages/examples.mjs";
 import { industryLandingPages, conceptDetailPages } from "./pages/industry.mjs";
-import { workPage } from "./pages/work.mjs";
+import { productsPage } from "./pages/products.mjs";
 import { aboutPage } from "./pages/about.mjs";
 import { contactPage } from "./pages/contact.mjs";
 
@@ -24,7 +24,7 @@ export const pages = [
   examplesPage,
   ...industryLandingPages,
   ...conceptDetailPages,
-  workPage,
+  productsPage,
   aboutPage,
   contactPage,
 ];

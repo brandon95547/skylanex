@@ -1,6 +1,6 @@
 import { icon } from "../layout.mjs";
 import { heading, ctaBand, statRow, heroGlow } from "../ui.mjs";
-import { services, work, site, trustedBy, faqs } from "../../site.config.mjs";
+import { services, site, trustedBy, faqs } from "../../site.config.mjs";
 
 function serviceCard(s) {
   return `<a href="/${s.slug}" class="reveal group flex flex-col rounded-2xl border border-surface-800 bg-surface-900/60 p-6 transition-colors hover:border-primary-500/50">
@@ -31,7 +31,7 @@ export const home = {
         </p>
         <div class="reveal mt-9 flex flex-wrap items-center justify-center gap-3">
           <a href="/contact" class="btn btn-primary">Start a project ${icon("arrow", "h-4 w-4")}</a>
-          <a href="/work" class="btn btn-ghost">See the work</a>
+          <a href="/products" class="btn btn-ghost">See the products</a>
         </div>
       </div>
 

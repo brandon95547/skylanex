@@ -201,6 +201,19 @@
   }
   .btn-ghost:hover { border-color: var(--color-primary-400); color: #fff; }
 
+  /* Product filter chips. Pressed state carried by aria-pressed rather than a class, so
+     the styling and the thing a screen reader announces cannot drift apart — there is only
+     one source for both. */
+  .filter-chip {
+    color: var(--color-surface-300);
+  }
+  .filter-chip:hover { color: #fff; }
+  .filter-chip[aria-pressed="true"] {
+    background-color: color-mix(in oklab, var(--color-primary-500) 16%, transparent);
+    color: var(--color-primary-200);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-primary-500) 30%, transparent);
+  }
+
   /* Surface cards */
   .card {
     border: 1px solid var(--color-surface-800);

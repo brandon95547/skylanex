@@ -1,4 +1,4 @@
-// site.config.mjs — single source of truth for nav, services, and work.
+// site.config.mjs — single source of truth for nav, services, and products.
 
 export const site = {
   name: "Skylanex",
@@ -16,7 +16,7 @@ export const nav = [
   { label: "Home", path: "/" },
   { label: "Services", path: "/services" },
   { label: "Solutions", path: "/solutions" },
-  { label: "Work", path: "/work" },
+  { label: "Products", path: "/products" },
   { label: "About", path: "/about" },
   { label: "Contact", path: "/contact" },
 ];
@@ -117,50 +117,124 @@ export const services = [
 ];
 
 // Portfolio / work. Phansora is the flagship venture; then client + creative work.
-export const work = {
-  ventures: [
-    {
-      name: "Phansora",
-      kind: "Venture — AI product suite",
-      blurb:
-        "An independent AI product studio I founded: Book Alchemy (books → narrated audio courses), Dossier Nova (research dossiers), Chrono Origin (origin tracing), and SpokenVerse (text-to-speech).",
-      href: "https://www.phansora.com",
-      external: true,
-      accent: "primary",
-    },
+export const products = {
+  // The one platform that gets a card of its own, above the grid. It is the umbrella the
+  // rest of these sit under, so ranking it beside them would misdescribe the relationship.
+  featured: {
+    name: "Phansora",
+    badge: "Featured Platform",
+    blurb:
+      "The all-in-one AI video production platform. Create, edit, and deliver stunning videos with AI-powered tools, voice generation, and intelligent automation.",
+    chips: [
+      { icon: "browser", label: "AI Video Generation" },
+      { icon: "mic", label: "Voice & Narration" },
+      { icon: "sliders", label: "Auto Editing" },
+      { icon: "layers", label: "Multi-Platform Export" },
+    ],
+    href: site.phansoraUrl,
+    cta: "Explore Phansora",
+    image: "/images/products/phansora.webp",
+    alt: "The Phansora video editor, with a timeline and media library",
+  },
+
+  // The filter row. `id` is matched against each item's `category` by assets/js/main.js;
+  // "all" is the sentinel that matches everything rather than a category anything carries.
+  categories: [
+    { id: "all", label: "All Projects" },
+    { id: "saas", label: "SaaS Platforms" },
+    { id: "ai", label: "AI Tools" },
+    { id: "dev", label: "Developer Tools" },
+    { id: "other", label: "Other Projects" },
   ],
-  // The four Phansora products. Each links to its live landing page — slugs match
-  // the routes served by phansora.com.
-  products: [
+
+  // `tone` names a colour lane, resolved to literal Tailwind classes in the page module —
+  // never composed from the string at render time, or Tailwind's scanner would not see the
+  // class and it would compile to nothing.
+  items: [
     {
-      name: "Chrono Origin",
-      kind: "Origin tracing",
-      blurb:
-        "Traces any story, myth, or claim back to the earliest source the web remembers, with cited evidence at every step.",
-      href: "https://www.phansora.com/chrono-origin",
+      name: "Shot Matrix",
+      blurb: "Cross-browser screenshot assistant used by npx. Capture, organize, and export screenshots with ease.",
+      category: "dev",
+      badge: "Developer Tool",
+      tone: "blue",
+      icon: "grid",
+      href: "https://github.com/brandon95547/shotmatrix",
+      external: true,
     },
     {
-      name: "Book Alchemy",
-      kind: "Audio course builder",
-      blurb:
-        "Turns any book, PDF, or long document into a structured, narrated audio course of sequential lessons.",
-      href: "https://www.phansora.com/book-alchemy",
+      name: "Create Orbs",
+      blurb: "AI-powered orb visualization tool for creative and spiritual exploration.",
+      category: "ai",
+      badge: "AI Tool",
+      tone: "violet",
+      icon: "spark",
+      href: site.phansoraUrl + "/create-orbs",
+      external: true,
     },
     {
-      name: "Dossier Nova",
-      kind: "AI research tool",
-      blurb:
-        "Organizes PDFs, documents, audio, and URLs into one searchable, source-attributed dossier.",
-      href: "https://www.phansora.com/dossier-nova",
+      name: "Dock Alchemy",
+      blurb: "Transform your eBooks into audio experiences with advanced voice synthesis.",
+      category: "saas",
+      badge: "SaaS Platform",
+      tone: "emerald",
+      icon: "layers",
+      href: site.phansoraUrl + "/dock-alchemy",
+      external: true,
     },
     {
       name: "SpokenVerse",
-      kind: "Text-to-speech",
-      blurb:
-        "Converts books, articles, and documents into broadcast-quality audio with realistic neural voices.",
-      href: "https://www.phansora.com/spokenverse",
+      blurb: "Text-to-speech platform with realistic voices in multiple languages and accents.",
+      category: "saas",
+      badge: "SaaS Platform",
+      tone: "orange",
+      icon: "mic",
+      href: site.phansoraUrl + "/spokenverse",
+      external: true,
+    },
+    {
+      name: "Narrava Studio",
+      blurb: "AI video production suite for creating engaging content at scale.",
+      category: "saas",
+      badge: "SaaS Platform",
+      tone: "rose",
+      icon: "clapper",
+      href: site.phansoraUrl + "/narrava-studio",
+      external: true,
+    },
+    {
+      name: "Chrono Origin",
+      blurb: "Timeline research and visualization platform for uncovering hidden connections.",
+      category: "saas",
+      badge: "SaaS Platform",
+      tone: "teal",
+      icon: "sliders",
+      href: site.phansoraUrl + "/chrono-origin",
+      external: true,
+    },
+    {
+      name: "Book Alchemy",
+      blurb: "Convert books into audiobooks, summaries, and interactive learning experiences.",
+      category: "saas",
+      badge: "SaaS Platform",
+      tone: "amber",
+      icon: "book",
+      href: site.phansoraUrl + "/book-alchemy",
+      external: true,
+    },
+    {
+      // The one card that is not a link out. It closes the grid rather than leaving a hole
+      // where an eighth tile should be, and says the shelf is still filling.
+      name: "More Projects",
+      blurb: "Explore more tools and experiments we're building behind the scenes.",
+      category: "other",
+      badge: "Coming Soon",
+      tone: "slate",
+      icon: "dots",
+      href: "/contact",
+      cta: "Stay tuned",
     },
   ],
+
   // Creative reel. Tiles are a uniform 9:16; `aspect` tells the lightbox whether
   // to open a wide panel, so 16:9 pieces still play uncropped. Display-only.
   creative: [

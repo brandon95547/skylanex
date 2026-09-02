@@ -28,6 +28,6 @@ Skylanex is an independent AI software studio led by Brandon Sanders. We design 
 - [Solutions](https://www.skylanex.com/solutions)
 - [Websites built for your industry](https://www.skylanex.com/website-solutions)
 - [Services](https://www.skylanex.com/services)
-- [Work](https://www.skylanex.com/work)
+- [Products](https://www.skylanex.com/products)
 - [About](https://www.skylanex.com/about)
 - [Contact](https://www.skylanex.com/contact)

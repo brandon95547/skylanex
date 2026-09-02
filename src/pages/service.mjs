@@ -19,7 +19,7 @@ function detail(s) {
       </div>
       <div class="mt-8 flex flex-wrap gap-3">
         <a href="/contact" class="btn btn-primary">Start a project ${icon("arrow", "h-4 w-4")}</a>
-        <a href="/work" class="btn btn-ghost">See related work</a>
+        <a href="/products" class="btn btn-ghost">See related products</a>
       </div>
     </div>
   `)}

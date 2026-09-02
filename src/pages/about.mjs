@@ -33,7 +33,7 @@ export const aboutPage = {
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="/contact" class="btn btn-primary">Work with me ${icon("arrow", "h-4 w-4")}</a>
-            <a href="/work" class="btn btn-ghost">See the work</a>
+            <a href="/products" class="btn btn-ghost">See the products</a>
           </div>
         </div>
         <div class="relative mx-auto w-full max-w-xs">

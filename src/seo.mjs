@@ -1,5 +1,5 @@
 // seo.mjs — structured data (JSON-LD) generation.
-import { site, services, faqs, work, designSolutions, industryPages } from "../site.config.mjs";
+import { site, services, faqs, products, designSolutions, industryPages } from "../site.config.mjs";
 
 const ORG = `${site.domain}/#org`;
 const WEBSITE = `${site.domain}/#website`;
@@ -207,19 +207,19 @@ export function jsonLdForPage(page) {
       },
     ];
   }
-  if (page.path === "/work") {
+  if (page.path === "/products") {
     // ISO-8601 duration from the "M:SS" display string.
     const iso = (d) => {
       const [m, s] = String(d).split(":").map(Number);
       return `PT${m ? m + "M" : ""}${s}S`;
     };
     return [
-      breadcrumb([home, { name: "Work", path: "/work" }]),
+      breadcrumb([home, { name: "Products", path: "/products" }]),
       {
         "@context": "https://schema.org",
         "@type": "ItemList",
         name: "Music videos & short films",
-        itemListElement: work.creative.map((c, i) => ({
+        itemListElement: products.creative.map((c, i) => ({
           "@type": "ListItem",
           position: i + 1,
           item: {
@@ -230,7 +230,7 @@ export function jsonLdForPage(page) {
             duration: iso(c.duration),
             thumbnailUrl: absUrl(`/images/videos/${c.slug}.webp`),
             contentUrl: absUrl(`/videos/${c.slug}.mp4`),
-            embedUrl: absUrl("/work"),
+            embedUrl: absUrl("/products"),
             uploadDate: "2026-01-27",
             creator: { "@id": ORG },
           },

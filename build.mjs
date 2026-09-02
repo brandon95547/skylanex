@@ -94,6 +94,22 @@ function build() {
     console.log("  •", rel, `(${(html.length / 1024).toFixed(1)}kb)`);
   }
 
+  // /work → /products, for hosts that serve dist/ without the nginx rules. nginx does
+  // this as a real 301 (see deploy/nginx); this is the fallback, and it carries a
+  // canonical so a crawler that lands here still credits the new URL.
+  fs.mkdirSync(path.join(DIST, "work"), { recursive: true });
+  fs.writeFileSync(
+    path.join(DIST, "work", "index.html"),
+    `<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>Moved to /products</title>
+<link rel="canonical" href="${site.domain}/products">
+<meta name="robots" content="noindex,follow">
+<meta http-equiv="refresh" content="0; url=/products">
+</head><body><p>This page is now at <a href="/products">/products</a>.</p></body></html>
+`,
+    "utf8"
+  );
+
   // 404
   fs.writeFileSync(
     path.join(DIST, "404.html"),
@@ -145,7 +161,7 @@ function build() {
       ["Solutions", "/solutions"],
       ["Websites built for your industry", "/website-solutions"],
       ["Services", "/services"],
-      ["Work", "/work"],
+      ["Products", "/products"],
       ["About", "/about"],
       ["Contact", "/contact"],
     ]

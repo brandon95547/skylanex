@@ -11,7 +11,7 @@
 // cards are committed like the rest of dist/.
 //
 //   npm run og            regenerate every card
-//   npm run og -- /work   regenerate one route
+//   npm run og -- /products   regenerate one route
 //
 // The card is composed as HTML and screenshotted rather than drawn, so it inherits
 // the real site: the same brand field, the same constellation, the same eagle, the
@@ -63,7 +63,7 @@ function eyebrowFor(page) {
   // card's one label on a word the mark above it already says.
   const named = {
     "/services": "What I do",
-    "/work": "Selected work",
+    "/products": "Products & tools",
     "/about": "About the studio",
     "/contact": "Start a project",
   };

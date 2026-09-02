@@ -60,7 +60,7 @@ export const solutionsPage = {
       <p class="mx-auto mt-5 max-w-2xl text-lg text-surface-300">Websites, apps, CRMs, dashboards, AI assistants, and storefronts — each designed around the outcome it exists to produce. Every one below comes with a modern demo you can look at right now.</p>
       <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
         <a href="/contact" class="btn btn-primary">Start a project ${icon("arrow", "h-4 w-4")}</a>
-        <a href="/work" class="btn btn-ghost">See our work</a>
+        <a href="/products" class="btn btn-ghost">See our products</a>
       </div>
     </div>
   `)}

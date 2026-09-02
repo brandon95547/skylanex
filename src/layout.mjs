@@ -32,6 +32,13 @@ const ICONS = {
   palette:
     '<path d="M12 3.2a8.8 8.8 0 1 0 0 17.6c1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.1 0-1 .8-1.8 1.8-1.8h1.5a4.7 4.7 0 0 0 4.7-4.7c0-3.9-4-7-8.8-7z"/><circle cx="7.6" cy="12.2" r=".9"/><circle cx="9.6" cy="8.4" r=".9"/><circle cx="14" cy="7.8" r=".9"/><circle cx="17.2" cy="11" r=".9"/>',
   layers: '<path d="M12 3.2l8.6 4.6L12 12.4 3.4 7.8 12 3.2z"/><path d="M3.4 12.4L12 17l8.6-4.6"/><path d="M3.4 16.6L12 21.2l8.6-4.6"/>',
+  // Added for the product grid, where each card carries the mark of what it is.
+  grid: '<rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/>',
+  mic: '<rect x="9" y="2.8" width="6" height="11" rx="3"/><path d="M5.5 11.2a6.5 6.5 0 0 0 13 0"/><path d="M12 17.7v3.5"/>',
+  clapper: '<path d="M3 9.5h18v9.3a1.7 1.7 0 0 1-1.7 1.7H4.7A1.7 1.7 0 0 1 3 18.8V9.5z"/><path d="M3.6 9.5l-.5-3.2 17.8-2.8.5 3.2-17.8 2.8z"/><path d="M8.4 5.1l1.5 3.9M13.6 4.3l1.5 3.9"/>',
+  book: '<path d="M4 4.8A1.8 1.8 0 0 1 5.8 3H19v15.6H5.8A1.8 1.8 0 0 0 4 20.4V4.8z"/><path d="M4 18.6A1.8 1.8 0 0 0 5.8 21H19"/><path d="M8.2 7.6h6.6M8.2 11h4.4"/>',
+  sliders: '<path d="M4 7.5h10M18.5 7.5H20"/><path d="M4 16.5h4M12.5 16.5H20"/><circle cx="16" cy="7.5" r="2.3"/><circle cx="10" cy="16.5" r="2.3"/>',
+  dots: '<circle cx="6" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
   /* design-solution marks for /solutions */
   browser: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8.5h18"/><circle cx="6" cy="6.2" r=".6" fill="currentColor" stroke="none"/><circle cx="8.2" cy="6.2" r=".6" fill="currentColor" stroke="none"/>',
   users: '<circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 6"/><path d="M17.5 14.6A5.5 5.5 0 0 1 20.5 20"/>',
@@ -198,7 +205,7 @@ function footer(path) {
       links: [
         { label: "Solutions", href: "/solutions" },
         { label: "Law Firm Websites", href: "/solutions/law-firms" },
-        { label: "Work", href: "/work" },
+        { label: "Products", href: "/products" },
         { label: "About", href: "/about" },
         { label: "Contact", href: "/contact" },
         { label: "Phansora ↗", href: site.phansoraUrl },

@@ -214,4 +214,33 @@
         });
     });
   }
+
+  // ── product filter ─────────────────────────────────────────────────────────
+  // Filters the grid that is already on the page. No URL changes and no fetching, which
+  // is why the controls are buttons rather than links.
+  //
+  // The cards are hidden with the `hidden` attribute rather than a class, so a card that
+  // is filtered out is genuinely out of the accessibility tree and out of tab order —
+  // `display:none` via a class would do the same, but the attribute says so in the markup
+  // where anyone reading it can see the state.
+  var filterChips = document.querySelectorAll("[data-filter]");
+  if (filterChips.length) {
+    var cards = document.querySelectorAll(".product-card");
+    var empty = document.getElementById("product-empty");
+    var apply = function (want) {
+      var shown = 0;
+      cards.forEach(function (card) {
+        var match = want === "all" || card.getAttribute("data-category") === want;
+        card.hidden = !match;
+        if (match) { shown += 1; }
+      });
+      filterChips.forEach(function (chip) {
+        chip.setAttribute("aria-pressed", chip.getAttribute("data-filter") === want ? "true" : "false");
+      });
+      if (empty) { empty.classList.toggle("hidden", shown > 0); }
+    };
+    filterChips.forEach(function (chip) {
+      chip.addEventListener("click", function () { apply(chip.getAttribute("data-filter")); });
+    });
+  }
 })();
