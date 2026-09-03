@@ -8,13 +8,13 @@ export const contactPage = {
   path: "/contact",
   file: "contact.html",
   title: "Contact",
-  description: `Start a project with ${site.owner} — tell me what you’re building and I’ll get back to you.`,
+  description: `Start a project with ${site.owner} — tell us what you’re building and we’ll get back to you.`,
   render: () => `
   ${heroGlow(`
     <div class="mx-auto max-w-5xl px-5 pb-8 pt-20 text-center sm:px-8 sm:pt-24">
       <p class="eyebrow mb-3 text-primary-400">Contact</p>
       <h1 class="mx-auto max-w-2xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Let’s talk about your project</h1>
-      <p class="mx-auto mt-5 max-w-xl text-lg text-surface-300">Tell me what you’re working on. I read every message and reply personally.</p>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-surface-300">Tell us what you’re working on. We read every message and reply personally.</p>
     </div>
   `)}
 
@@ -64,7 +64,7 @@ export const contactPage = {
         <div class="rounded-2xl border border-surface-800 bg-surface-900/50 p-6">
           <h2 class="text-sm font-semibold text-white">What happens next</h2>
           <ul class="mt-4 space-y-3 text-sm text-surface-300">
-            <li class="flex gap-3"><span class="text-primary-400">${icon("check", "h-4 w-4")}</span> A personal reply — from me, not an autoresponder.</li>
+            <li class="flex gap-3"><span class="text-primary-400">${icon("check", "h-4 w-4")}</span> A personal reply — from a person, not an autoresponder.</li>
             <li class="flex gap-3"><span class="text-primary-400">${icon("check", "h-4 w-4")}</span> A short call to understand the problem.</li>
             <li class="flex gap-3"><span class="text-primary-400">${icon("check", "h-4 w-4")}</span> An honest take and a clear next step.</li>
           </ul>

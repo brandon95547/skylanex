@@ -4,8 +4,9 @@ export const site = {
   name: "Skylanex",
   tagline: "AI software studio",
   domain: "https://www.skylanex.com", // canonical is www (site forces www + https)
-  email: "info@skylanex.com",
+  email: "hello@skylanex.com",
   owner: "Brandon Sanders",
+  location: "Mooresboro, NC",
   description:
     "Skylanex is an independent AI software studio — we design, build, and ship intelligent applications, from custom AI apps to machine learning, NLP, and computer vision.",
   phansoraUrl: "https://www.phansora.com",
@@ -1140,7 +1141,7 @@ export const industryPages = [
       {
         icon: "scale",
         t: "Bar rules are not optional",
-        d: "Advertising rules, testimonial restrictions, and prior-results disclaimers vary by state. I build to your jurisdiction's rules and hand you the language for your compliance review.",
+        d: "Advertising rules, testimonial restrictions, and prior-results disclaimers vary by state. We build to your jurisdiction's rules and hand you the language for your compliance review.",
       },
       {
         icon: "layers",
@@ -1166,7 +1167,7 @@ export const industryPages = [
     faqs: [
       {
         q: "How much does a law firm website cost?",
-        a: "Scope drives it. A focused site for a solo practice is a very different build than a multi-office firm with twelve practice areas and case-management integration. You get a fixed number after a short scoping call — not an hourly meter, and not a number I made up before understanding the firm.",
+        a: "Scope drives it. A focused site for a solo practice is a very different build than a multi-office firm with twelve practice areas and case-management integration. You get a fixed number after a short scoping call — not an hourly meter, and not a number we made up before understanding the firm.",
       },
       {
         q: "How long does it take?",
@@ -1174,7 +1175,7 @@ export const industryPages = [
       },
       {
         q: "Do you handle bar compliance and disclaimers?",
-        a: "I build to your state's advertising rules and include the standard disclaimers, prior-results notices, and no-attorney-client-relationship language in the right places. I am a developer, not your ethics counsel — the final language goes to you or your compliance reviewer before launch.",
+        a: "We build to your state's advertising rules and include the standard disclaimers, prior-results notices, and no-attorney-client-relationship language in the right places. We are developers, not your ethics counsel — the final language goes to you or your compliance reviewer before launch.",
       },
       {
         q: "Can you integrate with our case management software?",
@@ -1353,7 +1354,7 @@ export const industryPages = [
       {
         icon: "shield",
         t: "Privacy is not optional",
-        d: "Intake and contact forms handle PHI. I build with consent, encryption in transit, and HIPAA-aware routing — and flag anything that needs a BAA for your review.",
+        d: "Intake and contact forms handle PHI. We build with consent, encryption in transit, and HIPAA-aware routing — and flag anything that needs a BAA for your review.",
       },
       {
         icon: "layers",
@@ -1379,7 +1380,7 @@ export const industryPages = [
     faqs: [
       {
         q: "How much does a medical or dental website cost?",
-        a: "Scope drives it. A single-location practice is a very different build than a multi-site group or a hospital with dozens of service lines and EHR integration. You get a fixed number after a short scoping call — not an hourly meter, and not a number I made up before understanding the practice.",
+        a: "Scope drives it. A single-location practice is a very different build than a multi-site group or a hospital with dozens of service lines and EHR integration. You get a fixed number after a short scoping call — not an hourly meter, and not a number we made up before understanding the practice.",
       },
       {
         q: "How long does it take?",
@@ -1391,7 +1392,7 @@ export const industryPages = [
       },
       {
         q: "Is it HIPAA compliant?",
-        a: "I build forms and data flows to be HIPAA-aware — consent, encryption in transit, and proper routing — and flag anything that needs a Business Associate Agreement. Final compliance sign-off is yours or your compliance officer's.",
+        a: "We build forms and data flows to be HIPAA-aware — consent, encryption in transit, and proper routing — and flag anything that needs a Business Associate Agreement. Final compliance sign-off is yours or your compliance officer's.",
       },
       {
         q: "Do you handle online scheduling and reminders?",
@@ -1431,11 +1432,11 @@ export const faqs = [
   },
   {
     q: "Do you work with startups, or only enterprises?",
-    a: "Both. I've delivered for enterprises like T-Mobile and for lean startups. The engagement scales to the problem — a focused prototype for a startup or a production system for an enterprise team.",
+    a: "Both. We have delivered for enterprises like T-Mobile and for lean startups. The engagement scales to the problem — a focused prototype for a startup or a production system for an enterprise team.",
   },
   {
-    q: "Is AI actually the right fit for my problem?",
-    a: "Sometimes it isn't — and I'll tell you honestly. Every engagement starts with discovery to confirm AI adds real value before any build. If a simpler tool wins, that's the recommendation.",
+    q: "Is AI actually the right fit for our problem?",
+    a: "Sometimes it isn't — and we'll tell you honestly. Every engagement starts with discovery to confirm AI adds real value before any build. If a simpler tool wins, that's the recommendation.",
   },
   {
     q: "How long does a typical project take?",
@@ -1443,7 +1444,7 @@ export const faqs = [
   },
   {
     q: "Can you work with our existing team and tech stack?",
-    a: "Yes. I integrate with your engineers, tools, and infrastructure — Python, TypeScript, React, cloud, your data warehouse — rather than forcing a rewrite.",
+    a: "Yes. We integrate with your engineers, tools, and infrastructure — Python, TypeScript, React, cloud, your data warehouse — rather than forcing a rewrite.",
   },
   {
     q: "How do we get started?",

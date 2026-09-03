@@ -44,6 +44,6 @@ export const servicesPage = {
       ${services.map(row).join("\n")}
     </div>
   </section>
-  ${ctaBand({ title: "Not sure which you need?", sub: "That’s fine — most projects blend a few. Tell me the problem and I’ll map it to the right approach.", primaryLabel: "Book a call" })}
+  ${ctaBand({ title: "Not sure which you need?", sub: "That’s fine — most projects blend a few. Tell us the problem and we’ll map it to the right approach.", primaryLabel: "Book a call" })}
   `,
 };

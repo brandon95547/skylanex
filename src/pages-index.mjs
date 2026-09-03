@@ -15,6 +15,7 @@ import { industryLandingPages, conceptDetailPages } from "./pages/industry.mjs";
 import { productsPage } from "./pages/products.mjs";
 import { aboutPage } from "./pages/about.mjs";
 import { contactPage } from "./pages/contact.mjs";
+import { privacyPage, termsPage } from "./pages/legal.mjs";
 
 export const pages = [
   home,
@@ -27,4 +28,6 @@ export const pages = [
   productsPage,
   aboutPage,
   contactPage,
+  privacyPage,
+  termsPage,
 ];

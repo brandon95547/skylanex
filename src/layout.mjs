@@ -39,6 +39,19 @@ const ICONS = {
   book: '<path d="M4 4.8A1.8 1.8 0 0 1 5.8 3H19v15.6H5.8A1.8 1.8 0 0 0 4 20.4V4.8z"/><path d="M4 18.6A1.8 1.8 0 0 0 5.8 21H19"/><path d="M8.2 7.6h6.6M8.2 11h4.4"/>',
   sliders: '<path d="M4 7.5h10M18.5 7.5H20"/><path d="M4 16.5h4M12.5 16.5H20"/><circle cx="16" cy="7.5" r="2.3"/><circle cx="10" cy="16.5" r="2.3"/>',
   dots: '<circle cx="6" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
+  // Added for the redesigned home page: the hero's assurance pills, the stat row, and the
+  // footer's social links.
+  checkCircle: '<circle cx="12" cy="12" r="8.6"/><path d="M8.6 12.2l2.4 2.4 4.4-4.8"/>',
+  calendar: '<rect x="3.5" y="5" width="17" height="15.5" rx="2.2"/><path d="M3.5 9.6h17M8.4 3.2v3.6M15.6 3.2v3.6"/>',
+  rocket: '<path d="M12 3.2c3.2 2 5 5.3 5 9.1 0 1.4-.2 2.6-.6 3.7H7.6c-.4-1.1-.6-2.3-.6-3.7 0-3.8 1.8-7.1 5-9.1z"/><circle cx="12" cy="10.2" r="1.9"/><path d="M7.6 16c-1.6 1-2.5 2.6-2.6 4.8 2-.2 3.5-1 4.5-2.4M16.4 16c1.6 1 2.5 2.6 2.6 4.8-2-.2-3.5-1-4.5-2.4"/>',
+  code: '<path d="M8.6 8.2L4.4 12l4.2 3.8M15.4 8.2l4.2 3.8-4.2 3.8M13.6 5.4l-3.2 13.2"/>',
+  // Brand glyphs, drawn as FILLED paths rather than the 2px strokes the rest of the set
+  // uses — a stroked wordmark is not that company's logo, and these are recognised by
+  // their solid silhouette or not at all.
+  linkedin: '<path d="M4.5 8.9h3.3V20H4.5V8.9zM6.1 3.9a1.9 1.9 0 1 1 0 3.8 1.9 1.9 0 0 1 0-3.8zM10.2 8.9h3.2v1.5h.05c.45-.85 1.55-1.75 3.2-1.75 3.4 0 4.05 2.25 4.05 5.15V20h-3.35v-5.35c0-1.28-.02-2.92-1.78-2.92-1.78 0-2.05 1.39-2.05 2.83V20h-3.32V8.9z" fill="currentColor" stroke="none"/>',
+  github: '<path d="M12 2.6a9.4 9.4 0 0 0-2.97 18.32c.47.09.64-.2.64-.45v-1.6c-2.62.57-3.17-1.26-3.17-1.26-.43-1.09-1.05-1.38-1.05-1.38-.86-.59.07-.58.07-.58.95.07 1.45.98 1.45.98.84 1.45 2.21 1.03 2.75.79.09-.61.33-1.03.6-1.27-2.09-.24-4.29-1.05-4.29-4.65 0-1.03.37-1.87.97-2.53-.1-.24-.42-1.2.09-2.5 0 0 .79-.25 2.59.97a9 9 0 0 1 4.72 0c1.8-1.22 2.59-.97 2.59-.97.51 1.3.19 2.26.09 2.5.6.66.97 1.5.97 2.53 0 3.61-2.2 4.4-4.3 4.64.34.29.64.87.64 1.75v2.6c0 .25.17.55.65.45A9.4 9.4 0 0 0 12 2.6z" fill="currentColor" stroke="none"/>',
+  youtube: '<path d="M21.2 7.9a2.6 2.6 0 0 0-1.83-1.84C17.75 5.6 12 5.6 12 5.6s-5.75 0-7.37.46A2.6 2.6 0 0 0 2.8 7.9C2.35 9.53 2.35 12 2.35 12s0 2.47.45 4.1a2.6 2.6 0 0 0 1.83 1.84c1.62.46 7.37.46 7.37.46s5.75 0 7.37-.46a2.6 2.6 0 0 0 1.83-1.84c.45-1.63.45-4.1.45-4.1s0-2.47-.45-4.1zM10.15 15.1V8.9l4.8 3.1-4.8 3.1z" fill="currentColor" stroke="none"/>',
+  twitter: '<path d="M17.6 3.4h2.95l-6.45 7.37L21.7 20.6h-5.94l-4.65-6.08-5.32 6.08H2.83l6.9-7.89L2.3 3.4h6.09l4.2 5.56 4.99-5.56zm-1.04 15.42h1.63L7.5 5.09H5.75l10.81 13.73z" fill="currentColor" stroke="none"/>',
   /* design-solution marks for /solutions */
   browser: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8.5h18"/><circle cx="6" cy="6.2" r=".6" fill="currentColor" stroke="none"/><circle cx="8.2" cy="6.2" r=".6" fill="currentColor" stroke="none"/>',
   users: '<circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 6"/><path d="M17.5 14.6A5.5 5.5 0 0 1 20.5 20"/>',
@@ -187,6 +200,9 @@ ${ldScripts}
 }
 
 function footer(path) {
+  // Four link columns and a social rail, as the mock draws it. Every href points at a
+  // page that exists — the mock's "Careers" is the one label with nothing behind it yet,
+  // so it is absent rather than dead.
   const cols = [
     {
       title: "Services",
@@ -200,25 +216,48 @@ function footer(path) {
       ],
     },
     {
-      title: "Studio",
+      // The mock lists the product CATEGORIES here, which are the filters on the products
+      // page — so each one deep-links to that filter's own view rather than to a page that
+      // would have to repeat it.
+      title: "Solutions",
       links: [
-        { label: "Solutions", href: "/solutions" },
+        { label: "SaaS Platforms", href: "/products#saas" },
+        { label: "AI Tools", href: "/products#ai" },
+        { label: "Developer Tools", href: "/products#dev" },
+        { label: "Design Systems", href: "/solutions" },
         { label: "Law Firm Websites", href: "/solutions/law-firms" },
+      ],
+    },
+    {
+      title: "Company",
+      links: [
+        { label: "About Us", href: "/about" },
         { label: "Products", href: "/products" },
-        { label: "About", href: "/about" },
         { label: "Contact", href: "/contact" },
         { label: "Phansora ↗", href: site.phansoraUrl },
       ],
     },
   ];
+
+  // Placeholders. The accounts exist; their URLs have not been supplied, so these are
+  // marked aria-disabled rather than pointed at a guess — a social icon that goes to the
+  // wrong account is worse than one that does not go yet.
+  const social = [
+    { label: "LinkedIn", icon: "linkedin", href: "#" },
+    { label: "GitHub", icon: "github", href: "#" },
+    { label: "YouTube", icon: "youtube", href: "#" },
+    { label: "X", icon: "twitter", href: "#" },
+  ];
+
   return `<footer class="border-t border-surface-800 bg-surface-950">
     <div class="mx-auto max-w-6xl px-5 py-14 sm:px-8">
-      <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_auto]">
         <div>
           ${logo()}
-          <p class="mt-4 max-w-xs text-sm leading-relaxed text-surface-100">${site.description}</p>
-          <div class="mt-5 flex flex-col gap-2 text-sm text-surface-100">
+          <p class="mt-4 max-w-xs text-sm leading-relaxed text-surface-300">Independent AI software studio building intelligent applications that empower businesses and creators.</p>
+          <div class="mt-5 flex flex-col gap-2.5 text-sm text-surface-300">
             <a href="mailto:${site.email}" class="inline-flex items-center gap-2 hover:text-white">${icon("mail", "h-4 w-4 text-primary-400")} ${site.email}</a>
+            <p class="inline-flex items-center gap-2">${icon("compass", "h-4 w-4 text-primary-400")} ${site.location}</p>
           </div>
         </div>
         ${cols
@@ -231,10 +270,23 @@ function footer(path) {
         </div>`
           )
           .join("")}
+        <div>
+          <h3 class="eyebrow text-surface-300">Follow</h3>
+          <ul class="mt-4 flex gap-2">
+            ${social
+              .map(
+                (sn) => `<li><a href="${sn.href}" aria-label="${sn.label}" class="grid h-9 w-9 place-items-center rounded-full border border-surface-800 bg-surface-900 text-surface-300 transition-colors hover:border-primary-500/60 hover:text-white">${icon(sn.icon, "h-4 w-4")}</a></li>`
+              )
+              .join("")}
+          </ul>
+        </div>
       </div>
       <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-surface-800 pt-6 text-xs text-surface-300 sm:flex-row">
-        <p>© ${new Date().getFullYear()} ${site.name}. Built by ${site.owner}.</p>
-        <p>Independent AI software studio.</p>
+        <p>© ${new Date().getFullYear()} ${site.name}. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <a href="/privacy" class="hover:text-white">Privacy Policy</a>
+          <a href="/terms" class="hover:text-white">Terms of Service</a>
+        </div>
       </div>
     </div>
   </footer>`;

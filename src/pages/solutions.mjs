@@ -105,7 +105,7 @@ export const solutionsPage = {
   </section>
 
   ${ctaBand({
-    title: "Tell me what you're building",
+    title: "Tell us what you're building",
     sub: "Send a note with what you do and who you sell to. You'll get an honest read on what to build — and a fixed number to do it.",
     primaryLabel: "Start a project",
   })}

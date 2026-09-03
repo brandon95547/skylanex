@@ -31,10 +31,10 @@ export function ctaBand({ title, sub, primaryLabel = "Start a project", primaryH
       <div class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-secondary-500/10 blur-3xl"></div>
       <div class="relative">
         <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">${title || "Let’s build something intelligent"}</h2>
-        <p class="mx-auto mt-4 max-w-xl text-lg text-surface-300">${sub || "Tell me what you’re working on — I’ll tell you honestly whether AI is the right tool, and how I’d build it."}</p>
+        <p class="mx-auto mt-4 max-w-xl text-lg text-surface-300">${sub || "Tell us what you’re working on — we’ll tell you honestly whether AI is the right tool, and how we’d build it."}</p>
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a href="${primaryHref}" class="btn btn-primary">${primaryLabel} ${icon("arrow", "h-4 w-4")}</a>
-          <a href="mailto:${site.email}" class="btn btn-ghost">Email me</a>
+          <a href="mailto:${site.email}" class="btn btn-ghost">Email us</a>
         </div>
       </div>
     </div>
@@ -143,4 +143,78 @@ export function chevronRule() {
       </defs>
     </svg>
   </div>`;
+}
+
+// ── the hero's platform, and the CTA badge ──────────────────────────────────
+//
+// BOTH ARE PLACEHOLDERS FOR SUPPLIED ARTWORK. The mock's hero carries a rendered
+// isometric platform — a floating plate with the mark lit on top, layered plates beneath
+// and a light trail running off to the right — and its CTA carries a hexagonal badge.
+// Neither is reproducible in SVG at the fidelity of the render, so these stand in: the
+// same silhouette, the same weight in the layout, drawn from the brand mark and the token
+// palette so the page reads finished rather than gappy.
+//
+// To replace: drop the asset in assets/images/ and swap the body of the function. Nothing
+// else has to move — both are sized by their container, not by their own dimensions.
+
+/** The isometric platform beside the hero headline. Placeholder — see above. */
+export function heroArt() {
+  return `<div class="pointer-events-none relative mx-auto w-full max-w-[520px] select-none" aria-hidden="true">
+    <svg viewBox="0 0 520 420" class="w-full" fill="none">
+      <defs>
+        <linearGradient id="hp-face" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="var(--color-surface-700)"/>
+          <stop offset="1" stop-color="var(--color-surface-900)"/>
+        </linearGradient>
+        <linearGradient id="hp-edge" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="var(--color-primary-500)"/>
+          <stop offset="1" stop-color="var(--color-secondary-500)"/>
+        </linearGradient>
+        <radialGradient id="hp-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="var(--color-primary-500)" stop-opacity="0.42"/>
+          <stop offset="1" stop-color="var(--color-primary-500)" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="262" cy="232" rx="215" ry="150" fill="url(#hp-glow)"/>
+      <!-- Three plates, each a rhombus, offset downward. Isometric by construction:
+           the two axes are the same length at the same angle, so nothing has to be
+           perspective-corrected. -->
+      <g opacity="0.35">
+        <path d="M262 300 L438 348 L262 396 L86 348 Z" fill="url(#hp-face)" stroke="var(--color-surface-700)" stroke-width="1.5"/>
+      </g>
+      <g opacity="0.6">
+        <path d="M262 250 L438 298 L262 346 L86 298 Z" fill="url(#hp-face)" stroke="var(--color-surface-700)" stroke-width="1.5"/>
+      </g>
+      <path d="M262 186 L438 234 L262 282 L86 234 Z" fill="url(#hp-face)" stroke="url(#hp-edge)" stroke-width="2"/>
+      <path d="M262 282 L262 300 M86 234 L86 252 M438 234 L438 252" stroke="var(--color-surface-700)" stroke-width="2"/>
+      <!-- The light trail the render carries off the right edge. -->
+      <path d="M438 244 C 470 244, 486 214, 516 214" stroke="url(#hp-edge)" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+      <g transform="translate(262 232) scale(0.115) translate(-576 -462)">
+        <use href="#skx-eagle" fill="var(--color-primary-400)"/>
+      </g>
+      <g fill="var(--color-secondary-300)">
+        <circle cx="470" cy="120" r="3" opacity="0.8"/><circle cx="70" cy="150" r="2.4" opacity="0.55"/>
+        <circle cx="418" cy="72" r="2" opacity="0.5"/><circle cx="132" cy="76" r="2.6" opacity="0.6"/>
+        <circle cx="492" cy="300" r="2.2" opacity="0.45"/>
+      </g>
+    </svg>
+  </div>`;
+}
+
+/** The hexagon badge in the CTA band. Placeholder — see above. */
+export function ctaBadge(cls = "h-24 w-24") {
+  return `<span class="relative grid ${cls} shrink-0 place-items-center" aria-hidden="true">
+    <svg viewBox="0 0 120 120" class="absolute inset-0 h-full w-full" fill="none">
+      <defs>
+        <linearGradient id="cb-edge" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="var(--color-primary-400)"/>
+          <stop offset="1" stop-color="var(--color-secondary-400)"/>
+        </linearGradient>
+      </defs>
+      <path d="M60 6 L107 33 L107 87 L60 114 L13 87 L13 33 Z"
+        fill="color-mix(in oklab, var(--color-primary-500) 12%, transparent)"
+        stroke="url(#cb-edge)" stroke-width="2"/>
+    </svg>
+    <svg viewBox="0 0 1152 924" class="relative h-1/2 w-1/2 text-primary-300"><use href="#skx-eagle"/></svg>
+  </span>`;
 }

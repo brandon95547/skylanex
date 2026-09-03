@@ -82,7 +82,7 @@ export const examplesPage = {
 
   ${ctaBand({
     title: "Don't see your industry yet?",
-    sub: "More industry example pages are in the works. Tell me what you do and who you sell to, and I'll show you what your site should be doing differently.",
+    sub: "More industry example pages are in the works. Tell us what you do and who you sell to, and we'll show you what your site should be doing differently.",
     primaryLabel: "Start a project",
   })}
   `;

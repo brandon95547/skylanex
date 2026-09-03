@@ -3,7 +3,7 @@ import { ctaBand, statRow, heroGlow, heading } from "../ui.mjs";
 import { site } from "../../site.config.mjs";
 
 const values = [
-  { icon: "compass", t: "Honest about AI", d: "If a simpler tool wins, I’ll say so. I care about the outcome, not shipping AI for its own sake." },
+  { icon: "compass", t: "Honest about AI", d: "If a simpler tool wins, we’ll say so. We care about the outcome, not shipping AI for its own sake." },
   { icon: "bolt", t: "Ship, then iterate", d: "Working software every week beats a perfect spec. You steer as it takes shape." },
   { icon: "shield", t: "Production-minded", d: "Security, cost, and maintainability from day one — not bolted on at the end." },
 ];
@@ -17,22 +17,22 @@ export const aboutPage = {
   path: "/about",
   file: "about.html",
   title: "About",
-  description: `About ${site.owner} — an AI software developer and founder building intelligent products and applications.`,
+  description: `About Skylanex — an independent AI software studio founded by ${site.owner}, building intelligent products and applications.`,
   render: () => `
   ${heroGlow(`
     <div class="mx-auto max-w-5xl px-5 pb-10 pt-20 sm:px-8 sm:pt-24">
       <div class="grid items-center gap-10 lg:grid-cols-[1.3fr_1fr]">
         <div>
           <p class="eyebrow mb-3 text-primary-400">About</p>
-          <h1 class="text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Hi, I’m ${site.owner}.</h1>
+          <h1 class="text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Built by ${site.owner}.</h1>
           <p class="mt-5 max-w-xl text-lg leading-relaxed text-surface-300">
-            I’m an independent AI software developer and founder. For over a decade I’ve shipped web and mobile applications for enterprises and startups — and today I focus on making AI genuinely useful: apps, models, and automation that hold up in production.
+            Skylanex is an independent AI software studio, founded and led by ${site.owner}. For over a decade we have shipped web and mobile applications for enterprises and startups — and today we focus on making AI genuinely useful: apps, models, and automation that hold up in production.
           </p>
           <p class="mt-4 max-w-xl leading-relaxed text-surface-300">
-            When I’m not building for clients, I build my own products under <a href="${site.phansoraUrl}" target="_blank" rel="noopener" class="text-primary-300 hover:text-primary-200">Phansora</a> — a suite of AI tools that proves this stuff works, not just in a demo.
+            Alongside client work we build and run our own products under <a href="${site.phansoraUrl}" target="_blank" rel="noopener" class="text-primary-300 hover:text-primary-200">Phansora</a> — a suite of AI tools that proves this stuff works outside a demo.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
-            <a href="/contact" class="btn btn-primary">Work with me ${icon("arrow", "h-4 w-4")}</a>
+            <a href="/contact" class="btn btn-primary">Work with us ${icon("arrow", "h-4 w-4")}</a>
             <a href="/products" class="btn btn-ghost">See the products</a>
           </div>
         </div>
@@ -50,7 +50,7 @@ export const aboutPage = {
 
   <section class="px-5 py-20 sm:px-8">
     <div class="mx-auto max-w-6xl">
-      ${heading({ eyebrow: "How I work", title: "What you can count on" })}
+      ${heading({ eyebrow: "How we work", title: "What you can count on" })}
       <div class="mt-12 grid gap-5 md:grid-cols-3">
         ${values
           .map(

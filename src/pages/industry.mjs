@@ -111,7 +111,7 @@ function conceptDetail(p, c) {
 
   ${ctaBand({
     title: "Want a site like this for your firm?",
-    sub: `This direction was built for ${c.label.toLowerCase()}. Tell me your practice areas and the market you want to win, and I'll adapt it — your name, your colors, your content — into a site built to turn a search into a signed client. You get a fixed number, not an hourly meter.`,
+    sub: `This direction was built for ${c.label.toLowerCase()}. Tell us your practice areas and the market you want to win, and we'll adapt it — your name, your colors, your content — into a site built to turn a search into a signed client. You get a fixed number, not an hourly meter.`,
     primaryLabel: "Design mine",
   })}
   `;
@@ -270,7 +270,7 @@ function detail(p) {
 
   ${ctaBand({
     title: "Let's talk about your firm",
-    sub: "Tell me your practice areas and the markets you want to win. You'll get an honest read on what your site should be doing differently — and a fixed number to do it.",
+    sub: "Tell us your practice areas and the markets you want to win. You'll get an honest read on what your site should be doing differently — and a fixed number to do it.",
     primaryLabel: "Start a project",
   })}
   `;

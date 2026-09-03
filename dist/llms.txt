@@ -2,7 +2,7 @@
 
 > Skylanex is an independent AI software studio — we design, build, and ship intelligent applications, from custom AI apps to machine learning, NLP, and computer vision.
 
-Skylanex is an independent AI software studio led by Brandon Sanders. We design and build websites, web and mobile apps, custom CRMs, dashboards, AI assistants, and e-commerce storefronts, and provide AI services from machine learning and NLP to computer vision. Contact: info@skylanex.com.
+Skylanex is an independent AI software studio led by Brandon Sanders. We design and build websites, web and mobile apps, custom CRMs, dashboards, AI assistants, and e-commerce storefronts, and provide AI services from machine learning and NLP to computer vision. Contact: hello@skylanex.com.
 
 ## Services
 - [AI Application Development](https://www.skylanex.com/ai-application-development): We design and ship production-grade AI applications tailored to how your business really works — not a one-size-fits-all template.
