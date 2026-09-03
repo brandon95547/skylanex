@@ -1,5 +1,5 @@
 import { icon } from "../layout.mjs";
-import { heading, heroGlow, heroArt, ctaBadge } from "../ui.mjs";
+import { heading, heroGlow, ctaBadge } from "../ui.mjs";
 import { services, site, trustedBy, stats } from "../../site.config.mjs";
 
 function serviceCard(s) {
@@ -18,8 +18,8 @@ export const home = {
   description: site.description,
   render: () => `
   ${heroGlow(`
-    <div class="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 pt-20 sm:px-8 sm:pt-24 lg:grid-cols-[1.05fr_1fr] lg:gap-6">
-      <div>
+    <div class="mx-auto max-w-6xl px-5 pb-24 pt-20 sm:px-8 sm:pt-28 lg:pb-32 lg:pt-32">
+      <div class="max-w-xl">
         <p class="reveal eyebrow mb-4 text-primary-400">AI. Software. Outcomes.</p>
         <h1 class="reveal text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[3.5rem]">
           We build <span class="grad-text">intelligent software</span> that ships.
@@ -40,9 +40,16 @@ export const home = {
             .join("")}
         </ul>
       </div>
-      <div class="reveal order-first lg:order-none">${heroArt()}</div>
     </div>
-  `)}
+  `, {
+    // Supplied artwork. The composition puts the platform on the right and leaves the
+    // left half empty, which is exactly where the headline sits — so the grid below
+    // stays one column of copy rather than copy beside a picture.
+    // One file, at the source's native 1717px. There is no 2x to offer — the supplied
+    // PNG is 1717 wide, so a "2x" entry would be the same pixels under a second name and
+    // would only ever cost a decision the browser did not need to make.
+    image: "/images/hero/home-hero-1717.webp",
+  })}
 
   <!-- TRUSTED BY -->
   <section class="border-y border-surface-800 px-5 py-8 sm:px-8">

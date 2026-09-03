@@ -56,66 +56,39 @@ export function statRow() {
   </section>`;
 }
 
-// The banner's constellation field, as markup.
-//
-// Laid out with a SEEDED prng, never Math.random: a static site generator that emits
-// different markup on every run makes diffs unreadable and busts caches for nothing.
-// Same seed in, same field out, forever.
-//
-// Edges connect any two nodes within a radius rather than each node to its nearest N.
-// Nearest-N gives every node the same degree, which reads as a woven mesh; a radius
-// leaves the clusters and empty stretches that make the banner's network look like a
-// constellation. Line opacity falls off with length for the same reason — uniformly
-// bright edges flatten it.
-export function plexus({ nodes = 38, width = 900, height = 560, seed = 7 } = {}) {
-  let s = seed >>> 0;
-  const rnd = () => {
-    s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
-    return s / 4294967296;
-  };
-  const pts = Array.from({ length: nodes }, () => ({
-    x: rnd() * width,
-    y: rnd() * height,
-    lit: rnd() > 0.84,
-    r: 1.4 + rnd() * 1.9,
-  }));
-
-  const LINK = Math.min(width, height) * 0.3;
-  const lines = [];
-  for (let i = 0; i < pts.length; i++) {
-    for (let j = i + 1; j < pts.length; j++) {
-      const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
-      if (d >= LINK) continue;
-      const o = (1 - d / LINK) * 0.22;
-      lines.push(
-        `<line class="plexus-line" x1="${pts[i].x.toFixed(1)}" y1="${pts[i].y.toFixed(1)}" x2="${pts[j].x.toFixed(1)}" y2="${pts[j].y.toFixed(1)}" style="opacity:${o.toFixed(3)}"/>`
-      );
-    }
-  }
-  const dots = pts
-    .map(
-      (p) =>
-        `<circle class="plexus-node${p.lit ? " plexus-node--lit" : ""}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${(p.lit ? p.r * 1.25 : p.r).toFixed(2)}"/>`
-    )
-    .join("");
-
-  return `<div class="plexus" aria-hidden="true">
-    <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid slice" fill="none">
-      <g>${lines.join("")}</g>
-      <g>${dots}</g>
-    </svg>
-  </div>`;
-}
-
-// Hero container: the deep blue-black field, the constellation, and the two soft
-// blooms that keep the corners from going dead flat.
-export function heroGlow(inner) {
+/**
+ * Hero container: the deep blue-black field, plus either supplied artwork or the two
+ * soft blooms that keep the corners from going dead flat.
+ *
+ * `image` takes supplied artwork. It is a background-image on a layer rather than an
+ * `<img>`, because the artwork IS the field — it has no subject to describe, and
+ * announcing it to a screen reader would be noise. Anchored right, so the composition's
+ * empty left half stays under the headline at every width, and covered so it never
+ * letterboxes.
+ *
+ * The two blooms render only when there is no image. Under artwork they are a second
+ * light source disagreeing with the one already in the picture.
+ */
+export function heroGlow(inner, { image = null, image2x = null } = {}) {
+  const art = image
+    ? `<div class="pointer-events-none absolute inset-0 bg-cover bg-right bg-no-repeat opacity-40 lg:opacity-100"
+        style="background-image:image-set(url('${image}') 1x${image2x ? `, url('${image2x}') 2x` : ""})"></div>
+      <!-- Two scrims, because the artwork means different things at different widths.
+           This composition puts its subject on the right and leaves the left empty, so on
+           a wide screen the copy lands on the empty half and the scrim only has to sweep
+           in from the LEFT — a uniform tint there would dim the picture to protect type
+           that was never over it.
+           On a phone there is no empty half: background-size cover crops to the subject
+           and the copy lands on top of it. So below lg the artwork drops to 40% and the
+           scrim runs top to bottom instead, which keeps it as texture behind the headline
+           rather than a picture competing with it. -->
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-surface-950/85 via-surface-950/70 to-surface-950/85 lg:bg-gradient-to-r lg:from-surface-950 lg:via-surface-950/75 lg:to-transparent"></div>`
+    : `<div class="pointer-events-none absolute inset-0">
+        <div class="absolute left-1/2 top-[-10%] h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary-600/15 blur-3xl"></div>
+        <div class="absolute right-[-10%] top-[20%] h-[320px] w-[420px] rounded-full bg-secondary-500/10 blur-3xl"></div>
+      </div>`;
   return `<section class="brand-field relative overflow-hidden">
-    ${plexus()}
-    <div class="pointer-events-none absolute inset-0">
-      <div class="absolute left-1/2 top-[-10%] h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary-600/15 blur-3xl"></div>
-      <div class="absolute right-[-10%] top-[20%] h-[320px] w-[420px] rounded-full bg-secondary-500/10 blur-3xl"></div>
-    </div>
+    ${art}
     <div class="relative">${inner}</div>
     ${chevronRule()}
   </section>`;
@@ -145,61 +118,18 @@ export function chevronRule() {
   </div>`;
 }
 
-// ── the hero's platform, and the CTA badge ──────────────────────────────────
+// ── the CTA badge ───────────────────────────────────────────────────────────
 //
-// BOTH ARE PLACEHOLDERS FOR SUPPLIED ARTWORK. The mock's hero carries a rendered
-// isometric platform — a floating plate with the mark lit on top, layered plates beneath
-// and a light trail running off to the right — and its CTA carries a hexagonal badge.
-// Neither is reproducible in SVG at the fidelity of the render, so these stand in: the
-// same silhouette, the same weight in the layout, drawn from the brand mark and the token
-// palette so the page reads finished rather than gappy.
+// STILL A PLACEHOLDER FOR SUPPLIED ARTWORK. The mock's CTA carries a hexagonal badge that
+// no SVG will match at the fidelity of a render, so this stands in: the same silhouette,
+// the same weight in the layout, drawn from the brand mark and the tokens so the band
+// reads finished rather than gappy.
 //
-// To replace: drop the asset in assets/images/ and swap the body of the function. Nothing
-// else has to move — both are sized by their container, not by their own dimensions.
-
-/** The isometric platform beside the hero headline. Placeholder — see above. */
-export function heroArt() {
-  return `<div class="pointer-events-none relative mx-auto w-full max-w-[520px] select-none" aria-hidden="true">
-    <svg viewBox="0 0 520 420" class="w-full" fill="none">
-      <defs>
-        <linearGradient id="hp-face" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="var(--color-surface-700)"/>
-          <stop offset="1" stop-color="var(--color-surface-900)"/>
-        </linearGradient>
-        <linearGradient id="hp-edge" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="var(--color-primary-500)"/>
-          <stop offset="1" stop-color="var(--color-secondary-500)"/>
-        </linearGradient>
-        <radialGradient id="hp-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0" stop-color="var(--color-primary-500)" stop-opacity="0.42"/>
-          <stop offset="1" stop-color="var(--color-primary-500)" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-      <ellipse cx="262" cy="232" rx="215" ry="150" fill="url(#hp-glow)"/>
-      <!-- Three plates, each a rhombus, offset downward. Isometric by construction:
-           the two axes are the same length at the same angle, so nothing has to be
-           perspective-corrected. -->
-      <g opacity="0.35">
-        <path d="M262 300 L438 348 L262 396 L86 348 Z" fill="url(#hp-face)" stroke="var(--color-surface-700)" stroke-width="1.5"/>
-      </g>
-      <g opacity="0.6">
-        <path d="M262 250 L438 298 L262 346 L86 298 Z" fill="url(#hp-face)" stroke="var(--color-surface-700)" stroke-width="1.5"/>
-      </g>
-      <path d="M262 186 L438 234 L262 282 L86 234 Z" fill="url(#hp-face)" stroke="url(#hp-edge)" stroke-width="2"/>
-      <path d="M262 282 L262 300 M86 234 L86 252 M438 234 L438 252" stroke="var(--color-surface-700)" stroke-width="2"/>
-      <!-- The light trail the render carries off the right edge. -->
-      <path d="M438 244 C 470 244, 486 214, 516 214" stroke="url(#hp-edge)" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
-      <g transform="translate(262 232) scale(0.115) translate(-576 -462)">
-        <use href="#skx-eagle" fill="var(--color-primary-400)"/>
-      </g>
-      <g fill="var(--color-secondary-300)">
-        <circle cx="470" cy="120" r="3" opacity="0.8"/><circle cx="70" cy="150" r="2.4" opacity="0.55"/>
-        <circle cx="418" cy="72" r="2" opacity="0.5"/><circle cx="132" cy="76" r="2.6" opacity="0.6"/>
-        <circle cx="492" cy="300" r="2.2" opacity="0.45"/>
-      </g>
-    </svg>
-  </div>`;
-}
+// The hero's platform used to live here too. Its artwork has arrived and is the hero
+// section's background image now, so that placeholder is gone.
+//
+// To replace: drop the asset in assets/images/ and swap the body. Nothing else moves — it
+// is sized by its container, not by its own dimensions.
 
 /** The hexagon badge in the CTA band. Placeholder — see above. */
 export function ctaBadge(cls = "h-24 w-24") {

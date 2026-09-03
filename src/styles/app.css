@@ -327,22 +327,6 @@
   /* Constellation field. The dots are CSS; the connecting LINES are an SVG the
    * markup supplies, because line geometry is not something gradients can fake
    * and a tiled pattern reads as wallpaper rather than a network. */
-  .plexus {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    /* Fades the field out toward the content so type never sits on a node. */
-    mask-image: radial-gradient(120% 100% at 78% 22%, #000 0%, #000 42%, transparent 78%);
-    -webkit-mask-image: radial-gradient(120% 100% at 78% 22%, #000 0%, #000 42%, transparent 78%);
-  }
-  .plexus svg { width: 100%; height: 100%; }
-  .plexus-line { stroke: var(--color-primary-400); stroke-width: 1; opacity: 0.18; }
-  .plexus-node { fill: var(--color-surface-300); opacity: 0.55; }
-  /* A few nodes are lit rather than gray — in the banner only a handful glow, and
-   * lighting all of them flattens the depth the sparse ones create. */
-  .plexus-node--lit { fill: var(--color-secondary-300); opacity: 0.95; }
-
   /* The deep vignette the banner sits in: not flat black, a blue-black that lifts
    * slightly toward the upper right where the network is densest. */
   .brand-field {
