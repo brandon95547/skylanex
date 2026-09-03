@@ -1,5 +1,5 @@
 // seo.mjs — structured data (JSON-LD) generation.
-import { site, services, faqs, products, designSolutions, industryPages } from "../site.config.mjs";
+import { site, services, faqs, designSolutions, industryPages } from "../site.config.mjs";
 
 const ORG = `${site.domain}/#org`;
 const WEBSITE = `${site.domain}/#website`;
@@ -208,35 +208,11 @@ export function jsonLdForPage(page) {
     ];
   }
   if (page.path === "/products") {
-    // ISO-8601 duration from the "M:SS" display string.
-    const iso = (d) => {
-      const [m, s] = String(d).split(":").map(Number);
-      return `PT${m ? m + "M" : ""}${s}S`;
-    };
-    return [
-      breadcrumb([home, { name: "Products", path: "/products" }]),
-      {
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        name: "Music videos & short films",
-        itemListElement: products.creative.map((c, i) => ({
-          "@type": "ListItem",
-          position: i + 1,
-          item: {
-            "@type": "VideoObject",
-            name: c.name,
-            description: c.blurb,
-            genre: c.kind,
-            duration: iso(c.duration),
-            thumbnailUrl: absUrl(`/images/videos/${c.slug}.webp`),
-            contentUrl: absUrl(`/videos/${c.slug}.mp4`),
-            embedUrl: absUrl("/products"),
-            uploadDate: "2026-01-27",
-            creator: { "@id": ORG },
-          },
-        })),
-      },
-    ];
+    // A breadcrumb and nothing else. This used to also emit a VideoObject ItemList for
+    // the films, which was correct while they were on the page and became a false claim
+    // the moment they came off it — structured data that describes markup which is not
+    // there is worse than none. It comes back with them, wherever they land.
+    return [breadcrumb([home, { name: "Products", path: "/products" }])];
   }
   if (page.path === "/about") {
     return [
