@@ -23,7 +23,7 @@ function concept(c, industrySlug) {
     </a>
     <figcaption class="mt-3 flex flex-wrap items-baseline justify-between gap-2">
       <span class="text-sm font-semibold text-white">${c.label}</span>
-      <span class="text-xs text-surface-500">${c.firm}</span>
+      <span class="text-xs text-surface-300">${c.firm}</span>
     </figcaption>
     <a href="${href}" class="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-300 hover:text-primary-200">
       View design ${icon("arrow", "h-4 w-4")}
@@ -47,7 +47,7 @@ function conceptDetail(p, c) {
   ${heroGlow(`
     <div class="mx-auto max-w-5xl px-5 pb-10 pt-20 sm:px-8 sm:pt-24">
       <a href="/solutions/${p.slug}#concepts" class="inline-flex items-center gap-1.5 text-sm text-surface-400 hover:text-primary-300">${icon("arrow", "h-4 w-4 rotate-180")} All ${p.eyebrow} concepts</a>
-      <p class="eyebrow mt-6 text-accent-400">${c.label}</p>
+      <p class="eyebrow mt-6 text-secondary-400">${c.label}</p>
       <h1 class="mt-2 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">${c.firm}</h1>
       <p class="mt-5 max-w-2xl text-lg leading-relaxed text-surface-300">${c.blurb}</p>
       <div class="mt-8 flex flex-wrap gap-3">
@@ -65,7 +65,7 @@ function conceptDetail(p, c) {
           alt="${c.label} law firm website design concept for ${c.firm}"
           class="w-full" />
       </figure>
-      <p class="mt-4 max-w-3xl text-sm leading-relaxed text-surface-500">
+      <p class="mt-4 max-w-3xl text-sm leading-relaxed text-surface-400">
         This is an original design concept — ${c.firm} is a fictional firm created to show the direction, not a past client. Your build starts from your name, your practice areas, and your market.
       </p>
     </div>
@@ -91,18 +91,18 @@ function conceptDetail(p, c) {
         palette
           ? `<aside class="h-fit rounded-2xl border border-surface-800 bg-surface-900/40 p-6">
         <h3 class="text-sm font-semibold text-white">Color direction</h3>
-        <p class="mt-1 text-xs text-surface-500">${palette.name}</p>
+        <p class="mt-1 text-xs text-surface-300">${palette.name}</p>
         <div class="mt-5 flex gap-2">
           ${swatchKeys
             .map(
               ([k, label]) => `<div class="min-w-0 flex-1">
             <div class="h-12 rounded-lg border border-surface-700/60" style="background:${palette.colors[k]}"></div>
-            <p class="mt-1.5 truncate text-[11px] text-surface-500">${label}</p>
+            <p class="mt-1.5 truncate text-[11px] text-surface-300">${label}</p>
           </div>`
             )
             .join("")}
         </div>
-        <p class="mt-5 text-xs leading-relaxed text-surface-500">A starting direction. Your palette is chosen with you — this is where the conversation begins, not where it ends.</p>
+        <p class="mt-5 text-xs leading-relaxed text-surface-300">A starting direction. Your palette is chosen with you — this is where the conversation begins, not where it ends.</p>
       </aside>`
           : ""
       }
@@ -126,7 +126,7 @@ function detail(p) {
       <div class="mt-6 flex items-start gap-5">
         <span class="hidden h-14 w-14 shrink-0 place-items-center rounded-2xl bg-primary-500/10 text-primary-300 sm:grid">${icon(p.icon, "h-7 w-7")}</span>
         <div>
-          <p class="eyebrow text-accent-400">${p.eyebrow}</p>
+          <p class="eyebrow text-secondary-400">${p.eyebrow}</p>
           <h1 class="mt-2 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">${p.h1}</h1>
           <p class="mt-5 max-w-2xl text-lg leading-relaxed text-surface-300">${p.lede}</p>
         </div>
@@ -160,7 +160,7 @@ function detail(p) {
       <div class="mt-10 grid gap-10 lg:grid-cols-2">
         ${p.showcase.map((c) => concept(c, p.slug)).join("\n")}
       </div>
-      <p class="mt-8 max-w-3xl text-sm leading-relaxed text-surface-500">
+      <p class="mt-8 max-w-3xl text-sm leading-relaxed text-surface-400">
         These are design concepts, not past client work — the firms shown are fictional. Real engagements start from your name, your practice areas, and your market.
       </p>
     </div>

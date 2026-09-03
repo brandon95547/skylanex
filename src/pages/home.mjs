@@ -21,7 +21,7 @@ export const home = {
     <div class="mx-auto max-w-6xl px-5 pb-16 pt-20 sm:px-8 sm:pt-28">
       <div class="mx-auto max-w-3xl text-center">
         <p class="reveal mb-5 inline-flex items-center gap-2 rounded-full border border-surface-800 bg-surface-900/60 px-4 py-1.5 text-xs font-medium text-surface-300">
-          <span class="h-1.5 w-1.5 rounded-full bg-accent-400"></span> Independent AI software studio
+          <span class="h-1.5 w-1.5 rounded-full bg-secondary-400"></span> Independent AI software studio
         </p>
         <h1 class="reveal text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-6xl">
           I build <span class="grad-text">intelligent software</span> that ships.
@@ -71,7 +71,7 @@ export const home = {
         <div class="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-primary-500/15 blur-3xl"></div>
         <div class="relative grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-center">
           <div>
-            <p class="eyebrow mb-3 text-accent-400">Flagship venture</p>
+            <p class="eyebrow mb-3 text-secondary-400">Flagship venture</p>
             <h2 class="text-2xl font-bold text-white sm:text-3xl">Phansora — my AI product suite</h2>
             <p class="mt-4 max-w-xl leading-relaxed text-surface-300">
               Beyond client work, I build and run my own AI products. Phansora is a suite of four:

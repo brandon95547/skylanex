@@ -28,7 +28,7 @@ export function ctaBand({ title, sub, primaryLabel = "Start a project", primaryH
   return `<section class="px-5 pb-24 sm:px-8">
     <div class="reveal relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-primary-500/20 bg-gradient-to-br from-primary-900 via-surface-900 to-surface-950 px-6 py-14 text-center sm:px-12">
       <div class="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-primary-500/20 blur-3xl"></div>
-      <div class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-accent-500/10 blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-secondary-500/10 blur-3xl"></div>
       <div class="relative">
         <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">${title || "Let’s build something intelligent"}</h2>
         <p class="mx-auto mt-4 max-w-xl text-lg text-surface-300">${sub || "Tell me what you’re working on — I’ll tell you honestly whether AI is the right tool, and how I’d build it."}</p>
@@ -114,7 +114,7 @@ export function heroGlow(inner) {
     ${plexus()}
     <div class="pointer-events-none absolute inset-0">
       <div class="absolute left-1/2 top-[-10%] h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary-600/15 blur-3xl"></div>
-      <div class="absolute right-[-10%] top-[20%] h-[320px] w-[420px] rounded-full bg-accent-500/10 blur-3xl"></div>
+      <div class="absolute right-[-10%] top-[20%] h-[320px] w-[420px] rounded-full bg-secondary-500/10 blur-3xl"></div>
     </div>
     <div class="relative">${inner}</div>
     ${chevronRule()}
@@ -137,7 +137,7 @@ export function chevronRule() {
         <linearGradient id="skx-chev" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
           <stop stop-color="var(--color-primary-400)" stop-opacity="0"/>
           <stop offset="0.62" stop-color="var(--color-primary-400)" stop-opacity="0.5"/>
-          <stop offset="0.78" stop-color="var(--color-accent-300)" stop-opacity="0.85"/>
+          <stop offset="0.78" stop-color="var(--color-secondary-300)" stop-opacity="0.85"/>
           <stop offset="1" stop-color="var(--color-primary-400)" stop-opacity="0.08"/>
         </linearGradient>
       </defs>

@@ -12,7 +12,7 @@ function detail(s) {
       <div class="mt-6 flex items-start gap-5">
         <span class="hidden h-14 w-14 shrink-0 place-items-center rounded-2xl bg-primary-500/10 text-primary-300 sm:grid">${icon(s.icon, "h-7 w-7")}</span>
         <div>
-          <p class="eyebrow text-accent-400">${s.eyebrow}</p>
+          <p class="eyebrow text-secondary-400">${s.eyebrow}</p>
           <h1 class="mt-2 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">${s.title}</h1>
           <p class="mt-4 max-w-2xl text-lg leading-relaxed text-surface-300">${s.tagline}</p>
         </div>
@@ -43,7 +43,7 @@ function detail(s) {
       </div>
       <aside>
         <div class="rounded-2xl border border-surface-800 bg-surface-900/60 p-6">
-          <h3 class="eyebrow text-surface-500">Typical deliverables</h3>
+          <h3 class="eyebrow text-surface-300">Typical deliverables</h3>
           <ul class="mt-4 space-y-3">
             ${s.deliverables
               .map((d) => `<li class="flex items-center gap-3 text-sm text-surface-200"><span class="text-primary-400">${icon("check", "h-4 w-4")}</span> ${d}</li>`)

@@ -1,15 +1,18 @@
-/* My New AI — Tailwind entry + design tokens.
+/* Skylanex — Tailwind entry + design tokens.
  *
- * Palette is organized the same way as the Phansora site: semantic ramps
- * (surface / primary / accent) declared in @theme, with a safelist so every
- * shade is always available. The values themselves are sampled from the eagle
- * brand banner rather than chosen — see the notes on each ramp below.
+ * Four semantic ramps declared in @theme, with a safelist so every shade is always
+ * available. The values are transcribed from the design token sheet, not sampled:
  *
- *   surface — near-black that leans BLUE, not neutral slate (backgrounds, borders)
- *   primary — electric azure, the banner's one saturated hue (brand, CTAs, links)
- *   accent  — the cooler glow cyan off its constellation nodes (highlights, dots)
- *   emerald / rose kept from Tailwind defaults for success / error only. The brand
- *   is strictly blue and white, so neither belongs in decoration.
+ *   surface   — the sheet's neutral scale, mapped by USAGE (see the ramp's own note)
+ *   primary   — #2563EB, the brand blue. CTAs, links, focus.
+ *   secondary — cyan. The glows, the lit constellation nodes, the second half of the
+ *               brand gradient. This is where the OLD `accent` went: it was cyan, and
+ *               everything that used it wanted a cooler blue rather than a new hue.
+ *   accent    — violet. New with the redesign and deliberately unused so far. Reach
+ *               for it when a design asks for contrast AGAINST the blue, never for
+ *               "a second blue" — that is what secondary is.
+ *
+ * emerald / rose stay from Tailwind defaults for success and error only.
  */
 
 @import "tailwindcss";
@@ -46,16 +49,6 @@
     U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
     U+FEFF, U+FFFD;
 }
-@font-face {
-  font-family: "Saira";
-  font-style: normal;
-  font-weight: 500 800;
-  font-display: swap;
-  src: url("/fonts/saira-var-latin.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-    U+FEFF, U+FFFD;
-}
 
 /* Scan the generators + built output for class names. */
 @source "../**/*.mjs";
@@ -65,64 +58,130 @@
 @source "../../dist/**/*.html";
 
 /* Always compile the full semantic ramps (mirrors Phansora's safelist). */
-@source inline("{bg,text,border,ring,from,via,to,fill,divide}-{primary,accent,surface,emerald,rose}-{50,100,200,300,400,500,600,700,800,900,950}");
+@source inline("{bg,text,border,ring,from,via,to,fill,divide}-{primary,secondary,accent,surface,emerald,rose}-{50,100,200,300,400,500,600,700,800,900,950}");
+@source inline("{bg,text,border,ring}-surface-850");
 
 @theme {
-  /* ---- surface: near-black with a blue cast ----
-   * Sampled off the banner rather than invented: its panels read #06090e / #0e1216,
-   * which is a black that leans blue, not neutral slate. The old ramp leaned violet
-   * to sit under a violet primary; a warm-neutral or violet black under this blue
-   * would gray the accent out. */
-  --color-surface-50: #f4f8fb;
-  --color-surface-100: #e7eef5;
-  --color-surface-200: #cbd8e6;
-  --color-surface-300: #a3b6cb;
-  --color-surface-400: #7389a4;
-  --color-surface-500: #536780;
-  --color-surface-600: #3e4f66;
-  --color-surface-700: #2b384a;
-  --color-surface-800: #1a2330;
-  --color-surface-900: #0e131b;
-  --color-surface-950: #06090e;
+  /* ================================================================
+   * Skylanex design tokens v1.0 — transcribed from the design sheet.
+   *
+   * READ THIS BEFORE CHANGING A HEX. These are not sampled or invented; every value
+   * below is the one written on the sheet. Two exceptions, both flagged in place:
+   * primary-100 and accent-100, whose labels are corrupted in the source PNG.
+   *
+   * The sheet defines 50–500 only. Steps 600–950 are extensions, because the markup
+   * already uses them (from-primary-900, and the gradients that build on it) and a
+   * missing step compiles to nothing rather than to an error. They continue the same
+   * hue rather than introducing a new one — see each ramp.
+   * ================================================================ */
 
-  /* ---- primary: electric azure ----
-   * 400 is #61c7ff, measured from the banner's "BUILDING INTELLIGENT DIGITAL
-   * EXPERIENCES" line — the one saturated hue in the whole design. The ramp is built
-   * around it so `primary-400` is literally the brand blue, and the darker steps stay
-   * on that hue instead of drifting toward navy. */
-  --color-primary-50: #eff9ff;
-  --color-primary-100: #dbf1ff;
-  --color-primary-200: #b7e5ff;
-  --color-primary-300: #85d4ff;
-  --color-primary-400: #61c7ff;
-  --color-primary-500: #2eadfa;
-  --color-primary-600: #158fe0;
-  --color-primary-700: #1272b5;
-  --color-primary-800: #145f94;
-  --color-primary-900: #154f79;
-  --color-primary-950: #0d3150;
+  /* ---- surface: the sheet's neutral scale, mapped BY USAGE ----------------
+   * The sheet names five surfaces (Background, Surface 1/2/3, Border) alongside an
+   * eleven-step neutral scale. The markup addresses them as surface-50..950, so the
+   * two are reconciled here by what each step is actually FOR rather than by number:
+   *
+   *   950  Background      #0A0A0F   the page          (22 uses)
+   *   900  Surface 1       #111827   cards and panels  (43 uses)
+   *   850  Surface 2       #1A1F2E   elevated
+   *   800  Border/Divider  #2A3344   every border      (42 uses)
+   *   700  Surface 3       #1F2937   the raised edge
+   *
+   * Below 700 it is the neutral scale unchanged, which is where the text steps live. */
+  --color-surface-50: #f3f4f6;
+  --color-surface-100: #e5e7eb;
+  --color-surface-200: #d1d5db;
+  --color-surface-300: #9ca3af;
+  --color-surface-400: #6b7280;
+  --color-surface-500: #4b5563;
+  --color-surface-600: #374151;
+  --color-surface-700: #1f2937;
+  --color-surface-800: #2a3344;
+  --color-surface-850: #1a1f2e;
+  --color-surface-900: #111827;
+  --color-surface-950: #0a0a0f;
 
-  /* ---- accent: glow cyan ----
-   * The brightest pixels in the banner's constellation nodes are #5ee7ff — a cooler,
-   * more electric blue than the type. Kept as a separate ramp so glows and node dots
-   * can lift off the primary without introducing a second hue family. */
-  --color-accent-50: #edfdff;
-  --color-accent-100: #d3f8ff;
-  --color-accent-200: #aaf1ff;
-  --color-accent-300: #5ee7ff;
-  --color-accent-400: #29d3f5;
-  --color-accent-500: #0bb4db;
-  --color-accent-600: #0490b8;
-  --color-accent-700: #087395;
-  --color-accent-800: #105e79;
-  --color-accent-900: #124e66;
-  --color-accent-950: #053246;
+  /* ---- primary: the brand blue -------------------------------------------
+   * 500 is #2563EB, the sheet's brand blue and the fill on every primary button.
+   * 400 is the hover step, and it is LIGHTER — which is why btn-primary:hover reads
+   * as lifting rather than dimming.
+   * 600–950 continue into navy for the gradient backgrounds; 950 is #0F172A, which
+   * the sheet names as the start of its Dark Blue Gradient. */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #bfdbfe;   /* label corrupted in the sheet PNG — inferred */
+  --color-primary-200: #93c5fd;
+  --color-primary-300: #60a5fa;
+  --color-primary-400: #3b82f6;
+  --color-primary-500: #2563eb;
+  --color-primary-600: #1d4ed8;
+  --color-primary-700: #1e40af;
+  --color-primary-800: #1e3a8a;
+  --color-primary-900: #172554;
+  --color-primary-950: #0f172a;
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  /* Squarish, wide geometric caps — the banner's wordmark is Eurostile-adjacent, and
-   * Saira is the closest thing with a full weight range. Display only: it is set at
-   * heading sizes with heavy tracking, never as body copy. */
-  --font-display: "Saira", "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* ---- secondary: cyan ----------------------------------------------------
+   * New with this redesign, and the far end of the sheet's Primary Gradient
+   * (#2563EB → #06B6D4). Nothing in the markup reaches for it yet. */
+  --color-secondary-50: #ecfeff;
+  --color-secondary-100: #cffafe;
+  --color-secondary-200: #a5f3fc;
+  --color-secondary-300: #67e8f9;
+  --color-secondary-400: #22d3ee;
+  --color-secondary-500: #06b6d4;
+  --color-secondary-600: #0891b2;
+  --color-secondary-700: #0e7490;
+  --color-secondary-800: #155e75;
+  --color-secondary-900: #164e63;
+  --color-secondary-950: #083344;
+
+  /* ---- accent: violet -----------------------------------------------------
+   * Was a glow cyan under the old palette. It is violet now, and the cyan it used to
+   * be has become `secondary` — so anything that wanted "a second blue" should reach
+   * for secondary, and anything that wanted contrast against the blue wants accent. */
+  --color-accent-50: #f3f0ff;
+  --color-accent-100: #ede9fe;   /* label corrupted in the sheet PNG — inferred */
+  --color-accent-200: #ddd6fe;
+  --color-accent-300: #c4b5fd;
+  --color-accent-400: #a78bfa;
+  --color-accent-500: #8b5cf6;
+  --color-accent-600: #7c3aed;
+  --color-accent-700: #6d28d9;
+  --color-accent-800: #5b21b6;
+  --color-accent-900: #4c1d95;
+  --color-accent-950: #2e1065;
+
+  /* ---- semantic ----------------------------------------------------------
+   * State only, never decoration. `info` is deliberately the same hex as
+   * primary-400: on this site an informational message IS the brand blue. */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+  --color-muted: #6b7280;
+
+  /* ---- type ---------------------------------------------------------------
+   * Inter throughout. Saira is gone: the sheet's font stack does not include it, and
+   * its display scale is set in Inter weights (700 for display, 600 for headings).
+   * --font-display is kept as a name so no markup has to change, and now points at
+   * the same face — one variable to repoint if a display face returns. */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* ---- the sheet's type scale, as named steps ---------------------------- */
+  --text-display-1: 3.5rem;      /* 56 / 64 / 700 — hero headings */
+  --text-display-1--line-height: 4rem;
+  --text-display-2: 2.5rem;      /* 40 / 48 / 700 — section headings */
+  --text-display-2--line-height: 3rem;
+
+  /* ---- elevation ---------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.40);
+  --shadow-lg: 0 12px 24px rgb(0 0 0 / 0.45);
+  --shadow-xl: 0 24px 48px rgb(0 0 0 / 0.50);
+
+  /* ---- layout grid --------------------------------------------------------
+   * 1440 max width, 24 gutter, 24 margin. The pages cap at max-w-6xl (1152) today;
+   * this is the number to move them to when the redesign reaches them. */
+  --container-site: 90rem;
 }
 
 /* ------------------------------------------------------------------ */
@@ -139,14 +198,17 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  /* Headings carry the brand face; body copy stays Inter.
+  /* One face for everything now.
    *
-   * Saira is squarish and slightly narrow, which is the banner's character, but it is
-   * a display face — set as running text it gets tiring fast. The split is deliberate:
-   * everything structural (headings, the wordmark, eyebrows) is Saira, everything you
-   * actually read for comprehension is Inter.
+   * The site used to set headings in Saira — squarish, slightly narrow, the character
+   * of the old banner — over Inter body copy. The design sheet's font stack has no
+   * Saira in it and sets its whole display scale in Inter weights, so the split is
+   * gone and the woff2 is no longer downloaded.
    *
-   * Tracking is only slightly open here, NOT the 0.22em of the wordmark. That much
+   * `--font-display` is kept as a name rather than deleted: forty-odd headings point
+   * at it, and it is the one variable to repoint if a display face ever returns.
+   *
+   * Tracking stays only slightly open, NOT the 0.22em of the wordmark. That much
    * tracking works on one word; on a full headline it stops reading as a sentence. */
   h1, h2, h3 {
     font-family: var(--font-display);
@@ -223,7 +285,7 @@
 
   /* Brand gradient text */
   .grad-text {
-    background-image: linear-gradient(100deg, var(--color-primary-300), var(--color-accent-300));
+    background-image: linear-gradient(100deg, var(--color-primary-300), var(--color-secondary-300));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -231,9 +293,9 @@
 
   /* ---- Brand motifs, lifted from the banner ---------------------------- */
 
-  /* Wide geometric caps. The banner sets everything secondary this way, and the
-   * tracking is doing as much brand work as the color is — Saira at normal
-   * tracking reads like any other UI sans. */
+  /* Wide caps. The tracking is doing all of the brand work here now that the face is
+   * Inter like everything else — at normal tracking this reads like any other UI sans,
+   * and 0.22em is what makes it a mark rather than a label. */
   .display-caps {
     font-family: var(--font-display);
     text-transform: uppercase;
@@ -279,14 +341,14 @@
   .plexus-node { fill: var(--color-surface-300); opacity: 0.55; }
   /* A few nodes are lit rather than gray — in the banner only a handful glow, and
    * lighting all of them flattens the depth the sparse ones create. */
-  .plexus-node--lit { fill: var(--color-accent-300); opacity: 0.95; }
+  .plexus-node--lit { fill: var(--color-secondary-300); opacity: 0.95; }
 
   /* The deep vignette the banner sits in: not flat black, a blue-black that lifts
    * slightly toward the upper right where the network is densest. */
   .brand-field {
     background:
       radial-gradient(90% 70% at 82% 8%, color-mix(in oklab, var(--color-primary-900) 32%, transparent) 0%, transparent 62%),
-      radial-gradient(70% 60% at 6% 96%, color-mix(in oklab, var(--color-accent-950) 42%, transparent) 0%, transparent 58%),
+      radial-gradient(70% 60% at 6% 96%, color-mix(in oklab, var(--color-secondary-950) 42%, transparent) 0%, transparent 58%),
       var(--color-surface-950);
   }
 }

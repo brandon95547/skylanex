@@ -37,7 +37,7 @@ export const aboutPage = {
           </div>
         </div>
         <div class="relative mx-auto w-full max-w-xs">
-          <div class="pointer-events-none absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary-500/20 to-accent-500/10 blur-2xl"></div>
+          <div class="pointer-events-none absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary-500/20 to-secondary-500/10 blur-2xl"></div>
           <div class="relative grid aspect-square place-items-center rounded-3xl border border-surface-800 bg-gradient-to-br from-surface-900 to-surface-950">
             <span class="grad-text text-7xl font-extrabold">${site.owner.split(" ").map((w) => w[0]).join("")}</span>
           </div>

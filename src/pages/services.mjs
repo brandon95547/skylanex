@@ -7,7 +7,7 @@ function row(s, i) {
   return `<div class="reveal grid items-center gap-8 rounded-3xl border border-surface-800 bg-surface-900/40 p-8 sm:p-10 lg:grid-cols-2">
     <div class="${flip ? "lg:order-2" : ""}">
       <span class="mb-4 inline-grid h-12 w-12 place-items-center rounded-xl bg-primary-500/10 text-primary-300">${icon(s.icon, "h-6 w-6")}</span>
-      <p class="eyebrow text-accent-400">${s.eyebrow}</p>
+      <p class="eyebrow text-secondary-400">${s.eyebrow}</p>
       <!-- h2, not h3: the six service rows ARE the page, sitting under no section
            heading of their own, so an h3 skips a level straight from the h1. -->
       <h2 class="mt-2 text-2xl font-bold text-white">${s.title}</h2>

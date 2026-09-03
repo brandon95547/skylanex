@@ -58,7 +58,7 @@ function navLinks(currentPath, mobile = false) {
       if (mobile) {
         return `<a href="${item.path}" class="m-link flex items-center justify-between border-b border-surface-800 py-5 text-2xl font-semibold ${active ? "text-primary-300" : "text-surface-100"} hover:text-primary-300">
           <span>${item.label}</span>
-          <span class="text-surface-500">${icon("arrow", "h-5 w-5")}</span>
+          <span class="text-surface-400">${icon("arrow", "h-5 w-5")}</span>
         </a>`;
       }
       return `<a href="${item.path}" class="text-sm font-medium transition-colors ${active ? "text-primary-300" : "text-surface-300 hover:text-white"}">${item.label}</a>`;
@@ -139,7 +139,6 @@ export function layout({ title, metaTitle, description, path = "/", content = ""
        is otherwise discovered only after the CSS parses, which puts it a full
        round trip behind the stylesheet that asks for it. -->
   <link rel="preload" href="/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/saira-var-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/css/app.css" />
 ${ldScripts}
 </head>

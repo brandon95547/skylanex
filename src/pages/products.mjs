@@ -15,7 +15,7 @@ import { products, site } from "../../site.config.mjs";
 // they need no safelist entry: this file is already covered by `@source "../**/*.mjs"`.
 const LANES = {
   saas: { tile: "bg-primary-500/15 text-primary-300 ring-primary-500/25", badge: "bg-primary-500/10 text-primary-300 ring-primary-500/20" },
-  ai: { tile: "bg-accent-500/15 text-accent-300 ring-accent-500/25", badge: "bg-accent-500/10 text-accent-300 ring-accent-500/20" },
+  ai: { tile: "bg-secondary-500/15 text-secondary-300 ring-secondary-500/25", badge: "bg-secondary-500/10 text-secondary-300 ring-secondary-500/20" },
   dev: { tile: "bg-emerald-500/15 text-emerald-300 ring-emerald-500/25", badge: "bg-emerald-500/10 text-emerald-300 ring-emerald-500/20" },
   other: { tile: "bg-surface-700/40 text-surface-300 ring-surface-600/40", badge: "bg-surface-800 text-surface-300 ring-surface-700" },
 };
@@ -126,7 +126,7 @@ export const productsPage = {
   <section class="px-5 pb-24 sm:px-8">
     <div class="reveal relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-primary-500/20 bg-gradient-to-br from-primary-900 via-surface-900 to-surface-950 px-6 py-10 sm:px-10">
       <div class="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-primary-500/20 blur-3xl"></div>
-      <div class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-accent-500/10 blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-secondary-500/10 blur-3xl"></div>
       <div class="relative flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:gap-10">
         <span class="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-primary-500/10 text-primary-300 ring-1 ring-inset ring-primary-500/25">
           ${icon("layers", "h-9 w-9")}

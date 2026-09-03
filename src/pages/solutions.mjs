@@ -14,7 +14,7 @@ function solutionRow(s, i) {
     </div>
     <div class="${flip ? "lg:order-1" : ""}">
       <span class="mb-4 inline-grid h-12 w-12 place-items-center rounded-xl bg-primary-500/10 text-primary-300">${icon(s.icon, "h-6 w-6")}</span>
-      <p class="eyebrow text-accent-400">${s.name}</p>
+      <p class="eyebrow text-secondary-400">${s.name}</p>
       <h3 class="mt-2 text-2xl font-bold text-white sm:text-3xl">${s.tagline}</h3>
       <p class="mt-4 leading-relaxed text-surface-300">${s.summary}</p>
       <ul class="mt-6 grid gap-2.5 sm:grid-cols-2">
