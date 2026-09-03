@@ -118,23 +118,27 @@ export const services = [
 
 // Portfolio / work. Phansora is the flagship venture; then client + creative work.
 export const products = {
-  // The one platform that gets a card of its own, above the grid. It is the umbrella the
-  // rest of these sit under, so ranking it beside them would misdescribe the relationship.
+  // The platform the rest sit under, so it gets the width and the screenshot rather than a
+  // slot in the grid beside its own components.
+  //
+  // The blurb is Phansora's, not Narrava Studio's. The first draft of this page described
+  // it as "the all-in-one AI video production platform", which is the line off Narrava's
+  // own hero — Phansora is the suite Narrava is one of five products in.
   featured: {
     name: "Phansora",
     badge: "Featured Platform",
     blurb:
-      "The all-in-one AI video production platform. Create, edit, and deliver stunning videos with AI-powered tools, voice generation, and intelligent automation.",
+      "The AI platform that turns information into insight. Five focused products for researchers, creators, and analysts — video production, audio courses, research dossiers, origin tracing, and speech.",
     chips: [
-      { icon: "browser", label: "AI Video Generation" },
-      { icon: "mic", label: "Voice & Narration" },
-      { icon: "sliders", label: "Auto Editing" },
-      { icon: "layers", label: "Multi-Platform Export" },
+      { icon: "clapper", label: "AI Video Studio" },
+      { icon: "book", label: "Audio Courses" },
+      { icon: "compass", label: "Origin Tracing" },
+      { icon: "mic", label: "Text to Speech" },
     ],
     href: site.phansoraUrl,
     cta: "Explore Phansora",
     image: "/images/products/phansora.webp",
-    alt: "The Phansora video editor, with a timeline and media library",
+    alt: "The Phansora product suite, showing the Narrava Studio video editor",
   },
 
   // The filter row. `id` is matched against each item's `category` by assets/js/main.js;
@@ -147,96 +151,90 @@ export const products = {
     { id: "other", label: "Other Projects" },
   ],
 
-  // `tone` names a colour lane, resolved to literal Tailwind classes in the page module —
-  // never composed from the string at render time, or Tailwind's scanner would not see the
-  // class and it would compile to nothing.
+  // `href` is "#" on every one of these on purpose: each is getting a landing page of its
+  // own and the design for those has not landed yet. They are placeholders, not links —
+  // worth replacing before this page is anything but a preview.
+  //
+  // `badge` names the kind precisely and `category` groups it for the filter. They are
+  // usually the same words and deliberately not the same field: "WordPress Plugin" is a
+  // more useful label than "Other Projects", and still belongs in that bucket.
   items: [
     {
       name: "Shot Matrix",
-      blurb: "Cross-browser screenshot assistant used by npx. Capture, organize, and export screenshots with ease.",
+      blurb:
+        "Screenshot any site across every browser and device from one command — three engines at eight widths, on one page that puts them side by side.",
       category: "dev",
       badge: "Developer Tool",
-      tone: "blue",
       icon: "grid",
-      href: "https://github.com/brandon95547/shotmatrix",
-      external: true,
-    },
-    {
-      name: "Create Orbs",
-      blurb: "AI-powered orb visualization tool for creative and spiritual exploration.",
-      category: "ai",
-      badge: "AI Tool",
-      tone: "violet",
-      icon: "spark",
-      href: site.phansoraUrl + "/create-orbs",
-      external: true,
-    },
-    {
-      name: "Dock Alchemy",
-      blurb: "Transform your eBooks into audio experiences with advanced voice synthesis.",
-      category: "saas",
-      badge: "SaaS Platform",
-      tone: "emerald",
-      icon: "layers",
-      href: site.phansoraUrl + "/dock-alchemy",
-      external: true,
-    },
-    {
-      name: "SpokenVerse",
-      blurb: "Text-to-speech platform with realistic voices in multiple languages and accents.",
-      category: "saas",
-      badge: "SaaS Platform",
-      tone: "orange",
-      icon: "mic",
-      href: site.phansoraUrl + "/spokenverse",
-      external: true,
+      href: "#",
     },
     {
       name: "Narrava Studio",
-      blurb: "AI video production suite for creating engaging content at scale.",
+      blurb:
+        "The all-in-one AI video studio. Script, storyboard, generate media, cut on a multi-track timeline, and caption it — idea to final cut in one place.",
       category: "saas",
       badge: "SaaS Platform",
-      tone: "rose",
       icon: "clapper",
-      href: site.phansoraUrl + "/narrava-studio",
-      external: true,
-    },
-    {
-      name: "Chrono Origin",
-      blurb: "Timeline research and visualization platform for uncovering hidden connections.",
-      category: "saas",
-      badge: "SaaS Platform",
-      tone: "teal",
-      icon: "sliders",
-      href: site.phansoraUrl + "/chrono-origin",
-      external: true,
+      href: "#",
     },
     {
       name: "Book Alchemy",
-      blurb: "Convert books into audiobooks, summaries, and interactive learning experiences.",
+      blurb:
+        "Turns any book or long document into a structured, multi-session audio course — an AI-designed curriculum, narrated, and grounded in the author's own words.",
       category: "saas",
       badge: "SaaS Platform",
-      tone: "amber",
       icon: "book",
-      href: site.phansoraUrl + "/book-alchemy",
-      external: true,
+      href: "#",
     },
     {
-      // The one card that is not a link out. It closes the grid rather than leaving a hole
-      // where an eighth tile should be, and says the shelf is still filling.
-      name: "More Projects",
-      blurb: "Explore more tools and experiments we're building behind the scenes.",
+      name: "Chrono Origin",
+      blurb:
+        "Traces any story, myth, or claim back to the earliest source the evidence allows, with grounded web search and citations at every step.",
+      category: "saas",
+      badge: "SaaS Platform",
+      icon: "compass",
+      href: "#",
+    },
+    {
+      name: "SpokenVerse",
+      blurb:
+        "Turns written work into broadcast-quality audio, with realistic neural voices and cloned narration across multiple languages.",
+      category: "saas",
+      badge: "SaaS Platform",
+      icon: "mic",
+      href: "#",
+    },
+    {
+      name: "UI Bible",
+      blurb:
+        "The permanent interface standard — the reasoning, the measurements, and the working code behind every surface we ship.",
+      category: "dev",
+      badge: "Developer Tool",
+      icon: "palette",
+      href: "#",
+    },
+    {
+      name: "Archis",
+      blurb:
+        "New names, built from ancient roots. Describe what a name should carry and Archis blends real roots from old languages into words that have never been said.",
+      category: "ai",
+      badge: "AI Tool",
+      icon: "spark",
+      href: "#",
+    },
+    {
+      name: "Mercavo",
+      blurb:
+        "Standalone WordPress commerce — products, cart, checkout, orders, inventory, tax, and shipping, with no WooCommerce underneath it.",
       category: "other",
-      badge: "Coming Soon",
-      tone: "slate",
-      icon: "dots",
-      href: "/contact",
-      cta: "Stay tuned",
+      badge: "WordPress Plugin",
+      icon: "cart",
+      href: "#",
     },
   ],
 
-  // Creative reel. Tiles are a uniform 9:16; `aspect` tells the lightbox whether
-  // to open a wide panel, so 16:9 pieces still play uncropped. Display-only.
+  // Creative reel. Not on the products page any more — kept because the films exist and
+  // the data is what a page of their own would be built from.
   creative: [
     {
       slug: "yeshua",

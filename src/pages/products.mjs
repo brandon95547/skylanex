@@ -67,14 +67,16 @@ function featuredCard() {
 
 function productCard(p) {
   const lane = LANES[p.category] || LANES.other;
-  const out = !!p.external;
   return `<article data-category="${p.category}" class="product-card reveal group flex flex-col rounded-2xl border border-surface-800 bg-surface-900/50 p-6 transition-colors hover:border-primary-500/50">
     <span class="grid h-12 w-12 place-items-center rounded-xl ring-1 ring-inset ${lane.tile}">${icon(p.icon, "h-5 w-5")}</span>
     <h3 class="mt-5 text-lg font-bold text-white">
-      <a href="${p.href}" ${out ? 'target="_blank" rel="noopener"' : ""} class="after:absolute after:inset-0 focus:outline-none focus-visible:underline">${p.name}</a>
+      <a href="${p.href}" class="after:absolute after:inset-0 focus:outline-none focus-visible:underline">${p.name}</a>
     </h3>
-    <p class="mt-2 text-sm leading-relaxed text-surface-300">${p.blurb}</p>
-    <span class="mt-4 inline-flex w-fit items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${lane.badge}">${p.badge}</span>
+    <p class="mt-2 mb-4 text-sm leading-relaxed text-surface-300">${p.blurb}</p>
+    <!-- mt-auto, so the badge and the link below it sit on one baseline across the row
+         however long a description runs. Without it a six-line blurb pushed its own badge
+         a line lower than its neighbours' and the row read as ragged. -->
+    <span class="mt-auto inline-flex w-fit items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${lane.badge}">${p.badge}</span>
     <!-- One arrow on every card, as the mock draws it. The mix of arrows and jump-out
          marks made a uniform row of cards look like two different kinds of thing; that a
          link leaves the site is already carried by target/rel and by the hostname in the
