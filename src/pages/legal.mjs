@@ -21,9 +21,9 @@ function legalPage({ path, file, title, description, updated, body }) {
     render: () => `
   ${heroGlow(`
     <div class="mx-auto max-w-3xl px-5 pb-10 pt-20 sm:px-8 sm:pt-24">
-      <p class="eyebrow mb-3 text-primary-400">Legal</p>
-      <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">${title}</h1>
-      <p class="mt-4 text-sm text-surface-400">Last updated ${updated}</p>
+      <p class="eyebrow mb-3 text-primary-200">Legal</p>
+      <h1 class="text-4xl font-extrabold tracking-tight text-fg sm:text-5xl">${title}</h1>
+      <p class="mt-4 text-sm text-fg-muted">Last updated ${updated}</p>
     </div>
   `)}
   <section class="px-5 ${afterHero} pb-24 sm:px-8">
@@ -33,10 +33,10 @@ function legalPage({ path, file, title, description, updated, body }) {
   };
 }
 
-const h = (t) => `<h2 class="text-xl font-bold text-white">${t}</h2>`;
-const p = (t) => `<p class="mt-3 leading-relaxed text-surface-300">${t}</p>`;
+const h = (t) => `<h2 class="text-xl font-bold text-fg">${t}</h2>`;
+const p = (t) => `<p class="mt-3 leading-relaxed text-fg-secondary">${t}</p>`;
 const ul = (items) =>
-  `<ul class="mt-3 list-disc space-y-2 pl-5 leading-relaxed text-surface-300">${items.map((i) => `<li>${i}</li>`).join("")}</ul>`;
+  `<ul class="mt-3 list-disc space-y-2 pl-5 leading-relaxed text-fg-secondary">${items.map((i) => `<li>${i}</li>`).join("")}</ul>`;
 
 export const privacyPage = legalPage({
   path: "/privacy",
@@ -66,14 +66,14 @@ export const privacyPage = legalPage({
       "Correspondence is kept for as long as it is useful to the working relationship. Ask us to delete yours and we will."
     )}</div>`,
     `<div>${h("Your choices")}${p(
-      `Email <a class="text-primary-300 hover:text-primary-200" href="mailto:${site.email}">${site.email}</a> to ask what we hold about you, to correct it, or to have it deleted. There is no form to fill in and no account to close.`
+      `Email <a class="text-primary-200 hover:text-primary-200" href="mailto:${site.email}">${site.email}</a> to ask what we hold about you, to correct it, or to have it deleted. There is no form to fill in and no account to close.`
     )}</div>`,
     `<div>${h("Children")}${p("This site is aimed at businesses and is not directed at children under 13.")}</div>`,
     `<div>${h("Changes")}${p(
       "If this policy changes, the date at the top changes with it. There is no separate archive; the current version is the one that applies."
     )}</div>`,
     `<div>${h("Contact")}${p(
-      `${site.name}, ${site.location}. <a class="text-primary-300 hover:text-primary-200" href="mailto:${site.email}">${site.email}</a>`
+      `${site.name}, ${site.location}. <a class="text-primary-200 hover:text-primary-200" href="mailto:${site.email}">${site.email}</a>`
     )}</div>`,
   ].join(""),
 });
@@ -110,7 +110,7 @@ export const termsPage = legalPage({
       "These terms may change; the date at the top says when they last did. Continuing to use the site means the current version applies."
     )}</div>`,
     `<div>${h("Contact")}${p(
-      `${site.name}, ${site.location}. <a class="text-primary-300 hover:text-primary-200" href="mailto:${site.email}">${site.email}</a>`
+      `${site.name}, ${site.location}. <a class="text-primary-200 hover:text-primary-200" href="mailto:${site.email}">${site.email}</a>`
     )}</div>`,
   ].join(""),
 });

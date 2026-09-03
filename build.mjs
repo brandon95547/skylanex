@@ -119,7 +119,7 @@ function build() {
       content: `<section class="mx-auto flex max-w-lg flex-col items-center px-5 py-32 text-center">
         <p class="grad-text text-7xl font-extrabold">404</p>
         <h1 class="mt-4 text-2xl font-bold text-white">Page not found</h1>
-        <p class="mt-2 text-surface-400">That page moved or never existed.</p>
+        <p class="mt-2 text-fg-secondary">That page moved or never existed.</p>
         <a href="/" class="btn btn-primary mt-6">Back home</a>
       </section>`,
     }),

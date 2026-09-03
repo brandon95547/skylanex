@@ -14,12 +14,12 @@ const landingFor = (s) => industryPages.find((p) => p.solution === s.slug);
 function tab(s) {
   if (s.landing) {
     return `<a href="/solutions/${s.landing}" class="pal-chip pal-chip--linked inline-flex items-center gap-2">
-      <span class="text-primary-300">${icon(s.icon, "h-4 w-4")}</span>${s.name}
+      <span class="text-primary-200">${icon(s.icon, "h-4 w-4")}</span>${s.name}
     </a>`;
   }
   return `<span class="pal-chip inline-flex cursor-default items-center gap-2 opacity-45" aria-disabled="true">
     <span>${icon(s.icon, "h-4 w-4")}</span>${s.name}
-    <span class="ml-1 rounded-full bg-surface-800 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-surface-400">Soon</span>
+    <span class="ml-1 rounded-full bg-surface-800 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-fg-muted">Soon</span>
   </span>`;
 }
 
@@ -36,11 +36,11 @@ function featured(s) {
     </div>
     <div class="flex items-center justify-between gap-4 p-6">
       <div>
-        <span class="mb-3 inline-grid h-11 w-11 place-items-center rounded-xl bg-primary-500/10 text-primary-300">${icon(s.icon, "h-5 w-5")}</span>
-        <h3 class="text-xl font-bold text-white">${s.name}</h3>
-        <p class="mt-2 max-w-xl text-sm leading-relaxed text-surface-400">${s.summary}</p>
+        <span class="mb-3 inline-grid h-11 w-11 place-items-center rounded-xl bg-primary-500/10 text-primary-200">${icon(s.icon, "h-5 w-5")}</span>
+        <h3 class="text-xl font-bold text-fg">${s.name}</h3>
+        <p class="mt-2 max-w-xl text-sm leading-relaxed text-fg-muted">${s.summary}</p>
       </div>
-      <span class="hidden shrink-0 items-center gap-1.5 text-sm font-semibold text-primary-300 group-hover:text-primary-200 sm:inline-flex">
+      <span class="hidden shrink-0 items-center gap-1.5 text-sm font-semibold text-primary-200 group-hover:text-primary-200 sm:inline-flex">
         View examples ${icon("arrow", "h-4 w-4")}
       </span>
     </div>
@@ -59,10 +59,10 @@ export const examplesPage = {
     return `
   ${heroGlow(`
     <div class="mx-auto max-w-5xl px-5 pb-10 pt-20 sm:px-8 sm:pt-24">
-      <a href="/solutions" class="inline-flex items-center gap-1.5 text-sm text-surface-400 hover:text-primary-300">${icon("arrow", "h-4 w-4 rotate-180")} Back to solutions</a>
-      <p class="eyebrow mt-6 text-primary-400">Website Solutions</p>
-      <h1 class="mt-2 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Websites Built for Your Industry</h1>
-      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-surface-300">A law firm and a roofing company are not the same business, and they should not get the same website. Pick an industry to see the designs built for the way it actually sells — more are on the way.</p>
+      <a href="/solutions" class="inline-flex items-center gap-1.5 text-sm text-fg-muted hover:text-primary-200">${icon("arrow", "h-4 w-4 rotate-180")} Back to solutions</a>
+      <p class="eyebrow mt-6 text-primary-200">Website Solutions</p>
+      <h1 class="mt-2 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-fg sm:text-5xl">Websites Built for Your Industry</h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-fg-secondary">A law firm and a roofing company are not the same business, and they should not get the same website. Pick an industry to see the designs built for the way it actually sells — more are on the way.</p>
     </div>
   `)}
 

@@ -60,6 +60,7 @@
 /* Always compile the full semantic ramps (mirrors Phansora's safelist). */
 @source inline("{bg,text,border,ring,from,via,to,fill,divide}-{primary,secondary,accent,surface,emerald,rose}-{50,100,200,300,400,500,600,700,800,900,950}");
 @source inline("{bg,text,border,ring}-surface-850");
+@source inline("text-{fg,fg-secondary,fg-muted}");
 
 @theme {
   /* ================================================================
@@ -149,6 +150,34 @@
   --color-accent-900: #4c1d95;
   --color-accent-950: #2e1065;
 
+  /* ---- foreground: the text ladder ---------------------------------------
+   * SEPARATE FROM THE NEUTRAL SCALE ON PURPOSE, and that separation is the fix.
+   *
+   * ui.skylanex.com/dark-theme#accessibility sets three text ratios against the page:
+   * primary 15.0, body 9.4, captions 8.2 — and captions must still clear 4.7 on the
+   * lightest ground anything sits on. The sheet's neutral scale has no steps at those
+   * numbers: its 300 measures 7.78 and its 400 measures 4.09 here, so the two steps
+   * carrying most of the site's prose were both under the caption floor, and 400 was
+   * under it by half. That is the "too dark to read" everyone was seeing.
+   *
+   * These are the design system's own values, verified on THIS site's grounds rather
+   * than assumed from its page — the canvas here is #0a0a0f against the system's
+   * #101010, so every ratio measures a little higher, never lower.
+   *
+   *   fg            15.55 page · 13.97 card · 9.99 on the lightest ground
+   *   fg-secondary   9.74 · 8.75 · 6.26
+   *   fg-muted       8.50 · 7.64 · 5.46
+   *
+   * NOT WHITE, deliberately. Pure white reads 19.75 here, and the standard caps primary
+   * at 15.0 specifically to stay below the point where light type blooms on a dark
+   * field. White survives in one place: on a brand fill, where a label is measured
+   * against the fill and not the page.
+   *
+   * The neutral scale is untouched and still does surfaces and borders. */
+  --color-fg: #e5e4e3;
+  --color-fg-secondary: #b6b6b6;
+  --color-fg-muted: #aaaaaa;
+
   /* ---- semantic ----------------------------------------------------------
    * State only, never decoration. `info` is deliberately the same hex as
    * primary-400: on this site an informational message IS the brand blue. */
@@ -194,7 +223,7 @@
   }
   body {
     background-color: var(--color-surface-950);
-    color: var(--color-surface-100);
+    color: var(--color-fg);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
@@ -259,17 +288,17 @@
   .btn-primary:hover { background-color: var(--color-primary-400); }
   .btn-ghost {
     border: 1px solid var(--color-surface-600);
-    color: var(--color-surface-100);
+    color: var(--color-fg);
   }
-  .btn-ghost:hover { border-color: var(--color-primary-400); color: #fff; }
+  .btn-ghost:hover { border-color: var(--color-primary-400); color: var(--color-fg); }
 
   /* Product filter chips. Pressed state carried by aria-pressed rather than a class, so
      the styling and the thing a screen reader announces cannot drift apart — there is only
      one source for both. */
   .filter-chip {
-    color: var(--color-surface-300);
+    color: var(--color-fg-secondary);
   }
-  .filter-chip:hover { color: #fff; }
+  .filter-chip:hover { color: var(--color-fg); }
   .filter-chip[aria-pressed="true"] {
     background-color: color-mix(in oklab, var(--color-primary-500) 16%, transparent);
     color: var(--color-primary-200);

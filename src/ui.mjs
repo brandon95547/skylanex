@@ -18,9 +18,9 @@ export const afterHero = "pt-12 sm:pt-16";
 
 export function heading({ eyebrow, title, sub, center = true, light = false }) {
   return `<div class="${center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}">
-    ${eyebrow ? `<p class="eyebrow mb-3 text-primary-400">${eyebrow}</p>` : ""}
-    <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">${title}</h2>
-    ${sub ? `<p class="mt-4 text-lg leading-relaxed text-surface-300">${sub}</p>` : ""}
+    ${eyebrow ? `<p class="eyebrow mb-3 text-primary-200">${eyebrow}</p>` : ""}
+    <h2 class="text-3xl font-bold tracking-tight text-fg sm:text-4xl">${title}</h2>
+    ${sub ? `<p class="mt-4 text-lg leading-relaxed text-fg-secondary">${sub}</p>` : ""}
   </div>`;
 }
 
@@ -30,8 +30,8 @@ export function ctaBand({ title, sub, primaryLabel = "Start a project", primaryH
       <div class="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-primary-500/20 blur-3xl"></div>
       <div class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-secondary-500/10 blur-3xl"></div>
       <div class="relative">
-        <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">${title || "Let’s build something intelligent"}</h2>
-        <p class="mx-auto mt-4 max-w-xl text-lg text-surface-300">${sub || "Tell us what you’re working on — we’ll tell you honestly whether AI is the right tool, and how we’d build it."}</p>
+        <h2 class="text-3xl font-bold tracking-tight text-fg sm:text-4xl">${title || "Let’s build something intelligent"}</h2>
+        <p class="mx-auto mt-4 max-w-xl text-lg text-fg-secondary">${sub || "Tell us what you’re working on — we’ll tell you honestly whether AI is the right tool, and how we’d build it."}</p>
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a href="${primaryHref}" class="btn btn-primary">${primaryLabel} ${icon("arrow", "h-4 w-4")}</a>
           <a href="mailto:${site.email}" class="btn btn-ghost">Email us</a>
@@ -47,8 +47,8 @@ export function statRow() {
       ${statData
         .map(
           (s) => `<div class="reveal">
-        <p class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">${s.value}</p>
-        <p class="mt-1 text-sm text-surface-400">${s.label}</p>
+        <p class="text-4xl font-extrabold tracking-tight text-fg sm:text-5xl">${s.value}</p>
+        <p class="mt-1 text-sm text-fg-muted">${s.label}</p>
       </div>`
         )
         .join("")}
@@ -145,6 +145,6 @@ export function ctaBadge(cls = "h-24 w-24") {
         fill="color-mix(in oklab, var(--color-primary-500) 12%, transparent)"
         stroke="url(#cb-edge)" stroke-width="2"/>
     </svg>
-    <svg viewBox="0 0 1152 924" class="relative h-1/2 w-1/2 text-primary-300"><use href="#skx-eagle"/></svg>
+    <svg viewBox="0 0 1152 924" class="relative h-1/2 w-1/2 text-primary-200"><use href="#skx-eagle"/></svg>
   </span>`;
 }

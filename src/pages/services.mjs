@@ -6,19 +6,19 @@ function row(s, i) {
   const flip = i % 2 === 1;
   return `<div class="reveal grid items-center gap-8 rounded-3xl border border-surface-800 bg-surface-900/40 p-8 sm:p-10 lg:grid-cols-2">
     <div class="${flip ? "lg:order-2" : ""}">
-      <span class="mb-4 inline-grid h-12 w-12 place-items-center rounded-xl bg-primary-500/10 text-primary-300">${icon(s.icon, "h-6 w-6")}</span>
+      <span class="mb-4 inline-grid h-12 w-12 place-items-center rounded-xl bg-primary-500/10 text-primary-200">${icon(s.icon, "h-6 w-6")}</span>
       <p class="eyebrow text-secondary-400">${s.eyebrow}</p>
       <!-- h2, not h3: the six service rows ARE the page, sitting under no section
            heading of their own, so an h3 skips a level straight from the h1. -->
-      <h2 class="mt-2 text-2xl font-bold text-white">${s.title}</h2>
-      <p class="mt-3 leading-relaxed text-surface-300">${s.summary}</p>
-      <a href="/${s.slug}" class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-300 hover:text-primary-200">Explore ${s.eyebrow} ${icon("arrow", "h-4 w-4")}</a>
+      <h2 class="mt-2 text-2xl font-bold text-fg">${s.title}</h2>
+      <p class="mt-3 leading-relaxed text-fg-secondary">${s.summary}</p>
+      <a href="/${s.slug}" class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-200 hover:text-primary-200">Explore ${s.eyebrow} ${icon("arrow", "h-4 w-4")}</a>
     </div>
     <ul class="grid gap-3 ${flip ? "lg:order-1" : ""}">
       ${s.deliverables
         .map(
           (d) => `<li class="flex items-center gap-3 rounded-xl border border-surface-800 bg-surface-950/50 px-4 py-3 text-sm text-surface-200">
-        <span class="text-primary-400">${icon("check", "h-4 w-4")}</span> ${d}
+        <span class="text-primary-200">${icon("check", "h-4 w-4")}</span> ${d}
       </li>`
         )
         .join("")}
@@ -34,9 +34,9 @@ export const servicesPage = {
   render: () => `
   ${heroGlow(`
     <div class="mx-auto max-w-6xl px-5 pb-12 pt-20 text-center sm:px-8 sm:pt-24">
-      <p class="eyebrow mb-3 text-primary-400">Services</p>
-      <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Everything you need to put AI to work</h1>
-      <p class="mx-auto mt-5 max-w-xl text-lg text-surface-300">Six capabilities, one partner — from first strategy conversation to production and beyond.</p>
+      <p class="eyebrow mb-3 text-primary-200">Services</p>
+      <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-fg sm:text-5xl">Everything you need to put AI to work</h1>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-fg-secondary">Six capabilities, one partner — from first strategy conversation to production and beyond.</p>
     </div>
   `)}
   <section class="px-5 ${afterHero} pb-20 sm:px-8">

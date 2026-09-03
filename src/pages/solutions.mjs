@@ -13,15 +13,15 @@ function solutionRow(s, i) {
         class="w-full rounded-2xl border border-surface-800 bg-surface-900 shadow-2xl shadow-black/40" />
     </div>
     <div class="${flip ? "lg:order-1" : ""}">
-      <span class="mb-4 inline-grid h-12 w-12 place-items-center rounded-xl bg-primary-500/10 text-primary-300">${icon(s.icon, "h-6 w-6")}</span>
+      <span class="mb-4 inline-grid h-12 w-12 place-items-center rounded-xl bg-primary-500/10 text-primary-200">${icon(s.icon, "h-6 w-6")}</span>
       <p class="eyebrow text-secondary-400">${s.name}</p>
-      <h3 class="mt-2 text-2xl font-bold text-white sm:text-3xl">${s.tagline}</h3>
-      <p class="mt-4 leading-relaxed text-surface-300">${s.summary}</p>
+      <h3 class="mt-2 text-2xl font-bold text-fg sm:text-3xl">${s.tagline}</h3>
+      <p class="mt-4 leading-relaxed text-fg-secondary">${s.summary}</p>
       <ul class="mt-6 grid gap-2.5 sm:grid-cols-2">
         ${s.outcomes
           .map(
             (o) => `<li class="flex items-start gap-2.5 text-sm text-surface-200">
-          <span class="mt-0.5 shrink-0 text-primary-400">${icon("check", "h-4 w-4")}</span> ${o}
+          <span class="mt-0.5 shrink-0 text-primary-200">${icon("check", "h-4 w-4")}</span> ${o}
         </li>`
           )
           .join("")}
@@ -30,7 +30,7 @@ function solutionRow(s, i) {
         <a href="/contact" class="btn btn-primary">Start a project ${icon("arrow", "h-4 w-4")}</a>
         ${
           s.example
-            ? `<a href="${s.example.href}" class="text-sm font-semibold text-primary-300 hover:text-primary-200">${s.example.label} ${icon("arrow", "h-4 w-4 inline")}</a>`
+            ? `<a href="${s.example.href}" class="text-sm font-semibold text-primary-200 hover:text-primary-200">${s.example.label} ${icon("arrow", "h-4 w-4 inline")}</a>`
             : ""
         }
       </div>
@@ -55,9 +55,9 @@ export const solutionsPage = {
   render: () => `
   ${heroGlow(`
     <div class="mx-auto max-w-6xl px-5 pb-12 pt-20 text-center sm:px-8 sm:pt-24">
-      <p class="eyebrow mb-3 text-primary-400">Solutions</p>
-      <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Solutions Built for Your Industry</h1>
-      <p class="mx-auto mt-5 max-w-2xl text-lg text-surface-300">Websites, apps, CRMs, dashboards, AI assistants, and storefronts — each designed around the outcome it exists to produce. Every one below comes with a modern demo you can look at right now.</p>
+      <p class="eyebrow mb-3 text-primary-200">Solutions</p>
+      <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-fg sm:text-5xl">Solutions Built for Your Industry</h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-fg-secondary">Websites, apps, CRMs, dashboards, AI assistants, and storefronts — each designed around the outcome it exists to produce. Every one below comes with a modern demo you can look at right now.</p>
       <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
         <a href="/contact" class="btn btn-primary">Start a project ${icon("arrow", "h-4 w-4")}</a>
         <a href="/products" class="btn btn-ghost">See our products</a>
@@ -71,7 +71,7 @@ export const solutionsPage = {
       ${designSolutions
         .map(
           (s) => `<a href="#${s.slug}" class="pal-chip inline-flex items-center gap-2">
-        <span class="text-primary-300">${icon(s.icon, "h-4 w-4")}</span>${s.name}
+        <span class="text-primary-200">${icon(s.icon, "h-4 w-4")}</span>${s.name}
       </a>`
         )
         .join("")}
@@ -95,8 +95,8 @@ export const solutionsPage = {
       <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         ${PROCESS.map(
           (p, i) => `<div class="reveal rounded-2xl border border-surface-800 bg-surface-900/50 p-6">
-          <p class="text-sm font-extrabold text-primary-400">0${i + 1}</p>
-          <h3 class="mt-3 text-base font-semibold text-white">${p.t}</h3>
+          <p class="text-sm font-extrabold text-primary-200">0${i + 1}</p>
+          <h3 class="mt-3 text-base font-semibold text-fg">${p.t}</h3>
           <p class="mt-2 text-sm leading-relaxed text-surface-200">${p.d}</p>
         </div>`
         ).join("")}

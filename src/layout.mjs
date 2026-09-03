@@ -69,12 +69,12 @@ function navLinks(currentPath, mobile = false) {
     .map((item) => {
       const active = item.path === currentPath;
       if (mobile) {
-        return `<a href="${item.path}" class="m-link flex items-center justify-between border-b border-surface-800 py-5 text-2xl font-semibold ${active ? "text-primary-300" : "text-surface-100"} hover:text-primary-300">
+        return `<a href="${item.path}" class="m-link flex items-center justify-between border-b border-surface-800 py-5 text-2xl font-semibold ${active ? "text-primary-200" : "text-surface-100"} hover:text-primary-200">
           <span>${item.label}</span>
-          <span class="text-surface-400">${icon("arrow", "h-5 w-5")}</span>
+          <span class="text-fg-muted">${icon("arrow", "h-5 w-5")}</span>
         </a>`;
       }
-      return `<a href="${item.path}" class="text-sm font-medium transition-colors ${active ? "text-primary-300" : "text-surface-300 hover:text-white"}">${item.label}</a>`;
+      return `<a href="${item.path}" class="text-sm font-medium transition-colors ${active ? "text-primary-200" : "text-fg-secondary hover:text-fg"}">${item.label}</a>`;
     })
     .join("\n");
 }
@@ -89,7 +89,7 @@ function navLinks(currentPath, mobile = false) {
 // No badge, no gradient chip. The banner sets the eagle directly on the dark field at
 // full contrast, and boxing it in a rounded square is what made the old mark read as a
 // generic app icon rather than a crest.
-export function mark(size = "h-9 w-9", tone = "text-white") {
+export function mark(size = "h-9 w-9", tone = "text-fg") {
   return `<svg class="${size} ${tone} shrink-0 transition-colors" viewBox="0 0 1152 924" aria-hidden="true">
     <use href="#skx-eagle" />
   </svg>`;
@@ -103,7 +103,7 @@ export function eagleSprite() {
 function logo() {
   return `<a href="/" class="group flex items-center gap-2.5" aria-label="${site.name} home">
     ${mark()}
-    <span class="font-display text-lg font-semibold uppercase leading-none tracking-[0.22em] text-white">Skylanex</span>
+    <span class="font-display text-lg font-semibold uppercase leading-none tracking-[0.22em] text-fg">Skylanex</span>
   </a>`;
 }
 
@@ -184,7 +184,7 @@ ${ldScripts}
     </nav>
     <div class="mt-auto space-y-4 pt-8">
       <a href="/contact" class="btn btn-primary w-full">Start a project ${icon("arrow", "h-4 w-4")}</a>
-      <p class="text-center text-sm text-surface-400">${site.email}</p>
+      <p class="text-center text-sm text-fg-muted">${site.email}</p>
     </div>
   </div>
 
@@ -254,38 +254,38 @@ function footer(path) {
       <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_auto]">
         <div>
           ${logo()}
-          <p class="mt-4 max-w-xs text-sm leading-relaxed text-surface-300">Independent AI software studio building intelligent applications that empower businesses and creators.</p>
-          <div class="mt-5 flex flex-col gap-2.5 text-sm text-surface-300">
-            <a href="mailto:${site.email}" class="inline-flex items-center gap-2 hover:text-white">${icon("mail", "h-4 w-4 text-primary-400")} ${site.email}</a>
-            <p class="inline-flex items-center gap-2">${icon("compass", "h-4 w-4 text-primary-400")} ${site.location}</p>
+          <p class="mt-4 max-w-xs text-sm leading-relaxed text-fg-secondary">Independent AI software studio building intelligent applications that empower businesses and creators.</p>
+          <div class="mt-5 flex flex-col gap-2.5 text-sm text-fg-secondary">
+            <a href="mailto:${site.email}" class="inline-flex items-center gap-2 hover:text-fg">${icon("mail", "h-4 w-4 text-primary-200")} ${site.email}</a>
+            <p class="inline-flex items-center gap-2">${icon("compass", "h-4 w-4 text-primary-200")} ${site.location}</p>
           </div>
         </div>
         ${cols
           .map(
             (c) => `<div>
-          <h3 class="eyebrow text-surface-300">${c.title}</h3>
+          <h3 class="eyebrow text-fg-secondary">${c.title}</h3>
           <ul class="mt-4 space-y-2.5 text-sm">
-            ${c.links.map((l) => `<li><a href="${l.href}" class="text-surface-50 hover:text-primary-300">${l.label}</a></li>`).join("")}
+            ${c.links.map((l) => `<li><a href="${l.href}" class="text-surface-50 hover:text-primary-200">${l.label}</a></li>`).join("")}
           </ul>
         </div>`
           )
           .join("")}
         <div>
-          <h3 class="eyebrow text-surface-300">Follow</h3>
+          <h3 class="eyebrow text-fg-secondary">Follow</h3>
           <ul class="mt-4 flex gap-2">
             ${social
               .map(
-                (sn) => `<li><a href="${sn.href}" aria-label="${sn.label}" class="grid h-9 w-9 place-items-center rounded-full border border-surface-800 bg-surface-900 text-surface-300 transition-colors hover:border-primary-500/60 hover:text-white">${icon(sn.icon, "h-4 w-4")}</a></li>`
+                (sn) => `<li><a href="${sn.href}" aria-label="${sn.label}" class="grid h-9 w-9 place-items-center rounded-full border border-surface-800 bg-surface-900 text-fg-secondary transition-colors hover:border-primary-500/60 hover:text-fg">${icon(sn.icon, "h-4 w-4")}</a></li>`
               )
               .join("")}
           </ul>
         </div>
       </div>
-      <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-surface-800 pt-6 text-xs text-surface-300 sm:flex-row">
+      <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-surface-800 pt-6 text-xs text-fg-secondary sm:flex-row">
         <p>© ${new Date().getFullYear()} ${site.name}. All rights reserved.</p>
         <div class="flex items-center gap-6">
-          <a href="/privacy" class="hover:text-white">Privacy Policy</a>
-          <a href="/terms" class="hover:text-white">Terms of Service</a>
+          <a href="/privacy" class="hover:text-fg">Privacy Policy</a>
+          <a href="/terms" class="hover:text-fg">Terms of Service</a>
         </div>
       </div>
     </div>

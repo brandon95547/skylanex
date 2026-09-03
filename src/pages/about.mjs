@@ -23,13 +23,13 @@ export const aboutPage = {
     <div class="mx-auto max-w-5xl px-5 pb-10 pt-20 sm:px-8 sm:pt-24">
       <div class="grid items-center gap-10 lg:grid-cols-[1.3fr_1fr]">
         <div>
-          <p class="eyebrow mb-3 text-primary-400">About</p>
-          <h1 class="text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">Built by ${site.owner}.</h1>
-          <p class="mt-5 max-w-xl text-lg leading-relaxed text-surface-300">
+          <p class="eyebrow mb-3 text-primary-200">About</p>
+          <h1 class="text-4xl font-extrabold leading-tight tracking-tight text-fg sm:text-5xl">Built by ${site.owner}.</h1>
+          <p class="mt-5 max-w-xl text-lg leading-relaxed text-fg-secondary">
             Skylanex is an independent AI software studio, founded and led by ${site.owner}. For over a decade we have shipped web and mobile applications for enterprises and startups — and today we focus on making AI genuinely useful: apps, models, and automation that hold up in production.
           </p>
-          <p class="mt-4 max-w-xl leading-relaxed text-surface-300">
-            Alongside client work we build and run our own products under <a href="${site.phansoraUrl}" target="_blank" rel="noopener" class="text-primary-300 hover:text-primary-200">Phansora</a> — a suite of AI tools that proves this stuff works outside a demo.
+          <p class="mt-4 max-w-xl leading-relaxed text-fg-secondary">
+            Alongside client work we build and run our own products under <a href="${site.phansoraUrl}" target="_blank" rel="noopener" class="text-primary-200 hover:text-primary-200">Phansora</a> — a suite of AI tools that proves this stuff works outside a demo.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="/contact" class="btn btn-primary">Work with us ${icon("arrow", "h-4 w-4")}</a>
@@ -55,9 +55,9 @@ export const aboutPage = {
         ${values
           .map(
             (v) => `<div class="reveal rounded-2xl border border-surface-800 bg-surface-900/50 p-6">
-          <span class="mb-4 inline-grid h-11 w-11 place-items-center rounded-xl bg-primary-500/10 text-primary-300">${icon(v.icon)}</span>
-          <h3 class="text-base font-semibold text-white">${v.t}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-surface-300">${v.d}</p>
+          <span class="mb-4 inline-grid h-11 w-11 place-items-center rounded-xl bg-primary-500/10 text-primary-200">${icon(v.icon)}</span>
+          <h3 class="text-base font-semibold text-fg">${v.t}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-fg-secondary">${v.d}</p>
         </div>`
           )
           .join("")}

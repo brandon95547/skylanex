@@ -14,10 +14,10 @@ import { products, site } from "../../site.config.mjs";
 // string Tailwind's scanner never sees and would compile to nothing. Written literally
 // they need no safelist entry: this file is already covered by `@source "../**/*.mjs"`.
 const LANES = {
-  saas: { tile: "bg-primary-500/15 text-primary-300 ring-primary-500/25", badge: "bg-primary-500/10 text-primary-300 ring-primary-500/20" },
+  saas: { tile: "bg-primary-500/15 text-primary-200 ring-primary-500/25", badge: "bg-primary-500/10 text-primary-200 ring-primary-500/20" },
   ai: { tile: "bg-secondary-500/15 text-secondary-300 ring-secondary-500/25", badge: "bg-secondary-500/10 text-secondary-300 ring-secondary-500/20" },
   dev: { tile: "bg-emerald-500/15 text-emerald-300 ring-emerald-500/25", badge: "bg-emerald-500/10 text-emerald-300 ring-emerald-500/20" },
-  other: { tile: "bg-surface-700/40 text-surface-300 ring-surface-600/40", badge: "bg-surface-800 text-surface-300 ring-surface-700" },
+  other: { tile: "bg-surface-700/40 text-fg-secondary ring-surface-600/40", badge: "bg-surface-800 text-fg-secondary ring-surface-700" },
 };
 
 // The filter row. Buttons rather than links: this filters what is already on the page and
@@ -45,16 +45,16 @@ function featuredCard() {
           class="block h-full w-full object-cover object-left-top" />
       </div>
       <div class="flex flex-col justify-center p-6 sm:p-8 lg:py-10 lg:pr-10">
-        <span class="inline-flex w-fit items-center gap-1.5 rounded-full bg-primary-500/10 px-3 py-1 text-xs font-semibold text-primary-300 ring-1 ring-inset ring-primary-500/25">
+        <span class="inline-flex w-fit items-center gap-1.5 rounded-full bg-primary-500/10 px-3 py-1 text-xs font-semibold text-primary-200 ring-1 ring-inset ring-primary-500/25">
           ${icon("spark", "h-3.5 w-3.5")} ${f.badge}
         </span>
-        <h2 class="mt-4 text-3xl font-bold tracking-tight text-white">${f.name}</h2>
-        <p class="mt-3 max-w-md leading-relaxed text-surface-300">${f.blurb}</p>
+        <h2 class="mt-4 text-3xl font-bold tracking-tight text-fg">${f.name}</h2>
+        <p class="mt-3 max-w-md leading-relaxed text-fg-secondary">${f.blurb}</p>
         <ul class="mt-5 flex flex-wrap gap-1.5">
           ${f.chips
             .map(
               (c) => `<li class="inline-flex items-center gap-1.5 rounded-lg border border-surface-800 bg-surface-950/60 px-2 py-1.5 text-xs text-surface-200">
-            ${icon(c.icon, "h-3.5 w-3.5 text-surface-400")} ${c.label}
+            ${icon(c.icon, "h-3.5 w-3.5 text-fg-muted")} ${c.label}
           </li>`
             )
             .join("")}
@@ -69,10 +69,10 @@ function productCard(p) {
   const lane = LANES[p.category] || LANES.other;
   return `<article data-category="${p.category}" class="product-card reveal group flex flex-col rounded-2xl border border-surface-800 bg-surface-900/50 p-6 transition-colors hover:border-primary-500/50">
     <span class="grid h-12 w-12 place-items-center rounded-xl ring-1 ring-inset ${lane.tile}">${icon(p.icon, "h-5 w-5")}</span>
-    <h3 class="mt-5 text-lg font-bold text-white">
+    <h3 class="mt-5 text-lg font-bold text-fg">
       <a href="${p.href}" class="after:absolute after:inset-0 focus:outline-none focus-visible:underline">${p.name}</a>
     </h3>
-    <p class="mt-2 mb-4 text-sm leading-relaxed text-surface-300">${p.blurb}</p>
+    <p class="mt-2 mb-4 text-sm leading-relaxed text-fg-secondary">${p.blurb}</p>
     <!-- mt-auto, so the badge and the link below it sit on one baseline across the row
          however long a description runs. Without it a six-line blurb pushed its own badge
          a line lower than its neighbours' and the row read as ragged. -->
@@ -81,7 +81,7 @@ function productCard(p) {
          marks made a uniform row of cards look like two different kinds of thing; that a
          link leaves the site is already carried by target/rel and by the hostname in the
          status bar. -->
-    <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-300">${p.cta || "View details"} ${icon("arrow", "h-4 w-4")}</span>
+    <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-200">${p.cta || "View details"} ${icon("arrow", "h-4 w-4")}</span>
   </article>`;
 }
 
@@ -94,9 +94,9 @@ export const productsPage = {
   render: () => `
   ${heroGlow(`
     <div class="mx-auto max-w-6xl px-5 pb-12 pt-20 sm:px-8 sm:pt-24">
-      <p class="eyebrow mb-3 text-primary-400">Our products</p>
-      <h1 class="max-w-2xl text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl">Products, platforms, and tools built for impact.</h1>
-      <p class="mt-5 max-w-md text-lg leading-relaxed text-surface-300">Explore the software, SaaS platforms, and AI tools we’ve designed and developed.</p>
+      <p class="eyebrow mb-3 text-primary-200">Our products</p>
+      <h1 class="max-w-2xl text-4xl font-extrabold leading-[1.1] tracking-tight text-fg sm:text-5xl">Products, platforms, and tools built for impact.</h1>
+      <p class="mt-5 max-w-md text-lg leading-relaxed text-fg-secondary">Explore the software, SaaS platforms, and AI tools we’ve designed and developed.</p>
     </div>
   `)}
 
@@ -110,7 +110,7 @@ export const productsPage = {
   <section class="px-5 py-12 sm:px-8">
     <div class="mx-auto max-w-6xl">
       <div class="flex items-center gap-5">
-        <h2 class="shrink-0 text-2xl font-bold tracking-tight text-white">Tools &amp; Projects</h2>
+        <h2 class="shrink-0 text-2xl font-bold tracking-tight text-fg">Tools &amp; Projects</h2>
         <span class="h-px flex-1 bg-surface-800" aria-hidden="true"></span>
       </div>
       <div id="product-grid" class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -119,7 +119,7 @@ export const productsPage = {
       <!-- Only ever seen with a filter on, and only when that filter matches nothing.
            Written in the markup rather than built by the script so it is one string in
            one place, and so it exists for a reader with no JavaScript. -->
-      <p id="product-empty" class="mt-8 hidden text-center text-sm text-surface-400">Nothing in that category yet.</p>
+      <p id="product-empty" class="mt-8 hidden text-center text-sm text-fg-muted">Nothing in that category yet.</p>
     </div>
   </section>
 
@@ -128,12 +128,12 @@ export const productsPage = {
       <div class="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-primary-500/20 blur-3xl"></div>
       <div class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-secondary-500/10 blur-3xl"></div>
       <div class="relative flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:gap-10">
-        <span class="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-primary-500/10 text-primary-300 ring-1 ring-inset ring-primary-500/25">
+        <span class="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-primary-500/10 text-primary-200 ring-1 ring-inset ring-primary-500/25">
           ${icon("layers", "h-9 w-9")}
         </span>
         <div class="min-w-0 flex-1">
-          <h2 class="text-2xl font-bold tracking-tight text-white sm:text-3xl">Have an idea in mind?</h2>
-          <p class="mt-2 max-w-xl leading-relaxed text-surface-300">We build custom software, SaaS platforms, and AI tools that turn ideas into scalable solutions.</p>
+          <h2 class="text-2xl font-bold tracking-tight text-fg sm:text-3xl">Have an idea in mind?</h2>
+          <p class="mt-2 max-w-xl leading-relaxed text-fg-secondary">We build custom software, SaaS platforms, and AI tools that turn ideas into scalable solutions.</p>
         </div>
         <div class="flex shrink-0 flex-wrap gap-3">
           <a href="/contact" class="btn btn-primary">Start a Project ${icon("arrow", "h-4 w-4")}</a>

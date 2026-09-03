@@ -12,9 +12,9 @@ export const contactPage = {
   render: () => `
   ${heroGlow(`
     <div class="mx-auto max-w-5xl px-5 pb-8 pt-20 text-center sm:px-8 sm:pt-24">
-      <p class="eyebrow mb-3 text-primary-400">Contact</p>
-      <h1 class="mx-auto max-w-2xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Let’s talk about your project</h1>
-      <p class="mx-auto mt-5 max-w-xl text-lg text-surface-300">Tell us what you’re working on. We read every message and reply personally.</p>
+      <p class="eyebrow mb-3 text-primary-200">Contact</p>
+      <h1 class="mx-auto max-w-2xl text-4xl font-extrabold tracking-tight text-fg sm:text-5xl">Let’s talk about your project</h1>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-fg-secondary">Tell us what you’re working on. We read every message and reply personally.</p>
     </div>
   `)}
 
@@ -50,23 +50,23 @@ export const contactPage = {
           <textarea name="message" rows="5" required placeholder="A sentence or two about what you’re building…" class="${field}"></textarea>
         </label>
         <button type="submit" class="btn btn-primary mt-5 w-full sm:w-auto">Send message ${icon("arrow", "h-4 w-4")}</button>
-        <p id="form-note" class="mt-3 text-sm text-surface-400"></p>
+        <p id="form-note" class="mt-3 text-sm text-fg-muted"></p>
       </form>
 
       <!-- Direct -->
       <aside class="reveal space-y-4">
         <div class="rounded-2xl border border-surface-800 bg-surface-900/50 p-6">
-          <h2 class="text-sm font-semibold text-white">Prefer direct?</h2>
+          <h2 class="text-sm font-semibold text-fg">Prefer direct?</h2>
           <div class="mt-4 space-y-3 text-sm">
-            <a href="mailto:${site.email}" class="flex items-center gap-3 text-surface-200 hover:text-white">${icon("mail", "h-4 w-4 text-primary-400")} ${site.email}</a>
+            <a href="mailto:${site.email}" class="flex items-center gap-3 text-surface-200 hover:text-fg">${icon("mail", "h-4 w-4 text-primary-200")} ${site.email}</a>
           </div>
         </div>
         <div class="rounded-2xl border border-surface-800 bg-surface-900/50 p-6">
-          <h2 class="text-sm font-semibold text-white">What happens next</h2>
-          <ul class="mt-4 space-y-3 text-sm text-surface-300">
-            <li class="flex gap-3"><span class="text-primary-400">${icon("check", "h-4 w-4")}</span> A personal reply — from a person, not an autoresponder.</li>
-            <li class="flex gap-3"><span class="text-primary-400">${icon("check", "h-4 w-4")}</span> A short call to understand the problem.</li>
-            <li class="flex gap-3"><span class="text-primary-400">${icon("check", "h-4 w-4")}</span> An honest take and a clear next step.</li>
+          <h2 class="text-sm font-semibold text-fg">What happens next</h2>
+          <ul class="mt-4 space-y-3 text-sm text-fg-secondary">
+            <li class="flex gap-3"><span class="text-primary-200">${icon("check", "h-4 w-4")}</span> A personal reply — from a person, not an autoresponder.</li>
+            <li class="flex gap-3"><span class="text-primary-200">${icon("check", "h-4 w-4")}</span> A short call to understand the problem.</li>
+            <li class="flex gap-3"><span class="text-primary-200">${icon("check", "h-4 w-4")}</span> An honest take and a clear next step.</li>
           </ul>
         </div>
       </aside>

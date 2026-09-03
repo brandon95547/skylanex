@@ -144,7 +144,11 @@
         note.textContent = text;
         note.className = "mt-3 text-sm " + tone;
       }
-      var BAD = "text-rose-400", OK = "text-emerald-400", MUTED = "text-surface-400";
+      // Contact-form status text, on the same ladder as everything else — rose-400 read
+      // 7.34 and surface-400 read 4.09 against the page, both under the 8.2 caption floor
+      // the design system sets. These clear it: rose-300 10.45, emerald-400 10.27,
+      // fg-muted 8.50.
+      var BAD = "text-rose-300", OK = "text-emerald-400", MUTED = "text-fg-muted";
 
       if (!name || !email || !message) {
         say("Please add your name, email, and a short message.", BAD);
