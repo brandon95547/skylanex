@@ -4,6 +4,11 @@ import { products, site } from "../../site.config.mjs";
 
 // The five products of the suite, in the order the platform itself lists them.
 //
+// Only the first is laid out on this page — the others are what the "01 / 05" counts,
+// and a bare 05 with nothing naming the five it counts would be a number nobody could
+// check. They are also what a second section would be built from if this page ever
+// grows one.
+//
 // `href` is each product's own public page on Phansora, taken from that app's product
 // registry rather than guessed. Narrava Studio is the exception: it has no public page
 // there (`publicPath: null`), so its link goes to the suite instead of to a 404.
@@ -183,37 +188,6 @@ export const phansoraPage = {
           </span>
         </li>`
         ).join("")}
-      </ul>
-    </div>
-  </section>
-
-  <section class="px-5 py-14 sm:px-8">
-    <div class="mx-auto max-w-6xl">
-      <div class="flex items-center gap-5">
-        <h2 class="shrink-0 text-2xl font-bold tracking-tight text-fg">The rest of the suite</h2>
-        <span class="h-px flex-1 bg-surface-800" aria-hidden="true"></span>
-      </div>
-      <ul class="mt-8 grid gap-5 sm:grid-cols-2">
-        ${SUITE.slice(1)
-          .map(
-            (p, i) => `<li class="reveal group relative flex flex-col rounded-2xl border border-surface-800 bg-surface-900/50 p-6 transition-colors hover:border-primary-500/50">
-          <div class="flex items-center gap-3">
-            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary-500/10 text-primary-200 ring-1 ring-inset ring-primary-500/25">
-              ${icon(p.icon, "h-5 w-5")}
-            </span>
-            <span class="text-sm font-semibold tracking-wider text-fg-muted">
-              <span class="text-primary-300">${pad(i + 1)}</span> / ${pad(SUITE.length - 1)}
-            </span>
-          </div>
-          <h3 class="mt-4 text-xl font-bold tracking-tight text-fg">
-            <a href="${p.href}" target="_blank" rel="noopener" class="after:absolute after:inset-0 focus:outline-none focus-visible:underline">${p.name}</a>
-          </h3>
-          <p class="mt-1 text-fg-secondary">${p.tagline}</p>
-          <p class="mt-3 flex-1 text-sm leading-relaxed text-fg-secondary">${p.blurb}</p>
-          <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-200">Explore ${p.name} ${icon("arrow", "h-4 w-4")}</span>
-        </li>`
-          )
-          .join("\n")}
       </ul>
     </div>
   </section>
