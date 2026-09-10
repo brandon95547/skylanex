@@ -136,7 +136,9 @@ export const products = {
       { icon: "compass", label: "Origin Tracing" },
       { icon: "mic", label: "Text to Speech" },
     ],
-    href: site.phansoraUrl,
+    // The landing page on this site, not phansora.com: there is a page here that
+    // introduces the suite before handing a visitor over to the product itself.
+    href: "/phansora",
     cta: "Explore Phansora",
     image: "/images/products/phansora.webp",
     alt: "The Phansora product suite, showing the Narrava Studio video editor",

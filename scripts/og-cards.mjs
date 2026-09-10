@@ -26,7 +26,6 @@ import { fileURLToPath } from "node:url";
 
 import { site } from "../site.config.mjs";
 import { eagleSprite, mark } from "../src/layout.mjs";
-import { plexus } from "../src/ui.mjs";
 import { pages, ogSlug } from "../src/pages-index.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -105,14 +104,6 @@ function cardHtml(page) {
         radial-gradient(70% 60% at 6% 96%, rgba(5,50,70,.42) 0%, transparent 58%),
         #06090e;
     }
-    /* The constellation, masked away from the type exactly as the site's hero does. */
-    .plexus{position:absolute;inset:0;overflow:hidden;pointer-events:none;
-      -webkit-mask-image:radial-gradient(120% 100% at 78% 22%, #000 0%, #000 42%, transparent 78%);
-      mask-image:radial-gradient(120% 100% at 78% 22%, #000 0%, #000 42%, transparent 78%);}
-    .plexus svg{width:100%;height:100%}
-    .plexus-line{stroke:#61c7ff;stroke-width:1;opacity:.18}
-    .plexus-node{fill:#a3b6cb;opacity:.55}
-    .plexus-node--lit{fill:#5ee7ff;opacity:.95}
     .glow{position:absolute;border-radius:9999px;filter:blur(80px);pointer-events:none}
     .glow-a{left:50%;top:-18%;width:720px;height:420px;transform:translateX(-50%);background:rgba(21,143,224,.15)}
     .glow-b{right:-8%;top:16%;width:420px;height:320px;background:rgba(11,180,219,.10)}
@@ -134,7 +125,6 @@ function cardHtml(page) {
     .chev{position:absolute;left:0;right:0;bottom:0;height:70px;pointer-events:none}
   </style></head><body>
     ${eagleSprite()}
-    ${plexus({ nodes: 34, width: 1200, height: 630, seed: 11 })}
     <div class="glow glow-a"></div><div class="glow glow-b"></div>
     <svg class="chev" viewBox="0 0 1440 64" preserveAspectRatio="none" fill="none">
       <path d="M0 63.5 L1010 63.5 L1136 6 L1440 6" stroke="url(#g)" stroke-width="1.25"/>

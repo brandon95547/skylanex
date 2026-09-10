@@ -13,6 +13,7 @@ import { solutionsPage } from "./pages/solutions.mjs";
 import { examplesPage } from "./pages/examples.mjs";
 import { industryLandingPages, conceptDetailPages } from "./pages/industry.mjs";
 import { productsPage } from "./pages/products.mjs";
+import { phansoraPage } from "./pages/phansora.mjs";
 import { aboutPage } from "./pages/about.mjs";
 import { contactPage } from "./pages/contact.mjs";
 import { privacyPage, termsPage } from "./pages/legal.mjs";
@@ -26,6 +27,7 @@ export const pages = [
   ...industryLandingPages,
   ...conceptDetailPages,
   productsPage,
+  phansoraPage,
   aboutPage,
   contactPage,
   privacyPage,

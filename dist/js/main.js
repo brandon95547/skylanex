@@ -247,4 +247,44 @@
       chip.addEventListener("click", function () { apply(chip.getAttribute("data-filter")); });
     });
   }
+
+  // ── Films: poster now, video only on request ──────────────────────────────
+  //
+  // The short films are 6-13 MB each and there are six on the page. Marking them
+  // preload="none" would still cost a request apiece and give the browser a
+  // decision to second-guess, so there is no <video> at all until someone asks
+  // for one: the poster is a button, and the button builds the player.
+  //
+  // Only one plays at a time. Two films talking over each other is the sort of
+  // thing that only shows up once it is live.
+  var films = document.querySelectorAll(".film[data-video]");
+  if (films.length) {
+    var playing = null;
+    films.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (playing && playing !== btn) { restore(playing); }
+        if (btn.querySelector("video")) { return; }
+
+        var video = document.createElement("video");
+        video.src = btn.getAttribute("data-video");
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        video.setAttribute("aria-label", btn.getAttribute("data-title") || "Film");
+        video.className = "absolute inset-0 h-full w-full bg-surface-950 object-contain";
+        // The poster and its overlays stay in the DOM so closing is just a matter
+        // of dropping the video back off the top of them.
+        btn.appendChild(video);
+        btn.classList.add("is-playing");
+        playing = btn;
+        video.addEventListener("ended", function () { restore(btn); });
+      });
+    });
+    function restore(btn) {
+      var v = btn.querySelector("video");
+      if (v) { v.pause(); v.remove(); }
+      btn.classList.remove("is-playing");
+      if (playing === btn) { playing = null; }
+    }
+  }
 })();

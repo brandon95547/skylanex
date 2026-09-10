@@ -59,7 +59,7 @@ function featuredCard() {
             )
             .join("")}
         </ul>
-        <a href="${f.href}" target="_blank" rel="noopener" class="btn btn-ghost mt-7 w-fit">${f.cta} ${icon("arrow", "h-4 w-4")}</a>
+        <a href="${f.href}" class="btn btn-ghost mt-7 w-fit">${f.cta} ${icon("arrow", "h-4 w-4")}</a>
       </div>
     </div>
   </article>`;
