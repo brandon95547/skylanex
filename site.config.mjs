@@ -140,8 +140,16 @@ export const products = {
     // introduces the suite before handing a visitor over to the product itself.
     href: "/phansora",
     cta: "Explore Phansora",
-    image: "/images/products/phansora.webp",
-    alt: "The Phansora product suite, showing the Narrava Studio video editor",
+    // Narrava Studio's editor, the same shot the /phansora page opens with: it is the
+    // most recognisable surface in the suite and the one a stranger reads fastest.
+    // Sizes is the image column of this card — 0.78fr of a 1152px grid, so it tops out
+    // around 490px and the 940 file covers it even at 2x.
+    image: "/images/phansora/narrava-studio.webp",
+    srcset: "/images/phansora/narrava-studio-940.webp 940w, /images/phansora/narrava-studio.webp 1672w",
+    sizes: "(min-width: 1024px) 44vw, 100vw",
+    width: 1672,
+    height: 941,
+    alt: "The Narrava Studio editor: a media library of generated clips, a preview of a cloaked figure before a mountain castle reading \u201cIdeas Become Reality\u201d, and a multi-track timeline with narration, text, and a cinematic look applied.",
   },
 
   // The filter row. `id` is matched against each item's `category` by assets/js/main.js;

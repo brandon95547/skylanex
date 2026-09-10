@@ -10,16 +10,20 @@ import { products, site } from "../../site.config.mjs";
 // three without art are still listed because a bare 05 with nothing naming the five it
 // counts would be a number nobody could check.
 //
-// `href` is each product's own public page on Phansora, taken from that app's product
-// registry rather than guessed. Narrava Studio is the exception: it has no public page
-// there (`publicPath: null`), so its link goes to the suite instead of to a 404.
+// `href` is taken from that app's product registry rather than guessed. The two products
+// this page actually shows the interface of link straight into their dashboard, so
+// "Explore X" opens the thing the screenshot above it is a picture of; Phansora's
+// `requireDashboardSession` sends a logged-out visitor to /login?next=<that path> and
+// drops them back on the product once they are in, so the link works either way. The
+// three without art still point at their marketing page — sending a stranger into a
+// dashboard for a product they have not read a word about is a step too far.
 const SUITE = [
   {
     name: "Narrava Studio",
     tagline: "Turn ideas into stunning videos.",
     blurb:
       "An all-in-one AI video studio for creating professional videos with scripts, media, AI narration, subtitles, transitions, and more.",
-    href: site.phansoraUrl,
+    href: `${site.phansoraUrl}/dashboard/narrava-studio`,
     icon: "clapper",
   },
   {
@@ -27,7 +31,7 @@ const SUITE = [
     tagline: "Trace any story, claim, or idea back to its origins.",
     blurb:
       "Build evidence-based timelines that uncover where ideas began, how they evolved, and how sources connect — with citations at every step.",
-    href: `${site.phansoraUrl}/chrono-origin`,
+    href: `${site.phansoraUrl}/dashboard/chrono-origin`,
     icon: "compass",
   },
   {
@@ -222,15 +226,11 @@ export const phansoraPage = {
         </figure>
 
         <div class="flex flex-col rounded-2xl border border-surface-800 bg-surface-900/60 p-5">
-          <div class="flex items-baseline justify-between gap-3">
-            <h3 class="text-sm font-semibold text-fg">Made with Narrava Studio</h3>
-            <span class="text-xs text-fg-muted">${products.creative.length} films</span>
-          </div>
+          <h3 class="text-sm font-semibold text-fg">Made with Narrava Studio</h3>
           <p class="mt-1 text-sm leading-relaxed text-fg-secondary">Short films cut in the editor on the left. Nothing loads until you press play.</p>
           <!-- One row, not two. Six of them stacked made this column half again as
                tall as the screenshot beside it, and the screenshot is what the section
-               is actually about. Three is a taster; the count above says how many
-               there are. -->
+               is actually about. Three is a taster, not an inventory. -->
           <div class="mt-4 grid grid-cols-3 gap-2.5">
             ${products.creative.slice(0, 3).map((f) => film(f)).join("\n")}
           </div>

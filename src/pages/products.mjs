@@ -41,7 +41,8 @@ function featuredCard() {
   return `<article class="reveal overflow-hidden rounded-3xl border border-surface-800 bg-surface-900/60">
     <div class="grid gap-0 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1fr)]">
       <div class="relative m-4 overflow-hidden rounded-2xl border border-surface-800 bg-surface-950 lg:m-5">
-        <img src="${f.image}" width="1440" height="900" alt="${f.alt}" loading="lazy" decoding="async"
+        <img src="${f.image}" srcset="${f.srcset}" sizes="${f.sizes}"
+          width="${f.width}" height="${f.height}" alt="${f.alt}" loading="lazy" decoding="async"
           class="block h-full w-full object-cover object-left-top" />
       </div>
       <div class="flex flex-col justify-center p-6 sm:p-8 lg:py-10 lg:pr-10">
