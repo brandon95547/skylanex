@@ -152,23 +152,31 @@ function cardHtml(page) {
 // cards, and git would keep every regeneration of that forever. At q90 the same card is
 // ~105KB with no visible difference, and every platform that reads og:image takes JPEG.
 //
-// `sips` is macOS-only, which matches this script's Chrome default; where it is missing
-// the PNG is kept rather than failing, and CARD_EXT reflects what was actually written.
-const HAS_SIPS = (() => {
+// `sips` is macOS-only, which matched this script's Chrome default. Linux boxes build
+// this site too, and there the cards silently came out .png while layout.mjs asks every
+// page for /images/og/<slug>.jpg — three pages shipped a dead og:image that way. So the
+// encoder is now whichever of these is on PATH; only if none is does the PNG survive.
+const ENCODERS = [
+  { bin: "sips", args: (png, jpg) => ["-s", "format", "jpeg", "-s", "formatOptions", "90", png, "--out", jpg] },
+  { bin: "magick", args: (png, jpg) => [png, "-quality", "90", jpg] },
+  { bin: "convert", args: (png, jpg) => [png, "-quality", "90", jpg] },
+  { bin: "ffmpeg", args: (png, jpg) => ["-y", "-loglevel", "error", "-i", png, "-qmin", "1", "-q:v", "2", jpg] },
+];
+const ENCODER = ENCODERS.find((e) => {
   try {
-    execFileSync("which", ["sips"], { stdio: "pipe" });
+    execFileSync("which", [e.bin], { stdio: "pipe" });
     return true;
   } catch {
     return false;
   }
-})();
-export const CARD_EXT = HAS_SIPS ? "jpg" : "png";
+});
+export const CARD_EXT = ENCODER ? "jpg" : "png";
 
 function shoot(page, tmpDir) {
   const slug = ogSlug(page.path);
   const htmlPath = path.join(tmpDir, `${slug}.html`);
   fs.writeFileSync(htmlPath, cardHtml(page), "utf8");
-  const png = path.join(HAS_SIPS ? tmpDir : OUT, `${slug}.png`);
+  const png = path.join(ENCODER ? tmpDir : OUT, `${slug}.png`);
   execFileSync(
     CHROME,
     [
@@ -182,12 +190,8 @@ function shoot(page, tmpDir) {
     ],
     { stdio: "pipe" }
   );
-  if (HAS_SIPS) {
-    execFileSync(
-      "sips",
-      ["-s", "format", "jpeg", "-s", "formatOptions", "90", png, "--out", path.join(OUT, `${slug}.jpg`)],
-      { stdio: "pipe" }
-    );
+  if (ENCODER) {
+    execFileSync(ENCODER.bin, ENCODER.args(png, path.join(OUT, `${slug}.jpg`)), { stdio: "pipe" });
   }
   return slug;
 }
