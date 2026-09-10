@@ -126,7 +126,7 @@ export const phansoraPage = {
     </div>
   `)}
 
-  <section class="px-5 ${afterHero} sm:px-8">
+  <section class="px-5 ${afterHero} pb-20 sm:px-8">
     <div class="mx-auto max-w-6xl">
       <!-- Product 01. It gets the screenshot and the films; the other four are named
            below it, because there is no interface art for them and a placeholder box
