@@ -91,8 +91,10 @@ const BOOK_ALCHEMY_CAPABILITIES = [
   { icon: "download", title: "Your Audio Library", sub: "Listen online or download for offline use." },
 ];
 
-// The three books beside the Book Alchemy screenshot. Covers, page counts, running
-// times and quotes are all the reference's own.
+// The three books beside the Book Alchemy screenshot. Covers, page counts and running
+// times are the reference's own. Its pull quote under each play button is not here:
+// the panel has to stand the same height as the screenshot beside it, and the quote
+// is what made it taller. The three are in this file's history if they come back.
 //
 // PLACEHOLDER AUDIO. The files under assets/audio/book-alchemy are 90-second excerpts
 // of unrelated narration, standing in until the real samples land — which is why the
@@ -104,7 +106,6 @@ const EXAMPLES = [
     slug: "kybalion",
     title: "The Kybalion",
     meta: "342 pages · 2h 18m",
-    quote: "The lips of wisdom are closed, except to the ears of Understanding.",
     cover: "The Kybalion, a black clothbound cover lettered in gold above a triangle set in a circle.",
     seconds: 90,
   },
@@ -112,7 +113,6 @@ const EXAMPLES = [
     slug: "art-of-war",
     title: "The Art of War",
     meta: "273 pages · 1h 52m",
-    quote: "Know the enemy and know yourself and you can fight a hundred battles without disaster.",
     cover: "The Art of War, an aged paper cover with an ink-wash rider on horseback carrying a standard.",
     seconds: 90,
   },
@@ -120,7 +120,6 @@ const EXAMPLES = [
     slug: "meditations",
     title: "Meditations",
     meta: "256 pages · 1h 46m",
-    quote: "You have power over your mind — not outside events. Realize this, and you will find strength.",
     cover: "Meditations, a dark cover lettered in gold over a marble bust of Marcus Aurelius.",
     seconds: 90,
   },
@@ -276,7 +275,6 @@ function example(e) {
             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
             aria-valuetext="0:00 of ${clock(e.seconds)}">${bars}</div>
         </div>
-        <blockquote class="mt-3 text-xs italic leading-relaxed text-fg-secondary">&ldquo;${e.quote}&rdquo;</blockquote>
       </div>
     </article>
   </li>`;
@@ -393,7 +391,7 @@ export const phansoraPage = {
            waveform out in. -->
       <div class="mt-24">${sectionHead(2)}</div>
 
-      <div class="reveal mt-8 grid items-start gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+      <div class="reveal mt-8 grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <figure class="overflow-hidden rounded-2xl border border-surface-800 bg-surface-950">
           <img src="/images/phansora/book-alchemy.webp"
             srcset="/images/phansora/book-alchemy-940.webp 940w, /images/phansora/book-alchemy.webp 1536w"
