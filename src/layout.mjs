@@ -21,6 +21,8 @@ const ICONS = {
   play: '<path d="M8 5.5v13l11-6.5-11-6.5z" fill="currentColor" stroke="none"/>',
   pause: '<path d="M8.5 5h2.5v14H8.5zM13 5h2.5v14H13z" fill="currentColor" stroke="none"/>',
   headphones: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="2.5" y="14" width="4.5" height="6" rx="1.75"/><rect x="17" y="14" width="4.5" height="6" rx="1.75"/>',
+  list: '<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.3"/><circle cx="4.5" cy="12" r="1.3"/><circle cx="4.5" cy="18" r="1.3"/>',
+  download: '<path d="M12 3v11"/><path d="M8 10.5l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>',
   close: '<path d="M6 6l12 12M18 6L6 18"/>',
   /* industry marks for /solutions */
   scale: '<path d="M12 3.5v17"/><path d="M6 7h12"/><path d="M6 7l-3 6h6l-3-6z"/><path d="M18 7l-3 6h6l-3-6z"/><path d="M8.5 20.5h7"/>',

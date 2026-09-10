@@ -36,9 +36,9 @@ const SUITE = [
   },
   {
     name: "Book Alchemy",
-    tagline: "Turn any book into a course you can listen to.",
+    tagline: "Transform written knowledge into immersive audio.",
     blurb:
-      "Turns a book or long document into a structured, multi-session audio course — an AI-designed curriculum, narrated, and grounded in the author's own words.",
+      "Turn any book, document, or manuscript into natural-sounding audio with AI narration. Learn, listen, and absorb knowledge anywhere.",
     href: `${site.phansoraUrl}/dashboard/book-alchemy`,
     icon: "book",
   },
@@ -85,25 +85,46 @@ const TIMELINES = [
 ];
 
 const BOOK_ALCHEMY_CAPABILITIES = [
-  { icon: "book", title: "Any Book or Paper", sub: "A PDF in, a narrated course out." },
-  { icon: "workflow", title: "Chapters", sub: "Split into sessions you can finish." },
-  { icon: "mic", title: "Narration Voice", sub: "Natural, realistic speech." },
-  { icon: "sliders", title: "Speed &amp; Format", sub: "0.75x to 1.5x — MP3, M4A, or WAV." },
+  { icon: "book", title: "Multiple Formats", sub: "Import PDFs, EPUB, DOCX, TXT and more." },
+  { icon: "mic", title: "Natural AI Voices", sub: "High-quality, realistic narration with multiple voice options." },
+  { icon: "list", title: "Smart Chapters", sub: "Automatic chapter detection and easy navigation." },
+  { icon: "download", title: "Your Audio Library", sub: "Listen online or download for offline use." },
 ];
 
-// The sessions beside the Book Alchemy screenshot, named for the chapters the screenshot
-// has open so the panel and the picture are the same course.
+// The three books beside the Book Alchemy screenshot. Covers, page counts, running
+// times and quotes are all the reference's own.
 //
-// PLACEHOLDER AUDIO. The files under assets/audio/book-alchemy are 90-second excerpts of
-// unrelated narration, standing in until the real samples land. `duration` and `seconds`
-// are the length of the file that is actually there — they are what the row shows before
-// anything is fetched and what its scrubber reads out, so they move when the file does.
-const SESSIONS = [
-  { n: 1, name: "The All", file: "01-the-all.mp3", duration: "1:30", seconds: 90 },
-  { n: 2, name: "Mentalism", file: "02-mentalism.mp3", duration: "1:30", seconds: 90 },
-  { n: 3, name: "Correspondence", file: "03-correspondence.mp3", duration: "1:30", seconds: 90 },
+// PLACEHOLDER AUDIO. The files under assets/audio/book-alchemy are 90-second excerpts
+// of unrelated narration, standing in until the real samples land — which is why the
+// button says "a sample of" and the card's running time is the book's, not the file's.
+// `seconds` is the length of the file that is actually there: it is what the scrubber
+// reads out, so it moves when the file does.
+const EXAMPLES = [
+  {
+    slug: "kybalion",
+    title: "The Kybalion",
+    meta: "342 pages · 2h 18m",
+    quote: "The lips of wisdom are closed, except to the ears of Understanding.",
+    cover: "The Kybalion, a black clothbound cover lettered in gold above a triangle set in a circle.",
+    seconds: 90,
+  },
+  {
+    slug: "art-of-war",
+    title: "The Art of War",
+    meta: "273 pages · 1h 52m",
+    quote: "Know the enemy and know yourself and you can fight a hundred battles without disaster.",
+    cover: "The Art of War, an aged paper cover with an ink-wash rider on horseback carrying a standard.",
+    seconds: 90,
+  },
+  {
+    slug: "meditations",
+    title: "Meditations",
+    meta: "256 pages · 1h 46m",
+    quote: "You have power over your mind — not outside events. Realize this, and you will find strength.",
+    cover: "Meditations, a dark cover lettered in gold over a marble bust of Marcus Aurelius.",
+    seconds: 90,
+  },
 ];
-
 /** The four words down the right of the hero — what the suite is for, in order. */
 const PILLARS = ["Ideas", "Knowledge", "Creation", "Real impact"];
 
@@ -208,43 +229,56 @@ function seededPeaks(seed, buckets) {
   return out;
 }
 
-// Roughly one bar per 3-4px of the widest the waveform gets, which is the Bible's
-// range. The bars flex, so this one count reads correctly at every width.
-const WAVE_BARS = 56;
+// One bar per 3-4px of the waveform's width, which is the Bible's rule. That page's
+// count for a row is 48-72 bars, but it also says fewer at narrow widths and never
+// more — and this control is narrow: the reference does not stretch the waveform to
+// the card's edge, so app.css caps it at 6rem and it runs 72-96px. 24 bars is 3-4px
+// across that whole range; 48 would be a smear at any of it.
+const WAVE_BARS = 24;
+
+const clock = (seconds) => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
 
 /**
- * One session of the course, as a row player.
+ * One book, as a card: the cover, what it is, a sample, and a line out of it.
  *
- * Deliberately not `<audio controls>`: the Bible rules the native element out for a
- * list — 54px of unstyleable chrome per row, a different look in every browser, and
- * nothing stopping two of them playing at once. This is the row size it specifies
- * instead: a 28px play button, the waveform, one time label, nothing else. The label
- * is the duration until playback starts and the position afterwards, because a column
- * of 0:00 tells the reader nothing.
+ * The player is deliberately not `<audio controls>`. The Bible rules the native
+ * element out for a set like this — 54px of unstyleable chrome per card, a different
+ * look in every browser, and nothing stopping two of them playing at once. What is
+ * here is the row player it specifies instead: a 28px button and the waveform. No
+ * time label, which that page allows: the running time above is the book's, and a
+ * second clock beside it would be two numbers claiming to be the same thing.
  *
- * The name sits above the row on a phone and becomes a column of its own from `sm` up.
- * Either way every waveform on the page is the same width, which is what makes the
- * shapes comparable down the column — the one thing a list of clips exists to do.
+ * Cover left and player right on a phone, cover on top from `sm` up. The cards are
+ * one width within any breakpoint, so the three shapes stay comparable — which is
+ * the whole reason a waveform is drawn here rather than a progress bar.
  */
-function session(s) {
-  const bars = seededPeaks(s.file, WAVE_BARS)
+function example(e) {
+  const bars = seededPeaks(e.slug, WAVE_BARS)
     .map((v) => `<span style="height:${Math.round(v * 100)}%"></span>`)
     .join("");
   return `<li>
-    <div class="session grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 rounded-xl border border-surface-800 bg-surface-950 p-3 sm:grid-cols-[auto_9.5rem_minmax(0,1fr)_auto]"
-      data-src="/audio/book-alchemy/${s.file}" data-title="${s.name}" data-seconds="${s.seconds}" data-duration="${s.duration}">
-      <span class="col-span-3 min-w-0 truncate text-sm font-medium text-fg sm:col-span-1 sm:col-start-2 sm:row-start-1">
-        <span class="tabular-nums text-fg-muted">${pad(s.n - 1)}</span> ${s.name}
-      </span>
-      <button type="button" class="session-play sm:col-start-1 sm:row-start-1" aria-label="Play ${s.name}">
-        ${icon("play", "h-3.5 w-3.5 g-play")}
-        ${icon("pause", "h-3.5 w-3.5 g-pause")}
-      </button>
-      <div class="wave sm:col-start-3 sm:row-start-1" role="slider" tabindex="0"
-        aria-label="Seek within ${s.name}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
-        aria-valuetext="0:00 of ${s.duration}">${bars}</div>
-      <span class="session-time sm:col-start-4 sm:row-start-1">${s.duration}</span>
-    </div>
+    <article class="audio-row flex h-full gap-3 rounded-xl border border-surface-800 bg-surface-950 p-3 sm:flex-col"
+      data-src="/audio/book-alchemy/${e.slug}.mp3" data-title="${e.title}" data-seconds="${e.seconds}">
+      <!-- self-start, or the cover stretches to the card's height in the phone
+           layout and object-cover crops the title off its own spine. -->
+      <img src="/images/phansora/covers/${e.slug}.webp" width="142" height="178" loading="lazy" decoding="async"
+        alt="${e.cover}"
+        class="w-20 shrink-0 self-start rounded-lg border border-surface-800 object-cover sm:w-full" />
+      <div class="flex min-w-0 flex-1 flex-col">
+        <h4 class="truncate text-sm font-semibold text-fg">${e.title}</h4>
+        <p class="mt-0.5 text-[11px] text-fg-muted">${e.meta}</p>
+        <div class="mt-3 flex items-center gap-2">
+          <button type="button" class="session-play" aria-label="Play a sample of ${e.title}">
+            ${icon("play", "h-3.5 w-3.5 g-play")}
+            ${icon("pause", "h-3.5 w-3.5 g-pause")}
+          </button>
+          <div class="wave" role="slider" tabindex="0" aria-label="Seek within the ${e.title} sample"
+            aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+            aria-valuetext="0:00 of ${clock(e.seconds)}">${bars}</div>
+        </div>
+        <blockquote class="mt-3 text-xs italic leading-relaxed text-fg-secondary">&ldquo;${e.quote}&rdquo;</blockquote>
+      </div>
+    </article>
   </li>`;
 }
 
@@ -370,13 +404,19 @@ export const phansoraPage = {
         </figure>
 
         <div class="flex flex-col rounded-2xl border border-surface-800 bg-surface-900/60 p-5">
-          <h3 class="text-sm font-semibold text-fg">Made with Book Alchemy</h3>
-          <p class="mt-1 text-sm leading-relaxed text-fg-secondary">The opening sessions of the course on the left. Nothing loads until you press play.</p>
-          <!-- One list, three rows deep. The screenshot beside it already shows what a
-               full contents page looks like; what this has to do is let someone hear
-               the thing, which takes one row done properly rather than six. -->
-          <ol class="mt-4 flex w-full max-w-md flex-col gap-2.5 lg:max-w-none">
-            ${SESSIONS.map(session).join("\n")}
+          <h3 class="text-sm font-semibold text-fg">From Book to Audio</h3>
+          <!-- The reference's line here is "Original content on the left. AI-narrated
+               audio on the right", which describes a split these cards do not have —
+               the cover and the player are stacked in each one. This says what the
+               cards actually are, and keeps the promise the films panel makes about
+               not fetching anything until asked. -->
+          <p class="mt-1 text-sm leading-relaxed text-fg-secondary">Three books, and the narration made from them. Nothing loads until you press play.</p>
+          <!-- Capped between sm and lg. Left to fill the page at those widths the
+               cards run to 240px and the waveform stretches to a bar chart; the
+               Bible's count is one bar per 3-4px of width, and this is what keeps
+               one set of bars inside that range at every width the page has. -->
+          <ol class="mt-4 grid w-full max-w-md grid-cols-1 gap-3 sm:max-w-xl sm:grid-cols-3 lg:max-w-none">
+            ${EXAMPLES.map(example).join("\n")}
           </ol>
         </div>
       </div>

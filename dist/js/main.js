@@ -231,21 +231,19 @@
     });
   });
 
-  // ── Course sessions: one row player per session ───────────────────────────
+  // ── Audio rows: one player per card ───────────────────────────────────────
   //
-  // The waveform is already in the HTML, seeded from the file name by
-  // src/pages/phansora.mjs, so a row looks like audio the moment it paints. The
-  // real peaks replace it on the first play — the first moment the file has to be
-  // fetched anyway. Decoding all of them up front would pull the whole panel down
-  // the wire to draw pictures nobody has looked at yet.
-  document.querySelectorAll(".session[data-src]").forEach(function (row) {
+  // The waveform is already in the HTML, seeded by src/pages/phansora.mjs, so a
+  // card looks like audio the moment it paints. The real peaks replace it on the
+  // first play — the first moment the file has to be fetched anyway. Decoding all
+  // of them up front would pull the whole panel down the wire to draw pictures
+  // nobody has looked at yet.
+  document.querySelectorAll(".audio-row[data-src]").forEach(function (row) {
     var btn = row.querySelector(".session-play");
     var wave = row.querySelector(".wave");
     var bars = wave.children;
-    var label = row.querySelector(".session-time");
-    var title = row.getAttribute("data-title") || "this session";
+    var title = row.getAttribute("data-title") || "this clip";
     var known = Number(row.getAttribute("data-seconds")) || 0;
-    var idle = row.getAttribute("data-duration") || clock(known);
     var audio = null;
     var pending = 0; // where to start, while there is no element to seek yet
     var lit = 0;     // how many bars are currently on
@@ -274,9 +272,6 @@
       wave.style.setProperty("--head", p > 0 ? 1 : 0);
       wave.setAttribute("aria-valuenow", Math.round(p * 100));
       wave.setAttribute("aria-valuetext", clock(p * d) + " of " + clock(d));
-      // The duration before playback and the position after it: a column of 0:00
-      // tells the reader nothing about the clips it is labelling.
-      label.textContent = p > 0 ? clock(p * d) : idle;
     }
 
     function stop() {
@@ -298,7 +293,6 @@
           // depending on the browser, so a seek made while the row was idle is
           // applied here instead.
           if (pending) { audio.currentTime = pending; pending = 0; }
-          idle = clock(duration());
           paint();
         });
         audio.addEventListener("ended", function () {

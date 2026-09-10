@@ -440,14 +440,14 @@
   .session-play:hover { border-color: var(--color-primary-400); color: var(--color-primary-100); }
   /* Outlined at rest, filled while playing. In a column of rows that fill is how
      you find the one you are hearing without reading any of them. */
-  .session.is-playing .session-play {
+  .audio-row.is-playing .session-play {
     background-color: var(--color-primary-500);
     border-color: transparent;
     color: #fff;
   }
   .session-play .g-pause { display: none; }
-  .session.is-playing .g-play { display: none; }
-  .session.is-playing .g-pause { display: block; }
+  .audio-row.is-playing .g-play { display: none; }
+  .audio-row.is-playing .g-pause { display: block; }
 
   /* 44px on a coarse pointer. The button stays 28px and the target grows
      underneath it — the only way to reach that number in a row this dense
@@ -461,6 +461,13 @@
     display: flex;
     height: 1.75rem;
     min-width: 0;
+    /* Its bars are all flex-basis 0, so without a basis of its own the waveform
+       has no intrinsic width and collapses to nothing beside the play button. */
+    flex: 1 1 0;
+    /* Capped, not stretched. The reference leaves space to the right of the
+       waveform, and letting it fill a wide card would put the bars far outside
+       the 3-4px each the bar count is chosen for. */
+    max-width: 6rem;
     align-items: center;
     gap: 1px;
     cursor: pointer;
@@ -492,13 +499,6 @@
   }
   .wave:focus-visible { outline: 2px solid var(--color-primary-400); outline-offset: 4px; border-radius: 2px; }
 
-  .session-time {
-    min-width: 2.25rem;
-    text-align: right;
-    font-size: 11px;
-    font-variant-numeric: tabular-nums;
-    color: var(--color-fg-muted);
-  }
 
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
