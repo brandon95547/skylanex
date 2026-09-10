@@ -261,7 +261,7 @@ function footer(path) {
           ${logo()}
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-fg-secondary">Independent AI software studio building intelligent applications that empower businesses and creators.</p>
           <div class="mt-5 flex flex-col gap-2.5 text-sm text-fg-secondary">
-            <a href="mailto:${site.email}" class="inline-flex items-center gap-2 hover:text-fg">${icon("mail", "h-4 w-4 text-primary-200")} ${site.email}</a>
+            <a href="/contact" class="inline-flex items-center gap-2 hover:text-fg">${icon("mail", "h-4 w-4 text-primary-200")} ${site.email}</a>
           </div>
         </div>
         ${cols
