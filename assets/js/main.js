@@ -176,43 +176,222 @@
     });
   }
 
+  // ── One media element at a time, page-wide ────────────────────────────────
+  //
+  // The films and the course sessions sit a screen apart and neither knows the
+  // other exists, so the registry that keeps them from talking over each other
+  // lives out here rather than inside either. Whoever starts playing hands in the
+  // function that stops it again.
+  var stopPlaying = null;
+  function claimPlayback(stop) {
+    if (stopPlaying && stopPlaying !== stop) { stopPlaying(); }
+    stopPlaying = stop;
+  }
+  function releasePlayback(stop) {
+    if (stopPlaying === stop) { stopPlaying = null; }
+  }
+
+  function clock(seconds) {
+    if (!isFinite(seconds) || seconds < 0) { seconds = 0; }
+    var whole = Math.floor(seconds);
+    var secs = whole % 60;
+    return Math.floor(whole / 60) + ":" + (secs < 10 ? "0" : "") + secs;
+  }
+
   // ── Films: poster now, video only on request ──────────────────────────────
   //
   // The short films are 6-13 MB each and there are six on the page. Marking them
   // preload="none" would still cost a request apiece and give the browser a
   // decision to second-guess, so there is no <video> at all until someone asks
   // for one: the poster is a button, and the button builds the player.
-  //
-  // Only one plays at a time. Two films talking over each other is the sort of
-  // thing that only shows up once it is live.
   var films = document.querySelectorAll(".film[data-video]");
-  if (films.length) {
-    var playing = null;
-    films.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        if (playing && playing !== btn) { restore(playing); }
-        if (btn.querySelector("video")) { return; }
-
-        var video = document.createElement("video");
-        video.src = btn.getAttribute("data-video");
-        video.controls = true;
-        video.autoplay = true;
-        video.playsInline = true;
-        video.setAttribute("aria-label", btn.getAttribute("data-title") || "Film");
-        video.className = "absolute inset-0 h-full w-full bg-surface-950 object-contain";
-        // The poster and its overlays stay in the DOM so closing is just a matter
-        // of dropping the video back off the top of them.
-        btn.appendChild(video);
-        btn.classList.add("is-playing");
-        playing = btn;
-        video.addEventListener("ended", function () { restore(btn); });
-      });
-    });
-    function restore(btn) {
+  films.forEach(function (btn) {
+    // The poster and its overlays stay in the DOM so closing is just a matter of
+    // dropping the video back off the top of them.
+    function stop() {
       var v = btn.querySelector("video");
       if (v) { v.pause(); v.remove(); }
       btn.classList.remove("is-playing");
-      if (playing === btn) { playing = null; }
+      releasePlayback(stop);
     }
-  }
+    btn.addEventListener("click", function () {
+      claimPlayback(stop);
+      if (btn.querySelector("video")) { return; }
+
+      var video = document.createElement("video");
+      video.src = btn.getAttribute("data-video");
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.setAttribute("aria-label", btn.getAttribute("data-title") || "Film");
+      video.className = "absolute inset-0 h-full w-full bg-surface-950 object-contain";
+      btn.appendChild(video);
+      btn.classList.add("is-playing");
+      video.addEventListener("ended", stop);
+    });
+  });
+
+  // ── Course sessions: one row player per session ───────────────────────────
+  //
+  // The waveform is already in the HTML, seeded from the file name by
+  // src/pages/phansora.mjs, so a row looks like audio the moment it paints. The
+  // real peaks replace it on the first play — the first moment the file has to be
+  // fetched anyway. Decoding all of them up front would pull the whole panel down
+  // the wire to draw pictures nobody has looked at yet.
+  document.querySelectorAll(".session[data-src]").forEach(function (row) {
+    var btn = row.querySelector(".session-play");
+    var wave = row.querySelector(".wave");
+    var bars = wave.children;
+    var label = row.querySelector(".session-time");
+    var title = row.getAttribute("data-title") || "this session";
+    var known = Number(row.getAttribute("data-seconds")) || 0;
+    var idle = row.getAttribute("data-duration") || clock(known);
+    var audio = null;
+    var pending = 0; // where to start, while there is no element to seek yet
+    var lit = 0;     // how many bars are currently on
+    var asked = false;
+
+    function duration() {
+      return (audio && isFinite(audio.duration) && audio.duration) || known;
+    }
+    function position() {
+      return audio ? audio.currentTime : pending;
+    }
+
+    function paint() {
+      var d = duration();
+      var p = d ? Math.min(1, position() / d) : 0;
+      var want = Math.round(p * bars.length);
+      // Only the bars that changed state since the last tick, which is normally
+      // one of them — repainting all 56 four times a second is work for nothing.
+      if (want !== lit) {
+        for (var i = Math.min(want, lit), end = Math.max(want, lit); i < end; i++) {
+          bars[i].classList.toggle("on", i < want);
+        }
+        lit = want;
+      }
+      wave.style.setProperty("--p", p);
+      wave.style.setProperty("--head", p > 0 ? 1 : 0);
+      wave.setAttribute("aria-valuenow", Math.round(p * 100));
+      wave.setAttribute("aria-valuetext", clock(p * d) + " of " + clock(d));
+      // The duration before playback and the position after it: a column of 0:00
+      // tells the reader nothing about the clips it is labelling.
+      label.textContent = p > 0 ? clock(p * d) : idle;
+    }
+
+    function stop() {
+      if (audio) { audio.pause(); }
+      row.classList.remove("is-playing");
+      btn.setAttribute("aria-label", "Play " + title);
+      releasePlayback(stop);
+    }
+
+    function start() {
+      claimPlayback(stop);
+      if (!audio) {
+        audio = new Audio();
+        audio.preload = "none";
+        audio.src = row.getAttribute("data-src");
+        audio.addEventListener("timeupdate", paint);
+        audio.addEventListener("loadedmetadata", function () {
+          // currentTime before metadata is either ignored or an exception
+          // depending on the browser, so a seek made while the row was idle is
+          // applied here instead.
+          if (pending) { audio.currentTime = pending; pending = 0; }
+          idle = clock(duration());
+          paint();
+        });
+        audio.addEventListener("ended", function () {
+          audio.currentTime = 0;
+          stop();
+          paint();
+        });
+        peaks();
+      }
+      var started = audio.play();
+      if (started && started.catch) { started.catch(function () { stop(); }); }
+      row.classList.add("is-playing");
+      btn.setAttribute("aria-label", "Pause " + title);
+    }
+
+    btn.addEventListener("click", function () {
+      if (row.classList.contains("is-playing")) { stop(); } else { start(); }
+    });
+
+    function seek(fraction) {
+      var f = Math.max(0, Math.min(1, fraction));
+      var d = duration();
+      if (audio && isFinite(audio.duration)) { audio.currentTime = f * d; }
+      else { pending = f * d; }
+      paint();
+    }
+    function seekAt(clientX) {
+      var box = wave.getBoundingClientRect();
+      if (box.width) { seek((clientX - box.left) / box.width); }
+    }
+
+    wave.addEventListener("pointerdown", function (e) {
+      wave.setPointerCapture(e.pointerId);
+      seekAt(e.clientX);
+    });
+    wave.addEventListener("pointermove", function (e) {
+      if (wave.hasPointerCapture(e.pointerId)) { seekAt(e.clientX); }
+    });
+
+    // A row of divs cannot take focus and has no value. role="slider" plus these
+    // keys is what stops the scrubber being mouse-only.
+    wave.addEventListener("keydown", function (e) {
+      var d = duration();
+      if (!d) { return; }
+      var step = (e.shiftKey ? 30 : 5) / d;
+      var at = position() / d;
+      var moves = {
+        ArrowRight: at + step, ArrowUp: at + step,
+        ArrowLeft: at - step, ArrowDown: at - step,
+        Home: 0, End: 1,
+      };
+      if (!(e.key in moves)) { return; }
+      e.preventDefault();
+      seek(moves[e.key]);
+    });
+
+    // Real peaks mean downloading and decoding the whole file, so this waits for
+    // the first play. Decoding into an 8kHz context rather than the file's own
+    // rate costs a sixth of the memory and loses nothing anyone could see: one
+    // bar here is well over a second of audio wide.
+    function peaks() {
+      if (asked) { return; }
+      asked = true;
+      var Ctx = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+      if (!Ctx || !window.fetch) { return; }
+      window.fetch(row.getAttribute("data-src"))
+        .then(function (r) { return r.arrayBuffer(); })
+        .then(function (raw) { return new Ctx(1, 1, 8000).decodeAudioData(raw); })
+        .then(function (pcm) {
+          var data = pcm.getChannelData(0);
+          var n = bars.length;
+          var per = Math.floor(data.length / n);
+          if (!per) { return; }
+          var shape = [];
+          var top = 0;
+          for (var b = 0; b < n; b++) {
+            var max = 0;
+            for (var i = b * per, end = i + per; i < end; i++) {
+              var v = data[i] < 0 ? -data[i] : data[i];
+              if (v > max) { max = v; }
+            }
+            shape.push(max);
+            if (max > top) { top = max; }
+          }
+          // Normalised against the file's own loudest moment. Absolute levels
+          // would draw a quietly recorded clip as a flat line, which is the one
+          // shape that reads as a bad render.
+          if (!top) { return; }
+          for (var j = 0; j < n; j++) {
+            bars[j].style.height = (10 + 90 * (shape[j] / top)) + "%";
+          }
+        })
+        .catch(function () { /* the seeded shape stands; nothing else needs this */ });
+    }
+  });
 })();

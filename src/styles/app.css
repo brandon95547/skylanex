@@ -419,6 +419,87 @@
   .film.is-playing > span { opacity: 0; }
   .film > span { transition: opacity .2s ease; }
 
+  /* ── Course sessions: the audio rows on /phansora ────────────────────────
+     Sizes are the UI Bible's row player (ui.skylanex.com, Audio Player): a 28px
+     play button, a 28px waveform, and a time label at a fixed width so the
+     waveform does not resize as the clock counts. The native <audio> element is
+     not used here on purpose — in a list it is 54px of unstyleable chrome per
+     row, looks different in every browser, and nothing stops two playing at once. */
+  .session-play {
+    position: relative;
+    display: grid;
+    height: 1.75rem;
+    width: 1.75rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in oklab, var(--color-primary-400) 50%, transparent);
+    color: var(--color-primary-200);
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .session-play:hover { border-color: var(--color-primary-400); color: var(--color-primary-100); }
+  /* Outlined at rest, filled while playing. In a column of rows that fill is how
+     you find the one you are hearing without reading any of them. */
+  .session.is-playing .session-play {
+    background-color: var(--color-primary-500);
+    border-color: transparent;
+    color: #fff;
+  }
+  .session-play .g-pause { display: none; }
+  .session.is-playing .g-play { display: none; }
+  .session.is-playing .g-pause { display: block; }
+
+  /* 44px on a coarse pointer. The button stays 28px and the target grows
+     underneath it — the only way to reach that number in a row this dense
+     without pushing the rows apart to make room. */
+  @media (pointer: coarse) {
+    .session-play::after { content: ""; position: absolute; inset: -0.5rem; }
+  }
+
+  .wave {
+    position: relative;
+    display: flex;
+    height: 1.75rem;
+    min-width: 0;
+    align-items: center;
+    gap: 1px;
+    cursor: pointer;
+    /* pan-y, not none: these rows are 28px tall and three deep, and `none` would
+       make a thumb dragged up the panel swallow the scroll instead of moving the
+       page. Horizontal drags still reach the scrubber. */
+    touch-action: pan-y;
+  }
+  .wave > span {
+    min-width: 0;
+    flex: 1 1 0;
+    border-radius: 9999px;
+    background-color: var(--color-surface-600);
+    transition: background-color .12s linear;
+  }
+  /* Played and unplayed differ in lightness as well as hue: the split is what
+     tells a reader where they are, and hue alone is the first thing to go for a
+     colour-blind one. */
+  .wave > span.on { background-color: var(--color-primary-400); }
+  .wave::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--p, 0) * 100%);
+    width: 1px;
+    background-color: var(--color-fg);
+    opacity: var(--head, 0);
+  }
+  .wave:focus-visible { outline: 2px solid var(--color-primary-400); outline-offset: 4px; border-radius: 2px; }
+
+  .session-time {
+    min-width: 2.25rem;
+    text-align: right;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-fg-muted);
+  }
+
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
 

@@ -134,6 +134,9 @@ function build() {
   // re-creates it from assets/ during deploy — see deploy/prod-deploy.sh.
   // In dev the startup build already copied them; skip on incremental rebuilds.
   if (!DEV) copyDir(path.join(__dirname, "assets", "videos"), path.join(DIST, "videos"));
+  // Audio gets the same treatment for the same reason — it is media, not markup, and
+  // duplicating it into a committed dist/ is how the video folder got its rule.
+  if (!DEV) copyDir(path.join(__dirname, "assets", "audio"), path.join(DIST, "audio"));
 
   // robots + sitemap
   fs.writeFileSync(

@@ -6,3 +6,4 @@ node_modules/
 # ~76MB duplicated on every clone. prod-deploy.sh recreates dist/videos from
 # assets/videos, which IS tracked.
 dist/videos/
+dist/audio/

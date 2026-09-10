@@ -15,7 +15,7 @@ import { products, site } from "../../site.config.mjs";
 // "Explore X" opens the thing the screenshot above it is a picture of; Phansora's
 // `requireDashboardSession` sends a logged-out visitor to /login?next=<that path> and
 // drops them back on the product once they are in, so the link works either way. The
-// three without art still point at their marketing page — sending a stranger into a
+// two without art still point at their marketing page — sending a stranger into a
 // dashboard for a product they have not read a word about is a step too far.
 const SUITE = [
   {
@@ -39,7 +39,7 @@ const SUITE = [
     tagline: "Turn any book into a course you can listen to.",
     blurb:
       "Turns a book or long document into a structured, multi-session audio course — an AI-designed curriculum, narrated, and grounded in the author's own words.",
-    href: `${site.phansoraUrl}/book-alchemy`,
+    href: `${site.phansoraUrl}/dashboard/book-alchemy`,
     icon: "book",
   },
   {
@@ -82,6 +82,26 @@ const TIMELINES = [
   { name: "Ancient Israelite Religion", blurb: "From Canaanite roots to Second Temple Judaism." },
   { name: "The Flood Narrative", blurb: "A global story through time and cultures." },
   { name: "Jesus Parallels", blurb: "Comparative figures and influences across history." },
+];
+
+const BOOK_ALCHEMY_CAPABILITIES = [
+  { icon: "book", title: "Any Book or Paper", sub: "A PDF in, a narrated course out." },
+  { icon: "workflow", title: "Chapters", sub: "Split into sessions you can finish." },
+  { icon: "mic", title: "Narration Voice", sub: "Natural, realistic speech." },
+  { icon: "sliders", title: "Speed &amp; Format", sub: "0.75x to 1.5x — MP3, M4A, or WAV." },
+];
+
+// The sessions beside the Book Alchemy screenshot, named for the chapters the screenshot
+// has open so the panel and the picture are the same course.
+//
+// PLACEHOLDER AUDIO. The files under assets/audio/book-alchemy are 90-second excerpts of
+// unrelated narration, standing in until the real samples land. `duration` and `seconds`
+// are the length of the file that is actually there — they are what the row shows before
+// anything is fetched and what its scrubber reads out, so they move when the file does.
+const SESSIONS = [
+  { n: 1, name: "The All", file: "01-the-all.mp3", duration: "1:30", seconds: 90 },
+  { n: 2, name: "Mentalism", file: "02-mentalism.mp3", duration: "1:30", seconds: 90 },
+  { n: 3, name: "Correspondence", file: "03-correspondence.mp3", duration: "1:30", seconds: 90 },
 ];
 
 /** The four words down the right of the hero — what the suite is for, in order. */
@@ -157,6 +177,75 @@ function capabilityStrip(items) {
       )
       .join("")}
   </ul>`;
+}
+
+/**
+ * The waveform shape, before there is a real one.
+ *
+ * Lifted from the UI Bible's audio player: a shape seeded from the file name, so it is
+ * deterministic — a given clip always looks the same, which is the whole reason a shape
+ * is worth drawing in a list rather than a progress bar that is the same rectangle for
+ * every row. It is rendered here rather than in the browser so a row arrives with its
+ * shape already in it; main.js replaces it with the file's real peaks on play, when the
+ * file has to be fetched anyway.
+ */
+function seededPeaks(seed, buckets) {
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i += 1) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  const out = [];
+  for (let b = 0; b < buckets; b += 1) {
+    h ^= h << 13;
+    h ^= h >>> 17;
+    h ^= h << 5;
+    h >>>= 0;
+    // Envelope: a clip fades in and out rather than starting at full level.
+    const env = Math.sin((b / buckets) * Math.PI);
+    out.push(0.25 + 0.75 * ((h % 1000) / 1000) * (0.4 + 0.6 * env));
+  }
+  return out;
+}
+
+// Roughly one bar per 3-4px of the widest the waveform gets, which is the Bible's
+// range. The bars flex, so this one count reads correctly at every width.
+const WAVE_BARS = 56;
+
+/**
+ * One session of the course, as a row player.
+ *
+ * Deliberately not `<audio controls>`: the Bible rules the native element out for a
+ * list — 54px of unstyleable chrome per row, a different look in every browser, and
+ * nothing stopping two of them playing at once. This is the row size it specifies
+ * instead: a 28px play button, the waveform, one time label, nothing else. The label
+ * is the duration until playback starts and the position afterwards, because a column
+ * of 0:00 tells the reader nothing.
+ *
+ * The name sits above the row on a phone and becomes a column of its own from `sm` up.
+ * Either way every waveform on the page is the same width, which is what makes the
+ * shapes comparable down the column — the one thing a list of clips exists to do.
+ */
+function session(s) {
+  const bars = seededPeaks(s.file, WAVE_BARS)
+    .map((v) => `<span style="height:${Math.round(v * 100)}%"></span>`)
+    .join("");
+  return `<li>
+    <div class="session grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 rounded-xl border border-surface-800 bg-surface-950 p-3 sm:grid-cols-[auto_9.5rem_minmax(0,1fr)_auto]"
+      data-src="/audio/book-alchemy/${s.file}" data-title="${s.name}" data-seconds="${s.seconds}" data-duration="${s.duration}">
+      <span class="col-span-3 min-w-0 truncate text-sm font-medium text-fg sm:col-span-1 sm:col-start-2 sm:row-start-1">
+        <span class="tabular-nums text-fg-muted">${pad(s.n - 1)}</span> ${s.name}
+      </span>
+      <button type="button" class="session-play sm:col-start-1 sm:row-start-1" aria-label="Play ${s.name}">
+        ${icon("play", "h-3.5 w-3.5 g-play")}
+        ${icon("pause", "h-3.5 w-3.5 g-pause")}
+      </button>
+      <div class="wave sm:col-start-3 sm:row-start-1" role="slider" tabindex="0"
+        aria-label="Seek within ${s.name}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+        aria-valuetext="0:00 of ${s.duration}">${bars}</div>
+      <span class="session-time sm:col-start-4 sm:row-start-1">${s.duration}</span>
+    </div>
+  </li>`;
 }
 
 /** One example timeline. Static copy, not a link — the button above goes to the app. */
@@ -261,6 +350,38 @@ export const phansoraPage = {
       </div>
 
       ${capabilityStrip(CHRONO_CAPABILITIES)}
+
+      <!-- Product 03. Back to screenshot-left, so the page alternates rather than
+           settling into one shape — and because this pairing is section 01's again:
+           an editor, and beside it what came out of it. The screenshot is 3:2 where
+           Narrava's was 16:9, so it takes a smaller share of the row than that one
+           did; at 1.35fr a picture this tall left the panel too narrow to lay a
+           waveform out in. -->
+      <div class="mt-24">${sectionHead(2)}</div>
+
+      <div class="reveal mt-8 grid items-start gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+        <figure class="overflow-hidden rounded-2xl border border-surface-800 bg-surface-950">
+          <img src="/images/phansora/book-alchemy.webp"
+            srcset="/images/phansora/book-alchemy-940.webp 940w, /images/phansora/book-alchemy.webp 1536w"
+            sizes="(min-width: 1024px) 52vw, 100vw"
+            width="1536" height="1024" loading="lazy" decoding="async"
+            alt="The Book Alchemy converter: The Kybalion loaded as a 342-page PDF beside its cover, a neutral narration voice, playback speed and output format, and the book's six chapters — The All through Rhythm — each with its own play control, above a waveform scrubber."
+            class="block w-full" />
+        </figure>
+
+        <div class="flex flex-col rounded-2xl border border-surface-800 bg-surface-900/60 p-5">
+          <h3 class="text-sm font-semibold text-fg">Made with Book Alchemy</h3>
+          <p class="mt-1 text-sm leading-relaxed text-fg-secondary">The opening sessions of the course on the left. Nothing loads until you press play.</p>
+          <!-- One list, three rows deep. The screenshot beside it already shows what a
+               full contents page looks like; what this has to do is let someone hear
+               the thing, which takes one row done properly rather than six. -->
+          <ol class="mt-4 flex w-full max-w-md flex-col gap-2.5 lg:max-w-none">
+            ${SESSIONS.map(session).join("\n")}
+          </ol>
+        </div>
+      </div>
+
+      ${capabilityStrip(BOOK_ALCHEMY_CAPABILITIES)}
     </div>
   </section>
 

@@ -22,4 +22,11 @@ if [ -d assets/videos ]; then
   echo "Synced $(ls -1 dist/videos | wc -l) video(s) → dist/videos"
 fi
 
+# Same for the course audio: tracked in assets/, gitignored in dist/.
+if [ -d assets/audio ]; then
+  mkdir -p dist/audio
+  rsync -a --delete assets/audio/ dist/audio/
+  echo "Synced $(find dist/audio -type f | wc -l) audio file(s) → dist/audio"
+fi
+
 echo "Deployed $(git rev-parse --short HEAD) — nginx serves $REPO/dist"
