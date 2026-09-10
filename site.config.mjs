@@ -4,7 +4,7 @@ export const site = {
   name: "Skylanex",
   tagline: "AI software studio",
   domain: "https://www.skylanex.com", // canonical is www (site forces www + https)
-  email: "hello@skylanex.com",
+  email: "info@skylanex.com",
   owner: "Brandon Sanders",
   location: "Mooresboro, NC",
   description:
