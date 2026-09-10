@@ -2,12 +2,13 @@ import { icon } from "../layout.mjs";
 import { heroGlow, afterHero, ctaBand } from "../ui.mjs";
 import { products, site } from "../../site.config.mjs";
 
-// The five products of the suite, in the order the platform itself lists them.
+// The five products of the suite, in the order this page presents them — which is not
+// the platform's own order (phansora/src/products.js leads with Book Alchemy). The two
+// with interface art to show lead here; the rest follow and are what the "/ 05" counts.
 //
-// Only the first is laid out on this page — the others are what the "01 / 05" counts,
-// and a bare 05 with nothing naming the five it counts would be a number nobody could
-// check. They are also what a second section would be built from if this page ever
-// grows one.
+// A section's number is its index in this array, so moving an entry renumbers it. The
+// three without art are still listed because a bare 05 with nothing naming the five it
+// counts would be a number nobody could check.
 //
 // `href` is each product's own public page on Phansora, taken from that app's product
 // registry rather than guessed. Narrava Studio is the exception: it has no public page
@@ -20,6 +21,14 @@ const SUITE = [
       "An all-in-one AI video studio for creating professional videos with scripts, media, AI narration, subtitles, transitions, and more.",
     href: site.phansoraUrl,
     icon: "clapper",
+  },
+  {
+    name: "Chrono Origin",
+    tagline: "Trace any story, claim, or idea back to its origins.",
+    blurb:
+      "Build evidence-based timelines that uncover where ideas began, how they evolved, and how sources connect — with citations at every step.",
+    href: `${site.phansoraUrl}/chrono-origin`,
+    icon: "compass",
   },
   {
     name: "Book Alchemy",
@@ -38,14 +47,6 @@ const SUITE = [
     icon: "layers",
   },
   {
-    name: "Chrono Origin",
-    tagline: "Trace any claim back to its source.",
-    blurb:
-      "Follows a story, myth, or claim back to the earliest source the evidence allows, with grounded web search and a citation at every step.",
-    href: `${site.phansoraUrl}/chrono-origin`,
-    icon: "compass",
-  },
-  {
     name: "SpokenVerse",
     tagline: "Your words, in a voice of your own.",
     blurb:
@@ -55,12 +56,28 @@ const SUITE = [
   },
 ];
 
-// What the editor in the screenshot actually does, named the way its own panels are.
-const CAPABILITIES = [
+// What each editor in the screenshots actually does, named the way its own panels are.
+const NARRAVA_CAPABILITIES = [
   { icon: "book", title: "Script &amp; Storyboard", sub: "Turn your ideas into a story" },
   { icon: "mic", title: "AI Narration", sub: "Natural, realistic voices" },
   { icon: "grid", title: "Media Library", sub: "Stock, uploads, and AI images" },
   { icon: "sliders", title: "Effects &amp; Transitions", sub: "Cinematic and dynamic" },
+];
+
+const CHRONO_CAPABILITIES = [
+  { icon: "clock", title: "Origin Tracing", sub: "Find the earliest defensible source." },
+  { icon: "workflow", title: "Evidence Timelines", sub: "Follow ideas through time." },
+  { icon: "network", title: "Source Connections", sub: "See how records reference and influence one another." },
+  { icon: "app", title: "Research &amp; Citations", sub: "Ground every step in verifiable sources." },
+];
+
+// The three timelines shown beside the Chrono Origin screenshot. The first is the one
+// the screenshot has open, which is why it carries the ring the app gives a selection —
+// the panel and the picture are showing the same thing.
+const TIMELINES = [
+  { name: "Ancient Israelite Religion", blurb: "From Canaanite roots to Second Temple Judaism." },
+  { name: "The Flood Narrative", blurb: "A global story through time and cultures." },
+  { name: "Jesus Parallels", blurb: "Comparative figures and influences across history." },
 ];
 
 /** The four words down the right of the hero — what the suite is for, in order. */
@@ -92,6 +109,66 @@ function film(f, featured = false) {
       <span class="mt-0.5 block text-[11px] text-surface-300">${f.kind} · ${f.duration}</span>
     </span>
   </button>`;
+}
+
+/**
+ * The block that opens a product's section: its number, name, tagline, blurb and link.
+ *
+ * Identical for every product, so it is written once here rather than copied per
+ * section — the only thing that varies is which entry of SUITE it is handed.
+ */
+function sectionHead(i) {
+  const p = SUITE[i];
+  return `<div class="reveal grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
+    <div>
+      <p class="text-sm font-semibold tracking-wider text-fg-muted">
+        <span class="text-primary-300">${pad(i)}</span> / ${pad(SUITE.length - 1)}
+      </p>
+      <h2 class="mt-2 text-3xl font-bold tracking-tight text-fg sm:text-4xl">${p.name}</h2>
+      <p class="mt-2 text-lg text-fg-secondary">${p.tagline}</p>
+    </div>
+    <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+      <p class="max-w-md leading-relaxed text-fg-secondary">${p.blurb}</p>
+      <a href="${p.href}" target="_blank" rel="noopener" class="btn btn-primary w-fit shrink-0">
+        Explore ${p.name} ${icon("arrow", "h-4 w-4")}
+      </a>
+    </div>
+  </div>`;
+}
+
+/** The four-up strip of what a product does, under its screenshot. */
+function capabilityStrip(items) {
+  return `<ul class="reveal mt-6 grid gap-px overflow-hidden rounded-2xl border border-surface-800 bg-surface-800 sm:grid-cols-2 lg:grid-cols-4">
+    ${items
+      .map(
+        (c) => `<li class="flex items-start gap-3 bg-surface-900/60 p-5">
+      <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-primary-500/10 text-primary-200 ring-1 ring-inset ring-primary-500/25">
+        ${icon(c.icon, "h-4.5 w-4.5")}
+      </span>
+      <span class="min-w-0">
+        <span class="block text-sm font-semibold text-fg">${c.title}</span>
+        <span class="mt-0.5 block text-sm text-fg-secondary">${c.sub}</span>
+      </span>
+    </li>`
+      )
+      .join("")}
+  </ul>`;
+}
+
+/** One example timeline. Static copy, not a link — the button above goes to the app. */
+function timeline(t, i) {
+  const open = i === 0;
+  return `<div class="flex items-start gap-3 rounded-xl border ${
+    open ? "border-primary-400/70 bg-surface-900/80 ring-1 ring-primary-400/30" : "border-surface-800 bg-surface-950"
+  } p-4">
+    <span class="min-w-0 flex-1">
+      <span class="block text-sm font-semibold text-fg">${t.name}</span>
+      <span class="mt-1 block text-sm leading-relaxed text-fg-secondary">${t.blurb}</span>
+    </span>
+    <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full text-xs font-semibold ${
+      open ? "bg-primary-500/20 text-primary-200 ring-1 ring-inset ring-primary-400/40" : "bg-surface-800 text-fg-muted"
+    }">${i + 1}</span>
+  </div>`;
 }
 
 export const phansoraPage = {
@@ -128,24 +205,8 @@ export const phansoraPage = {
 
   <section class="px-5 ${afterHero} pb-20 sm:px-8">
     <div class="mx-auto max-w-6xl">
-      <!-- Product 01. It gets the screenshot and the films; the other four are named
-           below it, because there is no interface art for them and a placeholder box
-           each would say less than a line of type. -->
-      <div class="reveal grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
-        <div>
-          <p class="text-sm font-semibold tracking-wider text-fg-muted">
-            <span class="text-primary-300">01</span> / ${pad(SUITE.length - 1)}
-          </p>
-          <h2 class="mt-2 text-3xl font-bold tracking-tight text-fg sm:text-4xl">${SUITE[0].name}</h2>
-          <p class="mt-2 text-lg text-fg-secondary">${SUITE[0].tagline}</p>
-        </div>
-        <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-          <p class="max-w-md leading-relaxed text-fg-secondary">${SUITE[0].blurb}</p>
-          <a href="${SUITE[0].href}" target="_blank" rel="noopener" class="btn btn-primary w-fit shrink-0">
-            Explore ${SUITE[0].name} ${icon("arrow", "h-4 w-4")}
-          </a>
-        </div>
-      </div>
+      <!-- Product 01. Screenshot left, its films right. -->
+      ${sectionHead(0)}
 
       <div class="reveal mt-8 grid items-start gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
         <!-- The editor itself. Native resolution is 1672 wide and the card never
@@ -176,19 +237,30 @@ export const phansoraPage = {
         </div>
       </div>
 
-      <ul class="reveal mt-6 grid gap-px overflow-hidden rounded-2xl border border-surface-800 bg-surface-800 sm:grid-cols-2 lg:grid-cols-4">
-        ${CAPABILITIES.map(
-          (c) => `<li class="flex items-start gap-3 bg-surface-900/60 p-5">
-          <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-primary-500/10 text-primary-200 ring-1 ring-inset ring-primary-500/25">
-            ${icon(c.icon, "h-4.5 w-4.5")}
-          </span>
-          <span class="min-w-0">
-            <span class="block text-sm font-semibold text-fg">${c.title}</span>
-            <span class="mt-0.5 block text-sm text-fg-secondary">${c.sub}</span>
-          </span>
-        </li>`
-        ).join("")}
-      </ul>
+      ${capabilityStrip(NARRAVA_CAPABILITIES)}
+
+      <!-- Product 02. The sides swap: the panel leads and the screenshot follows, so
+           two sections running down the page do not read as the same shape twice. The
+           timeline picture is also wider than the editor one (2:1 against 16:9), so it
+           takes the larger share of the row here. -->
+      <div class="mt-24">${sectionHead(1)}</div>
+
+      <div class="reveal mt-8 grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.9fr)]">
+        <div class="flex flex-col gap-3 rounded-2xl border border-surface-800 bg-surface-900/60 p-5">
+          ${TIMELINES.map((t, i) => timeline(t, i)).join("\n")}
+        </div>
+
+        <figure class="overflow-hidden rounded-2xl border border-surface-800 bg-surface-950">
+          <img src="/images/phansora/chrono-origin.webp"
+            srcset="/images/phansora/chrono-origin-940.webp 940w, /images/phansora/chrono-origin.webp 1774w"
+            sizes="(min-width: 1024px) 64vw, 100vw"
+            width="1774" height="887" loading="lazy" decoding="async"
+            alt="Chrono Origin tracing Ancient Israelite Religion: five evidence cards from Canaanite Religion, marked first trace, through the Tel Dan and Mesha steles and the Hebrew Bible to Second Temple Judaism, plotted on a dated axis from 1600 BCE to 400 CE above a density strip and a count of 42 sources."
+            class="block w-full" />
+        </figure>
+      </div>
+
+      ${capabilityStrip(CHRONO_CAPABILITIES)}
     </div>
   </section>
 

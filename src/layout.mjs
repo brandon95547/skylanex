@@ -24,6 +24,7 @@ const ICONS = {
   scale: '<path d="M12 3.5v17"/><path d="M6 7h12"/><path d="M6 7l-3 6h6l-3-6z"/><path d="M18 7l-3 6h6l-3-6z"/><path d="M8.5 20.5h7"/>',
   hardhat: '<path d="M3.5 18.5h17"/><path d="M6 18.5v-3.2a6 6 0 0 1 12 0v3.2"/><path d="M9.5 10V5.8A1.8 1.8 0 0 1 11.3 4h1.4A1.8 1.8 0 0 1 14.5 5.8V10"/>',
   pulse: '<circle cx="12" cy="12" r="9"/><path d="M7.5 12h2l1.5-3 2 6 1.5-3h2"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7.2V12l3.4 2"/>',
   wrench: '<path d="M15.6 3.3a5.2 5.2 0 0 0-6 6.7L3 16.6V21h4.4l6.6-6.6a5.2 5.2 0 0 0 6.7-6l-3.2 3.2-2.9-.7-.7-2.9 3.2-3.2z"/>',
   home: '<path d="M3 10.6L12 3.2l9 7.4"/><path d="M5.6 9.4V20a1 1 0 0 0 1 1h10.8a1 1 0 0 0 1-1V9.4"/><path d="M9.8 21v-6.2h4.4V21"/>',
   utensils: '<path d="M6 3v6.5a2 2 0 0 0 4 0V3"/><path d="M8 11.5V21"/><path d="M17.5 3c1.4 1.7 2 3.7 2 6 0 1.9-.7 3-2 3V21"/>',
