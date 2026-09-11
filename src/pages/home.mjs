@@ -22,7 +22,7 @@ export const home = {
       <div class="max-w-xl">
         <p class="reveal eyebrow mb-4 text-primary-200">AI. Software. Outcomes.</p>
         <h1 class="reveal text-4xl font-extrabold leading-[1.08] tracking-tight text-fg sm:text-5xl lg:text-[3.5rem]">
-          We build <span class="grad-text">intelligent software</span> that ships.
+          We build <span class="grad-text">intelligent software</span> that works.
         </h1>
         <p class="reveal mt-6 max-w-lg text-lg leading-relaxed text-fg-secondary">
           From custom AI applications to scalable platforms and tools, we turn complex ideas into reliable software that drives real results.
