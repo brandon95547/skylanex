@@ -22,6 +22,10 @@ const ICONS = {
   pause: '<path d="M8.5 5h2.5v14H8.5zM13 5h2.5v14H13z" fill="currentColor" stroke="none"/>',
   headphones: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="2.5" y="14" width="4.5" height="6" rx="1.75"/><rect x="17" y="14" width="4.5" height="6" rx="1.75"/>',
   list: '<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.3"/><circle cx="4.5" cy="12" r="1.3"/><circle cx="4.5" cy="18" r="1.3"/>',
+  link: '<path d="M10.4 13.6a3.8 3.8 0 0 0 5.4 0l2.7-2.7a3.8 3.8 0 0 0-5.4-5.4l-1.5 1.5"/><path d="M13.6 10.4a3.8 3.8 0 0 0-5.4 0l-2.7 2.7a3.8 3.8 0 0 0 5.4 5.4l1.5-1.5"/>',
+  folder: '<path d="M3.5 7.5a2 2 0 0 1 2-2h3.6l2 2.2h7.4a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2V7.5z"/>',
+  "chevron-left": '<path d="M14.5 6l-6 6 6 6"/>',
+  "chevron-right": '<path d="M9.5 6l6 6-6 6"/>',
   download: '<path d="M12 3v11"/><path d="M8 10.5l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>',
   close: '<path d="M6 6l12 12M18 6L6 18"/>',
   /* industry marks for /solutions */

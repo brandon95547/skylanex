@@ -419,6 +419,37 @@
   .film.is-playing > span { opacity: 0; }
   .film > span { transition: opacity .2s ease; }
 
+  /* ── Video examples: the SpokenVerse player's arrows ─────────────────────
+     Filled while they can move, outlined once they cannot — the reference's own
+     pair, where the arrow at the end of the run is the dim one. The disabled look
+     is keyed to aria-disabled rather than :disabled, which main.js uses so that
+     stepping onto the last clip does not strand focus. */
+  .reel-step {
+    position: relative;
+    display: grid;
+    height: 2.25rem;
+    width: 2.25rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in oklab, var(--color-primary-400) 45%, transparent);
+    background-color: color-mix(in oklab, var(--color-primary-500) 15%, transparent);
+    color: var(--color-primary-200);
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .reel-step:hover { border-color: var(--color-primary-400); color: var(--color-primary-100); }
+  .reel-step[aria-disabled="true"] {
+    cursor: default;
+    border-color: var(--color-surface-800);
+    background-color: transparent;
+    color: var(--color-fg-muted);
+  }
+  .reel-step:focus-visible { outline: 2px solid var(--color-primary-400); outline-offset: 2px; }
+  /* 44px on a coarse pointer, grown underneath as the row players' is. */
+  @media (pointer: coarse) {
+    .reel-step::after { content: ""; position: absolute; inset: -0.25rem; }
+  }
+
   /* ── Course sessions: the audio rows on /phansora ────────────────────────
      Sizes are the UI Bible's row player (ui.skylanex.com, Audio Player): a 28px
      play button, a 28px waveform, and a time label at a fixed width so the

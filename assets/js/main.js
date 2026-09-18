@@ -231,6 +231,91 @@
     });
   });
 
+  // ── Video examples: one frame, a poster per clip ──────────────────────────
+  //
+  // SpokenVerse's panel on /phansora. The frame holds a poster button per clip,
+  // all but the selected one `hidden`; the chips and the arrows pick which. As
+  // with the films there is no <video> until a poster is pressed — and then it is
+  // the native player, added to the frame beside the posters rather than inside
+  // one, because its controls cannot live inside a button.
+  document.querySelectorAll("[data-reel]").forEach(function (reel) {
+    var frame = reel.querySelector("[data-reel-frame]");
+    var posters = Array.prototype.slice.call(reel.querySelectorAll("[data-reel-poster]"));
+    var chips = Array.prototype.slice.call(reel.querySelectorAll("[data-reel-chip]"));
+    var prev = reel.querySelector("[data-reel-prev]");
+    var next = reel.querySelector("[data-reel-next]");
+    var count = reel.querySelector("[data-reel-count]");
+    var status = reel.querySelector("[data-reel-status]");
+    if (!frame || !posters.length) { return; }
+    var current = 0;
+    var video = null;
+
+    function stop() {
+      if (!video) { return; }
+      // Focus goes back to the poster only if it was on the player. When another
+      // clip on the page takes over, the reader is already somewhere else.
+      var hadFocus = document.activeElement === video;
+      video.pause();
+      video.remove();
+      video = null;
+      posters[current].hidden = false;
+      if (hadFocus) { posters[current].focus(); }
+      releasePlayback(stop);
+    }
+
+    // aria-disabled rather than disabled: pressing "next" onto the last clip would
+    // otherwise disable the button under the reader's focus and drop it on <body>.
+    function paintSteps() {
+      if (prev) { prev.setAttribute("aria-disabled", current === 0 ? "true" : "false"); }
+      if (next) { next.setAttribute("aria-disabled", current === posters.length - 1 ? "true" : "false"); }
+    }
+
+    function select(i) {
+      if (i < 0 || i >= posters.length || i === current) { return; }
+      stop();
+      posters[current].hidden = true;
+      current = i;
+      posters[current].hidden = false;
+      chips.forEach(function (chip, k) {
+        if (k === current) { chip.setAttribute("aria-current", "true"); }
+        else { chip.removeAttribute("aria-current"); }
+      });
+      paintSteps();
+      if (count) { count.textContent = String(current + 1); }
+      if (status) {
+        status.textContent = (posters[current].getAttribute("data-title") || "Clip") +
+          ", " + (current + 1) + " of " + posters.length;
+      }
+    }
+
+    posters.forEach(function (poster) {
+      poster.addEventListener("click", function () {
+        if (video) { return; }
+        claimPlayback(stop);
+        video = document.createElement("video");
+        video.src = poster.getAttribute("data-video");
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        video.setAttribute("aria-label", poster.getAttribute("data-title") || "Video");
+        video.className = "absolute inset-0 h-full w-full bg-black object-contain";
+        video.addEventListener("ended", stop);
+        frame.appendChild(video);
+        poster.hidden = true;
+        // The button that was pressed has just gone, so focus follows it onto the
+        // player — where Space pauses — instead of falling back to the page.
+        video.focus();
+      });
+    });
+
+    chips.forEach(function (chip, k) {
+      chip.addEventListener("click", function () { select(k); });
+    });
+    if (prev) { prev.addEventListener("click", function () { select(current - 1); }); }
+    if (next) { next.addEventListener("click", function () { select(current + 1); }); }
+    paintSteps();
+  });
+
   // ── Audio rows: one player per card ───────────────────────────────────────
   //
   // The waveform is already in the HTML, seeded by src/pages/phansora.mjs, so a

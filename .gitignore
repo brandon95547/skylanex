@@ -3,7 +3,7 @@ node_modules/
 *.log
 
 # dist/ is committed on purpose (prod serves it), but the video copies are not —
-# ~76MB duplicated on every clone. prod-deploy.sh recreates dist/videos from
+# ~93MB duplicated on every clone. prod-deploy.sh recreates dist/videos from
 # assets/videos, which IS tracked.
 dist/videos/
 dist/audio/

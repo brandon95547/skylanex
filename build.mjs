@@ -130,7 +130,7 @@ function build() {
   copyDir(path.join(__dirname, "assets", "js"), path.join(DIST, "js"));
   copyDir(path.join(__dirname, "assets", "images"), path.join(DIST, "images"));
   copyDir(path.join(__dirname, "assets", "fonts"), path.join(DIST, "fonts"));
-  // Videos are ~76MB. dist/ is committed, so dist/videos is gitignored and prod
+  // Videos are ~93MB. dist/ is committed, so dist/videos is gitignored and prod
   // re-creates it from assets/ during deploy — see deploy/prod-deploy.sh.
   // In dev the startup build already copied them; skip on incremental rebuilds.
   if (!DEV) copyDir(path.join(__dirname, "assets", "videos"), path.join(DIST, "videos"));

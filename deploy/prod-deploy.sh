@@ -14,7 +14,7 @@ REPO="${1:-/var/www/skylanex}"
 cd "$REPO"
 git pull --ff-only
 
-# dist/videos is gitignored (it would double ~76MB of media in the repo), so
+# dist/videos is gitignored (it would double ~93MB of media in the repo), so
 # recreate it from the tracked assets/videos on each deploy.
 if [ -d assets/videos ]; then
   mkdir -p dist/videos

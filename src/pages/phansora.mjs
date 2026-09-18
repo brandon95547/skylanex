@@ -3,20 +3,19 @@ import { heroGlow, afterHero, ctaBand } from "../ui.mjs";
 import { products, site } from "../../site.config.mjs";
 
 // The five products of the suite, in the order this page presents them — which is not
-// the platform's own order (phansora/src/products.js leads with Book Alchemy). The two
-// with interface art to show lead here; the rest follow and are what the "/ 05" counts.
+// the platform's own order (phansora/src/products.js leads with Book Alchemy). It is
+// the order the reference mocks number them in, 01 to 05. All five have interface art
+// now, so each has a section of its own and the "/ 05" counts exactly what is on the
+// page.
 //
-// A section's number is its index in this array, so moving an entry renumbers it. The
-// three without art are still listed because a bare 05 with nothing naming the five it
-// counts would be a number nobody could check.
+// A section's number is its index in this array, so moving an entry renumbers it.
+// SpokenVerse was 04 until its rebuilt reference put it at 05, behind Research Atlas.
 //
-// `href` is taken from that app's product registry rather than guessed. The two products
-// this page actually shows the interface of link straight into their dashboard, so
-// "Explore X" opens the thing the screenshot above it is a picture of; Phansora's
-// `requireDashboardSession` sends a logged-out visitor to /login?next=<that path> and
-// drops them back on the product once they are in, so the link works either way. The
-// two without art still point at their marketing page — sending a stranger into a
-// dashboard for a product they have not read a word about is a step too far.
+// `href` is taken from that app's product registry rather than guessed, and every one
+// of them now goes to a dashboard: "Explore X" opens the thing the screenshot above it
+// is a picture of. Phansora's `requireDashboardSession` sends a logged-out visitor to
+// /login?next=<that path> and drops them back on the product once they are in, so the
+// link works either way.
 const SUITE = [
   {
     name: "Narrava Studio",
@@ -43,19 +42,21 @@ const SUITE = [
     icon: "book",
   },
   {
+    // Tagline and blurb are the reference's own copy.
     name: "Research Atlas",
-    tagline: "Turn a pile of sources into a report.",
+    tagline: "Turn complex research into a visual map of connected knowledge.",
     blurb:
-      "Upload your sources and Research Atlas organises them into a structured, attributed research report — every claim traceable to the document it came from.",
-    href: `${site.phansoraUrl}/research-atlas`,
-    icon: "layers",
+      "Explore sources, ideas, evidence, and relationships on an interactive canvas. Follow connections and see how the research fits together.",
+    href: `${site.phansoraUrl}/dashboard/research-atlas`,
+    icon: "network",
   },
   {
+    // Tagline and blurb are the reference's own copy.
     name: "SpokenVerse",
-    tagline: "Your words, in a voice of your own.",
+    tagline: "Turn your words into lifelike speech.",
     blurb:
-      "Natural text-to-speech with voice cloning — turn writing into narration that sounds like a person rather than a synthesiser.",
-    href: `${site.phansoraUrl}/spokenverse`,
+      "Create natural, expressive voiceovers for videos, audiobooks, podcasts, and more with advanced AI voices.",
+    href: `${site.phansoraUrl}/dashboard/spokenverse`,
     icon: "mic",
   },
 ];
@@ -124,6 +125,43 @@ const EXAMPLES = [
     seconds: 90,
   },
 ];
+// The reference's own four, wording and all.
+const SPOKENVERSE_CAPABILITIES = [
+  { icon: "mic", title: "Realistic AI Voices", sub: "Human-like, natural speech across languages." },
+  { icon: "sliders", title: "Voice Customization", sub: "Adjust tone, emotion, speed, and pitch." },
+  { icon: "app", title: "Multiple Formats", sub: "Export as MP3, WAV and more." },
+  { icon: "folder", title: "Creative Freedom", sub: "Perfect for videos, audiobooks, podcasts, and other projects." },
+];
+
+// The clips in the SpokenVerse player, in the order Phansora's own homepage shows them
+// (phansora/views/partials/voice-showcase-home.ejs). The files under
+// assets/videos/spokenverse are byte-for-byte copies of that page's /demos, renamed —
+// copies rather than links, because this site's CSP is media-src 'self'.
+//
+// The reference names its three "A Small Voice", "The Lost Library" and "Beyond Earth",
+// films that do not exist. These are named for what each clip demonstrates, shortened
+// from the showcase's own headings so a chip's title fits in two lines. `seconds` is the
+// file's own length, floored the way the player's clock floors it.
+//
+// The posters are real frames, as the Bible asks, and caption-free where the clip has
+// such a frame. The third has a burned-in caption on every frame worth showing, so its
+// poster carries a one-letter "A" rather than a frame out of the fade to black.
+const REEL = [
+  { slug: "video-narration", title: "Video Narration", seconds: 20 },
+  { slug: "audio-courses", title: "Audio Courses", seconds: 13 },
+  { slug: "character-voices", title: "Character Voices", seconds: 18 },
+];
+
+// All four are the reference's own, down to the wording. "link" is the chain glyph it
+// draws for Relationship Mapping; `network` is already the map's own mark above it, and
+// a section cannot use one icon for two different rows.
+const RESEARCH_ATLAS_CAPABILITIES = [
+  { icon: "network", title: "Visual Research Maps", sub: "Turn complex research into clear, connected diagrams." },
+  { icon: "app", title: "Source Intelligence", sub: "Keep findings connected to the material they came from." },
+  { icon: "link", title: "Relationship Mapping", sub: "See how people, events, claims, and ideas connect." },
+  { icon: "download", title: "Research Library", sub: "Save and revisit your maps and discoveries." },
+];
+
 /** The four words down the right of the hero — what the suite is for, in order. */
 const PILLARS = ["Ideas", "Knowledge", "Creation", "Real impact"];
 
@@ -280,6 +318,56 @@ function example(e) {
   </li>`;
 }
 
+/**
+ * One clip's poster in the SpokenVerse player: a real frame, a play button, its length.
+ *
+ * The Bible's video page, point for point: a poster that is a frame from the clip at
+ * the clip's own 16:9, a 56px play control that is a real button, and the duration on
+ * the poster, since that is what people decide on. All three posters are in the frame
+ * and all but the selected one are `hidden`, so a poster's image is only fetched once
+ * its clip is picked. There is no <video> until one is pressed: main.js builds the
+ * native player then, beside the posters rather than inside one — its controls are
+ * interactive content, and a button cannot hold any.
+ */
+function reelPoster(r, i) {
+  return `<button type="button" data-reel-poster data-video="/videos/spokenverse/${r.slug}.mp4" data-title="${r.title}"
+      aria-label="Play ${r.title}, ${clock(r.seconds)}"${i === 0 ? "" : " hidden"}
+      class="group absolute inset-0 block h-full w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-400">
+      <img src="/images/phansora/examples/${r.slug}.webp" width="960" height="540" alt="" loading="lazy" decoding="async"
+        class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+      <span class="pointer-events-none absolute inset-0 grid place-items-center">
+        <span class="grid h-14 w-14 place-items-center rounded-full bg-surface-950/70 text-fg ring-1 ring-inset ring-white/25 backdrop-blur-sm transition-transform group-hover:scale-110">
+          ${icon("play", "h-6 w-6")}
+        </span>
+      </span>
+      <span class="pointer-events-none absolute bottom-3 right-3 rounded-md bg-black/75 px-1.5 py-0.5 text-[11px] font-medium tabular-nums text-white">${clock(r.seconds)}</span>
+    </button>`;
+}
+
+/**
+ * One chip under the player: the clip's thumbnail, title and length. Picking it cues
+ * that clip's poster and stops whatever is playing; it does not start the new one,
+ * which keeps the panel's promise that nothing loads until play is pressed.
+ *
+ * The selected chip wears the ring the Chrono Origin panel gives its open timeline —
+ * one selected state on the page, not two. The thumbnail steps out between lg and xl:
+ * the chips are 113px wide at lg, and beside a 44px thumbnail that leaves 47px for a
+ * title, which "Narration" alone is wider than.
+ */
+function reelChip(r, i) {
+  return `<li>
+      <button type="button" data-reel-chip data-title="${r.title}"${i === 0 ? ' aria-current="true"' : ""}
+        class="flex h-full w-full items-center gap-2.5 rounded-xl border border-surface-800 bg-surface-950 p-1.5 text-left transition-colors hover:border-surface-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 aria-[current=true]:border-primary-400/70 aria-[current=true]:bg-surface-900/80 aria-[current=true]:ring-1 aria-[current=true]:ring-primary-400/30">
+        <img src="/images/phansora/examples/${r.slug}-thumb.webp" width="88" height="88" alt="" loading="lazy" decoding="async"
+          class="h-11 w-11 shrink-0 rounded-lg object-cover lg:hidden xl:block" />
+        <span class="min-w-0 lg:pl-1.5 xl:pl-0">
+          <span class="block text-[13px] font-semibold leading-snug text-fg">${r.title}</span>
+          <span class="mt-0.5 block text-[11px] tabular-nums text-fg-muted">${clock(r.seconds)}</span>
+        </span>
+      </button>
+    </li>`;
+}
+
 /** One example timeline. Static copy, not a link — the button above goes to the app. */
 function timeline(t, i) {
   const open = i === 0;
@@ -420,6 +508,102 @@ export const phansoraPage = {
       </div>
 
       ${capabilityStrip(BOOK_ALCHEMY_CAPABILITIES)}
+
+      <!-- Product 04. Screenshot left, as the reference draws it, rather than the
+           alternation 01-03 run on: from here down the references are the brief. -->
+      <div class="mt-24">${sectionHead(3)}</div>
+
+      <!-- 1.35fr : 1fr is section 01's split, and it is what stands these two at the
+           same height: the map is 1.41:1, and at that share the panel's heading, its
+           line of copy and a 1.31:1 diagram come out within a few pixels of the
+           figure. items-start so the remainder is a few pixels of nothing rather than
+           a stretched card. -->
+      <div class="reveal mt-8 grid items-start gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+        <!-- Cropped out of the reference at 1083x769 — inside the mock's own card
+             border, because the figure draws that chrome itself. That is all the
+             resolution there is, so it is 1.7x at the width this renders and will be
+             soft on a retina screen until a real capture lands. -->
+        <figure class="overflow-hidden rounded-2xl border border-surface-800 bg-surface-950">
+          <img src="/images/phansora/research-atlas.webp"
+            srcset="/images/phansora/research-atlas-940.webp 940w, /images/phansora/research-atlas.webp 1083w"
+            sizes="(min-width: 1024px) 56vw, 100vw"
+            width="1083" height="769" loading="lazy" decoding="async"
+            alt="The Research Atlas map for “another world in antarctica”: five sources and 1963 attributed items broken out into People, Organizations, Places, a core timeline, events, connections and claims, then where the sources overlap, where they differ, the evidence behind them and the open research gaps — each row carrying its own count."
+            class="block w-full" />
+        </figure>
+
+        <div class="flex flex-col rounded-2xl border border-surface-800 bg-surface-900/60 p-5">
+          <h3 class="text-sm font-semibold text-fg">From Question to Knowledge</h3>
+          <p class="mt-1 text-sm leading-relaxed text-fg-secondary">Start with a subject and watch the research expand into connected sources, evidence, people, events, and ideas.</p>
+          <!-- The reference's diagram, not a rebuild of it: curved coloured edges, a
+               glow and a handwritten aside are a picture, and drawing them in SVG would
+               be a different picture. The heading and the line above it are real text
+               rather than part of the crop, which is how the other four panels read. -->
+          <img src="/images/phansora/research-atlas-map.webp" width="766" height="586"
+            loading="lazy" decoding="async"
+            alt="The subject “another world in antarctica”, 5 sources and 1963 items, fanning out into People, Organizations, Places, a core timeline, events and connections, which in turn link on to ancient maps, government records, similar accounts and research notes."
+            class="mt-4 block w-full rounded-xl border border-surface-800" />
+        </div>
+      </div>
+
+      ${capabilityStrip(RESEARCH_ATLAS_CAPABILITIES)}
+
+      <!-- Product 05. Screenshot left, as its reference draws it. -->
+      <div class="mt-24">${sectionHead(4)}</div>
+
+      <!-- 1.35fr : 1fr, section 01's split again, and for the same reason: at that share
+           the panel — its heading, a 16:9 player and a row of two-line chips — stands at
+           the 3:2 screenshot's height to the pixel. items-start, so the widths where the
+           two part company leave a gap under the shorter card rather than a stretched
+           figure with a band of empty frame below its picture. -->
+      <div class="reveal mt-8 grid items-start gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+        <figure class="overflow-hidden rounded-2xl border border-surface-800 bg-surface-950">
+          <img src="/images/phansora/spokenverse.webp"
+            srcset="/images/phansora/spokenverse-940.webp 940w, /images/phansora/spokenverse.webp 1536w"
+            sizes="(min-width: 1024px) 56vw, 100vw"
+            width="1536" height="1024" loading="lazy" decoding="async"
+            alt="The SpokenVerse text-to-speech studio: a line on knowledge being shared, at 107 of 5,000 characters, read by the Nova voice — female, natural, expressive — in English (US) at 1.0x speed, 0% pitch and a neutral emotion, above a twelve-second waveform ready to play and three recent generations: The Forgotten Library, Beyond the Veil and Ancient Civilizations."
+            class="block w-full" />
+        </figure>
+
+        <!-- The player the reference draws, made real. main.js drives it off the data-
+             attributes: the arrows and the chips pick a clip, a poster builds the video.
+             The "1 / 3" is a pager's position, not a tally like the count the Narrava panel
+             lost on request — it is what makes the two arrows beside it readable. -->
+        <div class="flex flex-col rounded-2xl border border-surface-800 bg-surface-900/60 p-5" data-reel>
+          <div class="flex items-start justify-between gap-4">
+            <div class="min-w-0">
+              <h3 class="text-sm font-semibold text-fg">Video Examples</h3>
+              <p class="mt-1 text-sm leading-relaxed text-fg-secondary">See what&rsquo;s possible with SpokenVerse.</p>
+            </div>
+            <div class="flex shrink-0 items-center gap-2">
+              <button type="button" class="reel-step" data-reel-prev aria-label="Previous example" aria-disabled="true">
+                ${icon("chevron-left", "h-4 w-4")}
+              </button>
+              <span class="min-w-10 text-center text-sm tabular-nums text-fg-secondary" aria-hidden="true"><span data-reel-count>1</span> / ${REEL.length}</span>
+              <button type="button" class="reel-step" data-reel-next aria-label="Next example">
+                ${icon("chevron-right", "h-4 w-4")}
+              </button>
+            </div>
+          </div>
+          <!-- The visible counter is hidden from assistive tech and this says the same
+               thing in words when the selection changes: "2 / 3" read aloud is noise. -->
+          <p class="sr-only" aria-live="polite" data-reel-status></p>
+
+          <!-- Black behind the video, as the Bible has it, so a frame that does not
+               fill the box reads as letterboxing rather than a gap. -->
+          <div class="relative mt-4 aspect-video overflow-hidden rounded-xl border border-surface-800 bg-black" data-reel-frame>
+            ${REEL.map(reelPoster).join("\n            ")}
+          </div>
+
+          <!-- One column on a phone, where three abreast leaves each title about 30px. -->
+          <ol class="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-3">
+            ${REEL.map(reelChip).join("\n            ")}
+          </ol>
+        </div>
+      </div>
+
+      ${capabilityStrip(SPOKENVERSE_CAPABILITIES)}
     </div>
   </section>
 
