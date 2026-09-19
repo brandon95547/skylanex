@@ -86,20 +86,23 @@ function resolveFile(urlPath) {
   return null;
 }
 
-// --- /api/shotmatrix → the Shot Matrix service, the way nginx does it in prod ---
-// Run the service alongside with `npm run serve` in ../shotmatrix. Paths pass through
-// unchanged, and X-Real-IP is set as nginx sets it, so the tool on
-// /products/shot-matrix works here exactly as it does live.
+// --- the two services behind this site, the way nginx reaches them in prod ---
+//
+// /api/shotmatrix → the Shot Matrix service (`npm run serve` in ../shotmatrix).
+// /api/auth, /auth/google → Phansora's app (`npm run dev` in ../phansora), which owns the
+// accounts. It is told the request is for www.skylanex.com, because that is what decides
+// the site an account is created on and the Google client it signs in with.
+//
+// A run needs an account, and in prod nginx asks Phansora's /api/auth/check first and
+// hands the service the answer as X-Shotmatrix-User. This does the same. With Phansora not
+// running, the header is left off: run the service with REQUIRE_LOGIN=0 to work without it.
 const SHOTMATRIX = new URL(process.env.SHOTMATRIX_API || "http://127.0.0.1:4700");
-function proxyShotMatrix(req, res) {
+const PHANSORA = new URL(process.env.PHANSORA_APP || "http://127.0.0.1:3000");
+const SITE_HOST = "www.skylanex.com";
+
+function proxy(target, req, res, headers, notRunning) {
   const upstream = http.request(
-    {
-      host: SHOTMATRIX.hostname,
-      port: SHOTMATRIX.port,
-      method: req.method,
-      path: req.url,
-      headers: { ...req.headers, "x-real-ip": req.socket.remoteAddress },
-    },
+    { host: target.hostname, port: target.port, method: req.method, path: req.url, headers },
     (up) => {
       res.writeHead(up.statusCode, up.headers);
       up.pipe(res);
@@ -108,13 +111,39 @@ function proxyShotMatrix(req, res) {
   upstream.on("error", () => {
     if (res.headersSent) return res.destroy();
     res.writeHead(502, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ error: "The Shot Matrix service isn't running here. Start it with `npm run serve` in ../shotmatrix." }));
+    res.end(JSON.stringify({ error: notRunning }));
   });
   req.pipe(upstream);
 }
 
+// nginx's auth_request, in miniature: the signed-in account's id, or null.
+function accountOf(req) {
+  return new Promise((resolve) => {
+    const check = http.request(
+      { host: PHANSORA.hostname, port: PHANSORA.port, path: "/api/auth/check",
+        headers: { host: SITE_HOST, cookie: req.headers.cookie || "" } },
+      (up) => { up.resume(); resolve(up.statusCode === 204 ? up.headers["x-auth-user"] || null : null); }
+    );
+    check.on("error", () => resolve(null));
+    check.end();
+  });
+}
+
+async function proxyShotMatrix(req, res) {
+  const { "x-shotmatrix-user": _ignored, ...headers } = req.headers;
+  const user = await accountOf(req);
+  proxy(SHOTMATRIX, req, res, { ...headers, "x-real-ip": req.socket.remoteAddress, ...(user ? { "x-shotmatrix-user": user } : {}) },
+    "The Shot Matrix service isn't running here. Start it with `npm run serve` in ../shotmatrix.");
+}
+
+function proxyAccounts(req, res) {
+  proxy(PHANSORA, req, res, { ...req.headers, host: SITE_HOST, "x-forwarded-for": req.socket.remoteAddress },
+    "Phansora's app isn't running here, and it holds the accounts. Start it with `npm run dev` in ../phansora.");
+}
+
 const server = http.createServer((req, res) => {
   if (req.url.startsWith("/api/shotmatrix/")) return proxyShotMatrix(req, res);
+  if (req.url.startsWith("/api/auth/") || /^\/auth\/google(\/callback)?(\?|$)/.test(req.url)) return proxyAccounts(req, res);
   if (req.url === "/__livereload") {
     res.writeHead(200, {
       "Content-Type": "text/event-stream",

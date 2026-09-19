@@ -92,6 +92,7 @@ function build() {
       path: page.path,
       content: page.render(),
       scripts: page.scripts,
+      noindex: page.noindex,
       jsonLd: [orgGraph(), ...jsonLdForPage(page)],
     });
     const rel = page.path === "/" ? "index.html" : path.join(page.path.replace(/^\//, ""), "index.html");
@@ -184,7 +185,7 @@ function build() {
   // `changefreq` is deliberately absent: Google states outright that it ignores the
   // field, so emitting it only invited someone to keep it accurate for nothing.
   const lastModified = gitLastModified();
-  const urls = pages.map((p) => (p.path === "/" ? "/" : p.path));
+  const urls = pages.filter((p) => !p.noindex).map((p) => (p.path === "/" ? "/" : p.path));
   fs.writeFileSync(
     path.join(DIST, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +

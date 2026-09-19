@@ -203,7 +203,8 @@ function main() {
     process.exit(1);
   }
   const only = process.argv.slice(2);
-  const targets = only.length ? pages.filter((p) => only.includes(p.path)) : pages;
+  const indexed = pages.filter((p) => !p.noindex); // no card for a page kept out of search
+  const targets = only.length ? indexed.filter((p) => only.includes(p.path)) : indexed;
   if (!targets.length) {
     console.error(`No page matched ${only.join(", ")}`);
     process.exit(1);

@@ -18,6 +18,7 @@ import { phansoraPage } from "./pages/phansora.mjs";
 import { aboutPage } from "./pages/about.mjs";
 import { contactPage } from "./pages/contact.mjs";
 import { privacyPage, termsPage } from "./pages/legal.mjs";
+import { loginPage, signupPage } from "./pages/account.mjs";
 
 export const pages = [
   home,
@@ -34,4 +35,6 @@ export const pages = [
   contactPage,
   privacyPage,
   termsPage,
+  loginPage,
+  signupPage,
 ];

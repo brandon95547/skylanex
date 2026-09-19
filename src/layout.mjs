@@ -153,14 +153,15 @@ function esc(s) {
   return String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
 
-export function layout({ title, metaTitle, description, path = "/", content = "", jsonLd = [], scripts = [] }) {
+export function layout({ title, metaTitle, description, path = "/", content = "", jsonLd = [], scripts = [], noindex = false }) {
   const pageTitle = metaTitle || (title ? `${title} · ${site.name}` : `${site.name} — AI Software Studio`);
   const desc = description || site.description;
   const canonical = path === "/" ? `${site.domain}/` : `${site.domain}${path}`;
   // Per-page social card (scripts/og-cards.mjs). Absolute, because scrapers do not
   // resolve relative URLs. /404 has no card of its own and falls back to the home
   // one — a missing file renders as a blank preview, the exact failure this replaced.
-  const ogImage = `${site.domain}/images/og/${path === "/404" ? "home" : ogSlug(path)}.jpg`;
+  // Nor do pages kept out of search (the account pages): nobody shares a login form.
+  const ogImage = `${site.domain}/images/og/${path === "/404" || noindex ? "home" : ogSlug(path)}.jpg`;
   const ldScripts = jsonLd
     .filter(Boolean)
     .map((obj) => `  <script type="application/ld+json">${JSON.stringify(obj)}</script>`)
@@ -172,7 +173,7 @@ export function layout({ title, metaTitle, description, path = "/", content = ""
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${esc(pageTitle)}</title>
   <meta name="description" content="${esc(desc)}" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="robots" content="${noindex ? "noindex, follow" : "index, follow, max-image-preview:large"}" />
   <meta name="theme-color" content="#0a0b12" />
   <link rel="canonical" href="${canonical}" />
   <link rel="icon" href="/images/skylanex-mark.svg" type="image/svg+xml" />

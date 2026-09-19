@@ -1,8 +1,11 @@
 // shotmatrix.js — the free tool on /products/shot-matrix.
 //
-// Talks to the Shot Matrix service at /api/shotmatrix (same origin, through nginx). It
-// solves the service's proof-of-work challenge in a worker, starts a run, then polls it
-// and fills the matrix in as each screenshot lands.
+// Talks to the Shot Matrix service at /api/shotmatrix (same origin, through nginx), which
+// answers only a signed-in account: nginx asks Phansora's app, where the accounts live,
+// before it lets a request through. The page solves the service's proof-of-work challenge
+// in a worker, starts a run and polls it, then downloads the zip — the only delivery
+// there is. The service deletes its copy the moment the zip has been sent, so the page
+// keeps the file it received, and "Save zip" saves that rather than asking again.
 //
 // Everything the service or a visitor supplies — the address, the host, error messages,
 // the list of failed requests — is written with textContent or as an attribute, never as
@@ -15,6 +18,7 @@
   if (!form || !section) return;
 
   var API = form.getAttribute("data-api");
+  var LOGIN = form.getAttribute("data-login") || "/login/";
   var POW_WORKER = form.getAttribute("data-pow") || "/js/shotmatrix-pow.js";
   var ENGINES = JSON.parse(form.getAttribute("data-engines"));
   var VIEWPORTS = JSON.parse(form.getAttribute("data-viewports"));
@@ -23,6 +27,7 @@
   var buttonLabel = button.querySelector("[data-label]");
   var note = document.getElementById("sm-note");
   var noteDefault = note.textContent.trim();
+  var accountLine = document.getElementById("sm-account");
   var honeypot = form.querySelector('input[name="website"]');
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -30,12 +35,11 @@
     host: section.querySelector("[data-host]"),
     status: section.querySelector("[data-status]"),
     actions: section.querySelector("[data-actions]"),
-    zip: section.querySelector("[data-zip]"),
-    copy: section.querySelector("[data-copy]"),
+    save: section.querySelector("[data-save]"),
     bar: section.querySelector("[data-bar]"),
     fill: section.querySelector("[data-fill]"),
-    expiry: section.querySelector("[data-expiry]"),
-    matrix: section.querySelector("[data-matrix]"),
+    download: section.querySelector("[data-download]"),
+    report: section.querySelector("[data-report]"),
   };
 
   var engineLabel = {};
@@ -49,10 +53,17 @@
     if (text !== undefined && text !== null) n.textContent = text;
     return n;
   }
-  function runFile(id, name) {
-    return API + "/runs/" + encodeURIComponent(id) + "/" + encodeURIComponent(name);
-  }
   function plural(n, one, many) { return n + " " + (n === 1 ? one : many); }
+  function size(bytes) {
+    return bytes >= 1048576 ? (bytes / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(bytes / 1024)) + " KB";
+  }
+  function clock(ms) { return new Date(ms).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }); }
+  function link(text, onClick) {
+    var b = el("button", "font-semibold text-primary-200 hover:underline", text);
+    b.type = "button";
+    b.addEventListener("click", onClick);
+    return b;
+  }
 
   // ── the line under the form ────────────────────────────────────────────────
   var NOTE_TONES = { error: "text-rose-300", info: "text-fg-secondary" };
@@ -67,17 +78,76 @@
     button.disabled = on;
     button.classList.toggle("opacity-70", on);
     button.classList.toggle("cursor-wait", on);
-    buttonLabel.textContent = label || "Capture screenshots";
+    buttonLabel.textContent = label || (account === null && accountChecked ? "Log in to capture" : "Capture screenshots");
+  }
+
+  // ── the account ────────────────────────────────────────────────────────────
+  // Unknown until /api/auth/me answers. The button waits on the answer rather than guess,
+  // and a signed-out press goes to the login page with this page — and the address typed
+  // into it — as the way back, so nothing has to be typed twice.
+  var account = null;
+  var accountChecked = false;
+  var known = fetch("/api/auth/me", { cache: "no-store", credentials: "same-origin" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .catch(function () { return null; })
+    .then(function (d) {
+      account = d && d.ok ? d.user : null;
+      accountChecked = true;
+      showAccount();
+    });
+
+  function back() {
+    var url = input.value.trim();
+    return location.pathname + (url ? "?url=" + encodeURIComponent(url) : "");
+  }
+  function toLogin(page) { location.assign((page || LOGIN) + "?next=" + encodeURIComponent(back())); }
+
+  function showAccount() {
+    accountLine.textContent = "";
+    accountLine.hidden = false;
+    if (account) {
+      accountLine.appendChild(document.createTextNode("Signed in as " + (account.name || account.email) + " · "));
+      accountLine.appendChild(link("Log out", logOut));
+    } else {
+      accountLine.appendChild(link("Log in", function () { toLogin(); }));
+      accountLine.appendChild(document.createTextNode(" or "));
+      accountLine.appendChild(link("create a free account", function () { toLogin("/signup/"); }));
+      accountLine.appendChild(document.createTextNode(" to capture screenshots."));
+    }
+    if (!running) setRunning(false);
+  }
+
+  function logOut() {
+    fetch("/api/auth/logout", { method: "POST", credentials: "same-origin" })
+      .catch(function () { /* signed out locally either way */ })
+      .then(function () { account = null; proof = null; showAccount(); say(); });
+  }
+
+  // The session ended while the page was open — a day of inactivity, or signed out in
+  // another tab. Said plainly, with the way back.
+  function sessionEnded() {
+    account = null;
+    showAccount();
+    setRunning(false);
+    say("You’ve been signed out. Log in again to capture.", "error");
+  }
+
+  // Back from the login page: the address they had typed rides in ?url=.
+  var preset = new URLSearchParams(location.search).get("url");
+  if (preset && !input.value) input.value = preset;
+  if (preset) {
+    try { history.replaceState(null, "", location.pathname + location.hash); } catch (err) { /* sandboxed */ }
   }
 
   // ── proof of work ──────────────────────────────────────────────────────────
-  // Started the moment someone shows intent — focusing the field, typing, pasting — so it
-  // is normally finished before they press the button. One solution per run, spent on
-  // submit; the next is only started when they come back to the form.
+  // Started the moment someone signed in shows intent — focusing the field, typing,
+  // pasting — so it is normally finished before they press the button. One solution per
+  // run, spent on submit; the next is only started when they come back to the form.
   var proof = null;
   function solve() {
-    return fetch(API + "/challenge", { cache: "no-store" })
+    return fetch(API + "/challenge", { cache: "no-store", credentials: "same-origin" })
       .then(function (r) {
+        if (r.status === 401) throw { login: true };
         if (!r.ok) throw new Error("challenge " + r.status);
         return r.json();
       })
@@ -94,7 +164,7 @@
       });
   }
   function prime() {
-    if (proof || running) return;
+    if (proof || running || !account) return;
     proof = solve();
     proof.catch(function () { proof = null; });
   }
@@ -108,6 +178,7 @@
     });
   }
   ["focus", "input", "paste"].forEach(function (type) { input.addEventListener(type, prime); });
+  known.then(function () { if (document.activeElement === input) prime(); });
 
   // ── starting a run ─────────────────────────────────────────────────────────
   function checked(name) {
@@ -125,15 +196,18 @@
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     if (running) return;
-    var url = input.value.trim();
-    var engines = checked("engines");
-    var viewports = checked("viewports");
-    if (!url) { say("Enter the address of the page to capture.", "error"); input.focus(); return; }
-    if (!engines.length) { say("Pick at least one browser.", "error"); return; }
-    if (!viewports.length) { say("Pick at least one screen width.", "error"); return; }
-    setRunning(true, "Starting…");
-    say("Checking you’re not a bot…", "info");
-    start({ url: url, engines: engines, viewports: viewports, website: honeypot ? honeypot.value : "" }, 1);
+    known.then(function () {
+      if (!account) { toLogin(); return; }
+      var url = input.value.trim();
+      var engines = checked("engines");
+      var viewports = checked("viewports");
+      if (!url) { say("Enter the address of the page to capture.", "error"); input.focus(); return; }
+      if (!engines.length) { say("Pick at least one browser.", "error"); return; }
+      if (!viewports.length) { say("Pick at least one screen width.", "error"); return; }
+      setRunning(true, "Starting…");
+      say("Checking you’re not a bot…", "info");
+      start({ url: url, engines: engines, viewports: viewports, website: honeypot ? honeypot.value : "" }, 1);
+    });
   });
 
   function start(body, retries) {
@@ -150,6 +224,7 @@
         body.nonce = p.nonce;
         return fetch(API + "/jobs", {
           method: "POST",
+          credentials: "same-origin",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
         }).then(jsonOf);
@@ -157,6 +232,7 @@
       .then(function (res) {
         var d = res.data;
         if ((res.status === 200 || res.status === 202) && d.id) { say(); attach(d.id, true); return; }
+        if (res.status === 401) { sessionEnded(); return; }
         // Already running one: that run is what they want to be looking at.
         if (res.status === 429 && d.id) { say(d.error, "info"); attach(d.id, true); return; }
         // The challenge went stale or the service restarted under it. Once, quietly.
@@ -165,8 +241,9 @@
         say(d.error || "Something went wrong. Try again in a moment.", "error");
         if (d.code === "url") input.focus();
       })
-      .catch(function () {
+      .catch(function (err) {
         clearTimeout(slow);
+        if (err && err.login) { sessionEnded(); return; }
         setRunning(false);
         say("Shot Matrix couldn’t be reached. Check your connection, or try again in a few minutes.", "error");
       });
@@ -180,17 +257,19 @@
     ui.fill.style.width = pct + "%";
     ui.bar.setAttribute("aria-valuenow", String(pct));
   }
+  function clearHash() {
+    try { history.replaceState(null, "", location.pathname); } catch (err) { /* sandboxed */ }
+  }
 
   function attach(id, scroll) {
     clearTimeout(pollTimer);
-    current = { id: id, built: false, nodes: {}, seen: {}, misses: 0 };
-    // The address of a run is the page plus its id, so it can be reloaded or sent to
-    // someone for as long as the run is kept.
+    current = { id: id, built: false, nodes: {}, seen: {}, misses: 0, finished: false };
+    // The run's id rides in the address while it runs, so a reload picks it back up.
     try { history.replaceState(null, "", "#run=" + id); } catch (err) { /* sandboxed */ }
     section.hidden = false;
-    ui.matrix.textContent = "";
+    ui.report.textContent = "";
     ui.actions.hidden = true;
-    ui.expiry.textContent = "";
+    ui.download.textContent = "";
     ui.host.textContent = "Starting…";
     ui.status.textContent = "";
     ui.bar.hidden = false;
@@ -201,11 +280,12 @@
   }
 
   function poll(id) {
-    fetch(API + "/jobs/" + encodeURIComponent(id), { cache: "no-store" })
+    fetch(API + "/jobs/" + encodeURIComponent(id), { cache: "no-store", credentials: "same-origin" })
       .then(jsonOf)
       .then(function (res) {
         if (!current || current.id !== id) return;
-        if (res.status === 404) { expired(res.data.error); return; }
+        if (res.status === 401) { sessionEnded(); return; }
+        if (res.status === 404) { gone(res.data.error); return; }
         if (res.status !== 200) throw new Error(String(res.status));
         current.misses = 0;
         render(res.data);
@@ -228,15 +308,15 @@
       });
   }
 
-  function expired(message) {
+  function gone(message) {
     setRunning(false);
-    ui.host.textContent = "This run has expired";
-    ui.status.textContent = message || "Runs are kept for an hour. Start a new one above.";
-    ui.matrix.textContent = "";
+    ui.host.textContent = "This run is gone";
+    ui.status.textContent = message || "Screenshots are deleted once they’re downloaded, or 10 minutes after the run finishes. Start a new run above.";
+    ui.report.textContent = "";
     ui.actions.hidden = true;
-    ui.expiry.textContent = "";
+    ui.download.textContent = "";
     ui.bar.hidden = true;
-    try { history.replaceState(null, "", location.pathname); } catch (err) { /* sandboxed */ }
+    clearHash();
   }
 
   function statusLine(job) {
@@ -263,49 +343,38 @@
   function render(job) {
     if (!current.built) build(job);
     ui.host.textContent = job.host;
-    if (!input.value) input.value = job.url; // arrived by a shared link
+    if (!input.value) input.value = job.url; // picked back up after a reload
     setBar(job.total ? Math.round((job.done / job.total) * 100) : 0);
     ui.status.textContent = statusLine(job);
     job.cells.forEach(function (c) { updateCell(job, c); });
-    if (job.state === "done" || job.state === "failed") finish(job);
+    if ((job.state === "done" || job.state === "failed") && !current.finished) {
+      current.finished = true;
+      finish(job);
+    }
   }
 
-  // One row per width, one column per engine, in the order they were asked for. Each
-  // frame takes its viewport's shape before its picture arrives, so nothing jumps as the
-  // shots land. Phone frames are capped in height and centred in their column; a 390×844
-  // shot at full column width would be taller than the screen showing it.
+  // ── the report ─────────────────────────────────────────────────────────────
+  // One row per width, one card per engine, in the order they were asked for: what each
+  // shot found, since the shots themselves are in the zip.
   function build(job) {
     current.built = true;
-    ui.matrix.textContent = "";
+    ui.report.textContent = "";
     job.viewports.forEach(function (vk) {
-      var vp = viewportByKey[vk] || { key: vk, label: vk, width: 16, height: 9, mobile: false };
+      var vp = viewportByKey[vk] || { key: vk, label: vk, width: 0, height: 0, mobile: false };
       var row = el("div");
       var head = el("div", "flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-surface-800 pb-3");
       head.appendChild(el("h3", "text-lg font-bold text-fg", vp.label));
       head.appendChild(el("span", "text-sm text-fg-muted", vp.width + " × " + vp.height + (vp.mobile ? " · touch" : "")));
       row.appendChild(head);
-      var grid = el("div", "mt-4 grid gap-2 sm:gap-5");
-      grid.style.gridTemplateColumns = "repeat(" + job.engines.length + ", minmax(0, 1fr))";
+      var grid = el("div", "mt-4 grid gap-3 sm:grid-cols-3");
       job.engines.forEach(function (ek) {
-        var fig = el("figure", "min-w-0");
-        var frame = el("div", "relative mx-auto w-full overflow-hidden rounded-xl border border-surface-800 bg-surface-950");
-        frame.style.aspectRatio = vp.width + " / " + vp.height;
-        frame.style.maxWidth = "calc(26rem * " + vp.width + " / " + vp.height + ")";
-        var cap = el("figcaption", "mx-auto mt-2 space-y-1 text-sm");
-        cap.style.maxWidth = frame.style.maxWidth;
-        fig.appendChild(frame);
-        fig.appendChild(cap);
-        grid.appendChild(fig);
-        current.nodes[vk + "|" + ek] = { frame: frame, cap: cap, vp: vp, engine: ek };
+        var card = el("div", "min-w-0 rounded-xl border border-surface-800 bg-surface-900/60 p-4 text-sm");
+        grid.appendChild(card);
+        current.nodes[vk + "|" + ek] = { card: card, vp: vp, engine: ek };
       });
       row.appendChild(grid);
-      ui.matrix.appendChild(row);
+      ui.report.appendChild(row);
     });
-  }
-
-  function placeholder(frame, text, tone) {
-    frame.textContent = "";
-    frame.appendChild(el("div", "absolute inset-0 grid place-items-center p-2 text-center text-xs sm:text-sm " + (tone || "text-fg-muted"), text));
   }
 
   function pill(text, tone) {
@@ -313,104 +382,127 @@
   }
   var WARN = "bg-warning/10 text-warning ring-warning/25";
   var BAD = "bg-rose-500/10 text-rose-300 ring-rose-500/25";
+  var CALM = "bg-surface-800 text-fg-secondary ring-surface-700";
 
   function updateCell(job, c) {
     var key = c.viewport + "|" + c.engine;
     var n = current.nodes[key];
     if (!n) return;
-    var sig = c.state + "|" + (c.fold || "") + "|" + (c.error || "");
+    var sig = c.state + "|" + (c.error || "") + "|" + c.problems + "|" + c.height;
     if (current.seen[key] === sig) return;
     current.seen[key] = sig;
-    var name = engineLabel[c.engine] || c.engine;
 
-    // The picture.
-    if (c.state === "done" && c.fold) {
-      n.frame.textContent = "";
-      var link = el("a", "block h-full w-full focus-visible:outline-offset-0");
-      link.href = runFile(job.id, c.full || c.fold);
-      link.target = "_blank";
-      link.rel = "noopener";
-      link.setAttribute("aria-label", name + ", " + n.vp.label + ": open the full-page screenshot");
-      var img = el("img", "block h-full w-full object-cover object-top");
-      img.src = runFile(job.id, c.fold);
-      img.alt = name + " at " + n.vp.width + " × " + n.vp.height + ", above the fold";
-      img.width = n.vp.width;
-      img.height = n.vp.height;
-      img.loading = "lazy";
-      img.decoding = "async";
-      link.appendChild(img);
-      n.frame.appendChild(link);
+    n.card.textContent = "";
+    n.card.appendChild(el("p", "font-semibold text-fg", engineLabel[c.engine] || c.engine));
+    var line = el("p", "mt-1");
+    if (c.state === "done") {
+      line.className = "mt-1 text-fg-secondary";
+      line.textContent = "Captured" + (c.height ? " · " + c.height.toLocaleString() + "px tall" : "");
     } else if (c.state === "running") {
-      placeholder(n.frame, "Rendering…", "text-fg-secondary animate-pulse");
+      line.className = "mt-1 animate-pulse text-fg-secondary";
+      line.textContent = "Rendering…";
     } else if (c.state === "failed") {
-      placeholder(n.frame, c.error || "Couldn’t capture this one.", "text-rose-300");
+      line.className = "mt-1 text-rose-300";
+      line.textContent = c.error || "Couldn’t capture this one.";
     } else if (c.state === "skipped") {
-      placeholder(n.frame, c.error || "Skipped.");
+      line.className = "mt-1 text-fg-muted";
+      line.textContent = c.error || "Skipped.";
     } else {
-      placeholder(n.frame, "Waiting");
+      line.className = "mt-1 text-fg-muted";
+      line.textContent = "Waiting";
     }
-
-    // The caption, always the same two lines so a row of them lines up: which engine and
-    // the way to the full page, then how tall the page is and anything worth knowing.
-    // Under a phone-sized frame there is no room for all of that on one line, and letting
-    // it wrap made one column's caption a line taller than its neighbours'.
-    n.cap.textContent = "";
-    var top = el("div", "flex w-full items-baseline justify-between gap-2");
-    top.appendChild(el("span", "font-medium text-fg", name));
-    // The text link is for wide screens. In a phone's three narrow columns it wrapped onto
-    // two lines of its own, and the thumbnail above it opens the same file anyway.
-    if (c.state === "done" && c.full) {
-      var full = el("a", "hidden whitespace-nowrap text-primary-200 hover:underline sm:inline", "Full page");
-      full.href = runFile(job.id, c.full);
-      full.target = "_blank";
-      full.rel = "noopener";
-      top.appendChild(full);
-    }
-    n.cap.appendChild(top);
+    n.card.appendChild(line);
     if (c.state !== "done") return;
-    var meta = el("div", "flex w-full flex-wrap items-center gap-1 text-xs text-fg-muted");
-    if (c.height) meta.appendChild(el("span", "mr-1", c.height.toLocaleString() + "px tall"));
-    if (c.status >= 400) meta.appendChild(pill("HTTP " + c.status, BAD));
-    if (c.overflows) meta.appendChild(pill("Scrolls sideways", WARN));
-    if (c.truncated) meta.appendChild(pill("Cut at " + job.maxHeight.toLocaleString() + "px", "bg-surface-800 text-fg-secondary ring-surface-700"));
-    n.cap.appendChild(meta);
+
+    var flags = el("div", "mt-2 flex flex-wrap gap-1");
+    if (c.status >= 400) flags.appendChild(pill("HTTP " + c.status, BAD));
+    if (c.overflows) flags.appendChild(pill("Scrolls sideways", WARN));
+    if (c.truncated) flags.appendChild(pill("Cut at " + job.maxHeight.toLocaleString() + "px", CALM));
+    if (flags.childNodes.length) n.card.appendChild(flags);
     if (c.problems > 0) {
-      var details = el("details", "w-full text-xs");
-      var summary = el("summary", "cursor-pointer text-warning", plural(c.problems, "problem", "problems"));
-      details.appendChild(summary);
+      var details = el("details", "mt-2 text-xs");
+      details.appendChild(el("summary", "cursor-pointer text-warning", plural(c.problems, "problem", "problems")));
       var list = el("ul", "mt-1 space-y-1 break-all text-fg-secondary");
       c.problemList.forEach(function (p) { list.appendChild(el("li", null, p)); });
       if (c.problems > c.problemList.length) list.appendChild(el("li", "text-fg-muted", "…and " + (c.problems - c.problemList.length) + " more in the zip’s report.json"));
       details.appendChild(list);
-      n.cap.appendChild(details);
+      n.card.appendChild(details);
     }
   }
+
+  // ── the zip: fetched once, kept here ───────────────────────────────────────
+  var saved = null; // { blob, name } — the only copy left once the download completes
 
   function finish(job) {
     setRunning(false);
-    var any = job.cells.some(function (c) { return c.state === "done"; });
-    ui.actions.hidden = !any;
-    if (any) ui.zip.href = API + "/runs/" + encodeURIComponent(job.id) + "/zip";
-    if (job.expiresAt) {
-      var until = new Date(job.expiresAt).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-      ui.expiry.textContent = "This run and its link are kept until " + until + ".";
-    }
+    if (!job.cells.some(function (c) { return c.state === "done"; })) { clearHash(); return; }
+    download(job);
   }
 
-  ui.copy.addEventListener("click", function () {
-    var label = ui.copy.querySelector("span");
-    var show = function (text) {
-      label.textContent = text;
-      setTimeout(function () { label.textContent = "Copy link"; }, 2000);
-    };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(location.href).then(function () { show("Copied"); }, function () { show("Couldn’t copy"); });
-    } else {
-      show("Couldn’t copy");
-    }
-  });
+  function download(job) {
+    var name = "shotmatrix-" + job.host + ".zip";
+    ui.download.textContent = "Downloading the zip…";
+    fetch(API + "/runs/" + encodeURIComponent(job.id) + "/zip", { cache: "no-store", credentials: "same-origin" })
+      .then(function (r) {
+        if (r.status === 404) throw { gone: true };
+        if (r.status === 401) throw { login: true };
+        if (!r.ok) throw new Error(String(r.status));
+        var total = Number(r.headers.get("Content-Length")) || 0;
+        if (!total || !r.body || !r.body.getReader) return r.blob();
+        // Read it in pieces for a progress figure: a full matrix is tens of megabytes,
+        // and on a phone connection that is long enough to look stuck without one.
+        var reader = r.body.getReader();
+        var parts = [];
+        var got = 0;
+        var step = function () {
+          return reader.read().then(function (chunk) {
+            if (chunk.done) return new Blob(parts, { type: "application/zip" });
+            parts.push(chunk.value);
+            got += chunk.value.length;
+            ui.download.textContent = "Downloading the zip… " + Math.min(100, Math.round((got / total) * 100)) + "%";
+            return step();
+          });
+        };
+        return step();
+      })
+      .then(function (blob) {
+        saved = { blob: blob, name: name };
+        save();
+        ui.actions.hidden = false;
+        ui.download.textContent = "Downloaded " + name + " (" + size(blob.size) + "). Nothing is kept on our server: our copy was deleted as it downloaded.";
+        clearHash();
+      })
+      .catch(function (err) {
+        if (err && err.gone) {
+          ui.download.textContent = "The zip is gone: it was already downloaded, or the run expired. Start a new run above.";
+          clearHash();
+          return;
+        }
+        if (err && err.login) { sessionEnded(); return; }
+        // Cut off part-way: the service keeps the run for a retry until it expires.
+        ui.download.textContent = "The download didn’t finish. ";
+        ui.download.appendChild(link("Try again", function () { download(job); }));
+        if (job.expiresAt) ui.download.appendChild(document.createTextNode(" — it’s kept until " + clock(job.expiresAt) + "."));
+      });
+  }
 
-  // Arriving by a run's link.
+  // Hands the file in memory to the browser's own save. Nothing is fetched: the server's
+  // copy is already gone, which is the point.
+  function save() {
+    if (!saved) return;
+    var href = URL.createObjectURL(saved.blob);
+    var a = document.createElement("a");
+    a.href = href;
+    a.download = saved.name;
+    a.hidden = true;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(href); }, 60000);
+  }
+  ui.save.addEventListener("click", save);
+
+  // Reloaded mid-run: pick it back up.
   var linked = /^#run=([\w-]{22})$/.exec(location.hash);
-  if (linked) attach(linked[1], true);
+  if (linked) known.then(function () { if (account) attach(linked[1], true); else clearHash(); });
 })();

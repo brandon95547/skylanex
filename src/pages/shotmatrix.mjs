@@ -2,8 +2,9 @@ import { icon, assetUrl } from "../layout.mjs";
 import { heroGlow, afterHero, ctaBand } from "../ui.mjs";
 
 // Shot Matrix's own landing page, and the tool itself: type an address, get the page back
-// from three engines at eight sizes. The rendering happens in the shotmatrix service
-// (github.com/brandon95547/shotmatrix), which nginx exposes at /api/shotmatrix; the
+// from three engines at eight sizes, as one zip. The rendering happens in the shotmatrix
+// service (github.com/brandon95547/shotmatrix), which nginx exposes at /api/shotmatrix and
+// opens only to a signed-in account (the accounts are Phansora's; see ./account.mjs). The
 // browser side is assets/js/shotmatrix.js.
 
 const API = "/api/shotmatrix";
@@ -72,7 +73,7 @@ function tool() {
   const engines = ENGINES.map(({ key, label }) => ({ key, label }));
   const viewports = VIEWPORTS.map(({ key, label, width, height, mobile }) => ({ key, label, width, height, mobile }));
   return `<form id="sm-form" class="mt-9 rounded-3xl border border-surface-800 bg-surface-900/80 p-4 shadow-xl backdrop-blur sm:p-6" novalidate
-    data-api="${API}" data-pow="${assetUrl("/js/shotmatrix-pow.js")}" data-engines="${esc(JSON.stringify(engines))}" data-viewports="${esc(JSON.stringify(viewports))}">
+    data-api="${API}" data-login="/login/" data-pow="${assetUrl("/js/shotmatrix-pow.js")}" data-engines="${esc(JSON.stringify(engines))}" data-viewports="${esc(JSON.stringify(viewports))}">
     <div class="flex flex-col gap-3 sm:flex-row">
       <label for="sm-url" class="sr-only">Address of the page to capture</label>
       <div class="relative min-w-0 flex-1">
@@ -106,13 +107,17 @@ function tool() {
     </div>
 
     <p id="sm-note" class="mt-4 min-h-[1.5rem] text-sm text-fg-muted" role="status" aria-live="polite">
-      Free, with no sign-up. Public pages only, and screenshots are deleted after an hour.
+      Free with an account. Public pages only. You get one zip, and our copy is deleted as it downloads.
     </p>
+    <!-- Who is signed in, or the way to sign in. Filled by the script once it knows. -->
+    <p id="sm-account" class="mt-1 text-sm text-fg-secondary" hidden></p>
   </form>`;
 }
 
-// The results live here once a run starts; the script builds them. `hidden` until then,
-// so a visitor who never presses the button never sees an empty frame.
+// The run's progress and then its report live here once a run starts; the script builds
+// them. `hidden` until then, so a visitor who never presses the button never sees an empty
+// frame. The screenshots themselves are never shown: they arrive as one zip, downloaded
+// the moment the run finishes, and the service deletes its copy as the download completes.
 function results() {
   return `<section id="sm-results" class="scroll-mt-24 px-5 ${afterHero} sm:px-8" hidden aria-labelledby="sm-results-title">
     <div class="mx-auto max-w-6xl">
@@ -123,15 +128,14 @@ function results() {
           <p class="mt-1 text-fg-secondary" data-status role="status" aria-live="polite"></p>
         </div>
         <div class="flex shrink-0 flex-wrap gap-2" data-actions hidden>
-          <a class="btn btn-primary" data-zip href="#" download>${icon("download", "h-4 w-4")} Download all (.zip)</a>
-          <button type="button" class="btn btn-ghost" data-copy>${icon("link", "h-4 w-4")} <span>Copy link</span></button>
+          <button type="button" class="btn btn-primary" data-save>${icon("download", "h-4 w-4")} Save zip</button>
         </div>
       </div>
       <div class="mt-5 h-1.5 overflow-hidden rounded-full bg-surface-800" role="progressbar" aria-label="Screenshots rendered" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-bar>
         <div class="h-full w-0 rounded-full bg-primary-500 transition-[width] duration-500" data-fill></div>
       </div>
-      <p class="mt-3 text-sm text-fg-muted" data-expiry></p>
-      <div class="mt-8 space-y-10" data-matrix></div>
+      <p class="mt-3 text-sm text-fg-secondary" data-download role="status" aria-live="polite"></p>
+      <div class="mt-8 space-y-8" data-report></div>
     </div>
   </section>`;
 }
@@ -150,7 +154,7 @@ const CHECKS = [
   {
     icon: "eye",
     title: "What a picture can’t show",
-    body: "Each shot is flagged if the page scrolls sideways, if a stylesheet, font, script or image failed to load, if it threw a JavaScript error, or if the server answered with an error page.",
+    body: "Each shot is flagged if the page scrolls sideways, if a stylesheet, font, script or image failed to load, if it threw a JavaScript error, or if the server answered with an error page. The page lists what it found; the zip’s report.json has every detail.",
   },
 ];
 
@@ -160,7 +164,7 @@ const DETAILS = [
   ["Rendered at 1x.", "Full-page shots stop at 10,000px tall. The terminal version below has no limit and uses each device’s real pixel density."],
   ["Firefox has no mobile mode.", "Its phone-width shots get the width, which is what most responsive CSS keys on, but not touch."],
   ["WebKit is the engine, not the app.", "These are Playwright’s builds of Safari’s engine. Read those shots as “WebKit says”, not “Safari says”."],
-  ["Fair use.", "Up to six runs an hour per visitor, one at a time. Every run is deleted an hour after it finishes."],
+  ["Yours, then gone.", "Up to six runs an hour per account, one at a time. The zip is the only copy: ours is deleted the moment it downloads, or 10 minutes after the run if it never does."],
 ];
 
 export const shotMatrixPage = {
@@ -169,7 +173,7 @@ export const shotMatrixPage = {
   title: "Shot Matrix",
   metaTitle: "Shot Matrix — free screenshots in every browser, at every size · Skylanex",
   description:
-    "Free tool: screenshot any public page in Chromium, Firefox and WebKit at eight real device widths, side by side, and catch the sideways scroll, failed requests and script errors a picture can’t show.",
+    "Free tool: screenshot any public page in Chromium, Firefox and WebKit at eight real device widths, delivered as one zip, and catch the sideways scroll, failed requests and script errors a picture can’t show.",
   scripts: ["/js/shotmatrix.js"],
   render: () => `
   ${heroGlow(`
@@ -179,7 +183,7 @@ export const shotMatrixPage = {
       </nav>
       <p class="eyebrow mb-3 text-primary-200">Free developer tool</p>
       <h1 class="max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight text-fg sm:text-5xl">Screenshot any page in every browser, at every size.</h1>
-      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-fg-secondary">Shot Matrix loads a page in Chromium, Firefox and WebKit at eight real device widths and lays the shots side by side, so the layout that breaks at 360px turns up here instead of on a customer’s phone.</p>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-fg-secondary">Shot Matrix loads a page in Chromium, Firefox and WebKit at eight real device widths and hands you every screenshot in one zip, so the layout that breaks at 360px turns up here instead of on a customer’s phone.</p>
       ${tool()}
     </div>
   `)}
