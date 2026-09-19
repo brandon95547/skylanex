@@ -191,13 +191,20 @@ CORS_ALLOW_ORIGINS=https://www.skylanex.com,https://www.phansora.com
 could POST to it from a visitor's browser. Small blast radius — the recipient is
 pinned and it's rate limited — but there's no reason to allow it.
 
-**2. Copy the nginx vhost** from `deploy/nginx/skylanex.com.conf` to
-`/etc/nginx/conf.d/` and reload. It carries the CSP tightening, the 404 fix, the
-rate limit, and the `http2` syntax. Check it first:
+**2. ~~Copy the nginx vhost~~ — dropped, 2026-09-18.** The repo's copy of the vhost
+was never copied to the server, and instead of applying it, it was deleted; the file
+on the server is now the only copy. So the vhost changes this audit marks done are
+**not live**:
 
-```bash
-nginx -t && systemctl reload nginx
-```
+- the CSP still allows Google Fonts' two hosts (§4). Self-hosting the fonts did ship.
+- `/404.html` still answers 200 when requested directly (§7)
+- `/api/contact` has no nginx body cap or rate limit. The API's own five an hour
+  still applies (§9).
+- pages carry no `Cache-Control: no-cache` (§9)
+- `/work` reaches `/products` through the meta-refresh page, not a 301
+
+They are in git history (cabfbe8, 25cf69b, e91d5c2) if they are wanted later. Note that
+the copy's `http2 on;` does not parse on the box's nginx 1.14.1.
 
 ### Deliberately not done
 

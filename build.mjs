@@ -101,9 +101,9 @@ function build() {
     console.log("  •", rel, `(${(html.length / 1024).toFixed(1)}kb)`);
   }
 
-  // /work → /products, for hosts that serve dist/ without the nginx rules. nginx does
-  // this as a real 301 (see deploy/nginx); this is the fallback, and it carries a
-  // canonical so a crawler that lands here still credits the new URL.
+  // /work → /products. nginx has no rule for /work, so this page is what answers it:
+  // an instant meta refresh, and a canonical so a crawler that lands here still
+  // credits the new URL.
   fs.mkdirSync(path.join(DIST, "work"), { recursive: true });
   fs.writeFileSync(
     path.join(DIST, "work", "index.html"),
