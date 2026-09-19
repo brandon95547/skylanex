@@ -86,7 +86,35 @@ function resolveFile(urlPath) {
   return null;
 }
 
+// --- /api/shotmatrix → the Shot Matrix service, the way nginx does it in prod ---
+// Run the service alongside with `npm run serve` in ../shotmatrix. Paths pass through
+// unchanged, and X-Real-IP is set as nginx sets it, so the tool on
+// /products/shot-matrix works here exactly as it does live.
+const SHOTMATRIX = new URL(process.env.SHOTMATRIX_API || "http://127.0.0.1:4700");
+function proxyShotMatrix(req, res) {
+  const upstream = http.request(
+    {
+      host: SHOTMATRIX.hostname,
+      port: SHOTMATRIX.port,
+      method: req.method,
+      path: req.url,
+      headers: { ...req.headers, "x-real-ip": req.socket.remoteAddress },
+    },
+    (up) => {
+      res.writeHead(up.statusCode, up.headers);
+      up.pipe(res);
+    }
+  );
+  upstream.on("error", () => {
+    if (res.headersSent) return res.destroy();
+    res.writeHead(502, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "The Shot Matrix service isn't running here. Start it with `npm run serve` in ../shotmatrix." }));
+  });
+  req.pipe(upstream);
+}
+
 const server = http.createServer((req, res) => {
+  if (req.url.startsWith("/api/shotmatrix/")) return proxyShotMatrix(req, res);
   if (req.url === "/__livereload") {
     res.writeHead(200, {
       "Content-Type": "text/event-stream",
