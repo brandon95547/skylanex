@@ -85,6 +85,7 @@ function build() {
       description: page.description,
       path: page.path,
       content: page.render(),
+      scripts: page.scripts,
       jsonLd: [orgGraph(), ...jsonLdForPage(page)],
     });
     const rel = page.path === "/" ? "index.html" : path.join(page.path.replace(/^\//, ""), "index.html");
@@ -165,6 +166,7 @@ function build() {
       ["Websites built for your industry", "/website-solutions"],
       ["Services", "/services"],
       ["Products", "/products"],
+      ["Shot Matrix — free cross-browser, cross-device screenshots", "/products/shot-matrix"],
       ["About", "/about"],
       ["Contact", "/contact"],
     ]

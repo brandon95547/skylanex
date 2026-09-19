@@ -152,9 +152,9 @@ export const products = {
     alt: "The Narrava Studio editor: a media library of generated clips, a preview of a cloaked figure before a mountain castle reading \u201cIdeas Become Reality\u201d, and a multi-track timeline with narration, text, and a cinematic look applied.",
   },
 
-  // `href` is "#" on every one of these on purpose: each is getting a landing page of its
-  // own and the design for those has not landed yet. They are placeholders, not links —
-  // worth replacing before this page is anything but a preview.
+  // `href` is "#" on the ones still waiting for a landing page of their own. They are
+  // placeholders, not links — worth replacing before this page is anything but a preview.
+  // Shot Matrix is the first with a page, and its page is the tool itself.
   //
   // `badge` names the kind precisely and `category` picks its colour lane (LANES in
   // src/pages/products.mjs). They are usually the same words and deliberately not the
@@ -168,7 +168,7 @@ export const products = {
       category: "dev",
       badge: "Developer Tool",
       icon: "grid",
-      href: "#",
+      href: "/products/shot-matrix",
     },
     {
       name: "Narrava Studio",

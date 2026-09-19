@@ -214,6 +214,24 @@ export function jsonLdForPage(page) {
     // there is worse than none. It comes back with them, wherever they land.
     return [breadcrumb([home, { name: "Products", path: "/products" }])];
   }
+  if (page.path === "/products/shot-matrix") {
+    return [
+      breadcrumb([home, { name: "Products", path: "/products" }, { name: "Shot Matrix", path: page.path }]),
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Shot Matrix",
+        url: absUrl(page.path),
+        description: page.description,
+        applicationCategory: "DeveloperApplication",
+        operatingSystem: "Any",
+        browserRequirements: "Requires JavaScript",
+        isAccessibleForFree: true,
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        creator: { "@id": ORG },
+      },
+    ];
+  }
   if (page.path === "/about") {
     return [
       breadcrumb([home, { name: "About", path: "/about" }]),

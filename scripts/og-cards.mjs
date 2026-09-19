@@ -63,6 +63,7 @@ function eyebrowFor(page) {
   const named = {
     "/services": "What I do",
     "/products": "Products & tools",
+    "/products/shot-matrix": "Free developer tool",
     "/about": "About the studio",
     "/contact": "Start a project",
   };

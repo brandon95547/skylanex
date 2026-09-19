@@ -120,7 +120,7 @@ function esc(s) {
   return String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
 
-export function layout({ title, metaTitle, description, path = "/", content = "", jsonLd = [] }) {
+export function layout({ title, metaTitle, description, path = "/", content = "", jsonLd = [], scripts = [] }) {
   const pageTitle = metaTitle || (title ? `${title} · ${site.name}` : `${site.name} — AI Software Studio`);
   const desc = description || site.description;
   const canonical = path === "/" ? `${site.domain}/` : `${site.domain}${path}`;
@@ -204,7 +204,7 @@ ${ldScripts}
   ${footer(path)}
 
   <script src="/js/main.js" defer></script>
-</body>
+${scripts.map((src) => `  <script src="${src}" defer></script>\n`).join("")}</body>
 </html>`;
 }
 
