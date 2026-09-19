@@ -6,9 +6,9 @@ import { products, site } from "../../site.config.mjs";
 //
 // The mock gives every card its own hue, which is seven of them and outside the brand
 // ramps. This does the same job inside the palette the rest of the site is built from:
-// the four categories the filter already offers get one lane each, so the tile and its
-// badge say what kind of thing a card is before a word of it is read — and two SaaS
-// platforms now look like two SaaS platforms rather than like two unrelated products.
+// each of the four categories gets one lane, so the tile and its badge say what kind of
+// thing a card is before a word of it is read — and two SaaS platforms now look like
+// two SaaS platforms rather than like two unrelated products.
 //
 // Written out in full rather than composed from the key, because `bg-${x}-500/15` is a
 // string Tailwind's scanner never sees and would compile to nothing. Written literally
@@ -19,20 +19,6 @@ const LANES = {
   dev: { tile: "bg-emerald-500/15 text-emerald-300 ring-emerald-500/25", badge: "bg-emerald-500/10 text-emerald-300 ring-emerald-500/20" },
   other: { tile: "bg-surface-700/40 text-fg-secondary ring-surface-600/40", badge: "bg-surface-800 text-fg-secondary ring-surface-700" },
 };
-
-// The filter row. Buttons rather than links: this filters what is already on the page and
-// changes no URL, so a link would promise a destination it does not go to. The first one
-// is pressed on load, and `aria-pressed` is what says so to anything not looking at colour.
-function filters() {
-  return `<div class="reveal flex w-full flex-wrap items-center gap-1.5 rounded-2xl border border-surface-800 bg-surface-900/60 p-1.5" role="group" aria-label="Filter products by type">
-    ${products.categories
-      .map(
-        (c, i) => `<button type="button" data-filter="${c.id}" aria-pressed="${i === 0 ? "true" : "false"}"
-      class="filter-chip rounded-xl px-4 py-2 text-sm font-medium transition-colors">${c.label}</button>`
-      )
-      .join("")}
-  </div>`;
-}
 
 // The platform everything else sits under, so it gets the width and the screenshot rather
 // than a slot in the grid beside its own components.
@@ -68,7 +54,7 @@ function featuredCard() {
 
 function productCard(p) {
   const lane = LANES[p.category] || LANES.other;
-  return `<article data-category="${p.category}" class="product-card reveal group flex flex-col rounded-2xl border border-surface-800 bg-surface-900/50 p-6 transition-colors hover:border-primary-500/50">
+  return `<article class="reveal group flex flex-col rounded-2xl border border-surface-800 bg-surface-900/50 p-6 transition-colors hover:border-primary-500/50">
     <span class="grid h-12 w-12 place-items-center rounded-xl ring-1 ring-inset ${lane.tile}">${icon(p.icon, "h-5 w-5")}</span>
     <h3 class="mt-5 text-lg font-bold text-fg">
       <a href="${p.href}" class="after:absolute after:inset-0 focus:outline-none focus-visible:underline">${p.name}</a>
@@ -103,8 +89,7 @@ export const productsPage = {
 
   <section class="px-5 ${afterHero} sm:px-8">
     <div class="mx-auto max-w-6xl">
-      ${filters()}
-      <div class="mt-6">${featuredCard()}</div>
+      ${featuredCard()}
     </div>
   </section>
 
@@ -117,10 +102,6 @@ export const productsPage = {
       <div id="product-grid" class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         ${products.items.map(productCard).join("\n")}
       </div>
-      <!-- Only ever seen with a filter on, and only when that filter matches nothing.
-           Written in the markup rather than built by the script so it is one string in
-           one place, and so it exists for a reader with no JavaScript. -->
-      <p id="product-empty" class="mt-8 hidden text-center text-sm text-fg-muted">Nothing in that category yet.</p>
     </div>
   </section>
 

@@ -152,23 +152,14 @@ export const products = {
     alt: "The Narrava Studio editor: a media library of generated clips, a preview of a cloaked figure before a mountain castle reading \u201cIdeas Become Reality\u201d, and a multi-track timeline with narration, text, and a cinematic look applied.",
   },
 
-  // The filter row. `id` is matched against each item's `category` by assets/js/main.js;
-  // "all" is the sentinel that matches everything rather than a category anything carries.
-  categories: [
-    { id: "all", label: "All Projects" },
-    { id: "saas", label: "SaaS Platforms" },
-    { id: "ai", label: "AI Tools" },
-    { id: "dev", label: "Developer Tools" },
-    { id: "other", label: "Other Projects" },
-  ],
-
   // `href` is "#" on every one of these on purpose: each is getting a landing page of its
   // own and the design for those has not landed yet. They are placeholders, not links —
   // worth replacing before this page is anything but a preview.
   //
-  // `badge` names the kind precisely and `category` groups it for the filter. They are
-  // usually the same words and deliberately not the same field: "WordPress Plugin" is a
-  // more useful label than "Other Projects", and still belongs in that bucket.
+  // `badge` names the kind precisely and `category` picks its colour lane (LANES in
+  // src/pages/products.mjs). They are usually the same words and deliberately not the
+  // same field: "WordPress Plugin" is a more useful label than "Other", and still belongs
+  // in that lane.
   items: [
     {
       name: "Shot Matrix",

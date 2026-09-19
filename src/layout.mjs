@@ -225,14 +225,14 @@ function footer(path) {
       ],
     },
     {
-      // The mock lists the product CATEGORIES here, which are the filters on the products
-      // page — so each one deep-links to that filter's own view rather than to a page that
-      // would have to repeat it.
+      // The mock lists the product CATEGORIES here. The products page has no per-category
+      // view — its filter row came out — so these land on the page as a whole, where each
+      // card's colour and badge carry its category.
       title: "Solutions",
       links: [
-        { label: "SaaS Platforms", href: "/products#saas" },
-        { label: "AI Tools", href: "/products#ai" },
-        { label: "Developer Tools", href: "/products#dev" },
+        { label: "SaaS Platforms", href: "/products" },
+        { label: "AI Tools", href: "/products" },
+        { label: "Developer Tools", href: "/products" },
         { label: "Design Systems", href: "/solutions" },
         { label: "Law Firm Websites", href: "/solutions/law-firms" },
       ],
