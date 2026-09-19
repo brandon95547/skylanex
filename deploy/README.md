@@ -9,7 +9,10 @@ version-controlled).
   build from `/var/www/skylanex/dist` (clean directory-index URLs), keeps the Let's
   Encrypt ACME challenge path for renewals, and proxies **`/api/contact` →
   `127.0.0.1:8000/contact`** (phansora-api) so the contact form posts same-origin
-  (no CORS).
+  (no CORS). It also proxies **`/api/shotmatrix/` → `127.0.0.1:4700`**, the Shot
+  Matrix service behind `/products/shot-matrix`, with its own rate limits. That service
+  is a separate repo and systemd unit (github.com/brandon95547/shotmatrix, see its
+  `deploy/README.md`).
 
 If you change the server config, update this copy too (and vice-versa).
 
