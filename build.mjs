@@ -18,7 +18,13 @@ const DIST = path.join(__dirname, "dist");
 // Dev mode (set by dev.mjs): skip the destructive clean and the heavy video
 // copy so incremental HTML rebuilds are fast and don't race the tailwind watcher
 // that owns dist/css/app.css.
-const DEV = !!process.env.SKYLANEX_DEV;
+//
+// `--incremental` is the same thing for `npm run build`'s last step. The pages link
+// the stylesheet by a hash of the built file (assetUrl in src/layout.mjs), and the
+// stylesheet only exists once Tailwind has run — which is after the first render,
+// because Tailwind scans the rendered pages. So the build renders, compiles the CSS,
+// and renders again over the top, without deleting the CSS it just made.
+const DEV = !!process.env.SKYLANEX_DEV || process.argv.includes("--incremental");
 
 function rmrf(p) {
   if (fs.existsSync(p)) fs.rmSync(p, { recursive: true, force: true });

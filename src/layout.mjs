@@ -1,6 +1,39 @@
 // layout.mjs — HTML shell (head, nav, mobile menu, footer) + icon set.
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { site, nav } from "../site.config.mjs";
 import { ogSlug } from "./seo.mjs";
+
+// The stylesheet and scripts, addressed by a hash of the file itself.
+//
+// nginx serves them with a seven-day max-age, and their names never change. So a
+// visitor who had been to the site in the last week kept LAST week's app.css against
+// THIS week's markup: the Shot Matrix page went live unstyled for them, raw checkboxes
+// over its chips, and it would have stayed that way until their cache ran out. No
+// server-side header can reach a copy a browser has already been told to keep; a new
+// URL is the only thing that does.
+//
+// A hash rather than a build number, so the URL changes exactly when the file does: a
+// rebuild that changes no asset changes no page, and the sitemap's lastmod (read from
+// git) stays honest. The CSS is hashed as BUILT (dist/), which is why `npm run build`
+// renders the pages a second time after Tailwind; scripts are hashed at their source,
+// which build.mjs copies verbatim.
+const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
+const versions = new Map();
+export function assetUrl(publicPath) {
+  if (!versions.has(publicPath)) {
+    const file = publicPath.startsWith("/css/") ? path.join(ROOT, "dist", publicPath) : path.join(ROOT, "assets", publicPath);
+    let v = "";
+    try {
+      v = crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex").slice(0, 10);
+    } catch { /* not built yet: the plain URL, until the second pass */ }
+    versions.set(publicPath, v);
+  }
+  const v = versions.get(publicPath);
+  return v ? `${publicPath}?v=${v}` : publicPath;
+}
 
 /* ---- inline SVG icons (stroke = currentColor) ---- */
 const ICONS = {
@@ -161,7 +194,7 @@ export function layout({ title, metaTitle, description, path = "/", content = ""
        is otherwise discovered only after the CSS parses, which puts it a full
        round trip behind the stylesheet that asks for it. -->
   <link rel="preload" href="/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="${assetUrl("/css/app.css")}" />
 ${ldScripts}
 </head>
 <body class="min-h-screen bg-surface-950 text-surface-100 antialiased">
@@ -203,8 +236,8 @@ ${ldScripts}
 
   ${footer(path)}
 
-  <script src="/js/main.js" defer></script>
-${scripts.map((src) => `  <script src="${src}" defer></script>\n`).join("")}</body>
+  <script src="${assetUrl("/js/main.js")}" defer></script>
+${scripts.map((src) => `  <script src="${assetUrl(src)}" defer></script>\n`).join("")}</body>
 </html>`;
 }
 

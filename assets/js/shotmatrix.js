@@ -15,6 +15,7 @@
   if (!form || !section) return;
 
   var API = form.getAttribute("data-api");
+  var POW_WORKER = form.getAttribute("data-pow") || "/js/shotmatrix-pow.js";
   var ENGINES = JSON.parse(form.getAttribute("data-engines"));
   var VIEWPORTS = JSON.parse(form.getAttribute("data-viewports"));
   var input = document.getElementById("sm-url");
@@ -82,7 +83,7 @@
       })
       .then(function (c) {
         return new Promise(function (resolve, reject) {
-          var worker = new Worker("/js/shotmatrix-pow.js");
+          var worker = new Worker(POW_WORKER);
           worker.onmessage = function (e) {
             worker.terminate();
             resolve({ token: c.token, nonce: e.data.nonce, at: Date.now() });

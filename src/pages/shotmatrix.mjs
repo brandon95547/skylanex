@@ -1,4 +1,4 @@
-import { icon } from "../layout.mjs";
+import { icon, assetUrl } from "../layout.mjs";
 import { heroGlow, afterHero, ctaBand } from "../ui.mjs";
 
 // Shot Matrix's own landing page, and the tool itself: type an address, get the page back
@@ -72,7 +72,7 @@ function tool() {
   const engines = ENGINES.map(({ key, label }) => ({ key, label }));
   const viewports = VIEWPORTS.map(({ key, label, width, height, mobile }) => ({ key, label, width, height, mobile }));
   return `<form id="sm-form" class="mt-9 rounded-3xl border border-surface-800 bg-surface-900/80 p-4 shadow-xl backdrop-blur sm:p-6" novalidate
-    data-api="${API}" data-engines="${esc(JSON.stringify(engines))}" data-viewports="${esc(JSON.stringify(viewports))}">
+    data-api="${API}" data-pow="${assetUrl("/js/shotmatrix-pow.js")}" data-engines="${esc(JSON.stringify(engines))}" data-viewports="${esc(JSON.stringify(viewports))}">
     <div class="flex flex-col gap-3 sm:flex-row">
       <label for="sm-url" class="sr-only">Address of the page to capture</label>
       <div class="relative min-w-0 flex-1">
