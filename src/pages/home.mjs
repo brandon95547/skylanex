@@ -18,7 +18,7 @@ export const home = {
   description: site.description,
   render: () => `
   ${heroGlow(`
-    <div class="mx-auto max-w-6xl px-5 pb-24 pt-20 sm:px-8 sm:pt-28 lg:pb-32 lg:pt-32">
+    <div class="mx-auto max-w-6xl px-5 pb-24 pt-12 sm:px-8 sm:pt-20 lg:pb-32 lg:pt-32">
       <div class="max-w-xl">
         <p class="reveal eyebrow mb-4 text-primary-200">AI. Software. Outcomes.</p>
         <h1 class="reveal text-4xl font-extrabold leading-[1.08] tracking-tight text-fg sm:text-5xl lg:text-[3.5rem]">
