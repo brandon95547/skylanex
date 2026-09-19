@@ -74,8 +74,7 @@ export const home = {
   <!-- FLAGSHIP: PHANSORA -->
   <section class="px-5 pb-20 sm:px-8">
     <div class="mx-auto max-w-6xl">
-      <div class="reveal relative overflow-hidden rounded-3xl border border-surface-800 bg-surface-900/60 p-8 sm:p-12">
-        <div class="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-primary-500/15 blur-3xl"></div>
+      <div class="reveal corner-glow relative overflow-hidden rounded-3xl border border-surface-800 bg-surface-900/60 p-8 sm:p-12">
         <div class="relative grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-center">
           <div>
             <p class="eyebrow mb-3 text-primary-200">Our flagship platform</p>
@@ -159,9 +158,7 @@ export const home = {
 
   <!-- CTA -->
   <section class="px-5 pb-24 sm:px-8">
-    <div class="reveal relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-primary-500/20 bg-gradient-to-br from-primary-900 via-surface-900 to-surface-950 px-6 py-10 sm:px-10">
-      <div class="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-primary-500/20 blur-3xl"></div>
-      <div class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-secondary-500/10 blur-3xl"></div>
+    <div class="reveal cta-field relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-primary-500/20 px-6 py-10 sm:px-10">
       <div class="relative flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:gap-10">
         ${ctaBadge("h-20 w-20")}
         <div class="min-w-0 flex-1">

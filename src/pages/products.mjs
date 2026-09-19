@@ -106,9 +106,7 @@ export const productsPage = {
   </section>
 
   <section class="px-5 pb-24 sm:px-8">
-    <div class="reveal relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-primary-500/20 bg-gradient-to-br from-primary-900 via-surface-900 to-surface-950 px-6 py-10 sm:px-10">
-      <div class="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-primary-500/20 blur-3xl"></div>
-      <div class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-secondary-500/10 blur-3xl"></div>
+    <div class="reveal cta-field relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-primary-500/20 px-6 py-10 sm:px-10">
       <div class="relative flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:gap-10">
         <span class="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-primary-500/10 text-primary-200 ring-1 ring-inset ring-primary-500/25">
           ${icon("layers", "h-9 w-9")}

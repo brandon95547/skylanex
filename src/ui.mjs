@@ -26,9 +26,7 @@ export function heading({ eyebrow, title, sub, center = true, light = false }) {
 
 export function ctaBand({ title, sub, primaryLabel = "Start a project", primaryHref = "/contact" } = {}) {
   return `<section class="px-5 pb-24 sm:px-8">
-    <div class="reveal relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-primary-500/20 bg-gradient-to-br from-primary-900 via-surface-900 to-surface-950 px-6 py-14 text-center sm:px-12">
-      <div class="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-primary-500/20 blur-3xl"></div>
-      <div class="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-secondary-500/10 blur-3xl"></div>
+    <div class="reveal cta-field relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-primary-500/20 px-6 py-14 text-center sm:px-12">
       <div class="relative">
         <h2 class="text-3xl font-bold tracking-tight text-fg sm:text-4xl">${title || "Let’s build something intelligent"}</h2>
         <p class="mx-auto mt-4 max-w-xl text-lg text-fg-secondary">${sub || "Tell us what you’re working on — we’ll tell you honestly whether AI is the right tool, and how we’d build it."}</p>
@@ -67,7 +65,9 @@ export function statRow() {
  * letterboxes.
  *
  * The two blooms render only when there is no image. Under artwork they are a second
- * light source disagreeing with the one already in the picture.
+ * light source disagreeing with the one already in the picture. They are ramps in the
+ * section's own background (.brand-field--lit), never shapes pushed past its edges: iOS
+ * paints those as black squares, see .brand-field in app.css.
  */
 export function heroGlow(inner, { image = null, image2x = null } = {}) {
   const art = image
@@ -83,11 +83,8 @@ export function heroGlow(inner, { image = null, image2x = null } = {}) {
            scrim runs top to bottom instead, which keeps it as texture behind the headline
            rather than a picture competing with it. -->
       <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-surface-950/85 via-surface-950/70 to-surface-950/85 lg:bg-gradient-to-r lg:from-surface-950 lg:via-surface-950/75 lg:to-transparent"></div>`
-    : `<div class="pointer-events-none absolute inset-0">
-        <div class="absolute left-1/2 top-[-10%] h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary-600/15 blur-3xl"></div>
-        <div class="absolute right-[-10%] top-[20%] h-[320px] w-[420px] rounded-full bg-secondary-500/10 blur-3xl"></div>
-      </div>`;
-  return `<section class="brand-field relative overflow-hidden">
+    : "";
+  return `<section class="brand-field${image ? "" : " brand-field--lit"} relative overflow-hidden">
     ${art}
     <div class="relative">${inner}</div>
     ${chevronRule()}

@@ -345,11 +345,65 @@
    * and a tiled pattern reads as wallpaper rather than a network. */
   /* The deep vignette the banner sits in: not flat black, a blue-black that lifts
    * slightly toward the upper right where the network is densest. */
+  /*
+   * NO LAYER HERE MAY BE BIGGER THAN THE ELEMENT, OR ANCHORED OUTSIDE IT. That is not a
+   * style preference. This used to be two radials whose ellipses were nearly twice the
+   * width of a phone and reached far above the section, and iOS WebKit rasterised that as
+   * a hard black square over the top-left of the page — behind the logo, over the
+   * eyebrow — on the device only, never in a desktop browser or in Safari's responsive
+   * mode. phansora.com hit the identical bug, and linear ramps sized to the box are what
+   * held there. The light is a little flatter than a radial's, and it is all they bought.
+   */
   .brand-field {
-    background:
-      radial-gradient(90% 70% at 82% 8%, color-mix(in oklab, var(--color-primary-900) 32%, transparent) 0%, transparent 62%),
-      radial-gradient(70% 60% at 6% 96%, color-mix(in oklab, var(--color-secondary-950) 42%, transparent) 0%, transparent 58%),
-      var(--color-surface-950);
+    background-color: var(--color-surface-950);
+    background-image:
+      linear-gradient(215deg, color-mix(in oklab, var(--color-primary-900) 32%, transparent) 0%, transparent 55%),
+      linear-gradient(35deg, color-mix(in oklab, var(--color-secondary-950) 42%, transparent) 0%, transparent 45%);
+    background-size: 100% 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+  }
+  /* A hero with no artwork takes its extra light from here: a wash down from the top and
+   * a fainter one in from the right. It used to be blurred ellipses up to 720px wide
+   * pushed past the section's edges, which is the same mistake as an oversized gradient —
+   * a layer painting outside its own box — and iOS paints it the same black. */
+  .brand-field--lit {
+    background-image:
+      linear-gradient(180deg, color-mix(in oklab, var(--color-primary-600) 16%, transparent) 0%, color-mix(in oklab, var(--color-primary-600) 9%, transparent) 55%, transparent 100%),
+      linear-gradient(270deg, color-mix(in oklab, var(--color-secondary-500) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(215deg, color-mix(in oklab, var(--color-primary-900) 32%, transparent) 0%, transparent 55%),
+      linear-gradient(35deg, color-mix(in oklab, var(--color-secondary-950) 42%, transparent) 0%, transparent 45%);
+  }
+
+  /* The call-to-action card: the diagonal it always had (Tailwind's own to-br, written
+   * out so the glows can share its background), with a corner of light at the top right
+   * and a fainter one at the bottom left. Those were blurred circles hung past the card's
+   * edges — see .brand-field for what iOS does with that. */
+  .cta-field {
+    background-color: var(--color-surface-950);
+    background-image:
+      linear-gradient(215deg, color-mix(in oklab, var(--color-primary-500) 20%, transparent) 0%, transparent 38%),
+      linear-gradient(35deg, color-mix(in oklab, var(--color-secondary-500) 10%, transparent) 0%, transparent 38%),
+      linear-gradient(to bottom right in oklab, var(--color-primary-900) 0%, var(--color-surface-900) 50%, var(--color-surface-950) 100%);
+    background-size: 100% 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+  }
+  /* The same top-right corner of light for a card that keeps its own background colour. */
+  .corner-glow {
+    background-image: linear-gradient(215deg, color-mix(in oklab, var(--color-primary-500) 15%, transparent) 0%, transparent 38%);
+    background-size: 100% 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+  }
+  /* The about page's monogram glows by its own shadow rather than sitting on a blurred
+   * gradient 16px bigger than itself. A box-shadow is part of the tile's own paint — the
+   * primary button's glow is one, and it draws correctly on the iPhone that showed the
+   * black square — where the blur was a separate filtered layer outside the tile. */
+  .monogram-halo {
+    box-shadow:
+      -14px -14px 48px -6px color-mix(in oklab, var(--color-primary-500) 22%, transparent),
+      14px 14px 48px -6px color-mix(in oklab, var(--color-secondary-500) 12%, transparent);
   }
 }
 
