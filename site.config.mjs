@@ -235,7 +235,7 @@ export const products = {
       category: "ai",
       badge: "AI Tool",
       icon: "spark",
-      href: "#",
+      href: "/products/archis",
     },
     {
       name: "Mercavo",

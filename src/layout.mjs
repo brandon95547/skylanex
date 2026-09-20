@@ -102,6 +102,10 @@ const ICONS = {
 };
 
 export function icon(name, cls = "h-5 w-5") {
+  // An unknown name falls back to the spark rather than rendering a hole — but it says
+  // so. A silent fallback drew the same icon twice on a page whose four cards were meant
+  // to be four different things, and nothing in the build noticed.
+  if (!ICONS[name]) console.warn(`  ⚠ icon("${name}") does not exist — drawing the spark instead`);
   const body = ICONS[name] || ICONS.spark;
   return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
 }
