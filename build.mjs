@@ -84,6 +84,7 @@ function build() {
   // Render pages. Clean URLs via directory-index files:
   //   "/"        -> index.html
   //   "/services"-> services/index.html   (works on any static host)
+  const rendered = new Map();
   for (const page of pages) {
     const html = layout({
       title: page.title,
@@ -95,11 +96,27 @@ function build() {
       noindex: page.noindex,
       jsonLd: [orgGraph(), ...jsonLdForPage(page)],
     });
+    rendered.set(page.path, html);
     const rel = page.path === "/" ? "index.html" : path.join(page.path.replace(/^\//, ""), "index.html");
     const out = path.join(DIST, rel);
     fs.mkdirSync(path.dirname(out), { recursive: true });
     fs.writeFileSync(out, html, "utf8");
     console.log("  •", rel, `(${(html.length / 1024).toFixed(1)}kb)`);
+  }
+
+  // A link to another page's anchor is two files agreeing: /products sends people to
+  // /phansora#book-alchemy, and only /phansora can carry that id. Renaming a product
+  // would quietly leave the link scrolling nowhere, so the build refuses instead.
+  const brokenAnchors = [];
+  for (const [from, html] of rendered) {
+    for (const [, target, anchor] of html.matchAll(/href="(\/[\w/-]*)#([\w-]+)"/g)) {
+      const page = rendered.get(target) ?? rendered.get(target.replace(/\/$/, ""));
+      if (!page) { brokenAnchors.push(`${from} → ${target}#${anchor} (no such page)`); continue; }
+      if (!page.includes(`id="${anchor}"`)) brokenAnchors.push(`${from} → ${target}#${anchor} (no such id)`);
+    }
+  }
+  if (brokenAnchors.length) {
+    throw new Error("links pointing at anchors that do not exist:\n  " + brokenAnchors.join("\n  "));
   }
 
   // /work → /products. nginx has no rule for /work, so this page is what answers it:

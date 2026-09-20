@@ -156,6 +156,10 @@ export const products = {
   // placeholders, not links — worth replacing before this page is anything but a preview.
   // Shot Matrix is the first with a page, and its page is the tool itself.
   //
+  // The five Phansora products go to their own section of /phansora, which is where this
+  // site says what each one is. The anchors are the ids sectionHead() renders there
+  // (src/pages/phansora.mjs); build.mjs refuses to build if one of them stops existing.
+  //
   // `badge` names the kind precisely and `category` picks its colour lane (LANES in
   // src/pages/products.mjs). They are usually the same words and deliberately not the
   // same field: "WordPress Plugin" is a more useful label than "Other", and still belongs
@@ -177,7 +181,7 @@ export const products = {
       category: "saas",
       badge: "SaaS Platform",
       icon: "clapper",
-      href: "#",
+      href: "/phansora#narrava-studio",
     },
     {
       name: "Book Alchemy",
@@ -186,7 +190,7 @@ export const products = {
       category: "saas",
       badge: "SaaS Platform",
       icon: "book",
-      href: "#",
+      href: "/phansora#book-alchemy",
     },
     {
       name: "Chrono Origin",
@@ -195,7 +199,16 @@ export const products = {
       category: "saas",
       badge: "SaaS Platform",
       icon: "compass",
-      href: "#",
+      href: "/phansora#chrono-origin",
+    },
+    {
+      name: "Research Atlas",
+      blurb:
+        "Turns complex research into a visual map — sources, ideas and evidence on one canvas, with the connections between them drawn and cited.",
+      category: "saas",
+      badge: "SaaS Platform",
+      icon: "network",
+      href: "/phansora#research-atlas",
     },
     {
       name: "SpokenVerse",
@@ -204,7 +217,7 @@ export const products = {
       category: "saas",
       badge: "SaaS Platform",
       icon: "mic",
-      href: "#",
+      href: "/phansora#spokenverse",
     },
     {
       name: "UI Bible",

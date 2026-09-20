@@ -259,10 +259,15 @@ function detail(p) {
     </div>
   </section>
 
-  <!-- Back to the parent card -->
+  <!-- Back to the parent card.
+       To /website-solutions, which is where the industry chips are. This used to point at
+       /solutions#<industry>, and that id has never existed there: /solutions renders the
+       designSolutions taxonomy (website, app, dashboard…), a different list. The link
+       landed on the top of the wrong page. The chips are the first thing on
+       /website-solutions, so no anchor is needed to arrive at them. -->
   <section class="px-5 pb-8 sm:px-8">
     <div class="mx-auto max-w-3xl text-center">
-      <a href="/solutions#${p.solution}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-200 hover:text-primary-200">
+      <a href="/website-solutions" class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-200 hover:text-primary-200">
         ${icon("arrow", "h-4 w-4 rotate-180")} Back to ${parent ? parent.name : "all solutions"}
       </a>
     </div>

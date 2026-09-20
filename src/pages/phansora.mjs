@@ -193,15 +193,24 @@ function film(f, featured = false) {
   </button>`;
 }
 
+// A product's own place on this page. The products page links straight to it
+// (/phansora#book-alchemy), so these ids are part of another page's markup as much as
+// this one's — build.mjs fails the build if a link points at an id nothing renders.
+export const productAnchor = (name) =>
+  name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
 /**
  * The block that opens a product's section: its number, name, tagline, blurb and link.
  *
  * Identical for every product, so it is written once here rather than copied per
  * section — the only thing that varies is which entry of SUITE it is handed.
+ *
+ * scroll-mt keeps the heading clear of the sticky header when someone arrives on the
+ * anchor; without it the number and name land underneath it.
  */
 function sectionHead(i) {
   const p = SUITE[i];
-  return `<div class="reveal grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
+  return `<div id="${productAnchor(p.name)}" class="reveal scroll-mt-28 grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
     <div>
       <p class="text-sm font-semibold tracking-wider text-fg-muted">
         <span class="text-primary-300">${pad(i)}</span> / ${pad(SUITE.length - 1)}
