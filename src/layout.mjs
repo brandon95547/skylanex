@@ -91,6 +91,7 @@ const ICONS = {
   // uses — a stroked wordmark is not that company's logo, and these are recognised by
   // their solid silhouette or not at all.
   linkedin: '<path d="M4.5 8.9h3.3V20H4.5V8.9zM6.1 3.9a1.9 1.9 0 1 1 0 3.8 1.9 1.9 0 0 1 0-3.8zM10.2 8.9h3.2v1.5h.05c.45-.85 1.55-1.75 3.2-1.75 3.4 0 4.05 2.25 4.05 5.15V20h-3.35v-5.35c0-1.28-.02-2.92-1.78-2.92-1.78 0-2.05 1.39-2.05 2.83V20h-3.32V8.9z" fill="currentColor" stroke="none"/>',
+  facebook: '<path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.5-3.91 3.77-3.91 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.44 2.9h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z" fill="currentColor" stroke="none"/>',
   github: '<path d="M12 2.6a9.4 9.4 0 0 0-2.97 18.32c.47.09.64-.2.64-.45v-1.6c-2.62.57-3.17-1.26-3.17-1.26-.43-1.09-1.05-1.38-1.05-1.38-.86-.59.07-.58.07-.58.95.07 1.45.98 1.45.98.84 1.45 2.21 1.03 2.75.79.09-.61.33-1.03.6-1.27-2.09-.24-4.29-1.05-4.29-4.65 0-1.03.37-1.87.97-2.53-.1-.24-.42-1.2.09-2.5 0 0 .79-.25 2.59.97a9 9 0 0 1 4.72 0c1.8-1.22 2.59-.97 2.59-.97.51 1.3.19 2.26.09 2.5.6.66.97 1.5.97 2.53 0 3.61-2.2 4.4-4.3 4.64.34.29.64.87.64 1.75v2.6c0 .25.17.55.65.45A9.4 9.4 0 0 0 12 2.6z" fill="currentColor" stroke="none"/>',
   youtube: '<path d="M21.2 7.9a2.6 2.6 0 0 0-1.83-1.84C17.75 5.6 12 5.6 12 5.6s-5.75 0-7.37.46A2.6 2.6 0 0 0 2.8 7.9C2.35 9.53 2.35 12 2.35 12s0 2.47.45 4.1a2.6 2.6 0 0 0 1.83 1.84c1.62.46 7.37.46 7.37.46s5.75 0 7.37-.46a2.6 2.6 0 0 0 1.83-1.84c.45-1.63.45-4.1.45-4.1s0-2.47-.45-4.1zM10.15 15.1V8.9l4.8 3.1-4.8 3.1z" fill="currentColor" stroke="none"/>',
   twitter: '<path d="M17.6 3.4h2.95l-6.45 7.37L21.7 20.6h-5.94l-4.65-6.08-5.32 6.08H2.83l6.9-7.89L2.3 3.4h6.09l4.2 5.56 4.99-5.56zm-1.04 15.42h1.63L7.5 5.09H5.75l10.81 13.73z" fill="currentColor" stroke="none"/>',
@@ -286,10 +287,13 @@ function footer(path) {
     },
   ];
 
-  // Placeholders. The accounts exist; their URLs have not been supplied, so these are
-  // marked aria-disabled rather than pointed at a guess — a social icon that goes to the
-  // wrong account is worse than one that does not go yet.
+  // Facebook is live. The rest are placeholders: the accounts exist, but their URLs have
+  // not been supplied, so they stay at "#" rather than being pointed at a guess — a
+  // social icon that goes to the WRONG account is worse than one that does not go yet.
+  //
+  // A real one leads the rail, so the row does not open with three dead icons.
   const social = [
+    { label: "Facebook", icon: "facebook", href: "https://www.facebook.com/profile.php?id=61592734813287" },
     { label: "LinkedIn", icon: "linkedin", href: "#" },
     { label: "GitHub", icon: "github", href: "#" },
     { label: "YouTube", icon: "youtube", href: "#" },
@@ -321,7 +325,10 @@ function footer(path) {
           <ul class="mt-4 flex gap-2">
             ${social
               .map(
-                (sn) => `<li><a href="${sn.href}" aria-label="${sn.label}" class="grid h-9 w-9 place-items-center rounded-full border border-surface-800 bg-surface-900 text-fg-secondary transition-colors hover:border-primary-500/60 hover:text-fg">${icon(sn.icon, "h-4 w-4")}</a></li>`
+                // Same rule as the product cards: an absolute URL IS the statement that
+                // the link leaves the site, so it opens in a new tab. A "#" placeholder
+                // gets neither target nor rel, because it goes nowhere.
+                (sn) => `<li><a href="${sn.href}"${String(sn.href).startsWith("http") ? ' target="_blank" rel="noopener"' : ""} aria-label="${sn.label}" class="grid h-9 w-9 place-items-center rounded-full border border-surface-800 bg-surface-900 text-fg-secondary transition-colors hover:border-primary-500/60 hover:text-fg">${icon(sn.icon, "h-4 w-4")}</a></li>`
               )
               .join("")}
           </ul>
