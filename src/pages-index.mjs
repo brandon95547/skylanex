@@ -15,6 +15,7 @@ import { industryLandingPages, conceptDetailPages } from "./pages/industry.mjs";
 import { productsPage } from "./pages/products.mjs";
 import { shotMatrixPage } from "./pages/shotmatrix.mjs";
 import { archisPage } from "./pages/archis.mjs";
+import { mercavoPage } from "./pages/mercavo.mjs";
 import { phansoraPage } from "./pages/phansora.mjs";
 import { aboutPage } from "./pages/about.mjs";
 import { contactPage } from "./pages/contact.mjs";
@@ -32,6 +33,7 @@ export const pages = [
   productsPage,
   shotMatrixPage,
   archisPage,
+  mercavoPage,
   phansoraPage,
   aboutPage,
   contactPage,

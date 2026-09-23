@@ -250,7 +250,9 @@ export const products = {
       category: "other",
       badge: "WordPress Plugin",
       icon: "cart",
-      href: "#",
+      // A "coming soon" page rather than "#": the card is worth clicking once there is
+      // something honest on the other side of it.
+      href: "/products/mercavo",
     },
   ],
 
