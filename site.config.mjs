@@ -226,7 +226,10 @@ export const products = {
       category: "dev",
       badge: "Developer Tool",
       icon: "palette",
-      href: "#",
+      // The reference itself, not a landing page about it. Absolute, so productCard()
+      // opens it in a new tab.
+      href: "https://ui.skylanex.com",
+      cta: "Open UI Bible",
     },
     {
       name: "Archis",
@@ -235,7 +238,10 @@ export const products = {
       category: "ai",
       badge: "AI Tool",
       icon: "spark",
-      href: "/products/archis",
+      // Straight to the tool. The landing page at /products/archis still exists and is
+      // still linked from the nav and the sitemap; this card skips it.
+      href: "https://archis.skylanex.com",
+      cta: "Open Archis",
     },
     {
       name: "Mercavo",

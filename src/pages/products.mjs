@@ -52,12 +52,21 @@ function featuredCard() {
   </article>`;
 }
 
+// A card whose href leaves the site opens in a new tab, matching how /phansora links to
+// the products themselves. Driven off the href rather than a separate `external: true`,
+// so the two can never disagree — an absolute URL IS the statement that it leaves.
+//
+// `noopener` without `noreferrer`: these are our own subdomains and the referrer is worth
+// having in their analytics.
+const external = (href) =>
+  String(href || "").startsWith("http") ? ' target="_blank" rel="noopener"' : "";
+
 function productCard(p) {
   const lane = LANES[p.category] || LANES.other;
   return `<article class="reveal group flex flex-col rounded-2xl border border-surface-800 bg-surface-900/50 p-6 transition-colors hover:border-primary-500/50">
     <span class="grid h-12 w-12 place-items-center rounded-xl ring-1 ring-inset ${lane.tile}">${icon(p.icon, "h-5 w-5")}</span>
     <h3 class="mt-5 text-lg font-bold text-fg">
-      <a href="${p.href}" class="after:absolute after:inset-0 focus:outline-none focus-visible:underline">${p.name}</a>
+      <a href="${p.href}"${external(p.href)} class="after:absolute after:inset-0 focus:outline-none focus-visible:underline">${p.name}</a>
     </h3>
     <p class="mt-2 mb-4 text-sm leading-relaxed text-fg-secondary">${p.blurb}</p>
     <!-- mt-auto, so the badge and the link below it sit on one baseline across the row
