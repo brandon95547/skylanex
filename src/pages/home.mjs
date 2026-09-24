@@ -25,7 +25,7 @@ export const home = {
           We build <span class="grad-text">intelligent software</span> that works.
         </h1>
         <p class="reveal mt-6 max-w-lg text-lg leading-relaxed text-fg-secondary">
-          From custom AI applications to scalable platforms and tools, we turn complex ideas into reliable software that drives real results.
+          Websites, web and mobile apps, and custom AI software — we turn complex ideas into reliable products that drive real results.
         </p>
         <div class="reveal mt-8 flex flex-wrap items-center gap-3">
           <a href="/contact" class="btn btn-primary">Start a project ${icon("arrow", "h-4 w-4")}</a>

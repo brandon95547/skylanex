@@ -52,6 +52,9 @@ export function orgGraph() {
         },
         areaServed: "Worldwide",
         knowsAbout: [
+          "Web Design",
+          "Web Application Development",
+          "Mobile App Development",
           "Artificial Intelligence",
           "Machine Learning",
           "Natural Language Processing",

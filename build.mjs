@@ -183,7 +183,7 @@ function build() {
   const llms =
     `# Skylanex\n\n` +
     `> ${site.description}\n\n` +
-    `Skylanex is an independent AI software studio led by ${site.owner}. We design and build websites, web and mobile apps, custom CRMs, dashboards, AI assistants, and e-commerce storefronts, and provide AI services from machine learning and NLP to computer vision. Contact: ${site.email}.\n\n` +
+    `Skylanex is an independent software studio led by ${site.owner}. We design and build websites, web and mobile apps, custom CRMs, dashboards, AI assistants, and e-commerce storefronts, and provide AI services from machine learning and NLP to computer vision. Contact: ${site.email}.\n\n` +
     `## Services\n` +
     services.map((s) => `- [${s.eyebrow}](${abs("/" + s.slug)}): ${s.summary}`).join("\n") +
     `\n\n## Design & build solutions\n` +

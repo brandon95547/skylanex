@@ -55,7 +55,7 @@ function esc(s) {
 // the section a page belongs to is already encoded in its path.
 function eyebrowFor(page) {
   const p = page.path;
-  if (p === "/") return "Independent AI software studio";
+  if (p === "/") return "Websites, apps & AI software";
   if (p.startsWith("/solutions/")) return "Website concept";
   if (p === "/solutions" || p === "/website-solutions") return "Design & build";
   // Never "Skylanex" here — it would sit directly under the wordmark, spending the
@@ -79,7 +79,7 @@ function eyebrowFor(page) {
 // headline — "Skylanex" alone would waste the largest type on the card on a word the
 // wordmark already says.
 function headlineFor(page) {
-  if (page.path === "/") return "I build intelligent software that ships.";
+  if (page.path === "/") return "We build intelligent software that works.";
   return page.title || site.name;
 }
 

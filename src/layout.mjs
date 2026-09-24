@@ -164,7 +164,7 @@ function esc(s) {
 }
 
 export function layout({ title, metaTitle, description, path = "/", content = "", jsonLd = [], scripts = [], noindex = false }) {
-  const pageTitle = metaTitle || (title ? `${title} · ${site.name}` : `${site.name} — AI Software Studio`);
+  const pageTitle = metaTitle || (title ? `${title} · ${site.name}` : `${site.name} — Websites, Apps & AI Software`);
   const desc = description || site.description;
   const canonical = path === "/" ? `${site.domain}/` : `${site.domain}${path}`;
   // Per-page social card (scripts/og-cards.mjs). Absolute, because scrapers do not
@@ -307,7 +307,7 @@ function footer(path) {
       <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_auto]">
         <div>
           ${logo()}
-          <p class="mt-4 max-w-xs text-sm leading-relaxed text-fg-secondary">Independent AI software studio building intelligent applications that empower businesses and creators.</p>
+          <p class="mt-4 max-w-xs text-sm leading-relaxed text-fg-secondary">Independent software studio building websites, apps, and AI software for businesses and creators.</p>
           <div class="mt-5 flex flex-col gap-2.5 text-sm text-fg-secondary">
             <a href="/contact" class="inline-flex items-center gap-2 hover:text-fg">${icon("mail", "h-4 w-4 text-primary-200")} ${site.email}</a>
           </div>

@@ -2,13 +2,13 @@
 
 export const site = {
   name: "Skylanex",
-  tagline: "AI software studio",
+  tagline: "Websites, apps & AI software",
   domain: "https://www.skylanex.com", // canonical is www (site forces www + https)
   email: "info@skylanex.com",
   owner: "Brandon Sanders",
   location: "Mooresboro, NC",
   description:
-    "Skylanex is an independent AI software studio — we design, build, and ship intelligent applications, from custom AI apps to machine learning, NLP, and computer vision.",
+    "Skylanex is an independent software studio — we design and build websites, web and mobile apps, and custom AI software for businesses of every size.",
   phansoraUrl: "https://www.phansora.com",
   twitter: "@skylanex_",
 };

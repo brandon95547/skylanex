@@ -17,7 +17,7 @@ export const aboutPage = {
   path: "/about",
   file: "about.html",
   title: "About",
-  description: `About Skylanex — an independent AI software studio founded by ${site.owner}, building intelligent products and applications.`,
+  description: `About Skylanex — an independent software studio founded by ${site.owner}, building websites, apps, and AI software that hold up in production.`,
   render: () => `
   ${heroGlow(`
     <div class="mx-auto max-w-5xl px-5 pb-10 pt-20 sm:px-8 sm:pt-24">
@@ -26,7 +26,7 @@ export const aboutPage = {
           <p class="eyebrow mb-3 text-primary-200">About</p>
           <h1 class="text-4xl font-extrabold leading-tight tracking-tight text-fg sm:text-5xl">Built by ${site.owner}.</h1>
           <p class="mt-5 max-w-xl text-lg leading-relaxed text-fg-secondary">
-            Skylanex is an independent AI software studio, founded and led by ${site.owner}. For over a decade we have shipped web and mobile applications for enterprises and startups — and today we focus on making AI genuinely useful: apps, models, and automation that hold up in production.
+            Skylanex is an independent software studio, founded and led by ${site.owner}. For over a decade we have shipped websites and web and mobile applications for enterprises and startups — and today we build them with AI where it genuinely helps: apps, models, and automation that hold up in production.
           </p>
           <p class="mt-4 max-w-xl leading-relaxed text-fg-secondary">
             Alongside client work we build and run our own products under <a href="${site.phansoraUrl}" target="_blank" rel="noopener" class="text-primary-200 hover:text-primary-200">Phansora</a> — a suite of AI tools that proves this stuff works outside a demo.
