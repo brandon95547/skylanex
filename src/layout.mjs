@@ -287,17 +287,18 @@ function footer(path) {
     },
   ];
 
-  // Facebook is live. The rest are placeholders: the accounts exist, but their URLs have
-  // not been supplied, so they stay at "#" rather than being pointed at a guess — a
-  // social icon that goes to the WRONG account is worse than one that does not go yet.
+  // Facebook and X are live. LinkedIn, GitHub and YouTube are placeholders: the accounts
+  // exist, but their URLs have not been supplied, so they stay at "#" rather than being
+  // pointed at a guess — a social icon that goes to the WRONG account is worse than one
+  // that does not go yet.
   //
-  // A real one leads the rail, so the row does not open with three dead icons.
+  // A real one leads the rail, so the row does not open with a dead icon.
   const social = [
     { label: "Facebook", icon: "facebook", href: "https://www.facebook.com/profile.php?id=61592734813287" },
     { label: "LinkedIn", icon: "linkedin", href: "#" },
     { label: "GitHub", icon: "github", href: "#" },
     { label: "YouTube", icon: "youtube", href: "#" },
-    { label: "X", icon: "twitter", href: "#" },
+    { label: "X", icon: "twitter", href: "https://x.com/skylanex_" },
   ];
 
   return `<footer class="border-t border-surface-800 bg-surface-950">
