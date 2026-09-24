@@ -3,7 +3,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { site, nav } from "../site.config.mjs";
+import { site, nav, social } from "../site.config.mjs";
 import { ogSlug } from "./seo.mjs";
 
 // The stylesheet and scripts, addressed by a hash of the file itself.
@@ -186,7 +186,9 @@ export function layout({ title, metaTitle, description, path = "/", content = ""
   <meta name="robots" content="${noindex ? "noindex, follow" : "index, follow, max-image-preview:large"}" />
   <meta name="theme-color" content="#0a0b12" />
   <link rel="canonical" href="${canonical}" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
   <link rel="icon" href="/images/skylanex-mark.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="${site.name}" />
   <meta property="og:locale" content="en_US" />
@@ -198,6 +200,7 @@ export function layout({ title, metaTitle, description, path = "/", content = ""
   <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="${site.twitter}" />
   <meta name="twitter:title" content="${esc(pageTitle)}" />
   <meta name="twitter:description" content="${esc(desc)}" />
   <meta name="twitter:image" content="${ogImage}" />
@@ -298,15 +301,6 @@ function footer(path) {
   //
   // GitHub is a personal account rather than an org, and YouTube is Phansora's channel.
   // Both are deliberate and both look like mistakes at a glance, so they are said here.
-  const social = [
-    { label: "Facebook", icon: "facebook", href: "https://www.facebook.com/profile.php?id=61592734813287" },
-    { label: "Instagram", icon: "instagram", href: "https://www.instagram.com/skylanex_/" },
-    { label: "GitHub", icon: "github", href: "https://github.com/brandon95547" },
-    // The channel is Phansora's, not a Skylanex-branded one. Deliberate: it is where the
-    // video is, and the footer already links Phansora as a product.
-    { label: "YouTube", icon: "youtube", href: "https://www.youtube.com/@Phansora-h8t" },
-    { label: "X", icon: "twitter", href: "https://x.com/skylanex_" },
-  ];
 
   return `<footer class="border-t border-surface-800 bg-surface-950">
     <div class="mx-auto max-w-6xl px-5 py-14 sm:px-8">

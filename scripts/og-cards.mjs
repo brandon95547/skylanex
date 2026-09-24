@@ -64,6 +64,11 @@ function eyebrowFor(page) {
     "/services": "What I do",
     "/products": "Products & tools",
     "/products/shot-matrix": "Free developer tool",
+    "/products/archis": "Free naming tool",
+    "/products/mercavo": "WordPress plugin",
+    "/phansora": "The AI creation suite",
+    "/privacy": "Legal",
+    "/terms": "Legal",
     "/about": "About the studio",
     "/contact": "Start a project",
   };
@@ -159,9 +164,9 @@ function cardHtml(page) {
 // encoder is now whichever of these is on PATH; only if none is does the PNG survive.
 const ENCODERS = [
   { bin: "sips", args: (png, jpg) => ["-s", "format", "jpeg", "-s", "formatOptions", "90", png, "--out", jpg] },
-  { bin: "magick", args: (png, jpg) => [png, "-quality", "90", jpg] },
-  { bin: "convert", args: (png, jpg) => [png, "-quality", "90", jpg] },
-  { bin: "ffmpeg", args: (png, jpg) => ["-y", "-loglevel", "error", "-i", png, "-qmin", "1", "-q:v", "2", jpg] },
+  { bin: "magick", args: (png, jpg) => [png, "-crop", `${W}x${H}+0+0`, "+repage", "-quality", "90", jpg] },
+  { bin: "convert", args: (png, jpg) => [png, "-crop", `${W}x${H}+0+0`, "+repage", "-quality", "90", jpg] },
+  { bin: "ffmpeg", args: (png, jpg) => ["-y", "-loglevel", "error", "-i", png, "-vf", `crop=${W}:${H}:0:0`, "-qmin", "1", "-q:v", "2", jpg] },
 ];
 const ENCODER = ENCODERS.find((e) => {
   try {
@@ -172,6 +177,13 @@ const ENCODER = ENCODERS.find((e) => {
   }
 });
 export const CARD_EXT = ENCODER ? "jpg" : "png";
+
+// Linux headless Chrome counts its (invisible) toolbar against --window-size, so a
+// 630px window gives a ~543px viewport and every card came out with an unpainted band
+// where the footer should be. Shoot a taller window and let the encoder crop back to
+// W×H. sips cannot crop from the top-left, so macOS — where the size was exact — keeps
+// the exact window.
+const SHOT_H = ENCODER && ENCODER.bin !== "sips" ? H + 200 : H;
 
 function shoot(page, tmpDir) {
   const slug = ogSlug(page.path);
@@ -185,7 +197,7 @@ function shoot(page, tmpDir) {
       "--disable-gpu",
       "--hide-scrollbars",
       "--force-device-scale-factor=1",
-      `--window-size=${W},${H}`,
+      `--window-size=${W},${SHOT_H}`,
       `--screenshot=${png}`,
       `file://${htmlPath}`,
     ],

@@ -141,6 +141,7 @@ function build() {
     layout({
       title: "Not found",
       path: "/404",
+      noindex: true,
       content: `<section class="mx-auto flex max-w-lg flex-col items-center px-5 py-32 text-center">
         <p class="grad-text text-7xl font-extrabold">404</p>
         <h1 class="mt-4 text-2xl font-bold text-white">Page not found</h1>
@@ -155,6 +156,11 @@ function build() {
   copyDir(path.join(__dirname, "assets", "js"), path.join(DIST, "js"));
   copyDir(path.join(__dirname, "assets", "images"), path.join(DIST, "images"));
   copyDir(path.join(__dirname, "assets", "fonts"), path.join(DIST, "fonts"));
+  // Browsers and crawlers request these two at the root whether or not a page links
+  // them, so they 404'd on every first visit. The originals stay in images/.
+  for (const f of ["favicon.ico", "apple-touch-icon.png"]) {
+    fs.copyFileSync(path.join(__dirname, "assets", "images", f), path.join(DIST, f));
+  }
   // Videos are ~93MB. dist/ is committed, so dist/videos is gitignored and prod
   // re-creates it from assets/ during deploy — see deploy/prod-deploy.sh.
   // In dev the startup build already copied them; skip on incremental rebuilds.

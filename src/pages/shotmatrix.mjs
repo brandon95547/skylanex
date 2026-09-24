@@ -171,9 +171,9 @@ export const shotMatrixPage = {
   path: "/products/shot-matrix",
   file: "products/shot-matrix.html",
   title: "Shot Matrix",
-  metaTitle: "Shot Matrix — free screenshots in every browser, at every size · Skylanex",
+  metaTitle: "Shot Matrix — free cross-browser screenshot tool · Skylanex",
   description:
-    "Free tool: screenshot any public page in Chromium, Firefox and WebKit at eight real device widths, delivered as one zip, and catch the sideways scroll, failed requests and script errors a picture can’t show.",
+    "Free cross-browser screenshot tool: capture any page in Chromium, Firefox and WebKit at eight device widths, and catch layout breaks and failed requests.",
   scripts: ["/js/shotmatrix.js"],
   render: () => `
   ${heroGlow(`

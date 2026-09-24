@@ -47,9 +47,9 @@ export const mercavoPage = {
   path: "/products/mercavo",
   file: "products/mercavo.html",
   title: "Mercavo",
-  metaTitle: "Mercavo — standalone WordPress commerce, in development · Skylanex",
+  metaTitle: "Mercavo — WordPress commerce without WooCommerce · Skylanex",
   description:
-    "Mercavo is standalone WordPress commerce — products, cart, checkout, orders, inventory, tax and shipping, with no WooCommerce underneath it. Currently in development.",
+    "Mercavo is standalone WordPress commerce — products, cart, checkout, orders, inventory, tax and shipping, with no WooCommerce underneath. In development.",
   render: () => `
   ${heroGlow(`
     <div class="mx-auto max-w-6xl px-5 pb-14 pt-16 sm:px-8 sm:pt-20">

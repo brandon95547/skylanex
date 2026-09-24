@@ -53,7 +53,7 @@ export const examplesPage = {
   title: "Website Solutions",
   metaTitle: "Website Solutions by Industry · Skylanex",
   description:
-    "Design examples by industry — law firms, and more industries coming soon. See how Skylanex tailors a site to the way each industry actually sells.",
+    "Website design examples by industry — law firms and medical & dental practices so far, each built around how that industry actually wins clients.",
   render: () => {
     const live = solutions.filter((s) => s.landing);
     return `

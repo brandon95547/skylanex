@@ -1,5 +1,5 @@
 // seo.mjs — structured data (JSON-LD) generation.
-import { site, services, faqs, designSolutions, industryPages } from "../site.config.mjs";
+import { site, social, services, faqs, designSolutions, industryPages } from "../site.config.mjs";
 
 const ORG = `${site.domain}/#org`;
 const WEBSITE = `${site.domain}/#website`;
@@ -31,11 +31,25 @@ export function orgGraph() {
         "@id": ORG,
         name: site.name,
         url: `${site.domain}/`,
-        logo: `${site.domain}/images/skylanex-logo.svg`,
-        image: `${site.domain}/images/skylanex-logo.svg`,
+        // Raster, not the SVG: Google's logo guidelines ask for a bitmap of at least
+        // 112px, and the SVG was the one asset here it could decline to use.
+        logo: `${site.domain}/images/skylanex-mark-512.png`,
+        image: `${site.domain}/images/og/home.jpg`,
         description: site.description,
         email: site.email,
-        founder: { "@type": "Person", name: site.owner },
+        founder: {
+          "@type": "Person",
+          name: site.owner,
+          sameAs: social.filter((s) => s.label === "GitHub").map((s) => s.href),
+        },
+        // ProfessionalService is a LocalBusiness type, which Google expects to carry an
+        // address. The town is already public on the legal pages; no street is given.
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: site.location.split(",")[0].trim(),
+          addressRegion: site.location.split(",")[1].trim(),
+          addressCountry: "US",
+        },
         areaServed: "Worldwide",
         knowsAbout: [
           "Artificial Intelligence",
@@ -45,7 +59,7 @@ export function orgGraph() {
           "AI Application Development",
           "Large Language Models",
         ],
-        sameAs: [site.phansoraUrl],
+        sameAs: social.filter((s) => s.org).map((s) => s.href),
       },
       {
         "@type": "WebSite",
@@ -231,6 +245,32 @@ export function jsonLdForPage(page) {
         creator: { "@id": ORG },
       },
     ];
+  }
+  if (page.path === "/products/archis") {
+    return [
+      breadcrumb([home, { name: "Products", path: "/products" }, { name: "Archis", path: page.path }]),
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "Archis",
+        url: absUrl(page.path),
+        description: page.description,
+        applicationCategory: "DesignApplication",
+        operatingSystem: "Any",
+        browserRequirements: "Requires JavaScript",
+        isAccessibleForFree: true,
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        creator: { "@id": ORG },
+      },
+    ];
+  }
+  // Breadcrumb only: Mercavo is unreleased, so there is no application or offer to
+  // describe yet — the same rule that took the VideoObjects off /products.
+  if (page.path === "/products/mercavo") {
+    return [breadcrumb([home, { name: "Products", path: "/products" }, { name: "Mercavo", path: page.path }])];
+  }
+  if (page.path === "/phansora") {
+    return [breadcrumb([home, { name: "Phansora", path: page.path }])];
   }
   if (page.path === "/about") {
     return [

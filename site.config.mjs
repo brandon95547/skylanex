@@ -10,7 +10,22 @@ export const site = {
   description:
     "Skylanex is an independent AI software studio — we design, build, and ship intelligent applications, from custom AI apps to machine learning, NLP, and computer vision.",
   phansoraUrl: "https://www.phansora.com",
+  twitter: "@skylanex_",
 };
+
+// Social profiles. The footer rail renders all of them; the Organization schema's
+// sameAs takes only the ones that ARE Skylanex (`org: true`) — GitHub is a personal
+// account and YouTube is Phansora's channel, so claiming either as the brand's own
+// profile would tell Google the wrong entity owns it.
+export const social = [
+  { label: "Facebook", icon: "facebook", href: "https://www.facebook.com/profile.php?id=61592734813287", org: true },
+  { label: "Instagram", icon: "instagram", href: "https://www.instagram.com/skylanex_/", org: true },
+  { label: "GitHub", icon: "github", href: "https://github.com/brandon95547" },
+  // The channel is Phansora's, not a Skylanex-branded one. Deliberate: it is where the
+  // video is, and the footer already links Phansora as a product.
+  { label: "YouTube", icon: "youtube", href: "https://www.youtube.com/@Phansora-h8t" },
+  { label: "X", icon: "twitter", href: "https://x.com/skylanex_", org: true },
+];
 
 // Top navigation (order matters). `path` is the built file's route.
 export const nav = [

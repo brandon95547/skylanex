@@ -80,7 +80,7 @@ export const home = {
             <p class="eyebrow mb-3 text-primary-200">Our flagship platform</p>
             <h2 class="text-2xl font-bold text-fg sm:text-3xl">Phansora — The all-in-one AI product suite</h2>
             <p class="mt-4 max-w-xl leading-relaxed text-fg-secondary">
-              A complete suite of tools for AI video production, narration, research, and automation. Built for creators, researchers, and enterprises.
+              Five focused tools for AI video production, audio courses, research dossiers, origin tracing, and speech. Built for creators, researchers, and thinkers.
             </p>
             <a href="${site.phansoraUrl}" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-200 hover:text-primary-200">
               Explore Phansora ${icon("arrow", "h-4 w-4")}

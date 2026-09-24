@@ -45,9 +45,9 @@ export const archisPage = {
   path: "/products/archis",
   file: "products/archis.html",
   title: "Archis",
-  metaTitle: "Archis — new names, built from ancient roots · Skylanex",
+  metaTitle: "Archis — a name generator built on ancient roots · Skylanex",
   description:
-    "Free tool: describe what a name should carry and Archis blends real roots from Ancient Greek, Latin, Sanskrit, Egyptian and a dozen more into words that have never been said — and shows exactly what each one was made from.",
+    "Free name generator: describe what a name should carry and Archis blends real roots from Greek, Latin, Sanskrit and more into new words, with their origins.",
   render: () => `
   ${heroGlow(`
     <div class="mx-auto max-w-6xl px-5 pb-14 pt-16 sm:px-8 sm:pt-20">
