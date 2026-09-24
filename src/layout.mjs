@@ -90,7 +90,12 @@ const ICONS = {
   // Brand glyphs, drawn as FILLED paths rather than the 2px strokes the rest of the set
   // uses — a stroked wordmark is not that company's logo, and these are recognised by
   // their solid silhouette or not at all.
+  // Kept though nothing draws it now: the rail swapped LinkedIn for Instagram, and a
+  // glyph is cheaper to leave than to redraw if it comes back.
   linkedin: '<path d="M4.5 8.9h3.3V20H4.5V8.9zM6.1 3.9a1.9 1.9 0 1 1 0 3.8 1.9 1.9 0 0 1 0-3.8zM10.2 8.9h3.2v1.5h.05c.45-.85 1.55-1.75 3.2-1.75 3.4 0 4.05 2.25 4.05 5.15V20h-3.35v-5.35c0-1.28-.02-2.92-1.78-2.92-1.78 0-2.05 1.39-2.05 2.83V20h-3.32V8.9z" fill="currentColor" stroke="none"/>',
+  // fill-rule evenodd, or the lens fills solid: the mark is an outer rounded square,
+  // a ring and a dot, and only evenodd punches the ring's hole through.
+  instagram: '<path fill-rule="evenodd" d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.21 8.8 2.2 12 2.2zm0 5.16a4.64 4.64 0 1 0 0 9.28 4.64 4.64 0 0 0 0-9.28zm0 7.65a3.01 3.01 0 1 1 0-6.02 3.01 3.01 0 0 1 0 6.02zm5.9-7.83a1.08 1.08 0 1 1-2.17 0 1.08 1.08 0 0 1 2.17 0z" fill="currentColor" stroke="none"/>',
   facebook: '<path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.5-3.91 3.77-3.91 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.44 2.9h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z" fill="currentColor" stroke="none"/>',
   github: '<path d="M12 2.6a9.4 9.4 0 0 0-2.97 18.32c.47.09.64-.2.64-.45v-1.6c-2.62.57-3.17-1.26-3.17-1.26-.43-1.09-1.05-1.38-1.05-1.38-.86-.59.07-.58.07-.58.95.07 1.45.98 1.45.98.84 1.45 2.21 1.03 2.75.79.09-.61.33-1.03.6-1.27-2.09-.24-4.29-1.05-4.29-4.65 0-1.03.37-1.87.97-2.53-.1-.24-.42-1.2.09-2.5 0 0 .79-.25 2.59.97a9 9 0 0 1 4.72 0c1.8-1.22 2.59-.97 2.59-.97.51 1.3.19 2.26.09 2.5.6.66.97 1.5.97 2.53 0 3.61-2.2 4.4-4.3 4.64.34.29.64.87.64 1.75v2.6c0 .25.17.55.65.45A9.4 9.4 0 0 0 12 2.6z" fill="currentColor" stroke="none"/>',
   youtube: '<path d="M21.2 7.9a2.6 2.6 0 0 0-1.83-1.84C17.75 5.6 12 5.6 12 5.6s-5.75 0-7.37.46A2.6 2.6 0 0 0 2.8 7.9C2.35 9.53 2.35 12 2.35 12s0 2.47.45 4.1a2.6 2.6 0 0 0 1.83 1.84c1.62.46 7.37.46 7.37.46s5.75 0 7.37-.46a2.6 2.6 0 0 0 1.83-1.84c.45-1.63.45-4.1.45-4.1s0-2.47-.45-4.1zM10.15 15.1V8.9l4.8 3.1-4.8 3.1z" fill="currentColor" stroke="none"/>',
@@ -287,16 +292,16 @@ function footer(path) {
     },
   ];
 
-  // Facebook, YouTube and X are live. LinkedIn and GitHub are placeholders: the accounts
-  // exist, but their URLs have not been supplied, so they stay at "#" rather than being
-  // pointed at a guess — a social icon that goes to the WRONG account is worse than one
-  // that does not go yet.
+  // All five are live. Every href here is absolute, and that is what makes the rail open
+  // in a new tab — the render below decides from the href rather than from a flag, so a
+  // sixth needs nothing but its URL.
   //
-  // A real one leads the rail, so the row does not open with a dead icon.
+  // GitHub is a personal account rather than an org, and YouTube is Phansora's channel.
+  // Both are deliberate and both look like mistakes at a glance, so they are said here.
   const social = [
     { label: "Facebook", icon: "facebook", href: "https://www.facebook.com/profile.php?id=61592734813287" },
-    { label: "LinkedIn", icon: "linkedin", href: "#" },
-    { label: "GitHub", icon: "github", href: "#" },
+    { label: "Instagram", icon: "instagram", href: "https://www.instagram.com/skylanex_/" },
+    { label: "GitHub", icon: "github", href: "https://github.com/brandon95547" },
     // The channel is Phansora's, not a Skylanex-branded one. Deliberate: it is where the
     // video is, and the footer already links Phansora as a product.
     { label: "YouTube", icon: "youtube", href: "https://www.youtube.com/@Phansora-h8t" },
