@@ -50,7 +50,10 @@ export function orgGraph() {
           addressRegion: site.location.split(",")[1].trim(),
           addressCountry: "US",
         },
-        areaServed: "Worldwide",
+        areaServed: site.region.served.map((a) => ({
+          "@type": a.type,
+          name: a.state ? `${a.name}, ${a.state}` : a.name,
+        })),
         knowsAbout: [
           "Web Design",
           "Web Application Development",

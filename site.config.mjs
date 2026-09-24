@@ -11,6 +11,24 @@ export const site = {
     "Skylanex is an independent software studio — we design and build websites, web and mobile apps, and custom AI software for businesses of every size.",
   phansoraUrl: "https://www.phansora.com",
   twitter: "@skylanex_",
+  // Where the studio says it is. `line` is the sentence the homepage and footer show;
+  // `served` is the Organization schema's areaServed. Mooresboro itself is too small to
+  // be a search term, so the site names the two metros it sits between. Remote clients
+  // are the rest of the business, which is why the country is on the list too.
+  region: {
+    line: "Based between Charlotte and Greenville–Spartanburg — working with clients across the Carolinas and remotely.",
+    served: [
+      { type: "City", name: "Charlotte", state: "NC" },
+      { type: "City", name: "Gastonia", state: "NC" },
+      { type: "City", name: "Shelby", state: "NC" },
+      { type: "City", name: "Spartanburg", state: "SC" },
+      { type: "City", name: "Greenville", state: "SC" },
+      { type: "City", name: "Gaffney", state: "SC" },
+      { type: "State", name: "North Carolina" },
+      { type: "State", name: "South Carolina" },
+      { type: "Country", name: "United States" },
+    ],
+  },
 };
 
 // Social profiles. The footer rail renders all of them; the Organization schema's

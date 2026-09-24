@@ -38,6 +38,7 @@ export function assetUrl(publicPath) {
 /* ---- inline SVG icons (stroke = currentColor) ---- */
 const ICONS = {
   arrow: '<path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>',
+  pin: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/>',
   app: '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7h6"/><path d="M9 11h6"/><path d="M9 15h4"/>',
   network: '<circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5l-5 5M12 11.5l5 5"/>',
   workflow: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M10 6.5h5a2 2 0 0 1 2 2V14"/>',
@@ -310,6 +311,7 @@ function footer(path) {
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-fg-secondary">Independent software studio building websites, apps, and AI software for businesses and creators.</p>
           <div class="mt-5 flex flex-col gap-2.5 text-sm text-fg-secondary">
             <a href="/contact" class="inline-flex items-center gap-2 hover:text-fg">${icon("mail", "h-4 w-4 text-primary-200")} ${site.email}</a>
+            <p class="flex max-w-xs items-start gap-2">${icon("pin", "mt-0.5 h-4 w-4 shrink-0 text-primary-200")} Charlotte · Greenville–Spartanburg · Remote</p>
           </div>
         </div>
         ${cols

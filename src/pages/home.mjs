@@ -39,6 +39,7 @@ export const home = {
             .map((t) => `<li class="inline-flex items-center gap-1.5">${icon("checkCircle", "h-4 w-4 text-primary-200")} ${t}</li>`)
             .join("")}
         </ul>
+        <p class="reveal mt-5 flex max-w-lg items-start gap-2 text-sm leading-relaxed text-fg-muted">${icon("pin", "mt-0.5 h-4 w-4 shrink-0 text-primary-200")} ${site.region.line}</p>
       </div>
     </div>
   `, {
