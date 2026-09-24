@@ -287,7 +287,7 @@ function footer(path) {
     },
   ];
 
-  // Facebook and X are live. LinkedIn, GitHub and YouTube are placeholders: the accounts
+  // Facebook, YouTube and X are live. LinkedIn and GitHub are placeholders: the accounts
   // exist, but their URLs have not been supplied, so they stay at "#" rather than being
   // pointed at a guess — a social icon that goes to the WRONG account is worse than one
   // that does not go yet.
@@ -297,7 +297,9 @@ function footer(path) {
     { label: "Facebook", icon: "facebook", href: "https://www.facebook.com/profile.php?id=61592734813287" },
     { label: "LinkedIn", icon: "linkedin", href: "#" },
     { label: "GitHub", icon: "github", href: "#" },
-    { label: "YouTube", icon: "youtube", href: "#" },
+    // The channel is Phansora's, not a Skylanex-branded one. Deliberate: it is where the
+    // video is, and the footer already links Phansora as a product.
+    { label: "YouTube", icon: "youtube", href: "https://www.youtube.com/@Phansora-h8t" },
     { label: "X", icon: "twitter", href: "https://x.com/skylanex_" },
   ];
 
