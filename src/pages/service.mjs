@@ -2,9 +2,49 @@ import { icon } from "../layout.mjs";
 import { ctaBand, heroGlow } from "../ui.mjs";
 import { services } from "../../site.config.mjs";
 
-// Renders one service detail page. Also lists the other services at the bottom.
+// The long-form body and FAQ a page carries when it has them. The buyer-facing
+// pages do; the older technical AI pages are the short form and skip both.
+function sections(s) {
+  if (!s.sections?.length) return "";
+  return `<section class="px-5 pb-16 sm:px-8">
+    <div class="mx-auto grid max-w-5xl gap-12 lg:grid-cols-2">
+      ${s.sections
+        .map(
+          (b) => `<div>
+        <h2 class="text-2xl font-bold text-fg">${b.h}</h2>
+        ${b.p.map((p) => `<p class="mt-4 leading-relaxed text-fg-secondary">${p}</p>`).join("")}
+      </div>`
+        )
+        .join("")}
+    </div>
+  </section>`;
+}
+
+function faq(s) {
+  if (!s.faqs?.length) return "";
+  return `<section class="px-5 pb-16 sm:px-8">
+    <div class="mx-auto max-w-5xl">
+      <h2 class="text-2xl font-bold text-fg">Common questions</h2>
+      <div class="mt-6 max-w-3xl divide-y divide-surface-800 rounded-2xl border border-surface-800 bg-surface-900/50">
+        ${s.faqs
+          .map(
+            (f) => `<div class="p-6">
+          <h3 class="font-semibold text-fg">${f.q}</h3>
+          <p class="mt-2 leading-relaxed text-fg-secondary">${f.a}</p>
+        </div>`
+          )
+          .join("")}
+      </div>
+    </div>
+  </section>`;
+}
+
+// Renders one service detail page. Suggests three siblings at the bottom — from the
+// page's own group first, so a website page points at apps and stores, not at
+// computer vision.
 function detail(s) {
-  const others = services.filter((x) => x.slug !== s.slug).slice(0, 3);
+  const rest = services.filter((x) => x.slug !== s.slug);
+  const others = [...rest.filter((x) => x.group === s.group), ...rest.filter((x) => x.group !== s.group)].slice(0, 3);
   return `
   ${heroGlow(`
     <div class="mx-auto max-w-5xl px-5 pb-10 pt-20 sm:px-8 sm:pt-24">
@@ -19,7 +59,7 @@ function detail(s) {
       </div>
       <div class="mt-8 flex flex-wrap gap-3">
         <a href="/contact" class="btn btn-primary">Start a project ${icon("arrow", "h-4 w-4")}</a>
-        <a href="/products" class="btn btn-ghost">See related products</a>
+        <a href="/services" class="btn btn-ghost">All services</a>
       </div>
     </div>
   `)}
@@ -55,7 +95,10 @@ function detail(s) {
     </div>
   </section>
 
-  <section class="px-5 pb-4 sm:px-8">
+  ${sections(s)}
+  ${faq(s)}
+
+  <section class="px-5 pb-20 sm:px-8">
     <div class="mx-auto max-w-5xl">
       <h2 class="text-lg font-semibold text-fg">Explore other services</h2>
       <div class="mt-5 grid gap-4 sm:grid-cols-3">
@@ -72,7 +115,7 @@ function detail(s) {
     </div>
   </section>
 
-  ${ctaBand({ title: `Ready to talk ${s.eyebrow.toLowerCase()}?` })}
+  ${ctaBand({ title: "Tell us what you need built", sub: "Send a note about the project. You’ll get an honest read on the right approach — and a fixed price to do it." })}
   `;
 }
 
@@ -81,6 +124,7 @@ export const servicePages = services.map((s) => ({
   path: `/${s.slug}`,
   file: `${s.slug}.html`,
   title: s.eyebrow,
-  description: s.summary,
+  metaTitle: s.metaTitle,
+  description: s.description || s.summary,
   render: () => detail(s),
 }));

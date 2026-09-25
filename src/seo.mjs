@@ -117,7 +117,7 @@ export function jsonLdForPage(page) {
       {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: "AI services",
+        name: "Services",
         itemListElement: services.map((s, i) => ({
           "@type": "ListItem",
           position: i + 1,
@@ -141,6 +141,7 @@ export function jsonLdForPage(page) {
         areaServed: "Worldwide",
         offers: svc.deliverables.map((d) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: d } })),
       },
+      svc.faqs?.length ? faqPage(svc.faqs) : null,
     ];
   }
   if (page.path === "/solutions") {

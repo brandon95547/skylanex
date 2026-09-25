@@ -61,7 +61,7 @@ function eyebrowFor(page) {
   // Never "Skylanex" here — it would sit directly under the wordmark, spending the
   // card's one label on a word the mark above it already says.
   const named = {
-    "/services": "What I do",
+    "/services": "What we do",
     "/products": "Products & tools",
     "/products/shot-matrix": "Free developer tool",
     "/products/archis": "Free naming tool",
@@ -72,7 +72,7 @@ function eyebrowFor(page) {
     "/about": "About the studio",
     "/contact": "Start a project",
   };
-  return named[p] || "AI services";
+  return named[p] || "Services";
 }
 
 // The home page has no `title` (its <title> is the brand line), so it needs its own

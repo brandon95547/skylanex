@@ -38,6 +38,7 @@ export function assetUrl(publicPath) {
 /* ---- inline SVG icons (stroke = currentColor) ---- */
 const ICONS = {
   arrow: '<path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>',
+  mobile: '<rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/>',
   pin: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/>',
   app: '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7h6"/><path d="M9 11h6"/><path d="M9 15h4"/>',
   network: '<circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5l-5 5M12 11.5l5 5"/>',
@@ -264,12 +265,14 @@ function footer(path) {
     {
       title: "Services",
       links: [
-        { label: "AI App Development", href: "/ai-application-development" },
-        { label: "Machine Learning", href: "/machine-learning-data-science" },
-        { label: "Process Automation", href: "/intelligent-process-automation" },
-        { label: "NLP", href: "/natural-language-processing" },
-        { label: "Computer Vision", href: "/computer-vision-solutions" },
-        { label: "AI Consulting", href: "/ai-consulting-strategy" },
+        { label: "Website Design", href: "/website-design" },
+        { label: "Custom Software", href: "/custom-software-development" },
+        { label: "Mobile Apps", href: "/mobile-app-development" },
+        { label: "E-commerce", href: "/ecommerce-development" },
+        { label: "AI Chatbots", href: "/ai-chatbots" },
+        { label: "AI Automation", href: "/intelligent-process-automation" },
+        { label: "Care Plans", href: "/website-care-plans" },
+        { label: "All services", href: "/services" },
       ],
     },
     {

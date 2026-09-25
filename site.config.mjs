@@ -55,9 +55,9 @@ export const nav = [
   { label: "Contact", path: "/contact" },
 ];
 
-// The six AI service areas. Each renders a detail page at /<slug>.
+// The six technical AI service areas. Each renders a detail page at /<slug>.
 // slugs match the pages currently on phansora.com so the 301s line up.
-export const services = [
+const aiTechServices = [
   {
     slug: "ai-application-development",
     icon: "app",
@@ -91,17 +91,45 @@ export const services = [
   {
     slug: "intelligent-process-automation",
     icon: "workflow",
-    eyebrow: "Intelligent Process Automation",
+    eyebrow: "AI Automation",
+    // The slug predates the rename and stays: it matches the old phansora.com URL
+    // that 301s here. The title is what people actually search for.
+    metaTitle: "AI Automation & Document Processing · Skylanex",
+    description:
+      "AI automation for the repetitive work — reading invoices, purchase orders, and forms, entering the data, and routing it — with a person checking what matters.",
     title: "Automate the busywork, keep the judgment",
-    tagline: "AI-driven automation for the repetitive work that slows your team down.",
+    tagline: "AI that reads the invoices, orders, and forms, types the data where it belongs, and flags only what needs a person.",
     summary:
-      "We combine LLMs, rules, and integrations to automate document processing, routing, and repetitive workflows end to end.",
+      "We combine AI, rules, and integrations to automate document processing, data entry, routing, and the repetitive steps between your systems — with checkpoints wherever a human should decide.",
     highlights: [
       { title: "Document intelligence", text: "Extract, classify, and route documents automatically." },
       { title: "Workflow orchestration", text: "Connect the tools you already use into one flow." },
       { title: "Human-in-the-loop", text: "Automation with the right checkpoints for oversight." },
     ],
     deliverables: ["Process mapping", "OCR & extraction", "Workflow integration", "Exception handling & review"],
+    sections: [
+      {
+        h: "What it looks like in practice",
+        p: [
+          "A supplier invoice arrives by email. Instead of someone opening it, reading it, and typing the numbers into the accounting system, the automation reads it, matches it to the purchase order, enters it, and only asks a person when the totals don't agree.",
+          "The same pattern fits purchase orders, quotes, shipping documents, spec sheets, intake forms, and applications — anywhere people copy information from one place to another all day. It's especially common in manufacturing, logistics, and professional offices.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What kind of work can be automated?",
+        a: "Repetitive work with a recognisable pattern: reading documents, entering data, sorting and routing requests, sending follow-ups, and moving information between systems. Judgment calls stay with your people.",
+      },
+      {
+        q: "What if the AI gets something wrong?",
+        a: "Every automation has checkpoints. Anything it isn't confident about, or anything above a limit you set, goes to a person for review instead of going straight through.",
+      },
+      {
+        q: "Do we need to replace our current software?",
+        a: "No. Automation works alongside the tools you already use — email, accounting, CRM, spreadsheets — and connects them.",
+      },
+    ],
   },
   {
     slug: "ai-consulting-strategy",
@@ -120,7 +148,8 @@ export const services = [
   },
   {
     slug: "natural-language-processing",
-    icon: "chat",
+    // Not "chat": AI Chatbots owns that one, and the two sit side by side.
+    icon: "book",
     eyebrow: "Natural Language Processing",
     title: "Make sense of language at scale",
     tagline: "Understand, search, and generate text — from documents to conversations.",
@@ -148,6 +177,425 @@ export const services = [
     ],
     deliverables: ["Dataset & labeling strategy", "Model training", "Inference deployment", "Monitoring & retraining"],
   },
+];
+
+// What the studio builds, in the words buyers search with. These lead the site;
+// the six technical AI pages above are the deeper layer beneath them.
+//
+// Beyond the fields the AI pages carry, these have `metaTitle`/`description` (the
+// eyebrow alone makes a weak <title>), `sections` (the body a page needs before it
+// can rank for anything), and `faqs` (rendered on the page and as FAQPage schema).
+// Nothing here quotes a price or names a client: every project is quoted after a
+// call, and the copy says so rather than inventing a number.
+const buildServices = [
+  {
+    slug: "website-design",
+    icon: "browser",
+    eyebrow: "Website Design & WordPress",
+    metaTitle: "Website Design & WordPress Development · Skylanex",
+    description:
+      "Custom website design and WordPress development — fast, mobile-first sites built to turn visitors into calls, bookings, and sales. Redesigns and fixes too.",
+    title: "Websites built to bring in business",
+    tagline: "Custom design, fast builds, and WordPress done properly — for a new site, a redesign, or a site that just needs fixing.",
+    summary:
+      "We design and build websites around the one thing your business needs a visitor to do — call, book, buy, or get in touch — and make them fast on the phone in their pocket.",
+    highlights: [
+      { title: "Designed for your business", text: "A layout and design system made for you, not a theme with your logo dropped in." },
+      { title: "Fast on every phone", text: "Built to load quickly on cell service and look right at every screen size." },
+      { title: "Found in search", text: "Clean structure, page titles, schema, and local SEO set up from day one." },
+    ],
+    deliverables: [
+      "Custom design & copy structure",
+      "WordPress or hand-built static site",
+      "Mobile-first, accessible build",
+      "SEO & Google Business setup",
+      "Forms, booking & analytics",
+      "Redesigns, migrations & fixes",
+    ],
+    sections: [
+      {
+        h: "A new site, a redesign, or a rescue",
+        p: [
+          "Most sites we see fall into one of three camps: a business that has never had a real website, one whose site looks ten years old, and one whose site works on a desktop but falls apart on a phone. Each gets the same starting question — what should a visitor do next? — and a site built around the answer.",
+          "If your current site mostly works, we don't push a rebuild. Sometimes the right job is a faster theme, a cleaner menu, and three pages rewritten so people can find what they came for.",
+        ],
+      },
+      {
+        h: "WordPress, when it fits",
+        p: [
+          "WordPress is the right call when your team wants to edit pages, publish posts, or run a store without calling a developer. We build custom WordPress themes and plugins rather than stacking page builders, so the site stays fast and updates don't break it. We also build and maintain our own WordPress commerce plugin, Mercavo.",
+          "When nobody will edit the site day to day, a hand-built static site is usually faster, cheaper to host, and has almost nothing to hack. We'll tell you which one fits.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "How much does a website cost?",
+        a: "It depends on the number of pages, whether you need booking, a store, or custom features, and how much of the writing we do. After a short call we give you one fixed price for the whole project, not an hourly estimate that keeps growing.",
+      },
+      {
+        q: "How long does a website take?",
+        a: "A small business site usually takes a few weeks from the first call to launch. Larger sites with custom features take longer, and we give you a schedule with the quote.",
+      },
+      {
+        q: "Can I update the site myself?",
+        a: "Yes. On WordPress you edit pages and posts yourself, and we show you how. If you'd rather not touch it, a website care plan covers edits for you.",
+      },
+      {
+        q: "Do you work with businesses outside Charlotte and Greenville–Spartanburg?",
+        a: "Yes. We're based between the two and happy to meet locally, but most of the work happens over calls and screen-shares, so we build for clients anywhere.",
+      },
+    ],
+  },
+  {
+    slug: "custom-software-development",
+    icon: "code",
+    eyebrow: "Custom Software & Web Apps",
+    metaTitle: "Custom Software & Web App Development · Skylanex",
+    description:
+      "Custom web applications, customer portals, CRMs, dashboards, and integrations — software built around how your business actually works.",
+    title: "Software built around how you actually work",
+    tagline: "Web apps, internal tools, customer portals, CRMs, and dashboards — for the work your spreadsheets and off-the-shelf tools can't keep up with.",
+    summary:
+      "We build custom web applications that replace the spreadsheets, email chains, and copy-paste between systems that your team has been living with — and connect the tools you already pay for.",
+    highlights: [
+      { title: "Fits your process", text: "Built around the way your team works, instead of bending your team around a product." },
+      { title: "Connects your systems", text: "Accounting, inventory, shipping, CRM, and email — talking to each other." },
+      { title: "Yours to keep", text: "You own the code and the data. No per-seat licence to a platform you can't leave." },
+    ],
+    deliverables: [
+      "Web applications & internal tools",
+      "Customer & vendor portals",
+      "Custom CRMs & pipelines",
+      "Dashboards & reporting",
+      "API & system integrations",
+      "Modernizing legacy software",
+    ],
+    sections: [
+      {
+        h: "When custom software makes sense",
+        p: [
+          "Off-the-shelf software is the right answer more often than developers admit. Custom software earns its cost when your process is what sets you apart, when you're paying for five tools that each do a third of the job, or when people spend hours a week moving data from one system to another by hand.",
+          "If a product you can buy already does the job, we'll say so on the first call. When it doesn't, we build exactly the part that's missing and connect it to what you already use.",
+        ],
+      },
+      {
+        h: "How a project runs",
+        p: [
+          "We start by mapping the work as it happens today — who touches what, where it waits, where mistakes creep in. Then we build in short rounds you can see and use every week or two, so you steer the software while it takes shape instead of finding out at the end.",
+          "Everything is built on mainstream, well-supported technology (TypeScript, Python, React, PostgreSQL), hosted where you choose, and documented so any competent developer could pick it up after us.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What's the difference between custom software and a website?",
+        a: "A website tells people about your business. Custom software does work for it — tracking jobs, handling orders, managing customers, producing reports. Many projects are a bit of both, like a website with a customer portal behind a login.",
+      },
+      {
+        q: "Who owns the code?",
+        a: "You do. The code, the data, and the accounts it runs on are yours, so you're never locked in to us.",
+      },
+      {
+        q: "Can you work with the software we already have?",
+        a: "Usually, yes. Most business tools have an API or an export we can connect to. Where they don't, we'll tell you honestly what's possible before you commit to anything.",
+      },
+      {
+        q: "How much does custom software cost?",
+        a: "It ranges widely with scope, so we scope it with you first and quote a fixed price per phase. A small internal tool and a full customer platform are very different projects, and you'll know which you're buying before work starts.",
+      },
+    ],
+  },
+  {
+    slug: "mobile-app-development",
+    icon: "mobile",
+    eyebrow: "Mobile App Development",
+    metaTitle: "Mobile App Development for iPhone & Android · Skylanex",
+    description:
+      "iPhone and Android app development — one codebase for both, designed around real users, built production-grade, and taken all the way through App Store review.",
+    title: "Mobile apps for iPhone and Android",
+    tagline: "From the first sketch to the App Store and Google Play — apps people keep on their home screen.",
+    summary:
+      "We design and build mobile apps for iPhone and Android from a single codebase, with the backend, accounts, and payments behind them, and see them through store review and launch.",
+    highlights: [
+      { title: "One codebase, both stores", text: "Cross-platform builds keep cost and upkeep down without feeling second-rate." },
+      { title: "The whole stack", text: "The app plus the server, database, and admin panel it depends on." },
+      { title: "Through launch", text: "Store listings, review, and the fixes that come after real users arrive." },
+    ],
+    deliverables: [
+      "iPhone & Android apps",
+      "App design & prototyping",
+      "Backend, accounts & payments",
+      "Push notifications",
+      "App Store & Google Play launch",
+      "Updates & maintenance",
+    ],
+    sections: [
+      {
+        h: "Do you need an app, or a great mobile website?",
+        p: [
+          "It's the first question we ask, because a mobile-friendly website is often the cheaper, faster answer. An app earns its place when people will use it again and again, when it needs the phone's camera, location, or notifications, or when it has to work without a signal.",
+          "If a web app would serve your users just as well, we'll recommend it — and it can still be installed to the home screen.",
+        ],
+      },
+      {
+        h: "Built once, for both platforms",
+        p: [
+          "Most apps don't need two separate codebases. We build with cross-platform tools so iPhone and Android ship together from one project, and we reach for native code only where the app truly needs it. That means one set of updates to pay for, not two.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Do you build for both iPhone and Android?",
+        a: "Yes, usually from one shared codebase, so both versions launch together and stay in step with every update.",
+      },
+      {
+        q: "Will you handle the App Store and Google Play submission?",
+        a: "Yes. We prepare the listings, handle review, and fix whatever the reviewers flag. The developer accounts are in your name so the app is always yours.",
+      },
+      {
+        q: "What happens after launch?",
+        a: "Phones and app stores change every year, so apps need upkeep. We offer ongoing maintenance, or hand everything over with documentation if you have your own team.",
+      },
+    ],
+  },
+  {
+    slug: "ecommerce-development",
+    icon: "cart",
+    eyebrow: "E-commerce Development",
+    metaTitle: "E-commerce Development: Shopify & WooCommerce · Skylanex",
+    description:
+      "Online stores on Shopify and WooCommerce — fast product pages, a checkout that converts, and inventory, shipping, and payments wired in properly.",
+    title: "Online stores that sell",
+    tagline: "Shopify and WooCommerce stores built for mobile shoppers, with the payments, shipping, and inventory behind them set up right.",
+    summary:
+      "We build online stores that load fast, make products easy to find, and get shoppers through checkout — then connect them to your payments, shipping, inventory, and accounting.",
+    highlights: [
+      { title: "The right platform", text: "Shopify, WooCommerce, or custom — chosen for how you sell, not how we like to build." },
+      { title: "Checkout that converts", text: "Fewer steps, clear shipping costs, and the payment options shoppers expect." },
+      { title: "Back office wired in", text: "Inventory, shipping labels, taxes, and accounting that stay in sync." },
+    ],
+    deliverables: [
+      "Shopify & WooCommerce stores",
+      "Product catalog & collections",
+      "Checkout & payment setup",
+      "Shipping, tax & inventory",
+      "Store migrations",
+      "Custom features & integrations",
+    ],
+    sections: [
+      {
+        h: "Shopify or WooCommerce?",
+        p: [
+          "Shopify is the simpler choice for most stores: hosting, security, and payments are handled for you, for a monthly fee. WooCommerce runs inside WordPress, gives you more control and no platform fees, and fits businesses that already live in WordPress or need content and commerce side by side.",
+          "We build on both and will recommend the one that fits your products, your team, and your budget. We're also building Mercavo, our own WordPress commerce plugin, so we know the plumbing under the checkout well.",
+        ],
+      },
+      {
+        h: "Moving an existing store",
+        p: [
+          "Changing platforms is where stores quietly lose customers and search rankings. We move products, customers, and order history, and redirect every old URL so the links and search positions you've earned keep working.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Can you move my store from another platform?",
+        a: "Yes. We migrate products, customers, and order history, and set up redirects from every old URL so you keep your search rankings.",
+      },
+      {
+        q: "Can I manage products myself after launch?",
+        a: "Yes. Both Shopify and WooCommerce let you add products, change prices, and handle orders yourself, and we walk you through it before handover.",
+      },
+      {
+        q: "Do you sell physical products, digital products, or subscriptions?",
+        a: "All three. Subscriptions, digital downloads, and wholesale pricing each need different setup, so tell us how you sell and we'll plan around it.",
+      },
+    ],
+  },
+];
+
+// Pages for the ongoing and trade relationships — work that isn't a single project.
+const ongoingServices = [
+  {
+    slug: "website-care-plans",
+    icon: "shield",
+    eyebrow: "Website Care Plans",
+    metaTitle: "Website Maintenance & Hosting Care Plans · Skylanex",
+    description:
+      "Monthly website care: hosting, updates, backups, security monitoring, and small edits — so your site stays fast, safe, and current without the worry.",
+    title: "Your website, looked after",
+    tagline: "Hosting, updates, backups, security, and small edits for one monthly fee — so the site keeps working while you run the business.",
+    summary:
+      "A website isn't finished at launch. Plugins need updates, certificates expire, forms stop sending, and things break quietly. A care plan means someone is watching, fixing, and improving it every month.",
+    highlights: [
+      { title: "Kept up to date", text: "Software, plugins, and security patches applied and tested, not left to pile up." },
+      { title: "Backed up and watched", text: "Regular backups, uptime and security monitoring, and a fast restore if anything goes wrong." },
+      { title: "Small edits included", text: "New photos, updated hours, a fresh page — sent by email, done for you." },
+    ],
+    deliverables: [
+      "Managed hosting & SSL",
+      "Software & plugin updates",
+      "Backups & restores",
+      "Uptime & security monitoring",
+      "Monthly edits & content updates",
+      "Speed & SEO checkups",
+    ],
+    sections: [
+      {
+        h: "Why sites need looking after",
+        p: [
+          "Most small business sites aren't hacked by anyone targeting them — they're caught by automated attacks on plugins that were never updated. Others just drift: a contact form that stopped sending months ago, a page that broke on the newest iPhone, a certificate that lapsed and left a browser warning on the front page.",
+          "A care plan catches those before your customers do. It works for sites we built and for sites we didn't, after we've had a look under the hood.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Can you look after a site you didn't build?",
+        a: "Yes. We start with a review of the site, fix anything urgent, and then it goes on the same plan as the sites we build.",
+      },
+      {
+        q: "Do I have to host with you?",
+        a: "No. We can host it, or maintain it where it already lives if your current host is solid.",
+      },
+      {
+        q: "What counts as a small edit?",
+        a: "Updating text, photos, hours, prices, staff, or adding a simple page or post. Bigger changes, like a new feature or a redesign, are quoted separately before any work starts.",
+      },
+    ],
+  },
+  {
+    slug: "white-label-development",
+    icon: "layers",
+    eyebrow: "White-Label Development",
+    metaTitle: "White-Label Web & App Development for Agencies · Skylanex",
+    description:
+      "White-label development for agencies — websites, WordPress, web apps, and AI features built under your brand, to your standards, delivered on schedule.",
+    title: "Your brand on the front, our build behind it",
+    tagline: "Development capacity for agencies that sell more than their team can deliver — under your name, to your client's deadline.",
+    summary:
+      "We build websites, WordPress themes and plugins, web apps, and AI features for agencies, invisibly. You keep the client relationship; we deliver clean, documented work your team can stand behind.",
+    highlights: [
+      { title: "Invisible by default", text: "No branding, no client contact unless you want it. The work is yours to present." },
+      { title: "Your standards", text: "We follow your design system, code conventions, and review process." },
+      { title: "Senior hands only", text: "The developer you talk to is the one who writes the code." },
+    ],
+    deliverables: [
+      "Design-to-code builds",
+      "WordPress themes & plugins",
+      "Web apps & integrations",
+      "AI chatbots & automation",
+      "Cross-browser QA",
+      "Overflow & ongoing support",
+    ],
+    sections: [
+      {
+        h: "How it works",
+        p: [
+          "You send the designs or the brief, we agree scope and a fixed price, and we build in your repository or ours with progress you can check at any time. Finished work comes with documentation, so your team or the client's can maintain it after handover.",
+          "Every build is checked across Chromium, Firefox, and WebKit at real device widths with Shot Matrix, our own open-source testing tool, before it reaches you.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Will my client know you built it?",
+        a: "Not unless you tell them. We work under your brand and never contact your client directly without your say-so. We're happy to sign an NDA.",
+      },
+      {
+        q: "Can you take on ongoing overflow rather than single projects?",
+        a: "Yes. Some agencies send one-off builds; others keep us on for a set amount of work each month. Both work.",
+      },
+    ],
+  },
+];
+
+// The AI entry that leads the AI group: a buyer's word for what the NLP page
+// describes technically. The NLP page stays for the search, extraction, and
+// summarization work that isn't a chatbot.
+const aiChatbots = {
+  slug: "ai-chatbots",
+  icon: "chat",
+  eyebrow: "AI Chatbots & Assistants",
+  metaTitle: "AI Chatbots for Business — Custom AI Assistants · Skylanex",
+  description:
+    "Custom AI chatbots that answer from your own documents, website, and policies — with citations — for your website, your support team, or your staff.",
+  title: "AI chatbots that know your business",
+  tagline: "Assistants that answer from your own documents, website, and policies — and say so when they don't know.",
+  summary:
+    "We build AI chatbots and assistants grounded in your own content, so they answer customers and staff accurately, cite where each answer came from, and hand off to a person when they should.",
+  highlights: [
+    { title: "Answers from your content", text: "Grounded in your documents, website, and knowledge base — not the open internet." },
+    { title: "Shows its sources", text: "Every answer links back to where it came from, so people can check it." },
+    { title: "Knows its limits", text: "Hands off to a person, or captures the lead, when a question is outside what it should answer." },
+  ],
+  deliverables: [
+    "Website support & sales chat",
+    "Internal staff assistants",
+    "Lead capture & intake bots",
+    "Document & policy Q&A",
+    "Integrations with your tools",
+    "Monitoring & improvement",
+  ],
+  sections: [
+    {
+      h: "Not a generic chatbot",
+      p: [
+        "A generic chatbot answers confidently from whatever it absorbed on the internet, which is how businesses end up with a bot that invents a refund policy. Ours retrieve the answer from your own material first and are built to decline rather than guess.",
+        "We use this approach across our own products — Phansora's research tools cite a source for every claim — and bring the same discipline to yours.",
+      ],
+    },
+    {
+      h: "Where businesses use them",
+      p: [
+        "On a website, to answer the same twenty questions your staff answer every day, and to capture a lead at 11 p.m. when nobody is in the office. Internally, so staff can ask the handbook, the product catalogue, or the procedures manual and get an answer with a page number.",
+      ],
+    },
+  ],
+  faqs: [
+    {
+      q: "Will the chatbot make things up?",
+      a: "It's built to answer only from your approved content, to cite its source, and to say it doesn't know — or hand off to a person — when the answer isn't there.",
+    },
+    {
+      q: "What content can it learn from?",
+      a: "Your website, PDFs, documents, help articles, product data, and policies. We set up a way to keep it current when that content changes.",
+    },
+    {
+      q: "Is our data kept private?",
+      a: "Yes. Your content is used only to answer your users' questions, and we choose AI providers and settings that don't train their models on your data.",
+    },
+  ],
+};
+
+// Buyer-facing first (chatbots, automation), the technical disciplines after.
+const AI_ORDER = [
+  "ai-chatbots",
+  "intelligent-process-automation",
+  "ai-application-development",
+  "natural-language-processing",
+  "machine-learning-data-science",
+  "computer-vision-solutions",
+  "ai-consulting-strategy",
+];
+
+// `group` places a page on the services index and decides which siblings each page
+// suggests. The AI pages keep their slugs, which match the old phansora.com URLs
+// that 301 here.
+export const services = [
+  ...buildServices.map((s) => ({ ...s, group: "build" })),
+  ...[aiChatbots, ...aiTechServices]
+    .sort((a, b) => AI_ORDER.indexOf(a.slug) - AI_ORDER.indexOf(b.slug))
+    .map((s) => ({ ...s, group: "ai" })),
+  ...ongoingServices.map((s) => ({ ...s, group: "ongoing" })),
+];
+
+export const serviceGroups = [
+  { key: "build", eyebrow: "Build", title: "Websites, apps & software" },
+  { key: "ai", eyebrow: "AI", title: "AI that does real work" },
+  { key: "ongoing", eyebrow: "Ongoing", title: "Care & partnerships" },
 ];
 
 // Portfolio / work. Phansora is the flagship venture; then client + creative work.

@@ -11,6 +11,18 @@ function serviceCard(s) {
   </a>`;
 }
 
+// The six the homepage leads with: the four things most visitors come to have built,
+// then the two AI services a business owner recognises by name. The rest are one
+// click away on /services.
+const HOME_SERVICES = [
+  "website-design",
+  "custom-software-development",
+  "mobile-app-development",
+  "ecommerce-development",
+  "ai-chatbots",
+  "intelligent-process-automation",
+];
+
 export const home = {
   path: "/",
   file: "index.html",
@@ -65,9 +77,12 @@ export const home = {
   <!-- SERVICES -->
   <section class="px-5 py-20 sm:px-8">
     <div class="mx-auto max-w-6xl">
-      ${heading({ eyebrow: "What we do", title: "AI solutions. Real impact.", sub: "Six core capabilities that help us build software that solves problems and drives growth." })}
+      ${heading({ eyebrow: "What we do", title: "Websites, apps & AI. Real impact.", sub: "Everything from a new website to custom software and AI that takes work off your team's plate." })}
       <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        ${services.map(serviceCard).join("\n")}
+        ${HOME_SERVICES.map((slug) => serviceCard(services.find((s) => s.slug === slug))).join("\n")}
+      </div>
+      <div class="mt-10 text-center">
+        <a href="/services" class="btn btn-ghost">See all services ${icon("arrow", "h-4 w-4")}</a>
       </div>
     </div>
   </section>

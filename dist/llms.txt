@@ -5,12 +5,19 @@
 Skylanex is an independent software studio led by Brandon Sanders. We design and build websites, web and mobile apps, custom CRMs, dashboards, AI assistants, and e-commerce storefronts, and provide AI services from machine learning and NLP to computer vision. Based between Charlotte and Greenville–Spartanburg — working with clients across the Carolinas and remotely. Contact: info@skylanex.com.
 
 ## Services
+- [Website Design & WordPress](https://www.skylanex.com/website-design): We design and build websites around the one thing your business needs a visitor to do — call, book, buy, or get in touch — and make them fast on the phone in their pocket.
+- [Custom Software & Web Apps](https://www.skylanex.com/custom-software-development): We build custom web applications that replace the spreadsheets, email chains, and copy-paste between systems that your team has been living with — and connect the tools you already pay for.
+- [Mobile App Development](https://www.skylanex.com/mobile-app-development): We design and build mobile apps for iPhone and Android from a single codebase, with the backend, accounts, and payments behind them, and see them through store review and launch.
+- [E-commerce Development](https://www.skylanex.com/ecommerce-development): We build online stores that load fast, make products easy to find, and get shoppers through checkout — then connect them to your payments, shipping, inventory, and accounting.
+- [AI Chatbots & Assistants](https://www.skylanex.com/ai-chatbots): We build AI chatbots and assistants grounded in your own content, so they answer customers and staff accurately, cite where each answer came from, and hand off to a person when they should.
+- [AI Automation](https://www.skylanex.com/intelligent-process-automation): We combine AI, rules, and integrations to automate document processing, data entry, routing, and the repetitive steps between your systems — with checkpoints wherever a human should decide.
 - [AI Application Development](https://www.skylanex.com/ai-application-development): We design and ship production-grade AI applications tailored to how your business really works — not a one-size-fits-all template.
-- [Machine Learning & Data Science](https://www.skylanex.com/machine-learning-data-science): We build models and data pipelines that turn raw data into forecasts, classifications, and recommendations you can act on.
-- [Intelligent Process Automation](https://www.skylanex.com/intelligent-process-automation): We combine LLMs, rules, and integrations to automate document processing, routing, and repetitive workflows end to end.
-- [AI Consulting & Strategy](https://www.skylanex.com/ai-consulting-strategy): We help you identify high-value AI opportunities, assess feasibility, and build a pragmatic roadmap you can execute.
 - [Natural Language Processing](https://www.skylanex.com/natural-language-processing): We build NLP systems for semantic search, summarization, classification, extraction, and conversational assistants grounded in your data.
+- [Machine Learning & Data Science](https://www.skylanex.com/machine-learning-data-science): We build models and data pipelines that turn raw data into forecasts, classifications, and recommendations you can act on.
 - [Computer Vision Solutions](https://www.skylanex.com/computer-vision-solutions): We build computer-vision systems for detection, recognition, quality inspection, and visual analytics — on the cloud or the edge.
+- [AI Consulting & Strategy](https://www.skylanex.com/ai-consulting-strategy): We help you identify high-value AI opportunities, assess feasibility, and build a pragmatic roadmap you can execute.
+- [Website Care Plans](https://www.skylanex.com/website-care-plans): A website isn't finished at launch. Plugins need updates, certificates expire, forms stop sending, and things break quietly. A care plan means someone is watching, fixing, and improving it every month.
+- [White-Label Development](https://www.skylanex.com/white-label-development): We build websites, WordPress themes and plugins, web apps, and AI features for agencies, invisibly. You keep the client relationship; we deliver clean, documented work your team can stand behind.
 
 ## Design & build solutions
 - [Website Design](https://www.skylanex.com/solutions#website): Fast, modern marketing sites designed around the one action your business needs a visitor to take — with the credibility to earn it in the first three seconds.
