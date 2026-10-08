@@ -15,9 +15,22 @@ export function ogSlug(routePath) {
   return routePath.replace(/^\//, "").replace(/\//g, "-");
 }
 
-export function absUrl(p) {
-  if (!p || p === "/") return `${site.domain}/`;
-  return `${site.domain}${p}`;
+// The address a page is actually served at. Every page is written as
+// <path>/index.html, so a static host answers /services with a 301 to /services/ —
+// the slashed form is the only one that returns the page. Routes are kept slashless
+// everywhere else (page.path, nav, the lookups below); this is the one place that
+// turns a route into a URL, and anything a crawler reads has to go through it. The
+// sitemap and the canonical tag once named the slashless form, and Search Console
+// filed every page on the site under "Page with redirect".
+export function pageHref(routePath) {
+  if (!routePath || routePath === "/") return "/";
+  return routePath.endsWith("/") ? routePath : `${routePath}/`;
+}
+
+// A page's absolute URL. Pages only: an asset has no trailing slash to add, so those
+// are written out against site.domain directly.
+export function absUrl(routePath) {
+  return `${site.domain}${pageHref(routePath)}`;
 }
 
 // Sitewide graph: Organization (a professional services business) + WebSite.
@@ -220,7 +233,7 @@ export function jsonLdForPage(page) {
         "@type": "ImageObject",
         name: `${c.firm} — ${c.label} website design concept`,
         description: c.blurb,
-        contentUrl: absUrl(`/images/concepts/${c.slug}.webp`),
+        contentUrl: `${site.domain}/images/concepts/${c.slug}.webp`,
         url: absUrl(page.path),
         width: 1200,
         height: 675,

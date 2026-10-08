@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { site, nav, social } from "../site.config.mjs";
-import { ogSlug } from "./seo.mjs";
+import { ogSlug, absUrl } from "./seo.mjs";
 
 // The stylesheet and scripts, addressed by a hash of the file itself.
 //
@@ -168,7 +168,7 @@ function esc(s) {
 export function layout({ title, metaTitle, description, path = "/", content = "", jsonLd = [], scripts = [], noindex = false }) {
   const pageTitle = metaTitle || (title ? `${title} · ${site.name}` : `${site.name} — Websites, Apps & AI Software`);
   const desc = description || site.description;
-  const canonical = path === "/" ? `${site.domain}/` : `${site.domain}${path}`;
+  const canonical = absUrl(path);
   // Per-page social card (scripts/og-cards.mjs). Absolute, because scrapers do not
   // resolve relative URLs. /404 has no card of its own and falls back to the home
   // one — a missing file renders as a blank preview, the exact failure this replaced.

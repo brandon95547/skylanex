@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 
 import { layout } from "./src/layout.mjs";
 import { site, nav, services, designSolutions, industryPages } from "./site.config.mjs";
-import { orgGraph, jsonLdForPage } from "./src/seo.mjs";
+import { orgGraph, jsonLdForPage, absUrl, pageHref } from "./src/seo.mjs";
 import { pages } from "./src/pages-index.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -81,21 +81,34 @@ function build() {
   if (!DEV) rmrf(DIST);
   fs.mkdirSync(path.join(DIST, "css"), { recursive: true });
 
+  // Internal links, rewritten to the address each page is really served at (pageHref in
+  // src/seo.mjs has the why). Pages write their links as plain routes — "/contact" — and
+  // this turns them into "/contact/" in one place, so a link added tomorrow cannot bring
+  // back the 301 that every click and every crawl used to pay. Only an href that names a
+  // page is touched: assets and the proxied routes (/auth/google, /api/…) pass through.
+  const routes = new Set(pages.map((p) => p.path));
+  const slashLinks = (html) =>
+    html.replace(/href="(\/[^"#?]*)([#?][^"]*)?"/g, (whole, route, rest = "") =>
+      routes.has(route) ? `href="${pageHref(route)}${rest}"` : whole
+    );
+
   // Render pages. Clean URLs via directory-index files:
   //   "/"        -> index.html
-  //   "/services"-> services/index.html   (works on any static host)
+  //   "/services"-> services/index.html   (works on any static host, at /services/)
   const rendered = new Map();
   for (const page of pages) {
-    const html = layout({
-      title: page.title,
-      metaTitle: page.metaTitle,
-      description: page.description,
-      path: page.path,
-      content: page.render(),
-      scripts: page.scripts,
-      noindex: page.noindex,
-      jsonLd: [orgGraph(), ...jsonLdForPage(page)],
-    });
+    const html = slashLinks(
+      layout({
+        title: page.title,
+        metaTitle: page.metaTitle,
+        description: page.description,
+        path: page.path,
+        content: page.render(),
+        scripts: page.scripts,
+        noindex: page.noindex,
+        jsonLd: [orgGraph(), ...jsonLdForPage(page)],
+      })
+    );
     rendered.set(page.path, html);
     const rel = page.path === "/" ? "index.html" : path.join(page.path.replace(/^\//, ""), "index.html");
     const out = path.join(DIST, rel);
@@ -127,10 +140,10 @@ function build() {
     path.join(DIST, "work", "index.html"),
     `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <title>Moved to /products</title>
-<link rel="canonical" href="${site.domain}/products">
+<link rel="canonical" href="${absUrl("/products")}">
 <meta name="robots" content="noindex,follow">
-<meta http-equiv="refresh" content="0; url=/products">
-</head><body><p>This page is now at <a href="/products">/products</a>.</p></body></html>
+<meta http-equiv="refresh" content="0; url=${pageHref("/products")}">
+</head><body><p>This page is now at <a href="${pageHref("/products")}">/products</a>.</p></body></html>
 `,
     "utf8"
   );
@@ -138,17 +151,19 @@ function build() {
   // 404
   fs.writeFileSync(
     path.join(DIST, "404.html"),
-    layout({
-      title: "Not found",
-      path: "/404",
-      noindex: true,
-      content: `<section class="mx-auto flex max-w-lg flex-col items-center px-5 py-32 text-center">
+    slashLinks(
+      layout({
+        title: "Not found",
+        path: "/404",
+        noindex: true,
+        content: `<section class="mx-auto flex max-w-lg flex-col items-center px-5 py-32 text-center">
         <p class="grad-text text-7xl font-extrabold">404</p>
         <h1 class="mt-4 text-2xl font-bold text-white">Page not found</h1>
         <p class="mt-2 text-fg-secondary">That page moved or never existed.</p>
         <a href="/" class="btn btn-primary mt-6">Back home</a>
       </section>`,
-    }),
+      })
+    ),
     "utf8"
   );
 
@@ -179,17 +194,16 @@ function build() {
   // llms.txt — a curated markdown map for LLMs (llmstxt.org). Helps AI engines
   // understand what Skylanex is and find the canonical pages. Generated from the
   // same config as the site so it never drifts.
-  const abs = (p) => `${site.domain}${p}`;
   const llms =
     `# Skylanex\n\n` +
     `> ${site.description}\n\n` +
     `Skylanex is an independent software studio led by ${site.owner}. We design and build websites, web and mobile apps, custom CRMs, dashboards, AI assistants, and e-commerce storefronts, and provide AI services from machine learning and NLP to computer vision. ${site.region.line} Contact: ${site.email}.\n\n` +
     `## Services\n` +
-    services.map((s) => `- [${s.eyebrow}](${abs("/" + s.slug)}): ${s.summary}`).join("\n") +
+    services.map((s) => `- [${s.eyebrow}](${absUrl("/" + s.slug)}): ${s.summary}`).join("\n") +
     `\n\n## Design & build solutions\n` +
-    designSolutions.map((s) => `- [${s.name}](${abs("/solutions#" + s.slug)}): ${s.summary}`).join("\n") +
+    designSolutions.map((s) => `- [${s.name}](${absUrl("/solutions")}#${s.slug}): ${s.summary}`).join("\n") +
     `\n\n## Website solutions by industry\n` +
-    industryPages.map((p) => `- [${p.eyebrow}](${abs("/solutions/" + p.slug)}): ${p.description}`).join("\n") +
+    industryPages.map((p) => `- [${p.eyebrow}](${absUrl("/solutions/" + p.slug)}): ${p.description}`).join("\n") +
     `\n\n## Key pages\n` +
     [
       ["Solutions", "/solutions"],
@@ -200,7 +214,7 @@ function build() {
       ["About", "/about"],
       ["Contact", "/contact"],
     ]
-      .map(([name, p]) => `- [${name}](${abs(p)})`)
+      .map(([name, p]) => `- [${name}](${absUrl(p)})`)
       .join("\n") +
     `\n`;
   fs.writeFileSync(path.join(DIST, "llms.txt"), llms, "utf8");
@@ -208,7 +222,7 @@ function build() {
   // `changefreq` is deliberately absent: Google states outright that it ignores the
   // field, so emitting it only invited someone to keep it accurate for nothing.
   const lastModified = gitLastModified();
-  const urls = pages.filter((p) => !p.noindex).map((p) => (p.path === "/" ? "/" : p.path));
+  const urls = pages.filter((p) => !p.noindex).map((p) => p.path);
   fs.writeFileSync(
     path.join(DIST, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
@@ -216,7 +230,7 @@ function build() {
         .sort()
         .map((u) => {
           const rel = u === "/" ? "index.html" : `${u.replace(/^\//, "")}/index.html`;
-          return `  <url><loc>${site.domain}${u}</loc><lastmod>${lastModified(rel)}</lastmod></url>`;
+          return `  <url><loc>${absUrl(u)}</loc><lastmod>${lastModified(rel)}</lastmod></url>`;
         })
         .join("\n") +
       `\n</urlset>\n`,
